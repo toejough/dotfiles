@@ -1,0 +1,14 @@
+Various dotfiles (rc's) that I personally use.
+
+Bash:
+ - bashrc
+ - bash_profile
+
+Readline:
+ - inputrc
+
+I put these in a hidden directory on a host, and then symlink the actual dotfiles to them, like:
+
+ln -s ~/.settings/bashrc ~/.bashrc
+
+Environment-specific things are sourced in bash_profile from local/bash_profile if it exists.

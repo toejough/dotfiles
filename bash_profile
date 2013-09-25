@@ -209,6 +209,9 @@ function set_title () { setTerminalText 2 $@; }
 function pathdd () {
     python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'
 }
+#autotmux escape
+exit_file=$HOME/noexit
+alias exittmux='[ -z "$TMUX" ] && exit || { touch $exit_file && exit; } '
 
 # [ Shell Config ]
 #make bash use vi mode!
@@ -252,7 +255,11 @@ if [ -z "$TMUX" ]; then
     if [ -n "$(command -v tmux)" ]; then
         echo "tmux found. Launching..."
         tmux -2
-        exit $?
+        if [ -f "$exit_file" ]; then
+            rm "$exit_file"
+        else
+            exit $?
+        fi
     else
         echo "tmux not found."
     fi

@@ -254,7 +254,13 @@ if [ -z "$TMUX" ]; then
     echo "Checking for tmux..."
     if [ -n "$(command -v tmux)" ]; then
         echo "tmux found. Launching..."
-        tmux -2
+        if [ -n "$(tmux list-sessions | grep -v attached)" ]; then
+            echo "unattached sessions found. Attaching..."
+            tmux -2 attach -t $(tmux list-sessions | grep -v attached | awk -F: '{print $1}' | head -n 1)
+        else
+            echo "no unattached sessions found. Creating a new one..."
+            tmux -2
+        fi
         if [ -f "$exit_file" ]; then
             rm "$exit_file"
         else

@@ -274,7 +274,7 @@ else
 fi
 
 # [ Local Customizations ]
-local_bash_profile="~/.settings/local/bash_profile"
+local_bash_profile="$HOME/.settings/local/bash_profile"
 if [ -f "$local_bash_profile" -a -r "$local_bash_profile" ]; then
     source $local_bash_profile
 fi

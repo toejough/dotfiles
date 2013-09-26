@@ -244,7 +244,9 @@ shopt -s interactive_comments
 # 'source' uses the path to find files
 shopt -s sourcepath
 #trap "err_handle" ERR - when a command is not found, call our commander program.
-function command_not_found_handle () { commander $@; }
+if [ $(command -v commander) ]; then
+    function command_not_found_handle () { commander $@; }
+fi
 
 # [ Globbing and Matching ]
 # use extended globbing syntax
@@ -261,7 +263,9 @@ shopt -u nullglob
 # Announce OS (I regularly log into machines with different OS's)
 echo "[OS: $(uname)]"
 # run the phrases utility
-phrases
+if [ $(command -v phrases) ]; then
+    phrases
+fi
 # reduce paths
 export PATH=$(pathdd $PATH)
 export PYTHONPATH=$(pathdd $PYTHONPATH)

@@ -87,8 +87,9 @@ function __jobs_ps1 () {
 if [ -f ~/.git-prompt.sh ]; then
     source ~/.git-prompt.sh
 fi
-if [ ! $(command -v __git_ps1) ]; then
-    __git_ps1=''
+if [ -z $(command -v __git_ps1) ]; then
+    function __git_ps1 { :
+    }
 fi
 # [ -Prompt Definitions- ]
 # PS1 is main prompt

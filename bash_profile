@@ -30,10 +30,12 @@ bind -f $INPUTRC
 # programmable completion is enabled
 shopt -s progcomp
 # use bash completion!
-if [ "$(uname)" = "Linux" ]; then
-    . /etc/profile.d/bash_completion.sh
-else
-    . ~/.bash_completion
+if [ -f /etc/profile.d/bash_completion.sh ]; then
+    source /etc/profile.d/bash_completion.sh
+elif [ -f ~/.bash_completion ]; then
+    source  ~/.bash_completion
+elif [ -f /usr/share/bash-completion/bash_completion ]; then
+    source /usr/share/bash-completion/bash_completion
 fi
 # allow cd to autocorrect small errors
 shopt -s cdspell

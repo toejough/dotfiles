@@ -7,8 +7,6 @@
 # - only change editor to vim if vim exists
 # - try echo -e to set colors in the functions
 # - functionalize things so that we don't leak env vars
-# - change local files strategy - should be able to have a local git
-#   repo without having that nested
 
 # [ Paths ]
 #make bash use absolute paths!
@@ -293,8 +291,3 @@ else
     echo "Active tmux session detected. Skipping tmux launch."
 fi
 
-# [ Local Customizations ]
-local_bash_profile="$HOME/.settings/local/bash_profile"
-if [ -f "$local_bash_profile" -a -r "$local_bash_profile" ]; then
-    source $local_bash_profile
-fi

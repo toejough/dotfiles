@@ -223,6 +223,10 @@ function set_title () { setTerminalText 2 $@; }
 function pathdd () {
     python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'
 }
+# normal math!
+function calc {
+    awk "BEGIN {print $* }"
+}
 # [ -tmux- ]
 exit_file=$HOME/noexit
 alias exittmux='[ -z "$TMUX" ] && exit || { touch $exit_file && exit; } '

@@ -87,7 +87,7 @@ function __jobs_ps1 () {
         echo "($JOBS)"
     fi
 }
-if [ -f "~/.git-prompt.sh" ]; then
+if [ -f ~/.git-prompt.sh ]; then
     source ~/.git-prompt.sh
 fi
 if [ ! $(command -v __git_ps1) ]; then
@@ -168,7 +168,7 @@ function pushd () {
         builtin pushd -$new_index
     fi
     # store the top of stack entry to a global location
-    echo $zero > ~/.lastdir
+    echo $(eval echo $zero) > ~/.lastdir
 }
 # [ -cd- ]
 alias ocd='builtin cd'

@@ -1,5 +1,5 @@
 
-# [ Ideas ]
+# [ Wishlist ]
 # - dedup history on shell exit
 # - a real 'bottom' func that goes to the lowest dir
 # - ask to create dirlinks with a link to this dir
@@ -69,14 +69,14 @@ sync_history="$update_global_history && $update_local_history"
 # [ Prompts ]
 # prompt strings undergo variable expansion after prompt expansion
 shopt -s promptvars
-# -Colors- #
+# [ -Colors- ]
 DEFAULT='\[\e[0;39m\]'
 WHITE='\[\e[0;37m\]'
 BOLD_WHITE='\[\e[1;37m\]'
 GREEN='\[\e[0;32m\]'
 RED='\[\e[0;31m\]'
 YELLOW='\[\e[0;33m\]'
-# -helper functions- #
+# [ -Helper Funcs- ]
 function __rc_ps1 () {
     RC=$1
     if [ $RC -ne 0 ]; then
@@ -95,7 +95,7 @@ fi
 if [ ! $(command -v __git_ps1) ]; then
     __git_ps1=''
 fi
-# -actual prompts- #
+# [ -Prompt Definitions- ]
 # PS1 is main prompt
 # Set PS1 to be [ rc][username@host:curdir (git branch)](jobs)$
 PS1=\
@@ -111,7 +111,6 @@ PS3='<<Choose an option>>'
 PS4='>'"$RED"' $LINENO: '"$DEFAULT"
 
 # [ Prompt Command ]
-#unset PROMPT_COMMAND
 export PROMPT_COMMAND="$sync_history"
 
 # [ Aliases ]
@@ -224,7 +223,7 @@ function set_title () { setTerminalText 2 $@; }
 function pathdd () {
     python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'
 }
-#autotmux escape
+# [ -tmux- ]
 exit_file=$HOME/noexit
 alias exittmux='[ -z "$TMUX" ] && exit || { touch $exit_file && exit; } '
 

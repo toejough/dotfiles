@@ -142,6 +142,8 @@ alias mv="mv -iv"
 alias oln='$(which ln)'
 if [ "$(uname)" = "Linux" ]; then
     alias ln="ln -siv"
+elif [ "$(uname)" = "Darwin" ]; then
+    alias ln="ln -siv"
 else
     alias ln="ln -siwv"
 fi

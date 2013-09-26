@@ -136,10 +136,12 @@ fi
 alias lsl="ls -lha"
 # [ -mv- ]
 #add prompt before overwrite (i) and verbose output (v) to mv
+alias omv="$(which mv)"
 alias mv="mv -iv"
 # [ -ln- ]
 #default to symbolic link (s), prompt before overwrite (i), print verbose
 # output (v), [and on FreeBSD warn if the source doesn't exist (w)] for ln
+alias oln='$(which ln)'
 if [ "$(uname)" = "Linux" ]; then
     alias ln="ln -siv"
 else

@@ -82,6 +82,12 @@ function __jobs_ps1 () {
         echo "($JOBS)"
     fi
 }
+if [ -f "~/.git-prompt.sh" ]; then
+    source ~/.git-prompt.sh
+fi
+if [ ! $(command -v __git_ps1) ]; then
+    __git_ps1=''
+fi
 # -actual prompts- #
 # PS1 is main prompt
 # Set PS1 to be [ rc][username@host:curdir (git branch)](jobs)$

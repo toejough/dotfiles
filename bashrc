@@ -189,6 +189,10 @@ function cd () {
         dirs -v
     # go to global lastdir if it exists
     elif [[ "$1" == "!" ]]; then
+        if [[ ! -f ~/.lastdir ]]; then
+            echo 'No lastdir found!' >&2
+            return 1
+        fi
         local last_dir=$(cat ~/.lastdir)
         if [[ $last_dir ]]; then
             pushd $last_dir > /dev/null
@@ -199,6 +203,7 @@ function cd () {
     # go back a dir
     elif [[ "$1" == "-" ]]; then
         popd > /dev/null
+        pushd +0 > /dev/null
     # go home
     elif [[ $# -eq 0 ]]; then
         pushd ~ > /dev/null

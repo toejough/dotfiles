@@ -5,7 +5,6 @@
 # - ask to create dirlinks with a link to this dir
 # - ask to create a tools bin/lib
 # - only change editor to vim if vim exists
-# - check for bash completion in the 'right' order
 # - try echo -e to set colors in the functions
 # - functionalize things so that we don't leak env vars
 # - change local files strategy - should be able to have a local git
@@ -38,12 +37,12 @@ bind -f $INPUTRC
 # programmable completion is enabled
 shopt -s progcomp
 # use bash completion!
-if [ -f /etc/profile.d/bash_completion.sh ]; then
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+    source /usr/local/share/bash-completion/bash_completion
+elif [ -f /etc/profile.d/bash_completion.sh ]; then
     source /etc/profile.d/bash_completion.sh
 elif [ -f ~/.bash_completion ]; then
     source  ~/.bash_completion
-elif [ -f /usr/share/bash-completion/bash_completion ]; then
-    source /usr/share/bash-completion/bash_completion
 fi
 # allow cd to autocorrect small errors
 shopt -s cdspell

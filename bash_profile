@@ -2,6 +2,14 @@
 # [ Ideas ]
 # - dedup history on shell exit
 # - a real 'bottom' func that goes to the lowest dir
+# - ask to create dirlinks with a link to this dir
+# - ask to create a tools bin/lib
+# - only change editor to vim if vim exists
+# - check for bash completion in the 'right' order
+# - try echo -e to set colors in the functions
+# - functionalize things so that we don't leak env vars
+# - change local files strategy - should be able to have a local git
+#   repo without having that nested
 
 # [ Paths ]
 #make bash use absolute paths!

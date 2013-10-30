@@ -7,6 +7,7 @@
 # - only change editor to vim if vim exists
 # - try echo -e to set colors in the functions
 # - functionalize things so that we don't leak env vars
+# - ask to create aliases when a command is not found and shows up multiple times in the list
 
 # [ Paths ]
 #make bash use absolute paths!
@@ -248,10 +249,11 @@ shopt -s checkwinsize
 shopt -s interactive_comments
 # 'source' uses the path to find files
 shopt -s sourcepath
-#trap "err_handle" ERR - when a command is not found, call our commander program.
-if [ $(command -v commander) ]; then
-    function command_not_found_handle () { commander $@; }
-fi
+#trap "err_handle" ERR - when a command is not found, store it in the commands_not_found file
+function command_not_found_handle {
+    echo "$@" >> ~/.commands_not_found;
+    echo "Unknown command: $@"
+}
 
 # [ Globbing and Matching ]
 # use extended globbing syntax

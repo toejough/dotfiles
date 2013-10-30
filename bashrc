@@ -35,11 +35,7 @@ bind -f $INPUTRC
 # programmable completion is enabled
 shopt -s progcomp
 # use bash completion!
-if [ -f /usr/local/share/bash-completion/bash_completion ]; then
-    source /usr/local/share/bash-completion/bash_completion
-elif [ -f /etc/profile.d/bash_completion.sh ]; then
-    source /etc/profile.d/bash_completion.sh
-elif [ -f ~/.bash_completion ]; then
+if [ -f ~/.bash_completion ]; then
     source  ~/.bash_completion
 fi
 # allow cd to autocorrect small errors

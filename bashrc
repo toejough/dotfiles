@@ -150,7 +150,7 @@ alias opushd='builtin pushd'
 #  and keeps a global reference to the last directory we went to, across all shells.
 function pushd () {
     # perform the push
-    builtin pushd $@
+    builtin pushd "$@"
     # figure out what's at the top of the stack now
     local zero=$(dirs -v | head -1 | awk '{print $2}')
     # if there's an entry for this directory elswhere in the stack...
@@ -182,10 +182,10 @@ shopt -u autocd
 # - pushes everything to the stack with pushd
 function cd () {
     # show dir stack
-    if [[ "$1" == "?" ]]; then
+    if [[ "$@" == "?" ]]; then
         dirs -v
     # go to global lastdir if it exists
-    elif [[ "$1" == "!" ]]; then
+    elif [[ "$@" == "!" ]]; then
         if [[ ! -f ~/.lastdir ]]; then
             echo 'No lastdir found!' >&2
             return 1
@@ -198,7 +198,7 @@ function cd () {
             return 1
         fi
     # go back a dir
-    elif [[ "$1" == "-" ]]; then
+    elif [[ "$@" == "-" ]]; then
         popd > /dev/null
         pushd +0 > /dev/null
     # go home
@@ -206,7 +206,7 @@ function cd () {
         pushd ~ > /dev/null
     # pushd
     else
-        pushd $@ > /dev/null
+        pushd "$@" > /dev/null
     fi
 }
 

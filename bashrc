@@ -106,53 +106,6 @@ PS3='<<Choose an option>>'
 # PS4 is 'xtrace' prompt - used with set -x for debugging
 PS4='>'"$RED"' $LINENO: '"$DEFAULT"
 
-# y/n prompt!
-function yes_or_no {
-    local default='N'
-    local choice=$default
-    local prompt="$1? [y/N]: "
-    local answer
-
-    while [ 1 ]; do
-        read -p "$prompt" -n 1 answer
-        [ -z "$answer" ] && answer=$default
-        echo '' >&2
-
-        case "$answer" in
-            [yY] ) echo 'yes'
-                break
-                ;;
-            [nN] ) echo 'no'
-                break
-                ;;
-            * ) ;;
-        esac
-    done
-}
-function analyze_commands_not_found () {
-    local not_found_file=~/.commands_not_found;
-    if [ -e $not_found_file ]; then
-        local unrecognized=$(tail -1 $not_found_file);
-        local last_command=$(tail -1 ~/.bash_history);
-        if [ "$unrecognized" == "$last_command" ]; then
-            local count=$(grep -c "$unrecognized" $not_found_file);
-            if [ $count -gt 1 ]; then
-                local yn=$(yes_or_no 'This command has been entered before.  Would you like to create an alias?');
-                if [ "$yn" == "yes" ]; then
-                    local meant_to_type;
-                    read -p "Please enter the text you meant to type: " meant_to_type;
-                    echo "alias $unrecognized='$meant_to_type'" >> ~/.mistype.aliases;
-                    echo $(grep -v $unrecognized $not_found_file) > $not_found_file
-                    source ~/.mistype.aliases
-                fi
-            fi
-        fi
-    fi
-}
-
-# [ Prompt Command ]
-export PROMPT_COMMAND="$sync_history; analyze_commands_not_found;"
-
 # [ Aliases ]
 # clear all aliases
 \unalias -a
@@ -161,9 +114,9 @@ shopt -s expand_aliases
 #make resourcing this file easier
 alias resource="source ~/.bash_profile"
 # [ -Mistype Aliases- ]
-MISTYPEALIASES=~/.mistype.aliases
-if [ -e $MISTYPEALIASES ]; then
-    source $MISTYPEALIASES
+mistype_aliases_file=~/.mistype.aliases
+if [ -e $mistype_aliases_file ]; then
+    source $mistype_aliases_file
 fi
 
 # [ Built-in Adjustments ]
@@ -260,6 +213,27 @@ function cd () {
     fi
 }
 
+# [ Shell Config ]
+#make bash use vi mode!
+# esc: normal mode
+# esc, v: edit the current line!
+# esc, /<text>: search history!
+set -o vi
+# check for running jobs and warn user before exiting
+shopt -s checkjobs
+# check and update the window size after every command
+shopt -s checkwinsize
+# comments in shell
+shopt -s interactive_comments
+# 'source' uses the path to find files
+shopt -s sourcepath
+#trap "err_handle" ERR - when a command is not found, store it in the commands_not_found file
+not_found_file=~/.commands_not_found
+function command_not_found_handle {
+    echo "$1" >> $not_found_file;
+    echo "Unknown command: $1"
+}
+
 # [ Utility Functions ]
 # [ -git- ]
 function refetch() { git fetch && git rebase -i origin/$1; }
@@ -281,29 +255,55 @@ function pathdd () {
 function calc {
     awk "BEGIN {print $* }"
 }
+# y/n prompt!
+function yes_or_no {
+    local default='N'
+    local choice=$default
+    local prompt="$1? [y/N]: "
+    local answer
+
+    while [ 1 ]; do
+        read -p "$prompt" -n 1 answer
+        [ -z "$answer" ] && answer=$default
+        echo '' >&2
+
+        case "$answer" in
+            [yY] ) echo 'yes'
+                break
+                ;;
+            [nN] ) echo 'no'
+                break
+                ;;
+            * ) ;;
+        esac
+    done
+}
+# fat-finger analysis
+function analyze_commands_not_found () {
+    if [ -e $not_found_file ]; then
+        local unrecognized=$(tail -1 $not_found_file);
+        local last_command=$(history | tail -1 | awk '{ print $5 }');
+        if [ "$unrecognized" == "$last_command" ]; then
+            local count=$(grep -c "$unrecognized" $not_found_file);
+            if [ $count -gt 1 ]; then
+                local yn=$(yes_or_no 'This command has been entered before.  Would you like to create an alias?');
+                if [ "$yn" == "yes" ]; then
+                    local meant_to_type;
+                    read -p "Please enter the text you meant to type: " meant_to_type;
+                    echo "alias $unrecognized='$meant_to_type'" >> $mistype_aliases_file;
+                    echo $(grep -v $unrecognized $not_found_file) > $not_found_file
+                    source $mistype_aliases_file
+                fi
+            fi
+        fi
+    fi
+}
 # [ -tmux- ]
 exit_file=$HOME/noexit
 alias exittmux='[ -z "$TMUX" ] && exit || { touch $exit_file && exit; } '
 
-# [ Shell Config ]
-#make bash use vi mode!
-# esc: normal mode
-# esc, v: edit the current line!
-# esc, /<text>: search history!
-set -o vi
-# check for running jobs and warn user before exiting
-shopt -s checkjobs
-# check and update the window size after every command
-shopt -s checkwinsize
-# comments in shell
-shopt -s interactive_comments
-# 'source' uses the path to find files
-shopt -s sourcepath
-#trap "err_handle" ERR - when a command is not found, store it in the commands_not_found file
-function command_not_found_handle {
-    echo "$1" >> ~/.commands_not_found;
-    echo "Unknown command: $1"
-}
+# [ Prompt Command ]
+export PROMPT_COMMAND="$sync_history; analyze_commands_not_found;"
 
 # [ Globbing and Matching ]
 # use extended globbing syntax

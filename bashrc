@@ -140,7 +140,7 @@ function analyze_commands_not_found () {
                 if [ "$yn" == "yes" ]; then
                     local meant_to_type;
                     read -p "Please enter the text you meant to type: " meant_to_type;
-                    echo "alias $unrecognized=$meant_to_type" >> ~/.mistype.aliases;
+                    echo "alias $unrecognized='$meant_to_type'" >> ~/.mistype.aliases;
                     echo $(grep -v $unrecognized $not_found_file) > $not_found_file
                     source ~/.mistype.aliases
                 fi

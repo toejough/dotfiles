@@ -157,9 +157,9 @@ function pushd () {
     # figure out what's at the top of the stack now
     local zero=$(dirs -v | head -1 | awk '{print $2}')
     # if there's an entry for this directory elswhere in the stack...
-    if [[ $(dirs -v | tail +2 | grep -e '[[:space:]]\+[[:digit:]]\+[[:space:]]\+'"$zero"'$') ]]; then
+    if [[ $(dirs -v | tail -n +2 | grep -e '[[:space:]]\+[[:digit:]]\+[[:space:]]\+'"$zero"'$') ]]; then
         # get the oldest matching index
-        local index=$(dirs -v | tail +2 | grep -e '[[:space:]]\+[[:digit:]]\+[[:space:]]\+'"$zero"'$' | awk '{print $1}' | sed '$!d')
+        local index=$(dirs -v | tail -n +2 | grep -e '[[:space:]]\+[[:digit:]]\+[[:space:]]\+'"$zero"'$' | awk '{print $1}' | sed '$!d')
         # rotate to it
         builtin pushd +$index
         # pop it off
@@ -281,8 +281,8 @@ function yes_or_no {
 # fat-finger analysis
 function analyze_commands_not_found () {
     if [ -e $not_found_file ]; then
-        local unrecognized=$(tail -1 $not_found_file);
-        local last_command=$(history | tail -1 | awk '{ print $5 }');
+        local unrecognized=$(tail -n 1 $not_found_file);
+        local last_command=$(history | tail -n 1 | awk '{ print $5 }');
         if [ "$unrecognized" == "$last_command" ]; then
             local count=$(grep -c "$unrecognized" $not_found_file);
             if [ $count -gt 1 ]; then

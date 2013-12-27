@@ -10,7 +10,7 @@
 				"hard": " ",
 				"soft": " "
 			},
-        "log_file": "~/powerline/powerline/powerline.log"
+        "log_file": "~/.powerline/powerline/powerline.log"
 		},
 		"spaces": 1
 	},

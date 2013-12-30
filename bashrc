@@ -355,3 +355,6 @@ else
     echo "Logged in locally. Skipping tmux launch."
 fi
 
+#  [ POWERLINE ]
+. ~/.settings/powerline/powerline/bindings/bash/powerline.sh
+

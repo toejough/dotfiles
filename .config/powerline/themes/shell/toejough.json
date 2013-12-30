@@ -4,7 +4,8 @@
 		"hostname": {
 			"before": " ",
 			"args": {
-				"only_if_ssh": true
+				"only_if_ssh": true,
+                "exclude_domain": true
 			}
 		},
 		"virtualenv": {
@@ -17,10 +18,7 @@
 	"segments": {
 		"left": [
 			{
-				"name": "hostname",
-                "args": {
-                    "exclude_domain": true
-                }
+				"name": "hostname"
 			},
 			{
 				"name": "user"

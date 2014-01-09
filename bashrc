@@ -354,4 +354,3 @@ if [ -n "$SSH_CONNECTION" ]; then
 else
     echo "Logged in locally. Skipping tmux launch."
 fi
-

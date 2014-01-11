@@ -37,6 +37,7 @@ echo "Done loading plugins." >> $joe_rc_log
 export EDITOR=vim
 export PAGER=less
 export LANG=en_US.UTF-8
+unset MAILCHECK
 
 # [ Aliases ]
 # use aliases

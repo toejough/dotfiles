@@ -17,22 +17,30 @@ var pushLeft = slate.operation("push", {
     "style" : "bar-resize:screenSizeX/2"
 });
 //  [ -Binding- ]
-slate.bind("w:alt", pushUp);
-slate.bind("d:alt", pushRight);
-slate.bind("s:alt", pushDown);
-slate.bind("a:alt", pushLeft);
+slate.bind("w:a,alt", pushUp);
+slate.bind("d:a,alt", pushRight);
+slate.bind("s:a,alt", pushDown);
+slate.bind("a:a,alt", pushLeft);
 
 //  [ THROW ]
 //  [ -Config- ]
-var throwToCurrent = slate.operation("throw", {
+var throwTo0 = slate.operation("throw", {
     "x"      : 'screenOriginX',
     "y"      : 'screenOriginY',
     "width"  : 'screenSizeX',
     "height" : 'screenSizeY',
-    "screen" : 'currentID'
+    "screen" : '0'
+});
+var throwTo1 = slate.operation("throw", {
+    "x"      : 'screenOriginX',
+    "y"      : 'screenOriginY',
+    "width"  : 'screenSizeX',
+    "height" : 'screenSizeY',
+    "screen" : '1'
 });
 //  [ -Binding- ]
-slate.bind("f:alt", throwToCurrent);
+slate.bind("0:f,alt", throwTo0);
+slate.bind("1:f,alt", throwTo1);
 
 //  [ FOCUS ]
 //  [ -Config- ]
@@ -58,22 +66,3 @@ slate.bind("h:alt", focusDown);
 slate.bind("j:alt", focusLeft);
 slate.bind("o:alt", focusBehind);
 
-//  [ RELOAD ]
-//  [ -Config- ]
-var relaunch = slate.operation("relaunch");
-//  [ -Binding- ]
-slate.bind("r:alt", relaunch);
-
-//  [ GRID ]
-//  [ -Config- ]
-var grid = slate.operation("grid", {
-    "grids" : {
-        "2880x1800" : {
-            "width" : 6
-            "height" : 2
-        },
-    },
-    "padding" : 5
-});
-//  [ -Binding- ]
-slate.bind("g:alt", grid);

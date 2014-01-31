@@ -170,7 +170,12 @@ function pushd () {
         builtin pushd -$new_index
     fi
     # store the top of stack entry to a global location
-    echo $(eval echo $zero) > ~/.lastdir
+    lastdir=$(eval echo $zero)
+    echo $lastdir | grep '.virtualenvs' > /dev/null 2>&1
+    found=$?
+    if [ $found -ne 0 ]; then
+        echo $lastdir > ~/.lastdir
+    fi
 }
 # [ -cd- ]
 alias ocd='builtin cd'

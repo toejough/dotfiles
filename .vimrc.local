@@ -68,3 +68,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'molokai' " 'powerlineish' is another choice
 let g:airline#extensions#bufferline#enabled = 0
 let g:bufferline_rotate = 2
+
+" PEP 8 customizations
+let g:pymode_lint_ignore="E501,E203"
+

@@ -368,17 +368,18 @@ fi
 export PATH=$(pathdd $PATH)
 export PYTHONPATH=$(pathdd $PYTHONPATH)
 # if remote, start tmux unless already started
+STARTUP_LOG=~/.shell.init.log
 if [ -n "$SSH_CONNECTION" ]; then
-    echo "Logged in remotely..."
+    echo "Logged in remotely..." > $STARTUP_LOG
     if [ -z "$TMUX" ]; then
-        echo "Checking for tmux..."
+        echo "Checking for tmux..." >> $STARTUP_LOG
         if [ -n "$(command -v tmux)" ]; then
-            echo "tmux found. Launching..."
+            echo "tmux found. Launching..." >> $STARTUP_LOG
             if [ -n "$(tmux list-sessions | grep -v attached)" ]; then
-                echo "unattached sessions found. Attaching..."
+                echo "unattached sessions found. Attaching..." >> $STARTUP_LOG
                 tmux -2 attach -t $(tmux list-sessions | grep -v attached | awk -F: '{print $1}' | head -n 1)
             else
-                echo "no unattached sessions found. Creating a new one..."
+                echo "no unattached sessions found. Creating a new one..." >> $STARTUP_LOG
                 tmux -2
             fi
             if [ -f "$exit_file" ]; then
@@ -390,8 +391,8 @@ if [ -n "$SSH_CONNECTION" ]; then
             echo "TMUX not found.  If you want session persistence, you should install TMUX."
         fi
     else
-        echo "Active tmux session detected. Skipping tmux launch."
+        echo "Active tmux session detected. Skipping tmux launch." >> $STARTUP_LOG
     fi
 else
-    echo "Logged in locally. Skipping tmux launch."
+    echo "Logged in locally. Skipping tmux launch." >> $STARTUP_LOG
 fi

@@ -71,7 +71,13 @@ BOLD_WHITE='\[\e[1;37m\]'
 GREEN='\[\e[0;32m\]'
 RED='\[\e[0;31m\]'
 YELLOW='\[\e[0;33m\]'
+ORANGE='\[\e[38;5;208m\]'
 # [ -Helper Funcs- ]
+function __orphaned_ps1() {
+    if ! realpath > /dev/null 2>&1; then
+        echo "<pwd orphaned!>"
+    fi
+}
 function __rc_ps1 () {
     RC=$1
     if [ $RC -ne 0 ]; then
@@ -96,7 +102,10 @@ fi
 # Set PS1 to be [ rc][username@host:curdir (git branch)](jobs)$
 PS1=\
 "$RED"'$(__rc_ps1 $?)'\
-"$DEFAULT[$BOLD_WHITE\u$DEFAULT@\h:\W$GREEN"'$(__git_ps1)'"$DEFAULT]"\
+"$DEFAULT["\
+"$BOLD_WHITE\u$DEFAULT@\h:\W$GREEN"'$(__git_ps1)'\
+"$ORANGE"'$(__orphaned_ps1)'\
+"$DEFAULT]"\
 "$YELLOW"'$(__jobs_ps1 '"\j"')'\
 "$DEFAULT$ "
 # PS2 is line continuation prompt

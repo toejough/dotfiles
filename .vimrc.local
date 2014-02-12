@@ -70,5 +70,9 @@ let g:airline#extensions#bufferline#enabled = 0
 let g:bufferline_rotate = 2
 
 " PEP 8 customizations
-let g:pymode_lint_ignore="E501,E203"
+" E501 - line too long
+" E221 - too many spaces after colon
+" E203 - too many spaces before colon
+" C901 - function too complex
+let g:pymode_lint_ignore="E501,E221,E203"
 

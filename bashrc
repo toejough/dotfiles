@@ -272,6 +272,22 @@ function set_tt () { setTerminalText 0 $@; }
 function set_tab () { setTerminalText 1 $@; }
 function set_title () { setTerminalText 2 $@; }
 # [ -misc- ]
+#  add to path
+function addtopath () {
+    if [[ $# -eq 0 ]]; then
+        export PATH=./:$PATH
+        export PYTHONPATH=./:$PYTHONPATH
+    elif [[ "$1" == "-e" ]]; then
+        shift
+        export PATH=$1:$PATH
+    elif [[ "$1" == "-p" ]]; then
+        shift
+        export PYTHONPATH=$1:$PYTHONPATH
+    else
+        export PATH=$1:$PATH
+        export PYTHONPATH=$1:$PYTHONPATH
+    fi
+}
 #path reduction
 function pathdd () {
     python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'

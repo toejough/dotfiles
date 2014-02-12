@@ -72,6 +72,7 @@ GREEN='\[\e[0;32m\]'
 RED='\[\e[0;31m\]'
 YELLOW='\[\e[0;33m\]'
 ORANGE='\[\e[38;5;208m\]'
+CYAN='\[\e[0;36m\]'
 # [ -Helper Funcs- ]
 function __orphaned_ps1() {
     if ! realpath > /dev/null 2>&1; then
@@ -97,10 +98,16 @@ if [ -z $(command -v __git_ps1) ]; then
     function __git_ps1 { :
     }
 fi
+function __ssh () {
+    if [ -n "$SSH_CONNECTION" ]; then
+        echo -e ""
+    fi
+}
 # [ -Prompt Definitions- ]
 # PS1 is main prompt
 # Set PS1 to be [ rc][username@host:curdir (git branch)](jobs)$
 PS1=\
+"$CYAN"'$(__ssh)'\
 "$RED"'$(__rc_ps1 $?)'\
 "$DEFAULT["\
 "$BOLD_WHITE\u$DEFAULT@\h:\W$GREEN"'$(__git_ps1)'\

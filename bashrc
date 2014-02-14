@@ -112,17 +112,19 @@ if [ -z $(command -v __git_ps1) ]; then
 fi
 function __ssh () {
     if [ -n "$SSH_CONNECTION" ]; then
-        echo -e ""
+        echo ""
     fi
 }
 # [ -Prompt Definitions- ]
 # PS1 is main prompt
-# Set PS1 to be [ rc][username@host:curdir (git branch)](jobs)$
+# Set PS1 to be ssh_lock_symbol[rc][username@host:curdir (git branch)<orphaned>](jobs)$
 PS1=\
 "$CYAN"'$(__ssh)'\
 "$RED"'$(__rc_ps1 $?)'\
 "$DEFAULT["\
-"$BOLD_WHITE\u$DEFAULT@\h:\W$GREEN"'$(__git_ps1)'\
+"$BOLD_WHITE\u"\
+"$DEFAULT@\h:\W"\
+"$GREEN"'$(__git_ps1)'\
 "$ORANGE"'$(__orphaned_ps1)'\
 "$DEFAULT]"\
 "$YELLOW"'$(__jobs_ps1 '"\j"')'\

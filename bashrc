@@ -22,12 +22,16 @@ shortcuts=~/.dirlinks
 function mark ()
 {
     NAME=$1
-    ln -siwv -s $(pwd) ~/.dirlinks/$NAME
+    ln -siwv -s $(pwd) $shortcuts/$NAME
 }
 function unmark ()
 {
     NAME=$1
-    rm ~/.dirlinks/$NAME
+    rm $shortcuts/$NAME
+}
+function marks ()
+{
+    ls -l $shortcuts | awk '{print $9, $10, $11}' && echo
 }
 # Update the system paths
 export PATH=$utils_bin:$PATH

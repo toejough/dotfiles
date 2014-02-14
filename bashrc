@@ -17,6 +17,18 @@ utils_bin=~/tools/bin
 utils_lib=~/tools/lib
 # Directory shortcuts...
 shortcuts=~/.dirlinks
+# make it easy to add the current dir to dirlinks with 
+#  any given name
+function mark ()
+{
+    NAME=$1
+    ln -siwv -s $(pwd) ~/.dirlinks/$NAME
+}
+function unmark ()
+{
+    NAME=$1
+    rm ~/.dirlinks/$NAME
+}
 # Update the system paths
 export PATH=$utils_bin:$PATH
 export PYTHONPATH=$utils_lib:$PYTHONPATH

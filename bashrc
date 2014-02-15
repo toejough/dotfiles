@@ -8,6 +8,7 @@
 # - try echo -e to set colors in the functions
 # - functionalize things so that we don't leak env vars
 # - ask to create aliases when a command is not found and shows up multiple times in the list
+# - ask to create files/directories the config expects
 
 # [ Paths ]
 #make bash use absolute paths!

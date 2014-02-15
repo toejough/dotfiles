@@ -153,6 +153,8 @@ alias lthsort="sort -k 9,9 -k 6,6M -k 7,7 -k 8.1,8.3 -k 8.4,8.6 -k 8.7,8.9"
 alias condense_paths="sed 's/\/.*\(\/.*\..*\)/\/..\1/g'"
 #  Show where I am and what's here
 alias here='echo && pwd && echo && ls -lTrh && echo'
+#  Update spf13 vim
+alias update-spf13="sh <(curl https://j.mp/spf13-vim3 -L)"
 # [ -Mistype Aliases- ]
 mistype_aliases_file=~/.mistype.aliases
 if [ -e $mistype_aliases_file ]; then

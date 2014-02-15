@@ -410,6 +410,7 @@ if [ -n "$SSH_CONNECTION" ]; then
         fi
     else
         echo "Active tmux session detected. Skipping tmux launch." >> $STARTUP_LOG
+        export TERM=screen-256color
     fi
 else
     echo "Logged in locally. Skipping tmux launch." >> $STARTUP_LOG

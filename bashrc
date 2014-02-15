@@ -382,10 +382,6 @@ shopt -u nullglob
 # [ TTY startup ]
 # Announce OS (I regularly log into machines with different OS's)
 echo "[OS: $(uname)]"
-# run the phrases utility
-if [ $(command -v phrases) ]; then
-    phrases
-fi
 # reduce paths
 export PATH=$(pathdd $PATH)
 export PYTHONPATH=$(pathdd $PYTHONPATH)

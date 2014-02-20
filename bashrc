@@ -310,6 +310,10 @@ function addtopath () {
         export PYTHONPATH=$1:$PYTHONPATH
     fi
 }
+# cd and here
+function cdh () {
+    cd $@ && here
+}
 #path reduction
 function pathdd () {
     python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'

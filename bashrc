@@ -91,7 +91,7 @@ ORANGE='\[\e[38;5;208m\]'
 CYAN='\[\e[0;36m\]'
 # [ -Helper Funcs- ]
 function __orphaned_ps1() {
-    if ! realpath > /dev/null 2>&1; then
+    if ! realpath ./ > /dev/null 2>&1; then
         echo "<pwd orphaned!>"
     fi
 }

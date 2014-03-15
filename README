@@ -16,5 +16,6 @@ ln -s ~/.settings/.bashrc ~/.bashrc
 The dot versions call the .settings versions, as well as .settings.local versions, for local customizations.
 
 The rc's are expected to have logic needed for every interactive shell.
-The profiles are expected to have logic needed only once each login.
+The profiles are expected to have logic needed only once each login.  
+  They are run AFTER the rc's, as it is expected that your once-a-login actions will include your normal interactive shell actions.
 

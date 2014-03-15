@@ -10,34 +10,12 @@
 # - ask to create aliases when a command is not found and shows up multiple times in the list
 # - ask to create files/directories the config expects
 
-# [ Paths ]
-#make bash use absolute paths!
-set -P
-# My utility paths...
-utils_bin=~/tools/bin
-utils_lib=~/tools/lib
-# Directory shortcuts...
-shortcuts=~/.dirlinks
-# make it easy to add the current dir to dirlinks with 
-#  any given name
-function mark ()
-{
-    NAME=$1
-    ln -siwv -s $(pwd) $shortcuts/$NAME
-}
-function unmark ()
-{
-    NAME=$1
-    rm $shortcuts/$NAME
-}
-function marks ()
-{
-    ls -l $shortcuts | awk '{print $9, $10, $11}' && echo
-}
-# Update the system paths
-export PATH=$utils_bin:$PATH
-export PYTHONPATH=$utils_lib:$PYTHONPATH
-export CDPATH=.:$shortcuts
+#  [ Plugins ]
+for plugin in ~/.settings/plugins/*; do
+    if [ -f $plugin ]; then
+        source $plugin
+    fi
+done
 
 # [ Defaults ]
 export EDITOR=vim
@@ -322,6 +300,15 @@ function pathdd () {
 # normal math!
 function calc {
     awk "BEGIN {print $* }"
+}
+# what is a command?
+function whatis {
+    answer=$(command -V $1)
+    if [ -n "$answer" ]; then
+        echo -e "$answer"
+    else
+        echo "'$1' not found"
+    fi
 }
 # y/n prompt!
 function yes_or_no {

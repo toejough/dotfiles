@@ -12,3 +12,5 @@ if [ -d $utils_lib ]; then PATH=$utils_lib:$PYTHONPATH; fi
 #  Export them
 export PATH
 export PYTHONPATH
+export ORIGINAL_PATH=$PATH
+export ORIGINAL_PYTHONPATH=$PYTHONPATH

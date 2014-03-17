@@ -246,29 +246,68 @@ function set_tt () { setTerminalText 0 $@; }
 function set_tab () { setTerminalText 1 $@; }
 function set_title () { setTerminalText 2 $@; }
 # [ -misc- ]
+#path reduction
+function pathdd () {
+    python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'
+}
 #  add to path
-function addtopath () {
+function __add_to_path() {
     if [[ $# -eq 0 ]]; then
-        export PATH=./:$PATH
-        export PYTHONPATH=./:$PYTHONPATH
-    elif [[ "$1" == "-e" ]]; then
+        local path_to_add=./
+    else
+        local path_to_add=$1
+    fi
+    path_to_add=$(fullpath $path_to_add)
+    export PATH=$(pathdd $path_to_add:$PATH)
+    echo PATH=$PATH
+}
+function __add_to_python_path() {
+    if [[ $# -eq 0 ]]; then
+        local path_to_add=./
+    else
+        local path_to_add=$1
+    fi
+    path_to_add=$(fullpath $path_to_add)
+    export PYTHONPATH=$(pathdd $path_to_add:$PYTHONPATH)
+    echo PYTHONPATH=$PYTHONPATH
+}
+function __reset_path () {
+    export PATH=$ORIGINAL_PATH
+    echo PATH=$PATH
+}
+function __reset_python_path () {
+    export PYTHONPATH=$ORIGINAL_PYTHONPATH
+    echo PYTHONPATH=$PYTHONPATH
+}
+function paths () {
+    echo PATH=$PATH
+    echo PYTHONPATH=$PYTHONPATH
+}
+function addtopath () {
+    if [[ "$1" == "-e" ]]; then
         shift
-        export PATH=$1:$PATH
+        __add_to_path $1
     elif [[ "$1" == "-p" ]]; then
         shift
-        export PYTHONPATH=$1:$PYTHONPATH
+        __add_to_python_path $1
     else
-        export PATH=$1:$PATH
-        export PYTHONPATH=$1:$PYTHONPATH
+        __add_to_path $1
+        __add_to_python_path $1
+    fi
+}
+function resetpath () {
+    if [[ "$1" == "-e" ]]; then
+        __reset_path
+    elif [[ "$1" == "-p" ]]; then
+        __reset_python_path
+    else
+        __reset_path
+        __reset_python_path
     fi
 }
 # cd and here
 function cdh () {
     cd $@ && here
-}
-#path reduction
-function pathdd () {
-    python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'
 }
 # normal math!
 function calc {

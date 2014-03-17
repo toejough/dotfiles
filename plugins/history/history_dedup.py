@@ -1,0 +1,53 @@
+'''Deduplicate bash history'''
+
+#  [ Imports ]
+#  [ -Python- ]
+import sys
+import os.path
+
+#  [ Argument Parsing ]
+hist_file_path = sys.argv[-1]
+
+
+#  [ Helpers ]
+def is_timestamp_line(line):
+    if line.startswith('#'):
+        try:
+            int(line[1:])
+            return True
+        except [TypeError, ValueError]:
+            pass
+    return False
+
+
+#  [ Main ]
+#  Safety check
+if not os.path.isfile(hist_file_path):
+    sys.stderr.write("{} cannot dedupliate {}: it is not a regular file.\n".format(sys.argv[0], hist_file_path))
+    exit(1)
+
+#  Save off modification time
+mtime = os.path.getmtime(hist_file_path)
+#  Get the current history
+with open(hist_file_path) as hist_file:
+    lines = hist_file.readlines()
+#  Build new, deduped history
+new_lines = []
+for line in lines:
+    #  Remove old line
+    if line in new_lines and not is_timestamp_line(line):
+        old_index = new_lines.index(line)
+        del new_lines[old_index]
+        #  Check for and remove old timestamp line
+        timestamp_index = old_index - 1
+        if timestamp_index >= 0 and is_timestamp_line(new_lines[timestamp_index]):
+            del new_lines[timestamp_index]
+    new_lines.append(line)
+#  Guard a little against file access issues:
+new_mtime = os.path.getmtime(hist_file_path)
+if mtime == new_mtime:
+    with open(hist_file_path, 'w') as hist_file:
+        hist_file.write(''.join(new_lines))
+else:
+    sys.stderr.write("{} cannot dedupliate {}: file has changed since last read.\n".format(sys.argv[0], hist_file_path))
+    exit(1)

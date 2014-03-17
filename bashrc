@@ -10,51 +10,26 @@
 # - ask to create aliases when a command is not found and shows up multiple times in the list
 # - ask to create files/directories the config expects
 
+#  [ Clean Slate ]
+# clear all aliases
+\unalias -a
+
 #  [ Plugins ]
-for plugin in ~/.settings/plugins/*; do
+export joe_rc_dir=$(cd $(dirname $BASH_SOURCE) && pwd)
+export joe_plugin_dir=$joe_rc_dir/plugins
+post_rc_commands=' : '
+for plugin in $joe_plugin_dir/*; do
     if [ -f $plugin ]; then
         source $plugin
+    elif [ -d $plugin -a -f $plugin/main.sh ]; then
+        source $plugin/main.sh
     fi
 done
 
-# [ Defaults ]
+# [ One-liners ]
 export EDITOR=vim
 export PAGER=less
 export LANG=en_US.UTF-8
-
-# [ Readline ]
-export INPUTRC=~/.inputrc
-# tell readline to re-read the inputrc
-bind -f $INPUTRC
-
-# [ Completion ]
-# programmable completion is enabled
-shopt -s progcomp
-# use bash completion!
-if [ -f ~/.bash_completion ]; then
-    source  ~/.bash_completion
-fi
-# allow cd to autocorrect small errors
-shopt -s cdspell
-# allow dir names to be autocorrected for small erors
-shopt -s dirspell
-# complete @<text> with hostnames if possible
-shopt -s hostcomplete
-
-# [ History ]
-# append to history instead of replacing history on shell exit
-shopt -s histappend
-# unlimited history
-unset HISTSIZE
-unset HISTFILESIZE
-# keep only the latest copy of a command
-export HISTCONTROL='erasedups'
-# add timestamps
-export HISTTIMEFORMAT=': %H:%M:%S %m/%d/%Y; '
-# History manipulation
-update_global_history='history -a'
-update_local_history='history -c && history -r'
-sync_history="$update_global_history && $update_local_history"
 
 # [ Prompts ]
 # prompt strings undergo variable expansion after prompt expansion
@@ -120,8 +95,6 @@ PS3='<<Choose an option>>'
 PS4='>'"$RED"' $LINENO: '"$DEFAULT"
 
 # [ Aliases ]
-# clear all aliases
-\unalias -a
 # use aliases
 shopt -s expand_aliases
 #make resourcing this file easier
@@ -358,7 +331,8 @@ exit_file=$HOME/noexit
 alias exittmux='[ -z "$TMUX" ] && exit || { touch $exit_file && exit; } '
 
 # [ Prompt Command ]
-export PROMPT_COMMAND="$sync_history; analyze_commands_not_found;"
+normal_prompt_command="analyze_commands_not_found"
+export PROMPT_COMMAND="$normal_prompt_command; $post_rc_commands; export PROMPT_COMMAND=$normal_prompt_command"
 
 # [ Globbing and Matching ]
 # use extended globbing syntax

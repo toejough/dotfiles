@@ -252,6 +252,7 @@ function command_not_found_handle {
 # [ Utility Functions ]
 # [ -git- ]
 function refetch() { git fetch && git rebase -i origin/$1; }
+function git-switch() { git checkout $1 && refetch $1; }
 # [ -iterm- ]
 #type: 0 - both, 1 - tab, 2 - title
 function setTerminalText () {

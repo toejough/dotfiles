@@ -1,4 +1,3 @@
-
 # [ Wishlist ]
 # - dedup history on shell exit
 # - a real 'bottom' func that goes to the lowest dir

@@ -15,7 +15,7 @@ def is_timestamp_line(line):
         try:
             int(line[1:])
             return True
-        except [TypeError, ValueError]:
+        except (TypeError, ValueError):
             pass
     return False
 

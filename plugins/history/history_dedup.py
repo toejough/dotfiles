@@ -15,7 +15,7 @@ def is_timestamp_line(line):
         try:
             int(line[1:])
             return True
-        except [TypeError, ValueError]:
+        except (TypeError, ValueError):
             pass
     return False
 
@@ -33,6 +33,7 @@ with open(hist_file_path) as hist_file:
     lines = hist_file.readlines()
 #  Build new, deduped history
 new_lines = []
+deduplicated = []
 for line in lines:
     #  Remove old line
     if line in new_lines and not is_timestamp_line(line):
@@ -42,6 +43,7 @@ for line in lines:
         timestamp_index = old_index - 1
         if timestamp_index >= 0 and is_timestamp_line(new_lines[timestamp_index]):
             del new_lines[timestamp_index]
+        deduplicated.append(line)
     new_lines.append(line)
 #  Guard a little against file access issues:
 new_mtime = os.path.getmtime(hist_file_path)
@@ -51,3 +53,11 @@ if mtime == new_mtime:
 else:
     sys.stderr.write("{} cannot dedupliate {}: file has changed since last read.\n".format(sys.argv[0], hist_file_path))
     exit(1)
+
+#  Report
+deduplicated_count = len(deduplicated)
+plural = 'entries' if deduplicated_count != 1 else 'entry'
+end = '.' if deduplicated_count == 0 else ':'
+print("Deduplicated {} global history {}{}".format(deduplicated_count, plural, end))
+if deduplicated_count:
+    print('  ' + '  '.join(deduplicated))

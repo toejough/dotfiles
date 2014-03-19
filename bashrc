@@ -17,11 +17,16 @@
 export joe_rc_dir=$(cd $(dirname $BASH_SOURCE) && pwd)
 export joe_plugin_dir=$joe_rc_dir/plugins
 post_rc_commands=' : '
+installed_plugins=''
 for plugin in $joe_plugin_dir/*; do
-    if [ -f $plugin ]; then
-        source $plugin
-    elif [ -d $plugin -a -f $plugin/main.sh ]; then
-        source $plugin/main.sh
+    if [[ -z $(grep $plugin <<<$installed_plugins) ]]; then
+        if [ -f $plugin ]; then
+            source $plugin
+            installed_plugins=$installed_plugins" $(basename $plugin)"
+        elif [ -d $plugin -a -f $plugin/main.sh ]; then
+            source $plugin/main.sh
+            installed_plugins=$installed_plugins" $(basename $plugin)"
+        fi
     fi
 done
 
@@ -29,69 +34,6 @@ done
 export EDITOR=vim
 export PAGER=less
 export LANG=en_US.UTF-8
-
-# [ Prompts ]
-# prompt strings undergo variable expansion after prompt expansion
-shopt -s promptvars
-# [ -Colors- ]
-DEFAULT='\[\e[0;39m\]'
-WHITE='\[\e[0;37m\]'
-BOLD_WHITE='\[\e[1;37m\]'
-GREEN='\[\e[0;32m\]'
-RED='\[\e[0;31m\]'
-YELLOW='\[\e[0;33m\]'
-ORANGE='\[\e[38;5;208m\]'
-CYAN='\[\e[0;36m\]'
-# [ -Helper Funcs- ]
-function __orphaned_ps1() {
-    if ! fullpath ./ > /dev/null 2>&1; then
-        echo "<pwd orphaned!>"
-    fi
-}
-function __rc_ps1 () {
-    RC=$1
-    if [ $RC -ne 0 ]; then
-        echo "[ $RC ]"
-    fi
-}
-function __jobs_ps1 () {
-    JOBS=$1
-    if [ $JOBS -ne 0 ]; then
-        echo "($JOBS)"
-    fi
-}
-if [ -f ~/.git-prompt.sh ]; then
-    source ~/.git-prompt.sh
-fi
-if [ -z $(command -v __git_ps1) ]; then
-    function __git_ps1 { :
-    }
-fi
-function __ssh () {
-    if [ -n "$SSH_CONNECTION" ]; then
-        echo ""
-    fi
-}
-# [ -Prompt Definitions- ]
-# PS1 is main prompt
-# Set PS1 to be ssh_lock_symbol[rc][username@host:curdir (git branch)<orphaned>](jobs)$
-PS1=\
-"$CYAN"'$(__ssh)'\
-"$RED"'$(__rc_ps1 $?)'\
-"$DEFAULT["\
-"$BOLD_WHITE\u"\
-"$DEFAULT@\h:\W"\
-"$GREEN"'$(__git_ps1)'\
-"$ORANGE"'$(__orphaned_ps1)'\
-"$DEFAULT]"\
-"$YELLOW"'$(__jobs_ps1 '"\j"')'\
-"$DEFAULT$ "
-# PS2 is line continuation prompt
-PS2='>'
-# PS3 is 'select' prompt
-PS3='<<Choose an option>>'
-# PS4 is 'xtrace' prompt - used with set -x for debugging
-PS4='>'"$RED"' $LINENO: '"$DEFAULT"
 
 # [ Aliases ]
 # use aliases

@@ -43,18 +43,6 @@ YELLOW='\[\e[0;33m\]'
 ORANGE='\[\e[38;5;208m\]'
 CYAN='\[\e[0;36m\]'
 # [ -Helper Funcs- ]
-function fullpath () {
-    if [ $# -ne 1 ]; then
-        echo "fullpath takes exactly one arg!" 1>&2
-        exit 1
-    elif command -v realpath > /dev/null 2>&1; then
-        realpath $1
-    elif command -v readlink > /dev/null 2>&1; then
-        readlink -f $1
-    else
-        CDPATH="" builtin cd $1 && pwd
-    fi
-}
 function __orphaned_ps1() {
     if ! fullpath ./ > /dev/null 2>&1; then
         echo "<pwd orphaned!>"

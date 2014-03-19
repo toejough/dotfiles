@@ -22,4 +22,4 @@ if [ -d $shortcuts ]; then
     }
 fi
 #  Export it
-export CDPATH
+export CDPATH=$CDPATH

@@ -23,7 +23,7 @@ def is_timestamp_line(line):
 #  [ Main ]
 #  Safety check
 if not os.path.isfile(hist_file_path):
-    sys.stderr.write("{} cannot dedupliate {}: it is not a regular file.\n".format(sys.argv[0], hist_file_path))
+    sys.stderr.write("{} cannot deduplicate {}: it is not a regular file.\n".format(sys.argv[0], hist_file_path))
     exit(1)
 
 #  Save off modification time
@@ -51,7 +51,7 @@ if mtime == new_mtime:
     with open(hist_file_path, 'w') as hist_file:
         hist_file.write(''.join(new_lines))
 else:
-    sys.stderr.write("{} cannot dedupliate {}: file has changed since last read.\n".format(sys.argv[0], hist_file_path))
+    sys.stderr.write("{} cannot deduplicate {}: file has changed since last read.\n".format(sys.argv[0], hist_file_path))
     exit(1)
 
 #  Report

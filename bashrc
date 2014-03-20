@@ -16,8 +16,11 @@
 #  [ Plugins ]
 export joe_rc_dir=$(cd $(dirname $BASH_SOURCE) && pwd)
 export joe_plugin_dir=$joe_rc_dir/plugins
+export joe_rc_log=$joe_rc_dir/log
 post_rc_commands=' : '
+<<<<<<< HEAD
 installed_plugins=''
+echo "Loading plugins:" >> $joe_rc_log
 for plugin in $joe_plugin_dir/*; do
     if [[ -z $(grep $plugin <<<$installed_plugins) ]]; then
         if [ -f $plugin ]; then
@@ -29,6 +32,7 @@ for plugin in $joe_plugin_dir/*; do
         fi
     fi
 done
+echo "Done loading plugins." >> $joe_rc_log
 
 # [ One-liners ]
 export EDITOR=vim

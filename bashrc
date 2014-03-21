@@ -18,7 +18,6 @@ export joe_rc_dir=$(cd $(dirname $BASH_SOURCE) && pwd)
 export joe_plugin_dir=$joe_rc_dir/plugins
 export joe_rc_log=$joe_rc_dir/log
 post_rc_commands=' : '
-<<<<<<< HEAD
 installed_plugins=''
 echo "Loading plugins:" >> $joe_rc_log
 for plugin in $joe_plugin_dir/*; do

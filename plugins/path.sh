@@ -21,9 +21,7 @@ function fullpath () {
         exit 1
     elif command -v realpath > /dev/null 2>&1; then
         realpath $1
-    elif command -v readlink > /dev/null 2>&1; then
-        readlink -f $1
     else
-        CDPATH="" builtin cd $1 && pwd
+        CDPATH="" builtin cd $(dirname $1) && echo $(pwd)"/"$(basename $1)
     fi
 }

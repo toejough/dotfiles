@@ -55,6 +55,9 @@ else
 fi
 #  Update spf13 vim
 alias update-spf13="sh <(curl https://j.mp/spf13-vim3 -L)"
+#  Kill stale mosh sessions
+alias mosh-view-stale="who | grep $(whoami) | grep mosh | grep -v via"
+alias mosh-kill-stale="mosh-view-stale | tr '[]' ' ' | awk '{print \$(NF-1)}' | xargs -pn 1 kill"
 # [ -Mistype Aliases- ]
 mistype_aliases_file=~/.mistype.aliases
 if [ -e $mistype_aliases_file ]; then

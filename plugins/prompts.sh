@@ -54,8 +54,8 @@ function __ssh () {
 # PS1 is main prompt
 # Set PS1 to be ssh_lock_symbol[rc][username@host:curdir (git branch)<orphaned>](jobs)$
 PS1=\
-"$CYAN"'$(__ssh)'\
 "$RED"'$(__rc_ps1 $?)'\
+"$CYAN"'$(__ssh)'\
 "$DEFAULT["\
 "$BOLD_WHITE\u"\
 "$DEFAULT@\h:\W"\

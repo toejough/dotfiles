@@ -74,5 +74,6 @@ let g:bufferline_rotate = 2
 " E221 - too many spaces after colon
 " E203 - too many spaces before colon
 " C901 - function too complex
-let g:pymode_lint_ignore="E501,E221,E203"
+" E309 - expect blank line after class statement
+let g:pymode_lint_ignore="E501,E221,E203,E309"
 

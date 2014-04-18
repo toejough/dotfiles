@@ -19,6 +19,7 @@ RED='\[\e[0;31m\]'
 YELLOW='\[\e[0;33m\]'
 ORANGE='\[\e[38;5;208m\]'
 CYAN='\[\e[0;36m\]'
+GREY='\[\e[38;5;245m\]'
 
 # [ Helper Funcs ]
 function __orphaned_ps1() {
@@ -50,12 +51,16 @@ function __ssh () {
         echo ""
     fi
 }
+function __time_ps1 () {
+    echo " $(date +'%I:%M %p') "
+}
 # [ -Prompt Definitions- ]
 # PS1 is main prompt
 # Set PS1 to be ssh_lock_symbol[rc][username@host:curdir (git branch)<orphaned>](jobs)$
 PS1=\
 "$RED"'$(__rc_ps1 $?)'\
 "$CYAN"'$(__ssh)'\
+"$GREY"'$(__time_ps1)'\
 "$DEFAULT["\
 "$BOLD_WHITE\u"\
 "$DEFAULT@\h:\W"\

@@ -324,7 +324,7 @@ alias exittmux='[ -z "$TMUX" ] && exit || { touch $exit_file && exit; } '
 
 # [ Prompt Command ]
 normal_prompt_command="analyze_commands_not_found"
-export PROMPT_COMMAND="$normal_prompt_command; $post_rc_commands; export PROMPT_COMMAND=$normal_prompt_command"
+export PROMPT_COMMAND="$normal_prompt_command; $post_rc_commands; echo "------------------------"; export PROMPT_COMMAND=$normal_prompt_command"
 
 # [ Globbing and Matching ]
 # use extended globbing syntax
@@ -339,7 +339,9 @@ shopt -u nullglob
 
 # [ TTY startup ]
 # Announce OS (I regularly log into machines with different OS's)
+echo "========================"
 echo "[OS: $(uname)]"
+echo "========================"
 # reduce paths
 export PATH=$(pathdd $PATH)
 export PYTHONPATH=$(pathdd $PYTHONPATH)

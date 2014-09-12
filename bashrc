@@ -19,9 +19,11 @@ export joe_plugin_dir=$joe_rc_dir/plugins
 export joe_rc_log=$joe_rc_dir/log
 post_rc_commands=' : '
 installed_plugins=''
-echo "Loading plugins:" >> $joe_rc_log
+echo "========================"
+echo "Loading plugins:" | tee -a $joe_rc_log
 for plugin in $joe_plugin_dir/*; do
     if [[ -z $(grep $plugin <<<$installed_plugins) ]]; then
+        echo "  loading ${plugin}..." | tee -a $joe_rc_log
         if [ -f $plugin ]; then
             source $plugin
             installed_plugins=$installed_plugins" $(basename $plugin)"
@@ -31,7 +33,7 @@ for plugin in $joe_plugin_dir/*; do
         fi
     fi
 done
-echo "Done loading plugins." >> $joe_rc_log
+echo "Done loading plugins." | tee -a $joe_rc_log
 
 # [ One-liners ]
 export EDITOR=vim
@@ -59,6 +61,7 @@ alias update-spf13="sh <(curl https://j.mp/spf13-vim3 -L)"
 #  Kill stale mosh sessions
 alias mosh-view-stale="who | grep $(whoami) | grep mosh | grep -v via"
 alias mosh-kill-stale="mosh-view-stale | tr '[]' ' ' | awk '{print \$(NF-1)}' | xargs -pn 1 kill"
+alias gdiff="git diff --no-index"
 # [ -Mistype Aliases- ]
 mistype_aliases_file=~/.mistype.aliases
 if [ -e $mistype_aliases_file ]; then

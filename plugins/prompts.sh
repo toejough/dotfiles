@@ -68,7 +68,7 @@ PS1=\
 "$ORANGE"'$(__orphaned_ps1)'\
 "$DEFAULT]"\
 "$YELLOW"'$(__jobs_ps1 '"\j"')'\
-"$DEFAULT$ "
+"$DEFAULT\n>  "
 # PS2 is line continuation prompt
 PS2='>'
 # PS3 is 'select' prompt

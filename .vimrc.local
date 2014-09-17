@@ -9,6 +9,8 @@ set nospell
 UnBundle 'altercation/vim-colors-solarized'
 UnBundle 'mattn/webapi-vim'
 UnBundle 'mattn/gist-vim'
+UnBundle 'Lokaltog/powerline'
+UnBundle 'Lokaltog/vim-powerline'
 " snippets
 UnBundle 'garbas/vim-snipmate'
 UnBundle 'Shougo/neocomplete.vim.git'

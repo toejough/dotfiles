@@ -349,18 +349,25 @@ echo "========================"
 export PATH=$(pathdd $PATH)
 export PYTHONPATH=$(pathdd $PYTHONPATH)
 # if remote, start tmux unless already started
-STARTUP_LOG=~/.shell.init.log
 if [ -n "$SSH_CONNECTION" ]; then
-    echo "Logged in remotely..." > $STARTUP_LOG
+    echo "* Logged in remotely..." | tee -a $joe_rc_log
     if [ -z "$TMUX" ]; then
-        echo "Checking for tmux..." >> $STARTUP_LOG
+        echo -n "* Checking for tmux..." | tee -a $joe_rc_log
         if [ -n "$(command -v tmux)" ]; then
-            echo "tmux found. Launching..." >> $STARTUP_LOG
-            if [ -n "$(tmux list-sessions | grep -v attached)" ]; then
-                echo "unattached sessions found. Attaching..." >> $STARTUP_LOG
-                tmux -2 attach -t $(tmux list-sessions | grep -v attached | awk -F: '{print $1}' | head -n 1)
+            echo "tmux found." | tee -a $joe_rc_log
+            echo -n "* Searching for unattached sessions..." | tee -a $joe_rc_log
+            unattached_sessions=$(tmux list-sessions | grep -v attached)
+            if [ -n "$unattached_sessions" ]; then
+                echo "found:" | tee -a $joe_rc_log
+                echo "vvvvvvvvvvvvvvvvvvvvvvvv"
+                echo "$unattached_sessions" | tee -a $joe_rc_log
+                echo "^^^^^^^^^^^^^^^^^^^^^^^^"
+                first_session=$(tmux list-sessions | grep -v attached | awk -F: '{print $1}' | head -n 1)
+                echo "* attaching to '${first_session}'..." | tee -a $joe_rc_log
+                tmux -2 attach -t "$first_session"
             else
-                echo "no unattached sessions found. Creating a new one..." >> $STARTUP_LOG
+                echo "none found." | tee -a $joe_rc_log
+                echo "* Creating a new session..." | tee -a $joe_rc_log
                 tmux -2
             fi
             if [ -f "$exit_file" ]; then
@@ -369,12 +376,13 @@ if [ -n "$SSH_CONNECTION" ]; then
                 exit $?
             fi
         else
-            echo "TMUX not found.  If you want session persistence, you should install TMUX."
+            echo "* TMUX not found.  If you want session persistence, you should install TMUX."
         fi
     else
-        echo "Active tmux session detected. Skipping tmux launch." >> $STARTUP_LOG
+        echo "* Active tmux session detected. Skipping tmux launch." | tee -a $joe_rc_log
         export TERM=screen-256color
     fi
 else
-    echo "Logged in locally. Skipping tmux launch." >> $STARTUP_LOG
+    echo "* Logged in locally. Skipping tmux launch." | tee -a $joe_rc_log
 fi
+echo "========================"

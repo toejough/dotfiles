@@ -375,12 +375,14 @@ if [ -n "$SSH_CONNECTION" ]; then
             else
                 exit $?
             fi
+            tmux source-file ~/.tmux.conf
         else
             echo "* TMUX not found.  If you want session persistence, you should install TMUX."
         fi
     else
         echo "* Active tmux session detected. Skipping tmux launch." | tee -a $joe_rc_log
         export TERM=screen-256color
+        tmux source-file ~/.tmux.conf
     fi
 else
     echo "* Logged in locally. Skipping tmux launch." | tee -a $joe_rc_log

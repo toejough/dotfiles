@@ -18,12 +18,12 @@ alias history_clear='history -c'
 #  Pull the global history items.  Appends to end of local history.
 alias history_pull='history -r'
 #  Dedup global history manually since the 'erasedups' only works on local history.
-hist_dedup_script=$joe_plugin_dir/history/history_dedup.py
+hist_dedup_script=$plugin_dir/history/history_dedup.py
 if [ -f $hist_dedup_script -a -n "$(command -v python)" ]; then
     alias history_dedup='python $hist_dedup_script ~/.bash_history'
 fi
 #  Sort global history manually since it doesn't do that for us.
-hist_sort_script=$joe_plugin_dir/history/history_sort.py
+hist_sort_script=$plugin_dir/history/history_sort.py
 if [ -f $hist_sort_script -a -n "$(command -v python)" ]; then
     alias history_sort='python $hist_sort_script ~/.bash_history'
 fi

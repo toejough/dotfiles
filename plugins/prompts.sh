@@ -75,3 +75,31 @@ PS2='>'
 PS3='<<Choose an option>>'
 # PS4 is 'xtrace' prompt - used with set -x for debugging
 PS4='>'"$RED"' $LINENO: '"$DEFAULT"
+
+# y/n prompt!
+function yes_or_no {
+    local default='N'
+    local choice=$default
+    local prompt="$1? [y/N]: "
+    local answer
+
+    while [ 1 ]; do
+        read -p "$prompt" -n 1 answer
+        [ -z "$answer" ] && answer=$default
+        echo '' >&2
+
+        case "$answer" in
+            [yY] ) echo 'yes'
+                break
+                ;;
+            [nN] ) echo 'no'
+                break
+                ;;
+            * ) ;;
+        esac
+    done
+}
+
+plugin-load 'commands.sh'
+normal_prompt_command="analyze_commands_not_found"
+export PROMPT_COMMAND="log-rc; $normal_prompt_command; $post_rc_commands; log-rc; export PROMPT_COMMAND=$normal_prompt_command"

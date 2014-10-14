@@ -34,13 +34,15 @@ export plugin_dir=$rc_dir/plugins
 if [ -d $plugin_dir -a -f $plugin_dir/main.sh ]; then
     source $plugin_dir/main.sh
 fi
+# [ -TMUX- ]
+# launch tmux all the time - the session persistence and status bar
+# are really nice
+plugin-load tmux.sh && log-rc "------------------------" && tmux-launch
+# [ -Other Plugins- ]
+# if we got past tmux-launch, load the remaining plugins and continue
+plugins-reload
 
 # [ Path Cleanup ]
 # Start with a clean, deduplicated set of paths
 export PATH=$(pathdd $PATH)
 export PYTHONPATH=$(pathdd $PYTHONPATH)
-
-# [ TMUX ]
-# launch tmux all the time - the session persistence and status bar
-# are really nice
-tmux-launch

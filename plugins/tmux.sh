@@ -4,16 +4,16 @@
 function exit-tmux () {
     if [[ -n $USR_TMUX_COMM_FILE ]]; then
         touch $USR_TMUX_COMM_FILE
-        exit
+        log-rc "touched USR_TMUX_COMM_FILE ($USR_TMUX_COMM_FILE).  Exiting..."
     else
-        echo "::ERROR:: No tmux comm file found.  Use 'exit' to exit completely."
+        log-rc "no USR_TMUX_COMM_FILE found - assuming user launched tmux directly.  Exiting..."
     fi
+    exit
 }
 
 
 function tmux-launch () {
     # don't launch tmux if we're already inside a tmux session
-    log-rc "------------------------"
     if [ -z "$TMUX" ]; then
         log-rc -n "* Checking for tmux..."
         if [ -n "$(command -v tmux)" ]; then
@@ -40,6 +40,7 @@ function tmux-launch () {
                 log-rc "::NOTICE:: Exited from tmux with exit-tmux."
                 rm $USR_TMUX_COMM_FILE
             else
+                log-rc "did not find ${USR_TMUX_COMM_FILE}.  Exiting parent shell now..."
                 exit
             fi
         else
@@ -49,7 +50,7 @@ function tmux-launch () {
     else
         log-rc "* Active tmux session detected. Skipping tmux launch."
         export TERM=screen-256color
-        #tmux source-file ~/.tmux.conf
+        tmux source-file ~/.tmux.conf > /dev/null 2>&1
     fi
     log-rc "------------------------"
 }

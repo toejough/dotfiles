@@ -3,13 +3,12 @@ installed_plugins=""
 
 function plugins-reload() {
     installed_plugins="$plugin_dir/main.sh"
-    log-rc
     log-rc "Loading plugins:"
     for plugin in $plugin_dir/*; do
         plugin-load $plugin
     done
     log-rc "Done loading plugins."
-    log-rc
+    log-rc "------------------------"
 }
 
 function plugin-load() {
@@ -28,5 +27,3 @@ function plugin-load() {
         fi
     fi
 }
-
-plugins-reload

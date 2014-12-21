@@ -23,7 +23,7 @@ function cd () {
         fi
         local last_dir=$(cat ~/.lastdir)
         if [[ $last_dir ]]; then
-            pushd $last_dir > /dev/null
+            pushd "$last_dir" > /dev/null
         else
             echo 'No lastdir found!' >&2
             return 1
@@ -43,7 +43,7 @@ function cd () {
 
 # cd and here
 # requires ls.sh
-plugin-load 'ls'
+plugin-load 'ls.sh'
 function cdh () {
-    cd $@ && here
+    cd "$@" && here
 }

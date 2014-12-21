@@ -92,3 +92,8 @@ let g:pymode_rope_complete_on_dot = 0
 set ttyfast
 set mouse=a
 set ttymouse=xterm
+
+" Syntastic
+"  - quiet the check telling you \unalias does unalias.  \ tells bash, in
+"  particular, to ignore aliases for the execution of this command.
+let g:syntastic_quiet_messages = { "regex": ["SC1001", "SC2148"] }

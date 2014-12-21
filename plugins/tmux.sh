@@ -52,5 +52,4 @@ function tmux-launch () {
         export TERM=screen-256color
         tmux source-file ~/.tmux.conf > /dev/null 2>&1
     fi
-    log-rc "------------------------"
 }

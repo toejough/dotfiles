@@ -18,7 +18,7 @@ function update-pip() {
 function update-spf13() {
     if [ -n $(which vim) ]; then
         log-rc 'updating vim plugins via spf13-vim...'
-        sh <(curl https://j.mp/spf13-vim3 -L)
+        bash <(curl https://j.mp/spf13-vim3 -L)
     else
         log-rc 'NOT updating vim plugins - vim not found.'
     fi

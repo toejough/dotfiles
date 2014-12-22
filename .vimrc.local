@@ -97,3 +97,5 @@ set ttymouse=xterm
 "  - quiet the check telling you \unalias does unalias.  \ tells bash, in
 "  particular, to ignore aliases for the execution of this command.
 let g:syntastic_quiet_messages = { "regex": ["SC1001", "SC2148"] }
+"  Always populate the location list with errors
+let g:syntastic_always_populate_loc_list=1

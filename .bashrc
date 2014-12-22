@@ -13,6 +13,14 @@ export UNIVERSAL_SETTINGS_DIR=$HOME/.settings
 export UNIVERSAL_BASHRC=$UNIVERSAL_SETTINGS_DIR/bashrc
 export LOCAL_SETTINGS_DIR=$HOME/.settings.local
 export LOCAL_BASHRC=$LOCAL_SETTINGS_DIR/bashrc
+# Assume Awesomeness, unless told otherwise
+AWESOME_BASH=1
+
+
+# [ Pre-config ]
+if [ -d $HOME/.settings.local -a -f $HOME/.settings.local/bashrc.before ]; then
+    source $HOME/.settings.local/bashrc.before
+fi
 
 
 # [ Universal Config ]
@@ -21,7 +29,6 @@ if [ -d "$UNIVERSAL_SETTINGS_DIR" -a -f "$UNIVERSAL_BASHRC" ]; then
     source "$UNIVERSAL_BASHRC"
 else
     printf "ERROR: Cannot load universal bashrc ('%s' does not exist or is not a file)\n" "$UNIVERSAL_BASHRC"
-fi
 
 
 # [ Local Config ]

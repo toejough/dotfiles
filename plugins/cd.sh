@@ -43,7 +43,7 @@ function cd () {
 
 # cd and here
 # requires ls.sh
-plugin-load 'ls.sh'
+plugins-load 'ls.sh'
 function cdh () {
     cd "$@" && here
 }

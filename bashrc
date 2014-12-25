@@ -21,17 +21,17 @@ function log-rc() {
 
 
 # [ TTY startup ]
-# Announce OS (I regularly log into machines with different OS's)
+# Announce Host & OS (I regularly log into different machines with different OS's)
 log-rc "========================"
-log-rc "[ OS: $(uname) ]"
 log-rc "[ Host: $(hostname -s) ]"
+log-rc "[ OS: $(uname) ]"
 log-rc "========================"
 
 
 # [ Plugins ]
-export plugin_dir=$rc_dir/plugins
-if [ -d "$plugin_dir" -a -f "$plugin_dir"/main.sh ]; then
-    source "$plugin_dir"/main.sh
+export PLUGINS_DIR=$rc_dir/plugins
+if [ -d "$PLUGINS_DIR" -a -f "$PLUGINS_DIR"/main.sh ]; then
+    source "$PLUGINS_DIR"/main.sh
 fi
 
 
@@ -39,13 +39,14 @@ fi
 # launch tmux all the time - the session persistence and status bar
 # are really nice
 log-rc "[ TMUX ]"
-plugin-load tmux.sh && log-rc "------------------------" && tmux-launch && log-rc "========================"
+plugins-load tmux.sh && log-rc "------------------------" && tmux-launch && log-rc "========================"
 
 
 # [ -Other Plugins- ]
 # if we got past tmux-launch, load the remaining plugins and continue
 log-rc "[ Plugins ]"
-plugins-reload
+plugins-load
+log-rc "========================"
 
 
 # [ Path Cleanup ]

@@ -19,3 +19,6 @@ The rc's are expected to have logic needed for every interactive shell.
 The profiles are expected to have logic needed only once each login.  
   They are run AFTER the rc's, as it is expected that your once-a-login actions will include your normal interactive shell actions.
 
+Guidelines:
+ - no silent failures.  If trying to configure something and can't, print a message.
+

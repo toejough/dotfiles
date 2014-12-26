@@ -6,6 +6,11 @@
 INSTALLED_PLUGINS="main.sh"
 
 
+# [ Dependencies ]
+source $PLUGINS_DIR/assert.sh
+INSTALLED_PLUGINS=$INSTALLED_PLUGINS" assert.sh"
+
+
 # [ API ]
 function plugins() {
     # Top-level plugin command
@@ -44,6 +49,7 @@ function plugins-dispatch() {
 
 function plugins-list() {
     # List the installed plugins
+    assert "$# == 0" "Expected no arguments to $FUNCNAME"
     printf "\nInstalled plugins:\n"
     for plugin in $INSTALLED_PLUGINS; do
         printf "... %s\n" "$plugin"
@@ -68,6 +74,7 @@ function plugins-load() {
 
 function plugins-explicit-load-single() {
     # Explicitly load a single plugin
+    assert "$# == 1" "Expected a single argument to $FUNCNAME"
     local plugin=$1
     local plugin_name=$(basename "$plugin")
     local plugin_path=$plugin
@@ -100,6 +107,7 @@ function plugins-explicit-load-single() {
 
 function plugins-explicit-load-list() {
     # explicitly load the given list of plugins
+    assert "$# > 1" "Expected more than one argument to $FUNCNAME"
     for plugin in $@; do
         plugins-explicit-load-single "$plugin"
         local rc=$?
@@ -112,5 +120,6 @@ function plugins-explicit-load-list() {
 
 function plugins-explicit-load-all() {
     # explicitly load all discovered plugins
+    assert "$# == 0" "Expected no arguments to $FUNCNAME"
     plugins-explicit-load-list "$PLUGINS_DIR"/*
 }

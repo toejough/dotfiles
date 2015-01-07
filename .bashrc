@@ -29,6 +29,7 @@ if [ -d "$UNIVERSAL_SETTINGS_DIR" -a -f "$UNIVERSAL_BASHRC" ]; then
     source "$UNIVERSAL_BASHRC"
 else
     printf "ERROR: Cannot load universal bashrc ('%s' does not exist or is not a file)\n" "$UNIVERSAL_BASHRC"
+fi
 
 
 # [ Local Config ]

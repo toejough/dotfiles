@@ -81,7 +81,7 @@ let g:pymode_lint_ignore="E501,E221,E203,E309"
 
 " Concealment
 set conceallevel=1
-set concealcursor=nc
+set concealcursor=c
 
 " Rope pymode crud
 " let g:pymode_rope = 0

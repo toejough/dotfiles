@@ -2,10 +2,9 @@
 #    with a name that you can cd to from any other location.
 
 #  Directory for the shortcuts...
-shortcuts=~/.dirlinks
+shortcuts=~/links
 #  Update the cd path
 if [ -d $shortcuts ]; then
-    CDPATH=.:$shortcuts
     function mark ()
     {
         NAME=$1
@@ -20,6 +19,10 @@ if [ -d $shortcuts ]; then
     {
         ls -l $shortcuts | awk '{print $9, $10, $11}' && echo
     }
+    # requires cd.sh
+    plugins-load 'cd.sh'
+    function jump() {
+        ocd ~
+        cdh $shortcuts
+    }
 fi
-#  Export it
-export CDPATH=$CDPATH

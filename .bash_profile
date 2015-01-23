@@ -10,8 +10,6 @@ fi
 
 # [ GLOBALS ]
 BASHRC=$HOME/.bashrc
-export UNIVERSAL_BASH_PROFILE=$UNIVERSAL_SETTINGS_DIR/bash_profile
-export LOCAL_BASH_PROFILE=$LOCAL_SETTINGS_DIR/bash_profile
 
 
 # [ Interactive Shell Init ]
@@ -19,6 +17,10 @@ export LOCAL_BASH_PROFILE=$LOCAL_SETTINGS_DIR/bash_profile
 if [ -f "$BASHRC" ]; then
     source "$BASHRC"
 fi
+
+# [ Post-RC GLOBALS ]
+export UNIVERSAL_BASH_PROFILE=$UNIVERSAL_SETTINGS_DIR/bash_profile
+export LOCAL_BASH_PROFILE=$LOCAL_SETTINGS_DIR/bash_profile
 
 
 # [ Universal Login Config ]

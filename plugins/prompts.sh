@@ -1,11 +1,7 @@
 #  Prompt-related functions and settings
 
 #  Requires "fullpath" from the paths plugin
-req_plugin=path.sh
-if [[ -z $(grep $req_plugin <<<$installed_plugins) ]]; then
-    . $plugin_dir/$req_plugin
-    installed_plugins=$installed_plugins" $req_plugin"
-fi
+plugins-load 'path.sh'
 
 # prompt strings undergo variable expansion after prompt expansion
 shopt -s promptvars

@@ -1,1 +1,6 @@
+" Use powerline patched fonts
 let g:airline_powerline_fonts=1
+
+" List only the plugin groups that get used
+let g:spf13_bundle_groups=['general', 'programming', 'neocomplcache', 'python', 'javascript', 'html', 'misc']
+

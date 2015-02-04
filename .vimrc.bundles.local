@@ -1,0 +1,13 @@
+
+" Unbundle things I don't care about
+" general
+UnBundle 'altercation/vim-colors-solarized'
+UnBundle 'mattn/webapi-vim'
+UnBundle 'mattn/gist-vim'
+UnBundle 'Lokaltog/powerline'
+UnBundle 'Lokaltog/vim-powerline'
+" Misc
+UnBundle 'tpope/vim-cucumber'
+UnBundle 'quentindecock/vim-cucumber-align-pipes'
+UnBundle 'Puppet-Syntax-Highlighting'
+

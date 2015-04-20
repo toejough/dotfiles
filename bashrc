@@ -59,8 +59,7 @@ export PYTHONPATH=$(pathdd "$PYTHONPATH")
 # Run an environment var
 if [[ -n "$STARTUP_COMMAND" ]]; then
     log-rc "[ Startup Command ]"
-    log-rc "$STARTUP_COMMAND"
     log-rc "------------------------"
-    $STARTUP_COMMAND
+    eval $STARTUP_COMMAND
     log-rc "========================"
 fi

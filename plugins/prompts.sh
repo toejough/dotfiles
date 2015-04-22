@@ -99,4 +99,4 @@ function yes_or_no {
 
 plugins-load 'commands.sh'
 normal_prompt_command="analyze_commands_not_found"
-export PROMPT_COMMAND="log-rc; $normal_prompt_command; $post_rc_commands; log-rc; export PROMPT_COMMAND=$normal_prompt_command"
+export PROMPT_COMMAND="$normal_prompt_command; echo '[ Post RC commands ]'; $post_rc_commands; echo '========================'; log-rc; export PROMPT_COMMAND=$normal_prompt_command"

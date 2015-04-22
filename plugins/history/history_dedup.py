@@ -66,6 +66,6 @@ else:
 deduplicated_count = len(deduplicated)
 plural = 'entries' if deduplicated_count != 1 else 'entry'
 end = '.' if deduplicated_count == 0 else ':'
-print("Deduplicated {} global history {}{}".format(deduplicated_count, plural, end))
+print("  Deduplicated {} global history {}{}".format(deduplicated_count, plural, end))
 if deduplicated_count:
-    print('  ' + '  '.join(deduplicated)[:-1])
+    print('    ' + '    '.join(deduplicated)[:-1])

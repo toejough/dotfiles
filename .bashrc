@@ -39,3 +39,12 @@ if [ -d "$LOCAL_SETTINGS_DIR" -a -f "$LOCAL_BASHRC" ]; then
 else
     printf "ERROR: Cannot load local bashrc ('%s' does not exist or is not a file)\n" "$LOCAL_BASHRC"
 fi
+
+
+# [ Exec ]
+# Run an environment var
+if [[ -n "$STARTUP_COMMAND" ]]; then
+    echo "[ Startup Command ]"
+    eval $STARTUP_COMMAND
+    echo "========================"
+fi

@@ -53,13 +53,3 @@ log-rc "========================"
 # Start with a clean, deduplicated set of paths
 export PATH=$(pathdd "$PATH")
 export PYTHONPATH=$(pathdd "$PYTHONPATH")
-
-
-# [ Exec ]
-# Run an environment var
-if [[ -n "$STARTUP_COMMAND" ]]; then
-    log-rc "[ Startup Command ]"
-    log-rc "------------------------"
-    eval $STARTUP_COMMAND
-    log-rc "========================"
-fi

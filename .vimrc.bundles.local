@@ -1,4 +1,8 @@
 
+" Fix for bundles undefined issue (https://github.com/spf13/spf13-vim/issues/738)
+if !exists("g:bundles")
+    let g:bundles = g:vundle#bundles
+endif
 " Unbundle things I don't care about
 " general
 UnBundle 'altercation/vim-colors-solarized'
@@ -10,4 +14,5 @@ UnBundle 'Lokaltog/vim-powerline'
 UnBundle 'tpope/vim-cucumber'
 UnBundle 'quentindecock/vim-cucumber-align-pipes'
 UnBundle 'Puppet-Syntax-Highlighting'
-
+" Git markdown
+Bundle 'jtratner/vim-flavored-markdown'

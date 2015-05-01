@@ -28,7 +28,7 @@ function update-brew() {
     if [ -n $(which brew) ]; then
         log-rc 'updating brewed packages via homebrew...'
         brew update
-        brew upgrade
+        brew upgrade --all
         brew prune
         brew cleanup -s
         brew doctor

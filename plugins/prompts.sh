@@ -53,7 +53,7 @@ function __time_ps1 () {
 # [ -Prompt Definitions- ]
 # PS1 is main prompt
 # Set PS1 to be ssh_lock_symbol[rc][username@host:curdir (git branch)<orphaned>](jobs)$
-PROMPT=$(python -c "l=${SHLVL}; p = '>'*l if l < 6 else '(SHLVL:{})>'.format(l); print p,")
+PROMPT=$(python -c "l=${SHLVL}; p = '▶'*l if l < 6 else '(SHLVL:{})▶'.format(l); print p,")
 PS1=\
 "$RED"'$(__rc_ps1 $?)'\
 "$CYAN"'$(__ssh)'\
@@ -67,11 +67,11 @@ PS1=\
 "$YELLOW"'$(__jobs_ps1 '"\j"')'\
 "$DEFAULT\n$PROMPT "
 # PS2 is line continuation prompt
-PS2='>'
+PS2='▶'
 # PS3 is 'select' prompt
 PS3='<<Choose an option>>'
 # PS4 is 'xtrace' prompt - used with set -x for debugging
-PS4='>'"$RED"' $LINENO: '"$DEFAULT"
+PS4='▶'"$RED"' $LINENO: '"$DEFAULT"
 
 # y/n prompt!
 function yes_or_no {

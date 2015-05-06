@@ -13,8 +13,12 @@ function exit-tmux () {
 
 
 function tmux-launch () {
+    # don't launch tmux if we're told to skip
+    if [ -n "$SKIP_TMUX" ]; then
+        log-rc "* SKIP_TMUX detected. Skipping tmux launch."
+        export TERM=screen-256color
     # don't launch tmux if we're already inside a tmux session
-    if [ -z "$TMUX" ]; then
+    elif [ -z "$TMUX" ]; then
         log-rc -n "* Checking for tmux..."
         if [ -n "$(command -v tmux)" ]; then
             log-rc "tmux found."
@@ -32,6 +36,7 @@ function tmux-launch () {
             else
                 log-rc "none found."
                 log-rc "* Creating a new session..."
+                tmux source-file ~/.tmux.conf > /dev/null 2>&1
                 tmux -2
             fi
             # At this point, we've entered either an existing session or a new one, and have exited again
@@ -50,6 +55,5 @@ function tmux-launch () {
     else
         log-rc "* Active tmux session detected. Skipping tmux launch."
         export TERM=screen-256color
-        tmux source-file ~/.tmux.conf > /dev/null 2>&1
     fi
 }

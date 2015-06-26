@@ -7,9 +7,7 @@ function update-all() {
 function update-pip() {
     if [ -n $(which pip) ]; then
         log-rc 'updating python packages via pip...'
-        for package in $(pip list -o | cut -d ' ' -f 1); do
-            sudo pip install -U $package
-        done
+        pip install -U -r $rc_dir/requirements.txt
     else
         log-rc 'NOT updating python packages - pip not found.'
     fi

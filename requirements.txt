@@ -1,0 +1,16 @@
+# Top-level modules
+beautifulsoup4
+blessings
+ipython
+keyring
+livereload
+pexpect
+pimento
+progressbar
+pylama
+pytest
+tox
+twine
+virtualenv
+virtualenvwrapper
+wheel

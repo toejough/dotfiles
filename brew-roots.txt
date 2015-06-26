@@ -1,0 +1,17 @@
+ack
+bash
+homebrew/versions/bash-completion2
+git
+htop-osx
+mobile-shell
+node
+osquery
+python
+python3
+reattach-to-user-namespace
+rust
+tig
+tmux
+tree
+vim
+wget

@@ -48,24 +48,24 @@ function __ssh () {
     fi
 }
 function __time_ps1 () {
-    echo " $(date +'%I:%M %p') "
+    echo "$(date +'%I:%M %p') "
 }
 # [ -Prompt Definitions- ]
 # PS1 is main prompt
 # Set PS1 to be ssh_lock_symbol[rc][username@host:curdir (git branch)<orphaned>](jobs)$
 PROMPT=$(python -c "l=${SHLVL}; p = '▶'*l if l < 6 else '(SHLVL:{})▶'.format(l); print p,")
 PS1=\
-"$RED"'$(__rc_ps1 $?)'\
-"$CYAN"'$(__ssh)'\
 "$GREY"'$(__time_ps1)'\
 "$DEFAULT["\
 "$BOLD_WHITE\u"\
-"$DEFAULT@\h:\W"\
+"$DEFAULT@\h:\w"\
+"$DEFAULT]\n╰"\
+"$RED"'$(__rc_ps1 $?)'\
+"$CYAN"'$(__ssh)'\
 "$GREEN"'$(__git_ps1)'\
 "$ORANGE"'$(__orphaned_ps1)'\
-"$DEFAULT]"\
 "$YELLOW"'$(__jobs_ps1 '"\j"')'\
-"$DEFAULT\n$PROMPT "
+"$DEFAULT $PROMPT "
 # PS2 is line continuation prompt
 PS2='▶'
 # PS3 is 'select' prompt

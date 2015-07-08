@@ -41,3 +41,28 @@ function git-branch-prune() {
     git branch -vv | grep -v '^* master$'
     echo
 }
+
+function git-install-osx-keychain-helper() {
+    # from https://help.github.com/articles/caching-your-github-password-in-git/
+
+    echo
+    # Download the helper
+    echo "[*] Downloading helper..."
+    curl -s -O https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain
+    # Fix the permissions on the file so it can be run
+    echo "[*] Setting permissions..."
+    chmod u+x git-credential-osxkeychain
+
+    # Move the helper to the path where git is installed
+    echo "[*] Moving to git install directory..."
+    sudo mv git-credential-osxkeychain "$(dirname $(which git))/git-credential-osxkeychain"
+    # Password: [enter your password]
+
+    # Set git to use the osxkeychain credential helper
+    echo "[*] Telling git to use the helper..."
+    git config --global credential.helper osxkeychain
+
+    # Done
+    echo "[*] Done!"
+    echo
+}

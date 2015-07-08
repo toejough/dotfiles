@@ -46,5 +46,9 @@ done
 
 echo '...installation complete.'
 echo
+echo '...to change the login shell:'
+echo '  add <path-to-shell> to /etc/shells'
+echo '  run chsh -s <path-to-shell>'
+echo '  if on osx, reboot (sorry, no known way around this)'
 
 exit 0

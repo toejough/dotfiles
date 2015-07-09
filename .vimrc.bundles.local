@@ -15,4 +15,6 @@ UnBundle 'tpope/vim-cucumber'
 UnBundle 'quentindecock/vim-cucumber-align-pipes'
 UnBundle 'Puppet-Syntax-Highlighting'
 " Git markdown
-Bundle 'jtratner/vim-flavored-markdown'
+"Bundle 'jtratner/vim-flavored-markdown'
+" Kotlin
+Bundle 'udalov/kotlin-vim'

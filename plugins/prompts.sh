@@ -35,9 +35,6 @@ function __jobs_ps1 () {
         echo "($JOBS)"
     fi
 }
-if [ -f ~/.git-prompt.sh ]; then
-    source ~/.git-prompt.sh
-fi
 if [ -z $(command -v __git_ps1) ]; then
     function __git_ps1 { :
     }

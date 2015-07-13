@@ -11,7 +11,7 @@ shopt -u autocd
 # - goes to the last global directory with '!'
 # - otherwise moves like cd
 # - pushes everything to the stack with pushd
-function cd () {
+function cdn () {
     # show dir stack
     if [[ "$@" == "?" ]]; then
         dirs -v
@@ -44,6 +44,6 @@ function cd () {
 # cd and here
 # requires ls.sh
 plugins-load 'ls.sh'
-function cdh () {
-    cd "$@" && here
+function cd () {
+    cdn "$@" && here
 }

@@ -53,12 +53,12 @@ function __time_ps1 () {
 PROMPT=$(python -c "l=${SHLVL}; p = '▶'*l if l < 6 else '(SHLVL:{})▶'.format(l); print p,")
 PS1=\
 "$RED"'$(__rc_ps1 $?)'\
+"$CYAN"'$(__ssh)'\
 "$GREY"'$(__time_ps1)'\
 "$DEFAULT["\
 "$BOLD_WHITE\u"\
 "$DEFAULT@\h:\w"\
 "$DEFAULT]\n╰"\
-"$CYAN"'$(__ssh)'\
 "$GREEN"'$(__git_ps1)'\
 "$ORANGE"'$(__orphaned_ps1)'\
 "$YELLOW"'$(__jobs_ps1 '"\j"')'\

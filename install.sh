@@ -18,6 +18,7 @@ links=" \
 .vimrc.local \
 .vimrc.bundles.local \
 .vimrc.before.local \
+.gitconfig \
 "
 
 completed_links=""

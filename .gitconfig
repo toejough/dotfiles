@@ -1,0 +1,31 @@
+[user]
+	name = toejough
+	email = toejough@gmail.com
+[color]
+	ui = always
+[core]
+	ignoresFile = /Users/joe/.gitignore
+	excludesFile = /Users/joe/.gitignore
+	editor = vim
+[credential]
+	helper = osxkeychain
+[alias]
+	forget = rm --cached
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[push]
+	default = simple
+[commit]
+	template = /Users/joe/.settings/git-commit-template.txt
+[help]
+	autocorrect = 50
+[pull]
+	ff = only
+[rebase]
+	autosquash = true
+[fetch]
+	prune = true
+[column]
+	ui = auto dense column

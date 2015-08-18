@@ -8,7 +8,7 @@ if [ -d $shortcuts ]; then
     function mark ()
     {
         NAME=$1
-        ln -siwv -s $(pwd) $shortcuts/$NAME
+        ln -siv $(pwd) $shortcuts/$NAME
     }
     function unmark ()
     {

@@ -38,7 +38,17 @@ set ttymouse=xterm
 let g:syntastic_quiet_messages = { "regex": ["SC1001", "SC2148"] }
 "  Always populate the location list with errors
 let g:syntastic_always_populate_loc_list=1
+"  use python 3
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 
 " Ctrlp
 nnoremap <Leader>pm :CtrlPMRU<Cr>
 nnoremap <Leader>pb :CtrlPBuffer<Cr>
+
+" Follow Notion's coding standard, re: tabs
+set shiftwidth=6                " Use indents of 4 spaces
+set noexpandtab                 " Tabs are tabs, not spaces
+set tabstop=6                   " An indentation every four columns
+set softtabstop=6               " Let backspace delete indent
+
+

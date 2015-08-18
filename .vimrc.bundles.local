@@ -10,6 +10,7 @@ UnBundle 'mattn/webapi-vim'
 UnBundle 'mattn/gist-vim'
 UnBundle 'Lokaltog/powerline'
 UnBundle 'Lokaltog/vim-powerline'
+UnBundle 'vim-indent-guides'
 " Misc
 UnBundle 'tpope/vim-cucumber'
 UnBundle 'quentindecock/vim-cucumber-align-pipes'

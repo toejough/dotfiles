@@ -19,3 +19,6 @@ UnBundle 'Puppet-Syntax-Highlighting'
 "Bundle 'jtratner/vim-flavored-markdown'
 " Kotlin
 Bundle 'udalov/kotlin-vim'
+
+" Unimpaired
+Bundle 'tpope/vim-unimpaired'

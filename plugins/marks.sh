@@ -23,6 +23,6 @@ if [ -d $shortcuts ]; then
     plugins-load 'cd.sh'
     function jump() {
         ocd ~
-        cdh $shortcuts/$1
+        cd $shortcuts/$1
     }
 fi

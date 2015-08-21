@@ -35,11 +35,14 @@ set ttymouse=xterm
 " Syntastic
 "  - quiet the check telling you \unalias does unalias.  \ tells bash, in
 "  particular, to ignore aliases for the execution of this command.
-let g:syntastic_quiet_messages = { "regex": ["SC1001", "SC2148"] }
+let g:syntastic_quiet_messages = { "regex": ["SC1001", "SC2148", "mixed-indentation"] }
 "  Always populate the location list with errors
 let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list = 1
 "  use python 3
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+"  Use propsector for python
+let g:syntastic_python_checkers = ["prospector"]
 
 " Ctrlp
 nnoremap <Leader>pm :CtrlPMRU<Cr>

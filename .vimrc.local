@@ -58,3 +58,10 @@ set softtabstop=6               " Let backspace delete indent
 
 " unset omnifunc
 set omnifunc=python3complete#Complete
+
+" set column limit highlighting
+set colorcolumn=120
+highlight ColorColumn ctermbg=DarkCyan
+
+" highlight the cursor column
+set cursorcolumn

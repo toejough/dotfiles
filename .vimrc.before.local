@@ -2,7 +2,7 @@
 let g:airline_powerline_fonts=1
 
 " List only the plugin groups that get used
-let g:spf13_bundle_groups=['general', 'programming', 'python', 'javascript', 'ruby', 'html', 'misc']
+let g:spf13_bundle_groups=['general', 'neocomplete', 'programming', 'javascript', 'ruby', 'html', 'misc']
 
 " Disable OmniComplete
 " - it screws up the arrow keys (https://github.com/spf13/spf13-vim/issues/567)

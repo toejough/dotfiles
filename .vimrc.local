@@ -43,6 +43,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 "  Use propsector for python
 let g:syntastic_python_checkers = ["prospector"]
+"  Use homedir prospector file
+let g:syntastic_python_prospector_args = "--profile ~/.prospector.yaml"
 
 " Ctrlp
 nnoremap <Leader>pm :CtrlPMRU<Cr>
@@ -54,4 +56,5 @@ set noexpandtab                 " Tabs are tabs, not spaces
 set tabstop=6                   " An indentation every four columns
 set softtabstop=6               " Let backspace delete indent
 
-
+" unset omnifunc
+set omnifunc=python3complete#Complete

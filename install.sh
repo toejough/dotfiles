@@ -19,6 +19,7 @@ links=" \
 .vimrc.bundles.local \
 .vimrc.before.local \
 .gitconfig \
+.prospector.yaml \
 "
 
 completed_links=""

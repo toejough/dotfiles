@@ -1,13 +1,14 @@
 function update-all() {
-    update-pip
-    update-spf13
     update-brew
+    update-spf13
+    update-pip
 }
 
 function update-pip() {
     if [ -n $(which pip) ]; then
         log-rc 'updating python packages via pip...'
-        pip install -U -r $rc_dir/requirements.txt
+        pip3 install -U pip
+        pip3 list -o | cut -d ' ' -f 1 | xargs -L1 pip3 install -U
     else
         log-rc 'NOT updating python packages - pip not found.'
     fi

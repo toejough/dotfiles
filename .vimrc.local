@@ -70,3 +70,7 @@ highlight ColorColumn ctermbg=DarkCyan
 
 " highlight the cursor column
 set cursorcolumn
+
+" Recommended for making <cr> work to select an autocompletion with
+" neocomplete:
+inoremap <expr><CR> pumvisible()? "\<C-y>" : "\<CR>"

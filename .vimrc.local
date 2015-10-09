@@ -56,8 +56,13 @@ set noexpandtab                 " Tabs are tabs, not spaces
 set tabstop=6                   " An indentation every four columns
 set softtabstop=6               " Let backspace delete indent
 
-" unset omnifunc
-set omnifunc=python3complete#Complete
+" use python3 completion
+"au FileType python setlocal omnifunc=python3complete#Complete
+" Use tabs, even for python
+au FileType python setlocal shiftwidth=6                " Use indents of 4 spaces
+au FileType python setlocal noexpandtab                 " Tabs are tabs, not spaces
+au FileType python setlocal tabstop=6                   " An indentation every four columns
+au FileType python setlocal softtabstop=6               " Let backspace delete indent
 
 " set column limit highlighting
 set colorcolumn=120

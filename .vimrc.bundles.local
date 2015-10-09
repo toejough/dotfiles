@@ -15,23 +15,22 @@ UnBundle 'nathanaelkane/vim-indent-guides'
 UnBundle 'tpope/vim-cucumber'
 UnBundle 'quentindecock/vim-cucumber-align-pipes'
 UnBundle 'Puppet-Syntax-Highlighting'
-" Git markdown
-"Bundle 'jtratner/vim-flavored-markdown'
-" Kotlin
-Bundle 'udalov/kotlin-vim'
-
-" Unimpaired
-Bundle 'tpope/vim-unimpaired'
-
-" no Jedi-vim for python3
-UnBundle 'davidhalter/jedi-vim'
-
-" do use tab for completion
-UnBundle 'ervandew/supertab'
-
 " broken bundle
 " https://github.com/spf13/spf13-vim/issues/547
 UnBundle 'gorodinskiy/vim-coloresque'
 
+" Current custom additions
+" Kotlin
+Bundle 'udalov/kotlin-vim'
+" Unimpaired
+Bundle 'tpope/vim-unimpaired'
 " work with virtualenvs
 Bundle 'jmcantrell/vim-virtualenv'
+
+" Old additions I no longer want
+" no Jedi-vim for python3
+UnBundle 'davidhalter/jedi-vim'
+" do use tab for completion
+UnBundle 'ervandew/supertab'
+" python3 syntax stuff
+UnBundle 'hdima/python-syntax'

@@ -9,6 +9,13 @@ if [[ -e ~/.settings ]]; then
     exit 1
 fi
 mv ~/dotfiles ~/.settings
+# TODO: only move and refuse to update if we're IN dotfiles to start with.
+# TODO: otherwise warn about dotfiles existing
+# TODO: and just override anything here
+# TODO: add a plugin for updating this, so that update-all will update this, too
+# TODO: make the update do a git fetch and check - if there's no update, don't re-run anything
+# TODO: make a re-install script, which: fresh git-clones the repo, moves all the installed things, installs, then deletes old
+# TODO: even before ^, make the install atomic - install everything to .tmpxyz.dotfiles and then to .settings, then link, with easy rollback if anything goes wrong.
 
 links=" \
 .bashrc \

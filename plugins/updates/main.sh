@@ -2,6 +2,23 @@ function update-all() {
     update-brew
     update-spf13
     update-pip
+    update-npm
+    update-gem
+}
+
+function update-gem() {
+	if [ -n $(which gem) ]; then
+		log-rc 'updating ruby packages via gem...'
+		gem outdated | cut -d' ' -f1 | xargs -L1 gem update | grep -v 'Updating installed gems'
+	fi
+}
+
+function update-npm() {
+	if [ -n $(which npm) ]; then
+		log-rc 'updating node packages via npm...'
+		npm -g update npm
+		npm -g outdated --parseable --depth=0 | cut -d: -f3 | xargs -L1 npm -g install
+	fi
 }
 
 function update-pip() {

@@ -1,8 +1,6 @@
 [user]
 	name = toejough
 	email = toejough@gmail.com
-[color]
-	ui = always
 [core]
 	ignoresFile = /Users/joe/.gitignore
 	excludesFile = /Users/joe/.gitignore
@@ -28,5 +26,3 @@
 	autosquash = true
 [fetch]
 	prune = true
-[column]
-	ui = auto dense column

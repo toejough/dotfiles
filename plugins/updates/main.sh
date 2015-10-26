@@ -9,7 +9,7 @@ function update-all() {
 function update-gem() {
 	if [ -n $(which gem) ]; then
 		log-rc 'updating ruby packages via gem...'
-		gem outdated | cut -d' ' -f1 | xargs -L1 gem update | grep -v 'Updating installed gems'
+		gem outdated | cut -d' ' -f1 | xargs -L1 gem update
 	fi
 }
 

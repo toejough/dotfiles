@@ -16,6 +16,9 @@ function update-gem() {
 function update-npm() {
 	if [ -n $(which npm) ]; then
 		log-rc 'updating node packages via npm...'
+		# npm install latest to fix node/npm issue with node 5.0.0:q
+		# see https://github.com/npm/npm/issues/10165
+		npm install -g npm@latest
 		npm -g update npm
 		npm -g outdated --parseable --depth=0 | cut -d: -f3 | xargs -L1 npm -g install
 	fi

@@ -77,3 +77,7 @@ inoremap <expr><CR> pumvisible()? "\<C-y>" : "\<CR>"
 
 " syntastic/pymode error conflict resolution - don't use pymode's checker.
 let g:pymode_lint=0
+
+" ctags - let me choose when there's more than one def
+" from https://superuser.com/questions/679160/how-to-jump-to-correct-method-definition-when-more-than-one-tags-match
+nnoremap <C-]> g<C-]>

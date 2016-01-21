@@ -23,13 +23,13 @@ function fullpath () {
     elif command -v realpath > /dev/null 2>&1; then
         realpath $1
     else
-        CDPATH="" builtin cd $(dirname $1) && echo $(pwd)"/"$(basename $1)
+        CDPATH="" builtin cd $(dirname "$1") && echo $(pwd)"/"$(basename "$1")
     fi
 }
 
 #path deduplication
 function pathdd () {
-    python -c 'x=[]; y=[x.append(p) for p in "'$1'".split(":") if p not in x]; print ":".join(x)'
+    python -c 'x=[]; y=[x.append(p) for p in "'"$1"'".split(":") if p not in x]; print ":".join(x)'
 }
 # path reduction
 alias condense_paths="sed 's/\/.*\(\/.*\..*\)/\/..\1/g'"
@@ -38,11 +38,11 @@ function __add_to_path() {
     if [[ $# -eq 0 ]]; then
         local path_to_add=./
     else
-        local path_to_add=$1
+        local path_to_add="$1"
     fi
-    path_to_add=$(fullpath $path_to_add)
-    export PATH=$(pathdd $path_to_add:$PATH)
-    echo PATH=$PATH
+    path_to_add=$(fullpath "$path_to_add")
+    export PATH=$(pathdd "$path_to_add:$PATH")
+    echo PATH="$PATH"
 }
 function __add_to_python_path() {
     if [[ $# -eq 0 ]]; then
@@ -69,12 +69,12 @@ function paths () {
 function addtopath () {
     if [[ "$1" == "-e" ]]; then
         shift
-        __add_to_path $1
+        __add_to_path "$1"
     elif [[ "$1" == "-p" ]]; then
         shift
         __add_to_python_path $1
     else
-        __add_to_path $1
+        __add_to_path "$1"
         __add_to_python_path $1
     fi
 }

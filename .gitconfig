@@ -9,7 +9,7 @@
 	helper = osxkeychain
 [alias]
 	forget = rm --cached
-	prune-all = "!git remote prune origin; git branch --merged | egrep -v '^\\s*\\*?\\s*master$' | xargs -L1 git branch -d"
+	prune-all = "!git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d"
 [filter "lfs"]
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f

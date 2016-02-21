@@ -50,19 +50,8 @@ let g:syntastic_python_prospector_args = "--profile ~/.prospector.yaml"
 nnoremap <Leader>pm :CtrlPMRU<Cr>
 nnoremap <Leader>pb :CtrlPBuffer<Cr>
 
-"" Follow Notion's coding standard, re: tabs
-"set shiftwidth=6                " Use indents of 4 spaces
-"set noexpandtab                 " Tabs are tabs, not spaces
-"set tabstop=6                   " An indentation every four columns
-"set softtabstop=6               " Let backspace delete indent
-
-"" use python3 completion
-""au FileType python setlocal omnifunc=python3complete#Complete
-"" Use tabs, even for python
-"au FileType python setlocal shiftwidth=6                " Use indents of 4 spaces
-"au FileType python setlocal noexpandtab                 " Tabs are tabs, not spaces
-"au FileType python setlocal tabstop=6                   " An indentation every four columns
-"au FileType python setlocal softtabstop=6               " Let backspace delete indent
+" use python3 completion
+"au FileType python setlocal omnifunc=python3complete#Complete
 
 " set column limit highlighting
 set colorcolumn=120

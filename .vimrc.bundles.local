@@ -11,6 +11,10 @@ UnBundle 'mattn/gist-vim'
 UnBundle 'Lokaltog/powerline'
 UnBundle 'Lokaltog/vim-powerline'
 UnBundle 'nathanaelkane/vim-indent-guides'
+" Python
+" SLOOWWWWW
+"UnBundle 'klen/python-mode'
+
 " Misc
 UnBundle 'tpope/vim-cucumber'
 UnBundle 'quentindecock/vim-cucumber-align-pipes'

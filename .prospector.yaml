@@ -18,6 +18,8 @@ pylint:
             - attribute-defined-outside-init
             - no-self-use
             - too-many-instance-attributes
+            - import-error
+            - wrong-import-order
 
 pep8:
       disable:

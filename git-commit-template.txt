@@ -12,3 +12,10 @@ Summary:
 
 # A discussion of your documentation for this commit
 **Documentation:**
+
+# A discussion of the impact of this commit, preferably in terms of semver
+# Initial for initial commit
+# 1.0.0 for 1.0.0 release
+# Major/minor/patch otherwise
+# include a quick discussion of why this commit has this impact.
+**Impact:**

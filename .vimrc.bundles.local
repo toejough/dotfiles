@@ -30,6 +30,8 @@ Bundle 'udalov/kotlin-vim'
 Bundle 'tpope/vim-unimpaired'
 " work with virtualenvs
 Bundle 'jmcantrell/vim-virtualenv'
+" Fast fold
+Bundle 'Konfekt/FastFold'
 
 " Old additions I no longer want
 " no Jedi-vim for python3

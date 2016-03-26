@@ -30,7 +30,7 @@ set concealcursor=c
 " Mouse
 set ttyfast
 set mouse=a
-set ttymouse=xterm
+set ttymouse=xterm2
 
 " Syntastic
 "  - quiet the check telling you \unalias does unalias.  \ tells bash, in
@@ -73,3 +73,6 @@ nnoremap <C-]> g<C-]>
 
 " pymode folding
 let g:pymode_folding=1
+
+" buffergator
+nnoremap <leader><space> :BuffergatorToggle<Cr>

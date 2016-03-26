@@ -30,7 +30,9 @@ Bundle 'udalov/kotlin-vim'
 Bundle 'tpope/vim-unimpaired'
 " work with virtualenvs
 Bundle 'jmcantrell/vim-virtualenv'
-" Fast fold
+" better buffer nav
+Bundle 'jeetsukumaran/vim-buffergator'
+" faster folding in vim as suggested by neocomplete
 Bundle 'Konfekt/FastFold'
 
 " Old additions I no longer want

@@ -20,6 +20,8 @@ pylint:
             - too-many-instance-attributes
             - import-error
             - wrong-import-order
+            - wrong-import-position
+            - misplaced-comparison-constant
 
 pep8:
       disable:
@@ -32,3 +34,4 @@ pep8:
 pep257:
       disable:
             - D402
+            - D203

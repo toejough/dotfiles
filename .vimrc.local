@@ -76,3 +76,10 @@ let g:pymode_folding=1
 
 " buffergator
 nnoremap <leader><space> :BuffergatorToggle<Cr>
+
+" Diff coloring
+highlight DiffAdd ctermbg=22
+highlight DiffChange ctermbg=237
+highlight DiffText ctermbg=226
+highlight DiffDelete ctermbg=88
+

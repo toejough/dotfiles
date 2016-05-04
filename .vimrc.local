@@ -83,3 +83,5 @@ highlight DiffChange ctermbg=237
 highlight DiffText ctermbg=226
 highlight DiffDelete ctermbg=88
 
+" Buffergator location
+let g:buffergator_viewport_split_policy='B'

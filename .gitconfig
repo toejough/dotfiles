@@ -20,7 +20,7 @@
 [push]
     default = simple
 [commit]
-    template = /Users/${USER}/.settings/git-commit-template.txt
+    template = ~/.settings/git-commit-template.txt
 [help]
     autocorrect = 50
 [pull]

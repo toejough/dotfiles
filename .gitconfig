@@ -1,50 +1,32 @@
-[user]
-	name = toejough
-	email = toejough@gmail.com
 [core]
-	ignoresFile = /Users/joe/.gitignore
-	excludesFile = /Users/joe/.gitignore
-	editor = vim
+    editor = vim
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
 [alias]
     delete-branch = branch -d
     switch = checkout
-    forget = rm --cached
+    new-branch = checkout -b
     prune-all = "!git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d"
-    update-local = "!git pull --rebase=preserve"
-    update-remote = "!git pull --rebase=preserve origin master && git push -f"
-    recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery and git update-remote again."
-    use-recovery = "!git reset --hard recover.$(git name)"
-    clean-history = "!git fetch && git rebase -i origin/master"
-    explicit-merge = "pull --no-ff"
-    fresh = "!git checkout master && git update-local && git prune-all"
     branches = branch -a
     tags = tag
     stashes = stash list
-    unstage = reset HEAD --
-    reset-file = checkout --
     uncommit = reset --mixed HEAD~
+    unstage = reset HEAD --
+    discard-changes = checkout --
     name = rev-parse --abbrev-ref HEAD
     nuke = "!get reset --hard origin/$(git name) && git clean -xdff"
     graph = log --graph --branches --remotes --tags --date-order --oneline --decorate
     backup = "!git push --set-upstream origin $(git name)"
-    update = "!git backup && git update-local && git clean-history && git update-remote"
-    up = "!git update"
-[filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
 [push]
-	default = simple
+    default = simple
 [commit]
-	template = /Users/joe/.settings/git-commit-template.txt
+    template = /Users/${USER}/.settings/git-commit-template.txt
 [help]
-	autocorrect = 50
+    autocorrect = 50
 [pull]
-	ff = only
+    ff = only
     rebase = preserve
 [rebase]
-	autosquash = true
+    autosquash = true
 [fetch]
-	prune = true
+    prune = true

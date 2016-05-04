@@ -4,7 +4,7 @@
     helper = osxkeychain
 [alias]
     delete-branch = branch -d
-    switch = checkout
+    switch-to = checkout
     new-branch = checkout -b
     prune-all = "!git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d"
     branches = branch -a

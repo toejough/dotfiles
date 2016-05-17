@@ -3,20 +3,72 @@
 [credential]
     helper = osxkeychain
 [alias]
-    delete-branch = branch -d
-    switch-to = checkout
-    new-branch = checkout -b
-    prune-all = "!git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d"
+    # [ data ]
+    name = rev-parse --abbrev-ref HEAD
+    last-common-commit = merge-base HEAD
+    has-local-changes-from = "!f() { if ( git fetch && git diff --quiet $(git last-common-commit $1) ); then test; fi }; f"
+    has-local-changes = "!git has-local-changes-from origin/$(git name)"
+    has-branch-changes = "!git has-local-changes-from origin/master"
     branches = branch -a
     tags = tag
     stashes = stash list
-    uncommit = reset --mixed HEAD~
-    unstage = reset HEAD --
-    discard-changes = checkout --
-    name = rev-parse --abbrev-ref HEAD
-    nuke = "!get reset --hard origin/$(git name) && git clean -xdff"
     graph = log --graph --branches --remotes --tags --date-order --oneline --decorate
-    backup = "!git push --set-upstream origin $(git name)"
+    raw-upstream = "!git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)"
+    upstream = "![[ -n $(git raw-upstream) ]] || ( echo 'no upstream branch set.' && test ) && git raw-upstream"
+
+    # [ common actions ]
+    delete-branch = branch -d
+    switch-to = checkout
+
+    # [ file state actions ]
+    # forget rm from version control, but keep in working tree
+    forget = rm --cached
+    # unstage a staged file
+    unstage = reset HEAD --
+    # discard a file's changes
+    discard-changes-to = checkout --
+    # undo last commit
+    undo-last-commit = reset --mixed HEAD~
+    # remove all local state
+    nuke-local-state = "!git reset --hard origin/$(git name) && git clean -xdff"
+
+    # [ workflow actions ]
+    # with remote:
+    # new branch:
+    # new-branch <foo>
+    new-branch = checkout -b
+    # push-new-branch
+    push-new-branch = "!if git upstream; then echo 'upstream branch exists.  Use \"git push\" to update it.' && test; else git push --set-upstream origin $(git name); fi"
+    # existing branch:
+    # <commit commit commit >
+    # cleanup-local-commits
+    cleanup-local-commits = "!git cleanup-from origin/$(git name)"
+    # rebase-local-commits
+    rebase-local-commits = "!git fetch && git rebase origin/$(git name)"
+    # push
+    # cleanup branch
+    cleanup-branch = "!git cleanup-from origin/master"
+    # rebase-branch
+    rebase-branch = "!git fetch && git rebase origin/master"
+    # push-rebased-branch
+    push-rebased-branch = push -f
+    # <repeat from existing branch>
+    # killed branch:
+    # prune-dead-branches
+    prune-dead-branches = "!git switch-to master && git rebase-branch && git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git delete-branch"
+    #
+    # local only:
+    # new branch:
+    # new-branch <foo>
+    # <commit commit commit>
+    # cleanup-from master
+    cleanup-from = "!f() { if git has-local-changes-from $1; then git rebase -i $(git last-common-commit $1); else echo 'Same as last common commit with '$1; fi }; f"
+    # existing branch:
+    # <commit commit commit >
+    # cleanup-from master
+    # <repeat from existing branch>
+    # killed branch:
+    # prune-dead-branches
 [push]
     default = simple
 [commit]

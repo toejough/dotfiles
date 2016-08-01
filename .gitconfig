@@ -1,50 +1,81 @@
 [user]
-	name = toejough
-	email = toejough@gmail.com
+    name = toejough
+    email = toejough@gmail.com
 [core]
-	ignoresFile = /Users/joe/.gitignore
-	excludesFile = /Users/joe/.gitignore
-	editor = vim
+    ignoresFile = /Users/joe/.gitignore
+    excludesFile = /Users/joe/.gitignore
+    editor = vim
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
 [alias]
-    delete-branch = branch -d
-    switch = checkout
-    forget = rm --cached
-    prune-all = "!git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d"
-    update-local = "!git pull --rebase=preserve"
-    update-remote = "!git pull --rebase=preserve origin master && git push -f"
-    recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery and git update-remote again."
-    use-recovery = "!git reset --hard recover.$(git name)"
-    clean-history = "!git fetch && git rebase -i origin/master"
-    explicit-merge = "pull --no-ff"
-    fresh = "!git checkout master && git update-local && git prune-all"
+    # [ data ]
+    name = rev-parse --abbrev-ref HEAD
+    last-common-commit = merge-base HEAD
+    has-local-changes-from = "!f() { if ( git fetch && git diff --quiet $(git last-common-commit $1) ); then test; fi }; f"
+    has-changes-from-branch = "!git has-local-changes-from origin/$(git name)"
+    has-changes-from-master = "!git has-local-changes-from origin/master"
     branches = branch -a
     tags = tag
     stashes = stash list
-    unstage = reset HEAD --
-    reset-file = checkout --
-    uncommit = reset --mixed HEAD~
-    name = rev-parse --abbrev-ref HEAD
-    nuke = "!get reset --hard origin/$(git name) && git clean -xdff"
     graph = log --graph --branches --remotes --tags --date-order --oneline --decorate
-    backup = "!git push --set-upstream origin $(git name)"
-    update = "!git backup && git update-local && git clean-history && git update-remote"
-    up = "!git update"
+    raw-upstream = "!git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)"
+    upstream = "![[ -n $(git raw-upstream) ]] || ( echo 'no upstream branch set.' && test ) && git raw-upstream"
+
+    # [ common actions ]
+    switch-to = checkout
+    push-new-branch = "!git push --set-upstream origin $(git name)"
+
+    # [ file state actions ]
+    # forget rm from version control, but keep in working tree
+    rm-from-git = rm --cached
+    # unstage a staged file
+    rm-from-staging = reset HEAD --
+    # discard a file's changes
+    rm-changes = checkout --
+    # undo last commit
+    undo-last-commit = reset --mixed HEAD~
+    # remove all local state
+    nuke-local-state = "!git reset --hard origin/$(git name) && git clean -xdff"
+
+    # [ workflow actions ]
+    new-branch = "!f() { git checkout -b $1; git push-new-branch; }; f"
+    clean-local = "!git cleanup-from origin/$(git name)"
+    integrate-branch = "!git fetch; git rebase origin/$(git name)"
+    clean-branch = "!git cleanup-from origin/master"
+    integrate-master = "!git fetch; git rebase origin/master"
+    prune-dead-branches = "!git switch-to master && git integrate-master && git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d"
+    cleanup-from = "!f() { if git has-local-changes-from $1; then git rebase -i $(git last-common-commit $1); else echo 'Same as last common commit with '$1; fi }; f"
+    
+    # [ Force-push recovery ]
+    recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery-version and git integrate-master again."
+    use-recovery-version = "!git reset --hard recover.$(git name); echo 'if you are really sure, git integrate-master.'"
+
+    # [ Worktree ]
+    workon = "!f() { git worktree add -b $1 ../$1 origin/master; }; f"
+    parent = "!git rev-parse --git-dir | awk -F/ '{ print $(NF-3)  }'"
+
 [filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
+    clean = git lfs clean %f
+    smudge = git lfs smudge %f
+    required = true
 [push]
-	default = simple
+    default = simple
 [commit]
-	template = /Users/joe/.settings/git-commit-template.txt
+    template = /Users/joe/.settings/git-commit-template.txt
 [help]
-	autocorrect = 50
+    autocorrect = 50
 [pull]
-	ff = only
+    ff = only
     rebase = preserve
 [rebase]
-	autosquash = true
+    autosquash = true
 [fetch]
-	prune = true
+    prune = true
+[diff]
+    compactionHeuristic = true
+[pager]
+    log = "diff-so-fancy | less --tabs=4 -RFX"
+    show = "diff-so-fancy | less --tabs=4 -RFX"
+    diff = "diff-so-fancy | less --tabs=4 -RFX"
+[interactive]
+    diffFilter = "diff-so-fancy | less --tabs=4 -RFX"

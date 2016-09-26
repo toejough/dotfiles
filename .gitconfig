@@ -17,7 +17,7 @@
     branches = branch -a
     tags = tag
     stashes = stash list
-    graph = log --graph --branches --remotes --tags --date-order --oneline --decorate
+    graph = log --graph --branches --remotes --tags --topo-order --oneline --decorate
     raw-upstream = "!git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)"
     upstream = "![[ -n $(git raw-upstream) ]] || ( echo 'no upstream branch set.' && test ) && git raw-upstream"
 

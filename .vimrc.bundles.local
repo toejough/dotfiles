@@ -42,3 +42,6 @@ UnBundle 'davidhalter/jedi-vim'
 UnBundle 'ervandew/supertab'
 " python3 syntax stuff
 UnBundle 'hdima/python-syntax'
+
+" Elm
+Bundle 'lambdatoast/elm.vim'

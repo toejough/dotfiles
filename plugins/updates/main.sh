@@ -25,7 +25,7 @@ function update-npm() {
 }
 
 function update-pip() {
-    if [ -n $(which pip) ]; then
+    if [ -n $(which pip3) ]; then
         log-rc 'updating python packages via pip...'
         pip3 install -U pip
         pip3 list -o | cut -d ' ' -f 1 | xargs -L1 pip3 install -U

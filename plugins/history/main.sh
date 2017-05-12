@@ -3,12 +3,8 @@
 #  append to history instead of replacing history on shell exit
 shopt -s histappend
 #  unlimited history
-unset HISTSIZE
-unset HISTFILESIZE
-if bash --version | grep 'version 4.3' > /dev/null 2>&1; then
-    export HISTSIZE=-1
-    export HISTFILESIZE=-1
-fi
+export HISTSIZE=-1
+export HISTFILESIZE=-1
 
 #  keep only the latest copy of a command
 export HISTCONTROL='erasedups'

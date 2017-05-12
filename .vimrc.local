@@ -42,9 +42,9 @@ let g:syntastic_auto_loc_list = 1
 "  use python 3
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 "  Use propsector for python
-let g:syntastic_python_checkers = ["prospector"]
+let g:syntastic_python_checkers = []
 "  Use homedir prospector file
-let g:syntastic_python_prospector_args = "--profile ~/.prospector.yaml"
+"let g:syntastic_python_prospector_args = "--profile ~/.prospector.yaml"
 
 " Ctrlp
 nnoremap <Leader>pm :CtrlPMRU<Cr>
@@ -85,3 +85,13 @@ highlight DiffDelete ctermbg=88
 
 " Buffergator location
 let g:buffergator_viewport_split_policy='B'
+
+"" Completor
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
+" YouCompleteMe
+nnoremap <leader>g :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>r :YcmCompleter GoToReferences<CR>
+let g:ycm_python_binary_path = 'python'

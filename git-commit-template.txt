@@ -1,11 +1,13 @@
 # A one-line summary, generally of the form "Fixes #x: abcd"
-Summary:
 
-# A description of the problem this commit addresses
+# A description of the problem or feature that triggered this commit.
 **Problem:**
 
-# A discussion of the problem, your solution, and possibly other solutions you considered and rejected.
+# A discussion of the problem, root causes, and possible solutions/workarounds (and their impacts).
 **Analysis:**
+
+# The solution this commit implements.
+**Resolution:**
 
 # A discussion of your testing/tests for this commit
 **Testing:**

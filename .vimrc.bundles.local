@@ -11,9 +11,6 @@ UnBundle 'mattn/gist-vim'
 UnBundle 'Lokaltog/powerline'
 UnBundle 'Lokaltog/vim-powerline'
 UnBundle 'nathanaelkane/vim-indent-guides'
-" Python
-" SLOOWWWWW
-"UnBundle 'klen/python-mode'
 
 " Misc
 UnBundle 'tpope/vim-cucumber'
@@ -34,6 +31,8 @@ Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'jeetsukumaran/vim-buffergator'
 " faster folding in vim as suggested by neocomplete
 Bundle 'Konfekt/FastFold'
+" better completion with jedi
+UnBundle 'maralla/completor.vim'
 
 " Old additions I no longer want
 " no Jedi-vim for python3

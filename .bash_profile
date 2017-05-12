@@ -40,5 +40,7 @@ else
     printf "ERROR: Cannot load local bash_profile ('%s' does not exist or is not a file)\n" "$LOCAL_BASH_PROFILE"
 fi
 
+
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
 
+export PYTHON_CONFIGURE_OPTS="--enable-framework"

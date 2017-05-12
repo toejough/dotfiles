@@ -1,6 +1,9 @@
 # Called by bash automatically for non-login interactive shell.
 
 
+export WORKON_HOME=~/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+source /usr/local/bin/virtualenvwrapper.sh
 # [ Interactive Shell Check ]
 # If somehow this is not an interactive shell, just return
 if [ -z "$PS1" ]; then
@@ -48,3 +51,6 @@ if [[ -n "$STARTUP_COMMAND" ]]; then
     eval $STARTUP_COMMAND
     echo "========================"
 fi
+
+
+

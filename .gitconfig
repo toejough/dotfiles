@@ -24,8 +24,7 @@
     raw-upstream = "!git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)"
     upstream = "![[ -n $(git raw-upstream) ]] || ( echo 'no upstream branch set.' && test ) && git raw-upstream"
 
-    # [ common actions ]
-    push-new-branch = "!git push --set-upstream origin $(git name)"
+    # [ branch actions ]
     rename = "!f() { \
         printf '[*] identifying branch...'; \
         local NAME=\"$(git name)\"; \
@@ -37,26 +36,28 @@
             echo '[*] removing old remote branch' && \
             git push origin :\"$NAME\"; \
     }; f"
+    prune-dead-branches = "!git checkout master && git integrate-master && git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D"
+    cleanup-from = "!f() { if git has-local-changes-from $1; then git rebase -i $(git last-common-commit $1); else echo 'Same as last common commit with '$1; fi }; f"
 
     # [ file state actions ]
     # unstage a staged file
     unstage = reset HEAD --
     # discard a file's changes
-    revert = checkout --
+    discard = checkout --
     # undo last commit
     uncommit = reset --soft HEAD~
     # remove all local state
     nuke-local-state = "!git reset --hard origin/$(git name) && git clean -xdff"
 
     # [ workflow actions ]
-    new-branch = "!f() { git checkout -b $1; git push-new-branch; }; f"
+    update-master = "!git checkout master && git fetch && git reset --hard origin/master"
+    new-branch = "!f() { git checkout -b $1; git push --set-upstream origin $(git name); }; f"
     clean-local = "!git cleanup-from origin/$(git name)"
     integrate-branch = "!git fetch; git rebase origin/$(git name)"
     clean-branch = "!git cleanup-from origin/master"
     integrate-master = "!git fetch; git rebase origin/master"
-    prune-dead-branches = "!git checkout master && git integrate-master && git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D"
-    cleanup-from = "!f() { if git has-local-changes-from $1; then git rebase -i $(git last-common-commit $1); else echo 'Same as last common commit with '$1; fi }; f"
-    
+    remove-local = "!f() { local NAME=\"$(git name)\" && git update-master && git branch -d \"${NAME}\"; }; f"
+
     # [ Force-push recovery ]
     recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery-version and git integrate-master again."
     use-recovery-version = "!git reset --hard recover.$(git name); echo 'if you are really sure, git integrate-master.'"

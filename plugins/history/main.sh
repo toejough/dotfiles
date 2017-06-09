@@ -5,6 +5,10 @@ shopt -s histappend
 #  unlimited history
 export HISTSIZE=-1
 export HISTFILESIZE=-1
+if bash --version | grep 'version 4.3' > /dev/null 2>&1; then
+    export HISTSIZE=-1
+    export HISTFILESIZE=-1
+fi
 
 #  keep only the latest copy of a command
 export HISTCONTROL='erasedups'

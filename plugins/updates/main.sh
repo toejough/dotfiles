@@ -6,12 +6,12 @@ function update-all() {
     update-gem
 }
 
-function update-gem() {
-	if [ -n $(which gem) ]; then
-		log-rc 'updating ruby packages via gem...'
-		gem outdated | cut -d' ' -f1 | xargs -L1 gem update
-	fi
-}
+#function update-gem() {
+#    if [ -n $(which gem) ]; then
+#        log-rc 'updating ruby packages via gem...'
+#        gem outdated | cut -d' ' -f1 | xargs -L1 gem update
+#    fi
+#}
 
 function update-npm() {
 	if [ -n $(which npm) ]; then

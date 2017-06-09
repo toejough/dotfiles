@@ -6,6 +6,7 @@ alias ocd='builtin cd'
 # !! Don't - this calls builtin cd no matter what, breaking
 # !! the cd awesomeness below...
 shopt -u autocd
+
 # replace cd with a version that:
 # - shows the directory stack with '?'
 # - goes to the last global directory with '!'

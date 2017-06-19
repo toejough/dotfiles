@@ -12,6 +12,12 @@ call plug#begin()
     Plug 'scrooloose/nerdtree'
     " python completion/goto/doc - better than python-mode
     Plug 'davidhalter/jedi-vim'
+    " non-python completions - fs/buffer/etc
+    Plug 'shougo/neocomplete.vim'
+    " tab-completion of the above completions
+    Plug 'ervandew/supertab'
+    " fast comment toggling
+    Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 " python-mode config
@@ -28,9 +34,15 @@ set background=dark
 colorscheme solarized
 
 " Ctrl-space
-set nocompatible
-set hidden
-set showtabline=0
+    " required settings
+    set nocompatible
+    set hidden
+    " suggested setting - heavy use of tabs, so the tabline isn't the normal
+    " tabline, so just stop showing it
+    set showtabline=0
+    " default key
+    let CtrlSpaceDefaultMappingKey = "<leader> "
+
 
 " leader key
 let mapleader = ","
@@ -39,6 +51,8 @@ let mapleader = ","
     " change usages shortcut
     " it defaults to <leader>n, but I want to use that with NERDTree
     let jedi#usages_command = '<leader>u'
+    " show signature inline
+    let jedi#show_call_signatures = 2
 
 " nerdtree
     " toggle nerdtree with leader-n
@@ -62,3 +76,13 @@ set ignorecase
 " vim backspace
     " backspace through eol, indentation, and the start of insert mode
     set backspace=indent,eol,start
+
+" neocomplete
+    " start up on startup
+    let neocomplete#enable_at_startup = 1
+    " automatically pre-select the first thing in the completion list
+    let neocomplete#enable_auto_select = 1
+
+" change current working directory for the local file when you switch buffers
+" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+autocmd BufEnter * silent! lcd %:p:h

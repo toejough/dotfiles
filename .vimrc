@@ -70,6 +70,10 @@ let mapleader = ","
     " On pressing tab, insert 4 spaces
     set expandtab
 
+" supertab
+    " return key closes the completion window without inserting newline
+    let SuperTabCrMapping = 1
+
 " vim command/search case
 set ignorecase
 

@@ -7,7 +7,7 @@ call plug#begin()
     " solarized color scheme
     Plug 'altercation/vim-colors-solarized'
     " fuzzy search
-    Plug 'vim-ctrlspace/vim-ctrlspace'
+    Plug 'ctrlpvim/ctrlp.vim'
     " file navigation/manipulation
     Plug 'scrooloose/nerdtree'
     " python completion/goto/doc - better than python-mode
@@ -18,6 +18,8 @@ call plug#begin()
     Plug 'ervandew/supertab'
     " fast comment toggling
     Plug 'scrooloose/nerdcommenter'
+    " surround things with parens/quotes
+    Plug 'tpope/vim-surround'
 call plug#end()
 
 " python-mode config
@@ -32,17 +34,6 @@ call plug#end()
 syntax enable
 set background=dark
 colorscheme solarized
-
-" Ctrl-space
-    " required settings
-    set nocompatible
-    set hidden
-    " suggested setting - heavy use of tabs, so the tabline isn't the normal
-    " tabline, so just stop showing it
-    set showtabline=0
-    " default key
-    let CtrlSpaceDefaultMappingKey = "<leader> "
-
 
 " leader key
 let mapleader = ","
@@ -90,3 +81,11 @@ set ignorecase
 " change current working directory for the local file when you switch buffers
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
 autocmd BufEnter * silent! lcd %:p:h
+
+" ctrl-p
+" enable ctags support
+    let g:ctrlp_extensions = ['tag', 'mixed', 'line']
+
+" supertab
+    " context-aware tab completion (filepath/function/text)
+    let g:SuperTabDefaultCompletionType = "context"

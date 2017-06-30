@@ -2,8 +2,6 @@
 call plug#begin()
     " Python highlighting/folding
     Plug 'klen/python-mode'
-    " specific commands for copy/paste to system clipboard
-    Plug 'christoomey/vim-system-copy'
     " solarized color scheme
     Plug 'altercation/vim-colors-solarized'
     " fuzzy search
@@ -13,6 +11,7 @@ call plug#begin()
     " python completion/goto/doc - better than python-mode
     Plug 'davidhalter/jedi-vim'
     " non-python completions - fs/buffer/etc
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'shougo/neocomplete.vim'
     " tab-completion of the above completions
     Plug 'ervandew/supertab'
@@ -20,6 +19,8 @@ call plug#begin()
     Plug 'scrooloose/nerdcommenter'
     " surround things with parens/quotes
     Plug 'tpope/vim-surround'
+    " set and unset paste mode automatically
+    Plug 'roxma/vim-paste-easy'
 call plug#end()
 
 " python-mode config
@@ -77,6 +78,8 @@ set ignorecase
     let neocomplete#enable_at_startup = 1
     " automatically pre-select the first thing in the completion list
     let neocomplete#enable_auto_select = 1
+    " async processing
+    let neocomplete#use_vimproc = 1
 
 " change current working directory for the local file when you switch buffers
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
@@ -89,3 +92,6 @@ autocmd BufEnter * silent! lcd %:p:h
 " supertab
     " context-aware tab completion (filepath/function/text)
     let g:SuperTabDefaultCompletionType = "context"
+
+" use system clipboard
+set clipboard=unnamed

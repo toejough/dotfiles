@@ -68,7 +68,7 @@ function fish_prompt
             set git_staged "$git_staged"\n(set_color green)"  $git_num_copied_staged copied"
         end
         if [ "$git_num_updated_staged" != "0" ]
-            set git_staged "$git_staged"\n(set_color orange)"  $git_num_updated_staged 'updated'"
+            set git_staged "$git_staged"\n(set_color red)"  $git_num_updated_staged 'updated'"
         end
         if [ "$git_staged" != "$original_git_staged" ]
             set git_staged "$git_staged"(set_color normal)
@@ -100,7 +100,7 @@ function fish_prompt
             set git_unstaged "$git_unstaged"\n(set_color green)"  $git_num_copied_unstaged copied"
         end
         if [ "$git_num_updated_unstaged" != "0" ]
-            set git_unstaged "$git_unstaged"\n(set_color orange)"  $git_num_updated_unstaged 'updated'"
+            set git_unstaged "$git_unstaged"\n(set_color red)"  $git_num_updated_unstaged 'updated'"
         end
         if [ "$git_unstaged" != "$original_git_unstaged" ]
             set git_unstaged "$git_unstaged"(set_color normal)

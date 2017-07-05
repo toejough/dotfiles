@@ -21,6 +21,8 @@ call plug#begin()
     Plug 'tpope/vim-surround'
     " set and unset paste mode automatically
     Plug 'roxma/vim-paste-easy'
+    " fish script syntax
+    Plug 'dag/vim-fish'
 call plug#end()
 
 " python-mode config
@@ -95,3 +97,6 @@ autocmd BufEnter * silent! lcd %:p:h
 
 " use system clipboard
 set clipboard=unnamed
+
+" enable mouse support
+set mouse=a

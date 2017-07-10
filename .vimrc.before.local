@@ -1,6 +1,0 @@
-" Use powerline patched fonts
-let g:airline_powerline_fonts=1
-
-" List only the plugin groups that get used
-let g:spf13_bundle_groups=['general', 'youcompleteme', 'programming', 'python', 'javascript', 'ruby', 'html', 'misc']
-"let g:spf13_bundle_groups=['general', 'neocomplete', 'programming', 'python', 'javascript', 'ruby', 'html', 'misc']

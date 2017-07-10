@@ -1,7 +1,0 @@
-$include /etc/inputrc
-
-$if Bash
-    set completion-ignore-case on
-    # append file-type indicators to completion options
-    set visible-stats on
-$endif

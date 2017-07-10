@@ -41,14 +41,6 @@
         Plug 'ryanoasis/vim-devicons'
     call plug#end()
 
-" solarized
-syntax enable
-set background=dark
-colorscheme solarized
-
-" leader key
-let mapleader = ","
-
 " jedi
     " change usages shortcut
     " it defaults to <leader>n, but I want to use that with NERDTree
@@ -78,26 +70,10 @@ let mapleader = ","
     " context-aware tab completion (filepath/function/text)
     let g:SuperTabDefaultCompletionType = "context"
 
-" vim command/search case
-set ignorecase
-
-" vim backspace
-    " backspace through eol, indentation, and the start of insert mode
-    set backspace=indent,eol,start
-
-" change current working directory for the local file when you switch buffers
-" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-autocmd BufEnter * silent! lcd %:p:h
 
 " ctrl-p
     " make first ctlp search be in mru by default, then buffers, then files after that
     let g:ctrlp_types = ['mru', 'buf', 'fil']
-
-" use system clipboard
-set clipboard=unnamed
-
-" enable mouse support
-set mouse=a
 
 " reload & clean & update
     " :JustReloadRC will just reload this RC file
@@ -125,3 +101,35 @@ set mouse=a
     endfunction
     " don't show mode, because lightline shows the mode
     set noshowmode 
+
+" Non-plugin customizations
+    " solarized
+    syntax enable
+    set background=dark
+    colorscheme solarized
+
+    " leader key
+    let mapleader = ","
+
+    " vim command/search case
+    set ignorecase
+
+    " backspace through eol, indentation, and the start of insert mode
+    set backspace=indent,eol,start
+
+    " change current working directory for the local file when you switch buffers
+    " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+    autocmd BufEnter * silent! lcd %:p:h
+
+    " use system clipboard
+    set clipboard=unnamed
+
+    " enable mouse support
+    set mouse=a
+    
+    " incremental search highlighting
+    set incsearch
+	
+    " When a file has been detected to have been changed outside of Vim and
+	" it has not been changed inside of Vim, automatically read it again.
+    set autoread

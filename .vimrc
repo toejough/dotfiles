@@ -37,6 +37,8 @@
         Plug 'tpope/vim-fugitive'
         " simple statusline
         Plug 'itchyny/lightline.vim'
+        " nice icons for file paths
+        Plug 'ryanoasis/vim-devicons'
     call plug#end()
 
 " solarized

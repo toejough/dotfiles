@@ -1,34 +1,43 @@
 " Plugin management
-call plug#begin()
-    " Python highlighting/folding
-    Plug 'klen/python-mode'
-    " solarized color scheme
-    Plug 'altercation/vim-colors-solarized'
-    " fuzzy search
-    Plug 'ctrlpvim/ctrlp.vim'
-    " file navigation/manipulation
-    Plug 'scrooloose/nerdtree'
-    " python completion/goto/doc - better than python-mode
-    Plug 'davidhalter/jedi-vim'
-    " non-python completions - fs/buffer/etc
-    " youcompleteme kept failing when I'd switch python environments
-    " neocomplete was super slow on my home computer
-    Plug 'ajh17/VimCompletesMe'
-    " tab-completion of the above completions
-    Plug 'ervandew/supertab'
-    " fast comment toggling
-    Plug 'scrooloose/nerdcommenter'
-    " surround things with parens/quotes
-    Plug 'tpope/vim-surround'
-    " set and unset paste mode automatically
-    Plug 'roxma/vim-paste-easy'
-    " fish script syntax
-    Plug 'dag/vim-fish'
-    " Sweet undo history
-    Plug 'mbbill/undotree'
-    " Git helpers
-    Plug 'tpope/vim-fugitive'
-call plug#end()
+    " Install manager if not present
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+    endif
+
+    " Load plugins
+    call plug#begin()
+        " Python highlighting/folding
+        Plug 'klen/python-mode'
+        " solarized color scheme
+        Plug 'altercation/vim-colors-solarized'
+        " fuzzy search
+        Plug 'ctrlpvim/ctrlp.vim'
+        " file navigation/manipulation
+        Plug 'scrooloose/nerdtree'
+        " python completion/goto/doc - better than python-mode
+        Plug 'davidhalter/jedi-vim'
+        " non-python completions - fs/buffer/etc
+        " youcompleteme kept failing when I'd switch python environments
+        " neocomplete was super slow on my home computer
+        Plug 'ajh17/VimCompletesMe'
+        " tab-completion of the above completions
+        Plug 'ervandew/supertab'
+        " fast comment toggling
+        Plug 'scrooloose/nerdcommenter'
+        " surround things with parens/quotes
+        Plug 'tpope/vim-surround'
+        " set and unset paste mode automatically
+        Plug 'roxma/vim-paste-easy'
+        " fish script syntax
+        Plug 'dag/vim-fish'
+        " Sweet undo history
+        Plug 'mbbill/undotree'
+        " Git helpers
+        Plug 'tpope/vim-fugitive'
+        " simple statusline
+        Plug 'itchyny/lightline.vim'
+    call plug#end()
 
 " python-mode config
     " color-column
@@ -101,3 +110,11 @@ set mouse=a
     command! -bar JustReloadRC source ~/.vimrc
     " :ReloadRC will do all three
     command! ReloadRC JustReloadRC|PlugClean|PlugUpdate
+
+" lightline
+    " show the line
+    set laststatus=2
+    " set the colorscheme
+    let lightline = { 'colorscheme': 'solarized' }
+    " don't show mode, because lightline shows the mode
+    set noshowmode 

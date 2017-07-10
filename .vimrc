@@ -109,6 +109,19 @@ set mouse=a
     " show the line
     set laststatus=2
     " set the colorscheme
-    let lightline = { 'colorscheme': 'solarized' }
+    let lightline = { 
+        \ 'colorscheme': 'solarized',
+        \ 'component_function': {
+            \ 'filetype': 'DevIconFiletype',
+            \ 'fileformat': 'DevIconFileformat',
+        \ }
+    \ }
+    function! DevIconFiletype()
+        return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+    endfunction
+
+    function! DevIconFileformat()
+        return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+    endfunction
     " don't show mode, because lightline shows the mode
     set noshowmode 

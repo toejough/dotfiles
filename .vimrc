@@ -97,5 +97,7 @@ set clipboard=unnamed
 set mouse=a
 
 " reload & clean & update
-command! -bar JustReloadRC source %
-command! ReloadRC JustReloadRC|PlugClean|PlugUpdate
+    " :JustReloadRC will just reload this RC file
+    command! -bar JustReloadRC source ~/.vimrc
+    " :ReloadRC will do all three
+    command! ReloadRC JustReloadRC|PlugClean|PlugUpdate

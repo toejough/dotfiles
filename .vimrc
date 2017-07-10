@@ -11,8 +11,9 @@ call plug#begin()
     " python completion/goto/doc - better than python-mode
     Plug 'davidhalter/jedi-vim'
     " non-python completions - fs/buffer/etc
-    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    Plug 'shougo/neocomplete.vim'
+    " youcompleteme kept failing when I'd switch python environments
+    " neocomplete was super slow on my home computer
+    Plug 'ajh17/VimCompletesMe'
     " tab-completion of the above completions
     Plug 'ervandew/supertab'
     " fast comment toggling
@@ -23,6 +24,10 @@ call plug#begin()
     Plug 'roxma/vim-paste-easy'
     " fish script syntax
     Plug 'dag/vim-fish'
+    " Sweet undo history
+    Plug 'mbbill/undotree'
+    " Git helpers
+    Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " python-mode config
@@ -67,6 +72,8 @@ let mapleader = ","
 " supertab
     " return key closes the completion window without inserting newline
     let SuperTabCrMapping = 1
+    " context-aware tab completion (filepath/function/text)
+    let g:SuperTabDefaultCompletionType = "context"
 
 " vim command/search case
 set ignorecase
@@ -75,28 +82,20 @@ set ignorecase
     " backspace through eol, indentation, and the start of insert mode
     set backspace=indent,eol,start
 
-" neocomplete
-    " start up on startup
-    let neocomplete#enable_at_startup = 1
-    " automatically pre-select the first thing in the completion list
-    let neocomplete#enable_auto_select = 1
-    " async processing
-    let neocomplete#use_vimproc = 1
-
 " change current working directory for the local file when you switch buffers
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
 autocmd BufEnter * silent! lcd %:p:h
 
 " ctrl-p
-" enable ctags support
-    let g:ctrlp_extensions = ['tag', 'mixed', 'line']
-
-" supertab
-    " context-aware tab completion (filepath/function/text)
-    let g:SuperTabDefaultCompletionType = "context"
+    " make first ctlp search be in mru by default, then buffers, then files after that
+    let g:ctrlp_types = ['mru', 'buf', 'fil']
 
 " use system clipboard
 set clipboard=unnamed
 
 " enable mouse support
 set mouse=a
+
+" reload & clean & update
+command! -bar JustReloadRC source %
+command! ReloadRC JustReloadRC|PlugClean|PlugUpdate

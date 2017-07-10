@@ -1,24 +1,32 @@
 Various dotfiles (rc's) that I personally use.
 
-Bash:
- - bashrc
- - bash_profile
- - .bashrc
- - .bash_profile
+# Fish   
 
-Readline:
- - inputrc
+I use the [fish shell](https://fishshell.com/).  Config is in `.config/fish`.
 
-I put these in ~/.settings directory on a host, and then symlink the actual dotfiles to them, like:
+The `.install.fish` script will:
+* install the contained `.config/fish/config.fish` base config
+* install the contained `.config/fish/functions` autofunctions
+* link the contained `.config/fish/fishd.universal` to the existing universal fish config file for the host.
 
-ln -s ~/.settings/.bashrc ~/.bashrc
+# Git
 
-The dot versions call the .settings versions, as well as .settings.local versions, for local customizations.
+My preferred git commit template is at `git-commit-template`.
 
-The rc's are expected to have logic needed for every interactive shell.
-The profiles are expected to have logic needed only once each login.  
-  They are run AFTER the rc's, as it is expected that your once-a-login actions will include your normal interactive shell actions.
+# Tmux
 
-Guidelines:
- - no silent failures.  If trying to configure something and can't, print a message.
+`.tmux.conf` contains my tmux config
 
+# Vim
+
+`.vimrc` contains my vimrc.  It consists of:
+* non-plugin config (like tabs, backspace, search, etc)
+* plugin manager installation if no manager is present (I use `Plug`)
+* plugin installation
+* plugin-specific config
+
+See the file for more details - it's not that long, and everything is commented.
+
+# Slate
+
+Slate needs updating/replacing, but I currently use it for rudimentary window management on osx.

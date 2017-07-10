@@ -1,3 +1,49 @@
+" Non-plugin customizations
+    " vi compatibility
+    set nocompatible
+
+    " leader key
+    let mapleader = ","
+
+    " vim command/search case
+    set ignorecase
+
+    " incremental search highlighting
+    set incsearch
+
+    " tabs
+        " use filetype-specific indentation, if that's set up in plugins
+        filetype plugin indent on
+        " show existing tab with 4 spaces width
+        set tabstop=4
+        " when indenting with '>', use 4 spaces width
+        set shiftwidth=4
+        " On pressing tab, insert 4 spaces
+        set expandtab
+
+    " backspace through eol, indentation, and the start of insert mode
+    set backspace=indent,eol,start
+
+    " change current working directory for the local file when you switch buffers
+    " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+    autocmd BufEnter * silent! lcd %:p:h
+
+    " use system clipboard
+    set clipboard=unnamed
+
+    " enable mouse support
+    set mouse=a
+    
+    " When a file has been detected to have been changed outside of Vim and
+	" it has not been changed inside of Vim, automatically read it again.
+    set autoread
+
+    " reload & clean & update
+        " :JustReloadRC will just reload this RC file
+        command! -bar JustReloadRC source ~/.vimrc
+        " :ReloadRC will do all three
+        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate
+
 " Plugin management
     " Install manager if not present
     if empty(glob('~/.vim/autoload/plug.vim'))
@@ -41,12 +87,22 @@
         Plug 'ryanoasis/vim-devicons'
     call plug#end()
 
-" jedi
-    " change usages shortcut
-    " it defaults to <leader>n, but I want to use that with NERDTree
-    let jedi#usages_command = '<leader>u'
-    " show signature inline
-    let jedi#show_call_signatures = 2
+" python-mode config
+    " color-column
+    let pymode_options_max_line_length = 120
+    " no linting - just do that externally
+    let pymode_lint = 0
+    " turn off rope support
+    let pymode_rope = 0
+
+" solarized
+    syntax enable
+    set background=dark
+    colorscheme solarized
+
+" ctrl-p
+    " make first ctlp search be in mru by default, then buffers, then files after that
+    let g:ctrlp_types = ['mru', 'buf', 'fil']
 
 " nerdtree
     " toggle nerdtree with leader-n
@@ -54,26 +110,18 @@
     " close the nerdtree when a file is opened from it  
     let NERDTreeQuitOnOpen = 1 
 
-" tabs
-    " use filetype-specific indentation, if that's set up in plugins
-    filetype plugin indent on
-    " show existing tab with 4 spaces width
-    set tabstop=4
-    " when indenting with '>', use 4 spaces width
-    set shiftwidth=4
-    " On pressing tab, insert 4 spaces
-    set expandtab
+" jedi
+    " change usages shortcut
+    " it defaults to <leader>n, but I want to use that with NERDTree
+    let jedi#usages_command = '<leader>u'
+    " show signature inline
+    let jedi#show_call_signatures = 2
 
 " supertab
     " return key closes the completion window without inserting newline
     let SuperTabCrMapping = 1
     " context-aware tab completion (filepath/function/text)
     let g:SuperTabDefaultCompletionType = "context"
-
-
-" ctrl-p
-    " make first ctlp search be in mru by default, then buffers, then files after that
-    let g:ctrlp_types = ['mru', 'buf', 'fil']
 
 " lightline
     " show the line
@@ -95,41 +143,3 @@
     endfunction
     " don't show mode, because lightline shows the mode
     set noshowmode 
-
-" Non-plugin customizations
-    " solarized
-    syntax enable
-    set background=dark
-    colorscheme solarized
-
-    " leader key
-    let mapleader = ","
-
-    " vim command/search case
-    set ignorecase
-
-    " backspace through eol, indentation, and the start of insert mode
-    set backspace=indent,eol,start
-
-    " change current working directory for the local file when you switch buffers
-    " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-    autocmd BufEnter * silent! lcd %:p:h
-
-    " use system clipboard
-    set clipboard=unnamed
-
-    " enable mouse support
-    set mouse=a
-    
-    " incremental search highlighting
-    set incsearch
-	
-    " When a file has been detected to have been changed outside of Vim and
-	" it has not been changed inside of Vim, automatically read it again.
-    set autoread
-
-    " reload & clean & update
-        " :JustReloadRC will just reload this RC file
-        command! -bar JustReloadRC source ~/.vimrc
-        " :ReloadRC will do all three
-        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate

@@ -75,12 +75,6 @@
     " make first ctlp search be in mru by default, then buffers, then files after that
     let g:ctrlp_types = ['mru', 'buf', 'fil']
 
-" reload & clean & update
-    " :JustReloadRC will just reload this RC file
-    command! -bar JustReloadRC source ~/.vimrc
-    " :ReloadRC will do all three
-    command! ReloadRC JustReloadRC|PlugClean|PlugUpdate
-
 " lightline
     " show the line
     set laststatus=2
@@ -133,3 +127,9 @@
     " When a file has been detected to have been changed outside of Vim and
 	" it has not been changed inside of Vim, automatically read it again.
     set autoread
+
+    " reload & clean & update
+        " :JustReloadRC will just reload this RC file
+        command! -bar JustReloadRC source ~/.vimrc
+        " :ReloadRC will do all three
+        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate

@@ -1,16 +1,12 @@
 " Non-plugin customizations
     " vi compatibility
     set nocompatible
-
     " leader key
     let mapleader = ","
-
     " vim command/search case
     set ignorecase
-
     " incremental search highlighting
     set incsearch
-
     " tabs
         " use filetype-specific indentation, if that's set up in plugins
         filetype plugin indent on
@@ -20,24 +16,18 @@
         set shiftwidth=4
         " On pressing tab, insert 4 spaces
         set expandtab
-
     " backspace through eol, indentation, and the start of insert mode
     set backspace=indent,eol,start
-
     " change current working directory for the local file when you switch buffers
     " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
     autocmd BufEnter * silent! lcd %:p:h
-
     " use system clipboard
     set clipboard=unnamed
-
     " enable mouse support
     set mouse=a
-    
     " When a file has been detected to have been changed outside of Vim and
 	" it has not been changed inside of Vim, automatically read it again.
     set autoread
-
     " reload & clean & update
         " :JustReloadRC will just reload this RC file
         command! -bar JustReloadRC source ~/.vimrc
@@ -50,7 +40,6 @@
         silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
     endif
-
     " Load plugins
     call plug#begin()
         " Python highlighting/folding

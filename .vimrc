@@ -74,6 +74,8 @@
         Plug 'itchyny/lightline.vim'
         " nice icons for file paths
         Plug 'ryanoasis/vim-devicons'
+        " smoother scrolling
+        Plug 'yuttie/comfortable-motion.vim'
     call plug#end()
 
 " python-mode config

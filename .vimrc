@@ -1,6 +1,8 @@
 " Non-plugin customizations
     " vi compatibility
     set nocompatible
+    " no swapfile
+    let updatecount=0
     " leader key
     let mapleader = ","
     " vim command/search case
@@ -83,8 +85,6 @@
     let pymode_options_max_line_length = 120
     " no linting - just do that externally
     let pymode_lint = 0
-    " turn off rope support
-    let pymode_rope = 0
 
 " solarized
     syntax enable

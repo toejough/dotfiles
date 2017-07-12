@@ -78,6 +78,8 @@
         Plug 'ryanoasis/vim-devicons'
         " smoother scrolling
         Plug 'yuttie/comfortable-motion.vim'
+        " faster/better search
+        Plug 'mileszs/ack.vim'
     call plug#end()
 
 " python-mode config
@@ -133,3 +135,27 @@
     endfunction
     " don't show mode, because lightline shows the mode
     set noshowmode 
+
+" ack
+    " search from the project root
+    cnoreabbrev ag Gcd <bar> Ack!
+    " use ag
+    let g:ackprg = "ag --vimgrep"
+    " highlight results
+    let g:ackhighlight = 1
+    " don't close when a match is selected
+    " this is a tempting default, but it also closes when you do a preview,
+    " because the preview selects a match and jumps back down
+    let g:ack_autoclose = 0
+    " don't fold matches to the same file
+    " this seems cool, but then you see
+    " https://github.com/mileszs/ack.vim/issues/146, which means the
+    " folds apply to all files, not just the quickfix window
+    let g:ack_autofold_results = 0
+    " don't use a preview window
+    " it didn't open my folds, so it wasn't useful
+    let g:ackpreview = 0
+    " make the 'o' key jump to the match, open any fold, center the screen,
+    " then jump back down into the quickfix window.  If it's the one you want,
+    " hit q to exit quickfix and land back on the match.
+    let g:ack_mappings = { "o": "<CR>zozz<C-W>j" }

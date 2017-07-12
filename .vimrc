@@ -35,6 +35,8 @@
         command! -bar JustReloadRC source ~/.vimrc
         " :ReloadRC will do all three
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate
+    " toggle all fold levels under cursor with <space> in normal mode
+    noremap <space> za
 
 " Plugin management
     " Install manager if not present
@@ -158,6 +160,6 @@
     " make the 'o' key jump to the match, open any fold, center the screen,
     " then jump back down into the quickfix window.  If it's the one you want,
     " hit q to exit quickfix and land back on the match.
-    let g:ack_mappings = { "o": "<CR>zozz<C-W>j" }
+    let g:ack_mappings = { "o": "<CR>zOzz<C-W>j" }
     " search word under cursor with <leader>a
     map <leader>a :ag<CR>

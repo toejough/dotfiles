@@ -159,3 +159,5 @@
     " then jump back down into the quickfix window.  If it's the one you want,
     " hit q to exit quickfix and land back on the match.
     let g:ack_mappings = { "o": "<CR>zozz<C-W>j" }
+    " search word under cursor with <leader>a
+    map <leader>a :ag<CR>

@@ -35,8 +35,11 @@
         command! -bar JustReloadRC source ~/.vimrc
         " :ReloadRC will do all three
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate
-    " toggle all fold levels under cursor with <space> in normal mode
+    " <space> opens a fold as long as there's a closed fold under it
+    " otherwise closes one fold level
     noremap <space> za
+    " unfold down to the current line, refold everything else
+    noremap <leader><space> zx
 
 " Plugin management
     " Install manager if not present
@@ -89,6 +92,8 @@
     let pymode_options_max_line_length = 120
     " no linting - just do that externally
     let pymode_lint = 0
+    " no completion - do that with jedi exclusively
+    let pymode_rope_completion = 0
 
 " solarized
     syntax enable
@@ -157,9 +162,10 @@
     " don't use a preview window
     " it didn't open my folds, so it wasn't useful
     let g:ackpreview = 0
-    " make the 'o' key jump to the match, open any fold, center the screen,
-    " then jump back down into the quickfix window.  If it's the one you want,
-    " hit q to exit quickfix and land back on the match.
-    let g:ack_mappings = { "o": "<CR>zOzz<C-W>j" }
+    " make the 'o' key jump to the match, fold everything but the current line, 
+    " center the screen, then jump back down into the quickfix window.
+    " If it's the one you want, hit q to exit quickfix and land back 
+    " on the match.
+    let g:ack_mappings = { "o": "<CR>zxzz<C-W>j" }
     " search word under cursor with <leader>a
     map <leader>a :ag<CR>

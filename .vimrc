@@ -147,11 +147,17 @@
     " expects that a nerdfont was installed, such as from
     " `brew tap Caskroom/fonts; and brew cask install
     " font-sourcecodepro-nerd-font`
+    if empty(execute('brew cask list | grep sourcecodepro'))
+        silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font 
+    endif
 
 " ack
     " search from the project root
     cnoreabbrev ag Gcd <bar> Ack!
     " use ag
+    if !executable('ag')
+        silent !brew install ag
+    endif
     " depends on ag being installed via `brew install ag`, for instance
     let g:ackprg = "ag --vimgrep"
     " highlight results

@@ -143,10 +143,16 @@
     " don't show mode, because lightline shows the mode
     set noshowmode 
 
+" devicons
+    " expects that a nerdfont was installed, such as from
+    " `brew tap Caskroom/fonts; and brew cask install
+    " font-sourcecodepro-nerd-font`
+
 " ack
     " search from the project root
     cnoreabbrev ag Gcd <bar> Ack!
     " use ag
+    " depends on ag being installed via `brew install ag`, for instance
     let g:ackprg = "ag --vimgrep"
     " highlight results
     let g:ackhighlight = 1

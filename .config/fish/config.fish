@@ -5,3 +5,6 @@ status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
 # Editor
 set -g EDITOR vim
+
+# Rust (for alacritty)
+set PATH $PATH /Users/joe/.cargo/bin

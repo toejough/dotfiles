@@ -85,6 +85,8 @@
         Plug 'yuttie/comfortable-motion.vim'
         " faster/better search
         Plug 'mileszs/ack.vim'
+        " highlight everything during incremental search
+        Plug 'haya14busa/incsearch.vim'
     call plug#end()
 
 " python-mode config

@@ -185,3 +185,9 @@
     let g:ack_mappings = { "o": "<CR>zxzz<C-W>j" }
     " search word under cursor with <leader>a
     map <leader>a :ag<CR>
+
+" incsearch
+    " mappings
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)

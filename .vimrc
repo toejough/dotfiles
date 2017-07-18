@@ -39,7 +39,7 @@
     " otherwise closes one fold level
     noremap <space> za
     " unfold down to the current line, refold everything else
-    noremap <leader><space> zx
+    noremap <leader><space> zxzz
 
 " Plugin management
     " Install manager if not present

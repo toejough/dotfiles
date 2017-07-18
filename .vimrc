@@ -151,7 +151,7 @@
     " expects that a nerdfont was installed, such as from
     " `brew tap Caskroom/fonts; and brew cask install
     " font-sourcecodepro-nerd-font`
-    if empty(execute('brew cask list | grep sourcecodepro'))
+    if empty(system('brew cask list | grep sourcecodepro'))
         silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font 
     endif
 

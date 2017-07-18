@@ -96,6 +96,8 @@
     let pymode_lint = 0
     " no completion - do that with jedi exclusively
     let pymode_rope_completion = 0
+    " debugger command
+    let pymode_breakpoint_cmd = 'import bpdb; bpdb.set_trace()  # XXX BREAKPOINT'
 
 " solarized
     syntax enable

@@ -40,6 +40,8 @@
     noremap <space> za
     " unfold down to the current line, refold everything else
     noremap <leader><space> zxzz
+    " lines of context when moving
+    set so=10
 
 " Plugin management
     " Install manager if not present

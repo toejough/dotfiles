@@ -1,1 +1,0 @@
-/Users/joe/.config/fisherman/fasd/functions/s.fish

@@ -5,7 +5,7 @@
 	<key>AdjustWindowForFontSizeChange</key>
 	<false/>
 	<key>AllowClipboardAccess</key>
-	<false/>
+	<true/>
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>AnimateDimming</key>
@@ -80,6 +80,13 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0xf700-0x340000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Move Divider Up</string>
+		</dict>
 		<key>0xf700-0x380000</key>
 		<dict>
 			<key>Action</key>
@@ -100,6 +107,13 @@
 			<integer>56</integer>
 			<key>Text</key>
 			<string></string>
+		</dict>
+		<key>0xf701-0x340000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Move Divider Down</string>
 		</dict>
 		<key>0xf701-0x380000</key>
 		<dict>
@@ -122,6 +136,13 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0xf702-0x340000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Move Divider Left</string>
+		</dict>
 		<key>0xf702-0x380000</key>
 		<dict>
 			<key>Action</key>
@@ -142,6 +163,13 @@
 			<integer>54</integer>
 			<key>Text</key>
 			<string></string>
+		</dict>
+		<key>0xf703-0x340000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Move Divider Right</string>
 		</dict>
 		<key>0xf703-0x380000</key>
 		<dict>
@@ -191,14 +219,8 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSColorPanelMode</key>
-	<string>3</string>
-	<key>NSColorPickerSlidersDefaults</key>
-	<string>3</string>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Pictures/Backgrounds/Tagged As Background</string>
+	<string>~</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -226,72 +248,35 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
-	<key>NSToolbar Configuration Terminal Toolbar</key>
-	<dict>
-		<key>TB Display Mode</key>
-		<integer>3</integer>
-		<key>TB Icon Size Mode</key>
-		<integer>1</integer>
-		<key>TB Is Shown</key>
-		<integer>0</integer>
-		<key>TB Size Mode</key>
-		<integer>1</integer>
-	</dict>
 	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
 	<dict>
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>929 110 445 435 0 0 1440 900 </string>
+	<string>1286 200 918 166 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>55 405 606 456 0 0 1440 877 </string>
+	<string>-771 -171 606 456 -1440 -388 1440 877 </string>
 	<key>NSWindow Frame ProfilesPanel</key>
-	<string>690 483 735 382 0 0 1440 900 </string>
+	<string>1377 250 735 382 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>522 561 400 129 0 0 1440 877 </string>
+	<string>1082 966 400 129 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>412 363 620 392 0 0 1440 877 </string>
+	<string>972 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 219 606 469 0 0 1440 900 </string>
+	<string>1146 678 597 423 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>172 383 796 473 0 0 1440 877 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>99 293 592 584 0 0 1440 877 </string>
+	<string>101 574 1018 447 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>4 4 730 867 0 0 1440 877 </string>
+	<string>2560 -456 730 839 2560 -456 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>97 80 612 748 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 10</key>
-	<string>797 339 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 11</key>
-	<string>166 226 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 12</key>
-	<string>414 306 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 13</key>
-	<string>435 283 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 14</key>
-	<string>456 260 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 15</key>
-	<string>477 237 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 16</key>
-	<string>498 214 572 427 0 0 1440 878 </string>
+	<string>1559 720 490 377 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>590 208 412 328 0 0 1440 877 </string>
+	<string>-957 -53 490 377 -1440 -388 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>255 263 426 328 0 0 1440 877 </string>
+	<string>796 81 1326 1017 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>865 549 426 328 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 5</key>
-	<string>123 337 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 6</key>
-	<string>117 342 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 7</key>
-	<string>720 257 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 8</key>
-	<string>330 398 572 427 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 9</key>
-	<string>351 375 572 427 0 0 1440 878 </string>
+	<string>288 421 570 473 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1620,7 +1605,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SauceCodePowerline-Regular 10</string>
+			<string>SauceCodeProNerdFontC-Regular 10</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2565,8 +2550,6 @@
 			<string>/Users/joe</string>
 		</dict>
 	</array>
-	<key>NoSyncAutoBurialReveal</key>
-	<true/>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
 	<key>NoSyncConfirmBeta</key>
@@ -2575,12 +2558,8 @@
 	<true/>
 	<key>NoSyncConfirmShellIntegrationCommand_selection</key>
 	<integer>0</integer>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
-	<true/>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
+	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>1</integer>
-	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
-	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallUtilitiesPackage</key>
@@ -2588,21 +2567,17 @@
 	<key>NoSyncInstallUtilitiesPackage_selection</key>
 	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>BB4AAC76-D374-4947-B5E3-77D0ED563FF4</string>
+	<string>C18E6BC7-1005-4AC2-B409-6C66B2365069</string>
 	<key>NoSyncLastTipTime</key>
-	<real>506810151.39641201</real>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<real>481124436.05878597</real>
 	<key>NoSyncPermissionToShowTip</key>
 	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>485527303.51822698</real>
+	<real>471305111.47505599</real>
 	<key>NoSyncTimeOfLastPromo</key>
-	<real>453872689.34670103</real>
+	<real>457898860.14132702</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>485314751.23247498</real>
+	<real>473782384.18068898</real>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
 		<string>000</string>
@@ -2735,11 +2710,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=21</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=79</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-07-01T16:53:03Z</date>
+	<date>2017-07-19T21:10:29Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -2770,15 +2745,19 @@
 	<false/>
 	<key>TmuxDashboardLimit</key>
 	<integer>0</integer>
+	<key>ToolbeltTools</key>
+	<array>
+		<string>Command History</string>
+	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1430598272</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
 	<false/>
 	<key>UseCompactLabel</key>
+	<true/>
+	<key>UseLayers</key>
 	<true/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>

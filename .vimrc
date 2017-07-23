@@ -42,6 +42,8 @@
     noremap <leader><space> zxzz
     " lines of context when moving
     set so=10
+    " line numbers
+    set number
 
 " Plugin management
     " Install manager if not present
@@ -52,7 +54,7 @@
     " Load plugins
     call plug#begin()
         " Python highlighting/folding
-        Plug 'klen/python-mode'
+        "Plug 'klen/python-mode'
         " solarized color scheme
         Plug 'altercation/vim-colors-solarized'
         " fuzzy search
@@ -61,6 +63,11 @@
         Plug 'scrooloose/nerdtree'
         " python completion/goto/doc - better than python-mode
         Plug 'davidhalter/jedi-vim'
+        " jedi-vim better than pymode for completion, but both together
+        " made things slow. this module is for just highlighting
+        Plug 'vim-python/python-syntax'
+        " Folding
+        Plug 'tmhedberg/SimpylFold'
         " non-python completions - fs/buffer/etc
         " youcompleteme kept failing when I'd switch python environments
         " neocomplete was super slow on my home computer
@@ -89,6 +96,8 @@
         Plug 'mileszs/ack.vim'
         " highlight everything during incremental search
         Plug 'haya14busa/incsearch.vim'
+        " Whitespace stripping"
+        Plug 'ntpeters/vim-better-whitespace'
     call plug#end()
 
 " python-mode config
@@ -97,7 +106,7 @@
     " no linting - just do that externally
     let pymode_lint = 0
     " no completion - do that with jedi exclusively
-    let pymode_rope_completion = 0
+    "let pymode_rope_completion = 0
     " debugger command
     let pymode_breakpoint_cmd = 'import bpdb; bpdb.set_trace()  # XXX BREAKPOINT'
 
@@ -113,8 +122,8 @@
 " nerdtree
     " toggle nerdtree with leader-n
     map <leader>n :NERDTreeFind<CR>
-    " close the nerdtree when a file is opened from it  
-    let NERDTreeQuitOnOpen = 1 
+    " close the nerdtree when a file is opened from it
+    let NERDTreeQuitOnOpen = 1
 
 " jedi
     " change usages shortcut
@@ -122,6 +131,10 @@
     let jedi#usages_command = '<leader>u'
     " show signature inline
     let jedi#show_call_signatures = 2
+
+" python-syntax
+    let python_highlight_all = 1
+    let python_slow_sync = 0
 
 " supertab
     " return key closes the completion window without inserting newline
@@ -133,7 +146,7 @@
     " show the line
     set laststatus=2
     " set the colorscheme
-    let lightline = { 
+    let lightline = {
         \ 'colorscheme': 'solarized',
         \ 'component_function': {
             \ 'filetype': 'DevIconFiletype',
@@ -147,14 +160,14 @@
         return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
     endfunction
     " don't show mode, because lightline shows the mode
-    set noshowmode 
+    set noshowmode
 
 " devicons
     " expects that a nerdfont was installed, such as from
     " `brew tap Caskroom/fonts; and brew cask install
     " font-sourcecodepro-nerd-font`
     if empty(system('brew cask list | grep sourcecodepro'))
-        silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font 
+        silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font
     endif
 
 " ack
@@ -180,9 +193,9 @@
     " don't use a preview window
     " it didn't open my folds, so it wasn't useful
     let g:ackpreview = 0
-    " make the 'o' key jump to the match, fold everything but the current line, 
+    " make the 'o' key jump to the match, fold everything but the current line,
     " center the screen, then jump back down into the quickfix window.
-    " If it's the one you want, hit q to exit quickfix and land back 
+    " If it's the one you want, hit q to exit quickfix and land back
     " on the match.
     let g:ack_mappings = { "o": "<CR>zxzz<C-W>j" }
     " search word under cursor with <leader>a
@@ -193,3 +206,6 @@
     map /  <Plug>(incsearch-forward)
     map ?  <Plug>(incsearch-backward)
     map g/ <Plug>(incsearch-stay)
+
+" Whitespace stripping
+    autocmd BufEnter * EnableStripWhitespaceOnSave

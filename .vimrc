@@ -44,6 +44,11 @@
     set so=10
     " line numbers
     set number
+    " persistent undo
+    if has("persistent_undo")
+        set undodir=~/.undodir/
+        set undofile
+    endif
 
 " Plugin management
     " Install manager if not present

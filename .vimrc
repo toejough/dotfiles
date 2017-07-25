@@ -150,14 +150,31 @@
 " lightline
     " show the line
     set laststatus=2
-    " set the colorscheme
+    " set extra config
     let lightline = {
         \ 'colorscheme': 'solarized',
+		\ 'component': {
+            \ 'lineinfo': ' %3l:%-2v',
+		\ },
         \ 'component_function': {
             \ 'filetype': 'DevIconFiletype',
             \ 'fileformat': 'DevIconFileformat',
-        \ }
+            \ 'readonly': 'LightlineReadonly',
+            \ 'fugitive': 'LightlineFugitive',
+        \ },
+    \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
+    \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
     \ }
+	function! LightlineReadonly()
+		return &readonly ? '' : ''
+	endfunction
+	function! LightlineFugitive()
+		if exists('*fugitive#head')
+			let branch = fugitive#head()
+			return branch !=# '' ? ''.branch : ''
+		endif
+		return ''
+	endfunction
     function! DevIconFiletype()
         return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
     endfunction

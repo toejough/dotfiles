@@ -124,6 +124,13 @@
 " ctrl-p
     " make first ctlp search be in mru by default, then buffers, then files after that
     let g:ctrlp_types = ['mru', 'buf', 'fil']
+    " launch ctrl-p if vim is opened without a file
+    function CtrlpIfEmpty()
+        if @% == ""
+            CtrlP
+        endif
+    endfunction
+    au VimEnter * call CtrlpIfEmpty()
 
 " nerdtree
     " toggle nerdtree with leader-n

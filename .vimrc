@@ -46,7 +46,8 @@
     set number
     " persistent undo
     if has("persistent_undo")
-        set undodir=~/.undodir/
+        silent !mkdir -p ~/.vimundo
+        set undodir=~/.vimundo/
         set undofile
     endif
 

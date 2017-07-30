@@ -56,6 +56,15 @@
         set undodir=~/.vimundo/
         set undofile
     endif
+    " remap escape to hitting bot pointer fingers in the home row
+    nnoremap ;a <Esc>
+    nnoremap a; <Esc>
+    vnoremap ;a <Esc>gV
+    vnoremap a; <Esc>gV
+    onoremap ;a <Esc>
+    onoremap a; <Esc>
+    inoremap ;a <Esc>
+    inoremap a; <Esc>
 
 " Plugin management
     " Install manager if not present

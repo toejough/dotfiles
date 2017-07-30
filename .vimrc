@@ -27,6 +27,12 @@
     set clipboard=unnamed
     " enable mouse support
     set mouse=a
+    " enable mouse support in tmux/screen
+    " (https://superuser.com/questions/549930/cant-resize-vim-splits-inside-tmux)
+    if &term =~ '^screen'
+        " tmux knows the extended mouse mode
+        set ttymouse=xterm2
+    endif
     " When a file has been detected to have been changed outside of Vim and
 	" it has not been changed inside of Vim, automatically read it again.
     set autoread

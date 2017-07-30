@@ -40,7 +40,7 @@
         " :JustReloadRC will just reload this RC file
         command! -bar JustReloadRC source ~/.vimrc
         " :ReloadRC will do all three
-        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate
+        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
     " <space> opens a fold as long as there's a closed fold under it
     " otherwise closes one fold level
     noremap <space> za

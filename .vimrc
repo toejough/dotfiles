@@ -74,25 +74,31 @@
     endif
     " Load plugins
     call plug#begin()
-        " Python highlighting/folding
-        "Plug 'klen/python-mode'
+        " Python
+            " Python highlighting/folding
+            "Plug 'klen/python-mode'
+            " python completion/goto/doc - better than python-mode
+            Plug 'davidhalter/jedi-vim'
+            " jedi-vim better than pymode for completion, but both together
+            " made things slow. this module is for just highlighting
+            Plug 'vim-python/python-syntax'
+            " Folding
+            Plug 'tmhedberg/SimpylFold'
+            " Indentation
+            Plug 'hynek/vim-python-pep8-indent'
         " solarized color scheme
         Plug 'altercation/vim-colors-solarized'
         " fuzzy search
         Plug 'ctrlpvim/ctrlp.vim'
         " file navigation/manipulation
         Plug 'scrooloose/nerdtree'
-        " python completion/goto/doc - better than python-mode
-        Plug 'davidhalter/jedi-vim'
-        " jedi-vim better than pymode for completion, but both together
-        " made things slow. this module is for just highlighting
-        Plug 'vim-python/python-syntax'
-        " Folding
-        Plug 'tmhedberg/SimpylFold'
+        " All completions
+        "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
         " non-python completions - fs/buffer/etc
+        Plug 'Shougo/neocomplete.vim'
         " youcompleteme kept failing when I'd switch python environments
         " neocomplete was super slow on my home computer
-        Plug 'ajh17/VimCompletesMe'
+        "Plug 'ajh17/VimCompletesMe'
         " tab-completion of the above completions
         Plug 'ervandew/supertab'
         " fast comment toggling

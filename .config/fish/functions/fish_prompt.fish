@@ -138,4 +138,9 @@ function fish_prompt
     else
         printf "%s%s>%s " (set_color -o red) $laststatus (set_color normal)
     end
+
+    # iterm
+    if type -q it2setkeylabel
+        it2setkeylabel set status (string match -r '^\S+' (pyenv version))
+    end
 end

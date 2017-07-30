@@ -175,6 +175,12 @@
     let SuperTabCrMapping = 1
     " context-aware tab completion (filepath/function/text)
     let g:SuperTabDefaultCompletionType = "context"
+    " chain completion to fall back to omnifunc if context completion doesn't
+    " work
+    autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \ endif
 
 " lightline
     " show the line

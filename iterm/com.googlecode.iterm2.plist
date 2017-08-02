@@ -42,6 +42,8 @@
 	<true/>
 	<key>Default Bookmark Guid</key>
 	<string>3AE18263-4E8D-468B-AD3A-2A9D2ED07DA7</string>
+	<key>DetectPasswordInput</key>
+	<true/>
 	<key>DimBackgroundWindows</key>
 	<true/>
 	<key>DimInactiveSplitPanes</key>
@@ -335,11 +337,11 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>630 416 606 469 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>142 515 796 473 0 0 1680 1050 </string>
+	<string>257 422 918 381 0 0 1680 1050 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>230 833 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>4 0 1672 1027 0 0 1680 1027 </string>
+	<string>161 0 760 806 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1559 720 490 377 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1298,6 +1300,8 @@
 			<integer>120</integer>
 			<key>Command</key>
 			<string>/usr/local/bin/fish</string>
+			<key>Cursor Boost</key>
+			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2838,6 +2842,8 @@
 		<string>Command History</string>
 		<string>Jobs</string>
 	</array>
+	<key>TraditionalVisualBell</key>
+	<true/>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
@@ -2870,5 +2876,9 @@
 	<false/>
 	<key>iTerm Version</key>
 	<string>3.1.beta.5</string>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>0</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>

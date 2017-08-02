@@ -20,6 +20,14 @@
 	<false/>
 	<key>AutoHideTmuxClientSession</key>
 	<true/>
+	<key>BadgeMaxHeightFraction</key>
+	<real>0.20000000298023224</real>
+	<key>BadgeMaxWidthFraction</key>
+	<real>0.5</real>
+	<key>BadgeRightMargin</key>
+	<integer>20</integer>
+	<key>BadgeTopMargin</key>
+	<integer>20</integer>
 	<key>CheckTestRelease</key>
 	<true/>
 	<key>ClosingHotkeySwitchesSpaces</key>
@@ -1249,18 +1257,18 @@
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
-				<real>0.5</real>
+				<real>0.3689422607421875</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.50980392156862742</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.1491314172744751</real>
+				<real>0.50980392156862742</real>
 				<key>Red Component</key>
-				<real>1</real>
+				<real>0.47450980392156861</real>
 			</dict>
 			<key>Badge Text</key>
-			<string></string>
+			<string>\(session.username)@\(session.hostname):\(user.cur_dir)\n\(user.git_branch)\n\(user.venv)\n\(user.pyversion)</string>
 			<key>Blend</key>
 			<real>0.30000001192092896</real>
 			<key>Blink Allowed</key>

@@ -143,4 +143,7 @@ function fish_prompt
     if type -q it2setkeylabel
         it2setkeylabel set status (string match -r '^\S+' (pyenv version))
     end
+    if functions -q -- iterm2_print_user_vars
+      iterm2_print_user_vars
+    end
 end

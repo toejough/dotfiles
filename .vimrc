@@ -65,6 +65,9 @@
     onoremap a; <Esc>
     inoremap ;a <Esc>
     inoremap a; <Esc>
+    " retain visual selection after indentation
+    vnoremap > >gv
+    vnoremap < <gv
 
 " Plugin management
     " Install manager if not present
@@ -125,6 +128,14 @@
         Plug 'haya14busa/incsearch.vim'
         " Whitespace stripping"
         Plug 'ntpeters/vim-better-whitespace'
+        " Focus on the current text blob
+        Plug 'junegunn/limelight.vim'
+        " Rainbow parens
+        Plug 'junegunn/rainbow_parentheses.vim'
+        " clear hl after search
+        Plug 'junegunn/vim-slash'
+        " Git marks, staging hunks
+        Plug 'airblade/vim-gitgutter'
     call plug#end()
 
 " python-mode config
@@ -266,3 +277,11 @@
 
 " Whitespace stripping
     autocmd BufEnter * EnableStripWhitespaceOnSave
+
+" Focus on the current text blob
+    let g:limelight_conceal_ctermfg = 'DarkGrey'
+    autocmd BufEnter * Limelight
+
+" Rainbow parens
+    let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+    autocmd BufEnter * RainbowParentheses

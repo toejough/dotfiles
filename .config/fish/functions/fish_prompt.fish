@@ -127,7 +127,7 @@ function fish_prompt
     if [ "$python_block" ]
         set info_block "$info_block"\n"$python_block"
     end
-    
+
     if [ "$info_block" != "$current_info_block" ]
         printf "\n%s\n" $info_block
         set -U current_info_block "$info_block"
@@ -146,4 +146,7 @@ function fish_prompt
     if functions -q -- iterm2_print_user_vars
       iterm2_print_user_vars
     end
+
+    # set a universal directory
+    set -U last_dir (pwd)
 end

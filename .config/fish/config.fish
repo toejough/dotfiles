@@ -22,6 +22,11 @@ set PATH $PATH /Users/joe/.cargo/bin
 # android
 set -g ANDROID_HOME ~/Library/Android/sdk
 
+# CD to the last known directory
+if test -e $last_dir
+    cd $last_dir
+end
+
 # pyenv activation hooks
 # NOTE: something that happens above here breaks these calls if they're performed at the
 #       top of the file.  Putting them here makes pyenv work as expected.

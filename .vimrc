@@ -117,7 +117,13 @@
         " nice icons for file paths
         Plug 'ryanoasis/vim-devicons'
         " smoother scrolling
-        Plug 'yuttie/comfortable-motion.vim'
+        " comfortable motion is best, but it has bad scrolling in the up
+        " direction: https://github.com/yuttie/comfortable-motion.vim/issues/17
+        "Plug 'yuttie/comfortable-motion.vim'
+        "Plug 'vim-scripts/Smooth-Scroll'
+        "Plug 'terryma/vim-smooth-scroll'
+        "Plug 'yonchu/accelerated-smooth-scroll'
+        Plug 'daylilyfield/sexyscroll.vim'
         " faster/better search
         Plug 'mileszs/ack.vim'
         " highlight everything during incremental search
@@ -160,14 +166,14 @@
 
 " nerdtree
     " toggle nerdtree with leader-n
-    map <leader>n :NERDTreeFind<CR>
+    map <leader>t :NERDTreeFind<CR>
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
 
 " jedi
     " change usages shortcut
     " it defaults to <leader>n, but I want to use that with NERDTree
-    let jedi#usages_command = '<leader>u'
+    let jedi#usages_command = '<leader>z'
     " show signature inline
     let jedi#show_call_signatures = 2
 
@@ -186,6 +192,9 @@
     \ if &omnifunc != '' |
     \   call SuperTabChain(&omnifunc, "<c-p>") |
     \ endif
+
+" undotree
+    nnoremap <leader>u :UndotreeToggle<cr>
 
 " lightline
     " show the line
@@ -279,3 +288,11 @@
 " Rainbow parens
     let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
     autocmd BufEnter * RainbowParentheses
+
+" yankring
+    " default commands override ctrlp
+    let g:yankring_replace_n_pkey = '<leader>p'
+    let g:yankring_replace_n_nkey = '<leader>n'
+    " record inserted text into the yankring
+    let g:yankring_record_insert = 1
+    map <leader>s :YRShow<CR>

@@ -1,7 +1,3 @@
-# pyenv activation hooks
-status --is-interactive; and source (pyenv init -|psub)
-status --is-interactive; and source (pyenv virtualenv-init -|psub)
-
 # Shell integrations
 source ~/.iterm2_shell_integration.fish
 function iterm2_print_user_vars
@@ -19,3 +15,9 @@ set -g EDITOR vim
 
 # Rust (for alacritty)
 set PATH $PATH /Users/joe/.cargo/bin
+
+# pyenv activation hooks
+# NOTE: something that happens above here breaks these calls if they're performed at the
+#       top of the file.  Putting them here makes pyenv work as expected.
+status --is-interactive; and source (pyenv init -| psub)
+status --is-interactive; and source (pyenv virtualenv-init -| psub)

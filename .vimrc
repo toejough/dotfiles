@@ -68,6 +68,8 @@
     " retain visual selection after indentation
     vnoremap > >gv
     vnoremap < <gv
+    " insert python breakpoint on <leader>b
+    noremap <leader>b Oimport bpdb; bpdb.set_trace()<esc>
 
 " Plugin management
     " Install manager if not present
@@ -78,8 +80,6 @@
     " Load plugins
     call plug#begin()
         " Python
-            " Python highlighting/folding
-            "Plug 'klen/python-mode'
             " python completion/goto/doc - better than python-mode
             Plug 'davidhalter/jedi-vim'
             " jedi-vim better than pymode for completion, but both together
@@ -95,13 +95,9 @@
         Plug 'ctrlpvim/ctrlp.vim'
         " file navigation/manipulation
         Plug 'scrooloose/nerdtree'
-        " All completions
-        "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
         " non-python completions - fs/buffer/etc
-        Plug 'Shougo/neocomplete.vim'
         " youcompleteme kept failing when I'd switch python environments
-        " neocomplete was super slow on my home computer
-        "Plug 'ajh17/VimCompletesMe'
+        Plug 'Shougo/neocomplete.vim'
         " tab-completion of the above completions
         Plug 'ervandew/supertab'
         " fast comment toggling
@@ -136,17 +132,15 @@
         Plug 'junegunn/vim-slash'
         " Git marks, staging hunks
         Plug 'airblade/vim-gitgutter'
+        " git browser
+        Plug 'junegunn/gv.vim'
+        " yank ring
+        Plug 'vim-scripts/YankRing.vim'
+        " better auto read - doesn't require buffer change
+        Plug 'djoshea/vim-autoread'
+        " Toml support
+        Plug 'cespare/vim-toml'
     call plug#end()
-
-" python-mode config
-    " color-column
-    let pymode_options_max_line_length = 120
-    " no linting - just do that externally
-    let pymode_lint = 0
-    " no completion - do that with jedi exclusively
-    "let pymode_rope_completion = 0
-    " debugger command
-    let pymode_breakpoint_cmd = 'import bpdb; bpdb.set_trace()  # XXX BREAKPOINT'
 
 " solarized
     syntax enable

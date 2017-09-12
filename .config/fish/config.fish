@@ -19,6 +19,9 @@ set PATH $PATH /Users/joe/.cargo/bin
 # NVM
 #bass source ~/.nvm_profile
 
+# android
+set -g ANDROID_HOME ~/Library/Android/sdk
+
 # pyenv activation hooks
 # NOTE: something that happens above here breaks these calls if they're performed at the
 #       top of the file.  Putting them here makes pyenv work as expected.

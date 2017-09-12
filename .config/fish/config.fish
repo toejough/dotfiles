@@ -26,6 +26,7 @@ set -g ANDROID_HOME ~/Library/Android/sdk
 if test -e $last_dir
     cd $last_dir
 end
+set -g fish_user_paths "/usr/local/opt/ruby@2.3/bin" $fish_user_paths
 
 # pyenv activation hooks
 # NOTE: something that happens above here breaks these calls if they're performed at the

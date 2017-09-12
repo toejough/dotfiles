@@ -16,6 +16,9 @@ set -g EDITOR vim
 # Rust (for alacritty)
 set PATH $PATH /Users/joe/.cargo/bin
 
+# NVM
+#bass source ~/.nvm_profile
+
 # pyenv activation hooks
 # NOTE: something that happens above here breaks these calls if they're performed at the
 #       top of the file.  Putting them here makes pyenv work as expected.

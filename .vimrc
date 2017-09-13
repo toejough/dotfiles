@@ -146,6 +146,8 @@
         Plug 'djoshea/vim-autoread'
         " Toml support
         Plug 'cespare/vim-toml'
+        " Ponylang support
+        Plug 'dleonard0/pony-vim-syntax'
     call plug#end()
 
 " solarized

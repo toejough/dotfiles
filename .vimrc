@@ -70,6 +70,8 @@
     vnoremap < <gv
     " insert python breakpoint on <leader>b
     noremap <leader>b Oimport bpdb; bpdb.set_trace()<esc>
+    " use smartcase
+    set smartcase
 
 " Plugin management
     " Install manager if not present

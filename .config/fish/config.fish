@@ -11,7 +11,7 @@ function iterm2_print_user_vars
 end
 
 # Editor
-set -g EDITOR vim
+set -x EDITOR vim
 
 # Rust (for alacritty)
 set PATH $PATH /Users/joe/.cargo/bin
@@ -20,16 +20,17 @@ set PATH $PATH /Users/joe/.cargo/bin
 #bass source ~/.nvm_profile
 
 # android
-set -g ANDROID_HOME ~/Library/Android/sdk
+set -x ANDROID_HOME ~/Library/Android/sdk
 
 # CD to the last known directory
 if test -e $last_dir
     cd $last_dir
 end
-set -g fish_user_paths "/usr/local/opt/ruby@2.3/bin" $fish_user_paths
+set -x fish_user_paths "/usr/local/opt/ruby@2.3/bin" $fish_user_paths
 
 # pyenv activation hooks
 # NOTE: something that happens above here breaks these calls if they're performed at the
 #       top of the file.  Putting them here makes pyenv work as expected.
 status --is-interactive; and source (pyenv init -| psub)
 status --is-interactive; and source (pyenv virtualenv-init -| psub)
+set -x PYENV_ROOT /Users/joe/.pyenv

@@ -119,13 +119,7 @@
         " nice icons for file paths
         Plug 'ryanoasis/vim-devicons'
         " smoother scrolling
-        " comfortable motion is best, but it has bad scrolling in the up
-        " direction: https://github.com/yuttie/comfortable-motion.vim/issues/17
-        "Plug 'yuttie/comfortable-motion.vim'
-        "Plug 'vim-scripts/Smooth-Scroll'
-        "Plug 'terryma/vim-smooth-scroll'
-        "Plug 'yonchu/accelerated-smooth-scroll'
-        Plug 'daylilyfield/sexyscroll.vim'
+        Plug 'yuttie/comfortable-motion.vim'
         " faster/better search
         Plug 'mileszs/ack.vim'
         " highlight everything during incremental search

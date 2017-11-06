@@ -136,8 +136,6 @@
         Plug 'airblade/vim-gitgutter'
         " git browser
         Plug 'junegunn/gv.vim'
-        " yank ring
-        Plug 'vim-scripts/YankRing.vim'
         " better auto read - doesn't require buffer change
         Plug 'djoshea/vim-autoread'
         " Toml support
@@ -286,11 +284,3 @@
 " Rainbow parens
     let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
     autocmd BufEnter * RainbowParentheses
-
-" yankring
-    " default commands override ctrlp
-    let g:yankring_replace_n_pkey = '<leader>p'
-    let g:yankring_replace_n_nkey = '<leader>n'
-    " record inserted text into the yankring
-    let g:yankring_record_insert = 1
-    map <leader>s :YRShow<CR>

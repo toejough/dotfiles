@@ -34,3 +34,19 @@ set -x fish_user_paths "/usr/local/opt/ruby@2.3/bin" $fish_user_paths
 status --is-interactive; and source (pyenv init -| psub)
 status --is-interactive; and source (pyenv virtualenv-init -| psub)
 set -x PYENV_ROOT /Users/joe/.pyenv
+
+# pipsi
+set -x fish_user_paths ~/.local/bin $fish_user_paths
+which pipsi ^&1 > /dev/null; or begin; echo "Pipsi not found.  Installing..."; and curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python; end
+
+# pew
+#which pew ^&1 > /dev/null; or begin; echo "Pew not found.  Installing..."; and pipsi install pew; end
+#source (pew shell_config)
+
+# pipenv
+which pipenv ^&1 > /dev/null; or begin; echo "Pipenv not found.  Installing..."; and pipsi install pipenv; end
+eval (pipenv --completion)
+set -x PIPENV_SHELL_FANCY 1
+
+# remove the vi cursor
+function fish_vi_cursor; end

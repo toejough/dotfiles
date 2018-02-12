@@ -3,6 +3,7 @@
     set nocompatible
     " no swapfile
     let updatecount=0
+    set noswapfile
     " leader key
     let mapleader = ","
     " vim command/search case
@@ -36,16 +37,6 @@
     " When a file has been detected to have been changed outside of Vim and
 	" it has not been changed inside of Vim, automatically read it again.
     set autoread
-    " reload & clean & update
-        " :JustReloadRC will just reload this RC file
-        command! -bar JustReloadRC source ~/.vimrc
-        " :ReloadRC will do all three
-        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
-    " <space> opens a fold as long as there's a closed fold under it
-    " otherwise closes one fold level
-    noremap <space> za
-    " unfold down to the current line, refold everything else
-    noremap <leader><space> zxzz
     " lines of context when moving
     set so=10
     " line numbers
@@ -56,22 +47,11 @@
         set undodir=~/.vimundo/
         set undofile
     endif
-    " remap escape to hitting bot pointer fingers in the home row
-    nnoremap ;a <Esc>
-    nnoremap a; <Esc>
-    vnoremap ;a <Esc>gV
-    vnoremap a; <Esc>gV
-    onoremap ;a <Esc>
-    onoremap a; <Esc>
-    inoremap ;a <Esc>
-    inoremap a; <Esc>
-    " retain visual selection after indentation
-    vnoremap > >gv
-    vnoremap < <gv
-    " insert python breakpoint on <leader>b
-    noremap <leader>b Oimport bpdb; bpdb.set_trace()<esc>
     " use smartcase
     set smartcase
+    " try to speed things up
+    set lazyredraw
+    set ttyfast
 
 " Plugin management
     " Install manager if not present
@@ -142,6 +122,16 @@
         Plug 'cespare/vim-toml'
         " Ponylang support
         Plug 'dleonard0/pony-vim-syntax'
+        " Camelcase motions with <leader>w,b,e, etc
+        Plug 'bkad/camelcasemotion'
+        " Ctrl-n to select things
+        Plug 'terryma/vim-multiple-cursors'
+        " Better inc/dec for dates
+        Plug 'tpope/vim-speeddating'
+        " Repeat semantics for more things
+        Plug 'tpope/vim-repeat'
+        " Change cases and more (camel-case with crc, snake with crs)
+        Plug 'tpope/vim-abolish'
     call plug#end()
 
 " solarized
@@ -237,6 +227,14 @@
         silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font
     endif
 
+" comfortable motion (Scrolling)
+    noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
+    noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
+    "nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
+    "nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
+    "let g:comfortable_motion_scroll_down_key = "j"
+    "let g:comfortable_motion_scroll_up_key = "k"
+
 " ack
     " search from the project root
     cnoreabbrev ag Gcd <bar> Ack!
@@ -284,3 +282,43 @@
 " Rainbow parens
     let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
     autocmd BufEnter * RainbowParentheses
+
+" CamelCase keys
+    call camelcasemotion#CreateMotionMappings('<leader>')
+
+" Custom key mappings and commands
+" (set here to avoid plugin overrides)
+    " insert python breakpoint on <leader>b
+    noremap <leader>b Oimport bpdb; bpdb.set_trace()<esc>
+    " folds
+        " <space> opens a fold as long as there's a closed fold under it
+        " otherwise closes one fold level
+        noremap <space> za
+        " unfold down to the current line, refold everything else
+        noremap <leader><space> zxzz
+    " remap escape to hitting both pointer fingers in the home row
+    nnoremap ;a <Esc>
+    nnoremap a; <Esc>
+    vnoremap ;a <Esc>gV
+    vnoremap a; <Esc>gV
+    onoremap ;a <Esc>
+    onoremap a; <Esc>
+    inoremap ;a <Esc>
+    inoremap a; <Esc>
+    " retain visual selection after indentation
+    vnoremap > >gv
+    vnoremap < <gv
+    " always move up/down a displayed row, instead of
+    " by line (different when lines wrap)
+    noremap j gj
+    noremap k gk
+    " reload & clean & update
+        " :JustReloadRC will just reload this RC file
+        command! -bar JustReloadRC source ~/.vimrc
+        " :ReloadRC will do all three
+        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
+    " insert a date when typing 'dts'
+    iab <expr> dts strftime("%F %T%z")
+    " exit on ctrl-x
+    nnoremap <C-x> :q<cr>
+    inoremap <C-x> <Esc>:q<cr>

@@ -53,9 +53,21 @@
     update-master = "!git checkout master && git fetch && git reset --hard origin/master"
     new-branch = "!f() { git checkout -b $1; git push --set-upstream origin $(git name); }; f"
     clean-local = "!git cleanup-from origin/$(git name)"
-    integrate-branch = "!git fetch; git rebase origin/$(git name)"
+    integrate-branch = "!f() { \
+        if [[ \"$#\" -ne 0 ]]; then \
+            echo \"This function takes no args - it rebases your local branch onto the remote branch of the same name.\"; \
+            exit 1; \
+        fi; \
+        git fetch; git rebase origin/$(git name); \
+    }; f"
     clean-branch = "!git cleanup-from origin/master"
-    integrate-master = "!git fetch; git rebase origin/master"
+    integrate-master = "!f() { \
+        if [[ \"$#\" -ne 0 ]]; then \
+            echo \"This function takes no args - it rebases your local branch onto origin/master.\";  \
+            exit 1; \
+        fi; \
+        git fetch; git rebase origin/master; \
+    }; f"
     remove-local = "!f() { local NAME=\"$(git name)\" && git update-master && git branch -d \"${NAME}\"; }; f"
 
     # [ Force-push recovery ]

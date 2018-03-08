@@ -132,6 +132,8 @@
         Plug 'tpope/vim-repeat'
         " Change cases and more (camel-case with crc, snake with crs)
         Plug 'tpope/vim-abolish'
+        " Fuzzy search
+        Plug 'ggvgc/vim-fuzzysearch'
     call plug#end()
 
 " solarized

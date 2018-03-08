@@ -333,17 +333,17 @@
 	<key>NSWindow Frame ProfilesPanel</key>
 	<string>1377 250 735 382 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>3200 673 400 129 2560 0 1680 1027 </string>
+	<string>1080 966 400 129 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>972 596 620 622 0 0 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>630 505 697 456 0 0 1680 1050 </string>
+	<string>116 231 599 519 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1131 797 918 401 0 0 2560 1417 </string>
+	<string>567 494 1018 447 0 0 1680 1050 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>230 833 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2733 0 1000 1027 2560 0 1680 1050 </string>
+	<string>0 0 1680 1027 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1559 720 490 377 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1274,7 +1274,7 @@
 				<real>0.47450980392156861</real>
 			</dict>
 			<key>Badge Text</key>
-			<string>\(session.username)@\(session.hostname):\(user.cur_dir)\n\(user.git_branch)\n\(user.venv)\n\(user.pyversion)</string>
+			<string></string>
 			<key>Blend</key>
 			<real>0.30000001192092896</real>
 			<key>Blink Allowed</key>
@@ -1730,12 +1730,18 @@
 				<key>text</key>
 				<string></string>
 			</dict>
+			<key>Send Bell Alert</key>
+			<false/>
 			<key>Send Code When Idle</key>
 			<false/>
 			<key>Send Idle Alert</key>
-			<true/>
+			<false/>
 			<key>Send New Output Alert</key>
-			<true/>
+			<false/>
+			<key>Send Session Ended Alert</key>
+			<false/>
+			<key>Send Terminal Generated Alerts</key>
+			<false/>
 			<key>Set Local Environment Vars</key>
 			<true/>
 			<key>Shortcut</key>
@@ -2817,7 +2823,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-02-02T18:15:22Z</date>
+	<date>2018-02-15T22:10:40Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -2845,7 +2851,7 @@
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>TerminalMargin</key>
-	<integer>20</integer>
+	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>TmuxDashboardLimit</key>

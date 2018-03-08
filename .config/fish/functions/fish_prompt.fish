@@ -2,7 +2,7 @@ function fish_prompt
 	#function _old_fish_prompt
 	#function fish_prompt --description 'Write out the prompt'
 	set laststatus $status
-    set git_name (git name ^/dev/null)
+    set -g git_name (git name ^/dev/null)
     if [ "$git_name" ]
         set git_block (set_color normal)"Branch: "(set_color -o white)$git_name
 
@@ -109,9 +109,9 @@ function fish_prompt
     end
 
     # python
-    set python_version (python --version ^&1)
+    set -g python_version (python --version ^&1)
     set python_block (set_color -o green)"$python_version"
-    set python_venv (basename $VIRTUAL_ENV ^ /dev/null)
+    set -g python_venv (basename $VIRTUAL_ENV ^ /dev/null)
     if [ "$python_venv" ]
         set python_block "$python_block"\n(set_color normal)"Virtual Env: "(set_color yellow)"$python_venv"
     end

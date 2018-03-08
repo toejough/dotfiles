@@ -31,6 +31,7 @@ set -x fish_user_paths "/usr/local/opt/ruby@2.3/bin" $fish_user_paths
 status --is-interactive; and source (pyenv init -| psub)
 status --is-interactive; and source (pyenv virtualenv-init -| psub)
 set -x PYENV_ROOT /Users/joe/.pyenv
+set -x PYTHON_CONFIGURE_OPTS "--enable-framework"
 
 # pipsi
 set -x fish_user_paths ~/.local/bin $fish_user_paths

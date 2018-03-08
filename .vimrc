@@ -290,8 +290,8 @@
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)
-    " insert python breakpoint on <leader>b
-    noremap <leader>b Oimport bpdb; bpdb.set_trace()<esc>
+    " insert python breakpoint on <leader>p
+    noremap <leader>p Oimport bpdb; bpdb.set_trace()<esc>
     " folds
         " <space> opens a fold as long as there's a closed fold under it
         " otherwise closes one fold level
@@ -321,6 +321,6 @@
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
     " insert a date when typing 'dts'
     iab <expr> dts strftime("%F %T%z")
-    " exit on ctrl-x
-    nnoremap <C-x> :q<cr>
-    inoremap <C-x> <Esc>:q<cr>
+    " exit on ctrl-q
+    nnoremap <C-q> :q<cr>
+    inoremap <C-q> <Esc>:q<cr>

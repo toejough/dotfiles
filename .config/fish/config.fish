@@ -16,9 +16,6 @@ set -x EDITOR vim
 # Rust (for alacritty)
 set PATH $PATH /Users/joe/.cargo/bin
 
-# NVM
-#bass source ~/.nvm_profile
-
 # android
 set -x ANDROID_HOME ~/Library/Android/sdk
 
@@ -38,10 +35,6 @@ set -x PYENV_ROOT /Users/joe/.pyenv
 # pipsi
 set -x fish_user_paths ~/.local/bin $fish_user_paths
 which pipsi ^&1 > /dev/null; or begin; echo "Pipsi not found.  Installing..."; and curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python; end
-
-# pew
-#which pew ^&1 > /dev/null; or begin; echo "Pew not found.  Installing..."; and pipsi install pew; end
-#source (pew shell_config)
 
 # pipenv
 which pipenv ^&1 > /dev/null; or begin; echo "Pipenv not found.  Installing..."; and pipsi install pipenv; end

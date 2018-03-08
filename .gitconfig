@@ -10,6 +10,10 @@
 [credential]
     helper = osxkeychain
 
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+
 [alias]
     # [ data ]
     name = rev-parse --abbrev-ref HEAD

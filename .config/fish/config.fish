@@ -41,6 +41,3 @@ which pipsi ^&1 > /dev/null; or begin; echo "Pipsi not found.  Installing..."; a
 which pipenv ^&1 > /dev/null; or begin; echo "Pipenv not found.  Installing..."; and pipsi install pipenv; end
 eval (pipenv --completion)
 set -x PIPENV_SHELL_FANCY 1
-
-# remove the vi cursor
-function fish_vi_cursor; end

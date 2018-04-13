@@ -70,7 +70,7 @@
             " Folding
             Plug 'tmhedberg/SimpylFold'
             " Indentation
-            Plug 'hynek/vim-python-pep8-indent'
+            Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '8b215aac0192f74b5aeb6ae5a2e1766db2ebecb8' }
         " solarized color scheme
         Plug 'altercation/vim-colors-solarized'
         " fuzzy search
@@ -132,8 +132,14 @@
         Plug 'tpope/vim-repeat'
         " Change cases and more (camel-case with crc, snake with crs)
         Plug 'tpope/vim-abolish'
-        " Fuzzy search
-        Plug 'ggvgc/vim-fuzzysearch'
+        " faster/fuzzier searching in buffers
+        Plug 'easymotion/vim-easymotion'
+        " markdown preview
+        Plug 'shime/vim-livedown'
+        " markdown formatting
+        Plug 'plasticboy/vim-markdown'
+        " indent guides
+        Plug 'nathanaelkane/vim-indent-guides'
     call plug#end()
 
 " solarized
@@ -164,6 +170,8 @@
     let jedi#usages_command = '<leader>z'
     " show signature inline
     let jedi#show_call_signatures = 2
+    " doc
+    let jedi#documentation_command = '<leader>d'
 
 " python-syntax
     let python_highlight_all = 1
@@ -190,9 +198,9 @@
     " set extra config
     let lightline = {
         \ 'colorscheme': 'solarized',
-		\ 'component': {
+        \ 'component': {
             \ 'lineinfo': ' %3l:%-2v',
-		\ },
+        \ },
         \ 'component_function': {
             \ 'filetype': 'DevIconFiletype',
             \ 'fileformat': 'DevIconFileformat',
@@ -202,16 +210,16 @@
     \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
     \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
     \ }
-	function! LightlineReadonly()
-		return &readonly ? '' : ''
-	endfunction
-	function! LightlineFugitive()
-		if exists('*fugitive#head')
-			let branch = fugitive#head()
-			return branch !=# '' ? ''.branch : ''
-		endif
-		return ''
-	endfunction
+    function! LightlineReadonly()
+        return &readonly ? '' : ''
+    endfunction
+    function! LightlineFugitive()
+        if exists('*fugitive#head')
+            let branch = fugitive#head()
+            return branch !=# '' ? ''.branch : ''
+        endif
+        return ''
+    endfunction
     function! DevIconFiletype()
         return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
     endfunction
@@ -232,10 +240,6 @@
 " comfortable motion (Scrolling)
     noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
     noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
-    "nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
-    "nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
-    "let g:comfortable_motion_scroll_down_key = "j"
-    "let g:comfortable_motion_scroll_up_key = "k"
 
 " ack
     " search from the project root
@@ -269,7 +273,7 @@
     map <leader>a :ag<CR>
 
 " incsearch
-    " mappings
+    " default search uses inc
     map /  <Plug>(incsearch-forward)
     map ?  <Plug>(incsearch-backward)
     map g/ <Plug>(incsearch-stay)
@@ -287,6 +291,31 @@
 
 " CamelCase keys
     call camelcasemotion#CreateMotionMappings('<leader>')
+
+" Easy motion
+    " jk motions: up/down lines
+    nmap J <Plug>(easymotion-j)
+    nmap K <Plug>(easymotion-k)
+    vmap J <Plug>(easymotion-j)
+    vmap K <Plug>(easymotion-k)
+    " lh motions: right/left in line
+    nmap L <Plug>(easymotion-lineforward)
+    nmap H <Plug>(easymotion-linebackward)
+    vmap L <Plug>(easymotion-lineforward)
+    vmap H <Plug>(easymotion-linebackward)
+    " Jump to anywhere with only `s{char}{target}`
+    nmap s <Plug>(easymotion-s)
+    " Jump to anywhere in this line with only `s{char}{target}`
+    nmap t <Plug>(easymotion-bd-tl)
+
+" Markdown formatting
+    let g:vim_markdown_fenced_languages = ['python=python']
+
+" Indent guide colors
+    let g:indent_guides_auto_colors = 0
+    let g:indent_guides_enable_on_vim_startup = 1
+    hi IndentGuidesOdd ctermbg=8
+    hi IndentGuidesEven ctermbg=0
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

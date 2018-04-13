@@ -16,6 +16,9 @@ set -x EDITOR vim
 # Rust (for alacritty)
 set PATH $PATH /Users/joe/.cargo/bin
 
+# Ruby (for tmuxinator)
+set PATH $PATH /usr/local/lib/ruby/gems/2.3.0/bin
+
 # android
 set -x ANDROID_HOME ~/Library/Android/sdk
 

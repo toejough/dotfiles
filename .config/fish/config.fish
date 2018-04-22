@@ -26,7 +26,6 @@ set -x ANDROID_HOME ~/Library/Android/sdk
 if test -e $last_dir
     cd $last_dir
 end
-set -x fish_user_paths "/usr/local/opt/ruby@2.3/bin" $fish_user_paths
 
 # pyenv activation hooks
 # NOTE: something that happens above here breaks these calls if they're performed at the
@@ -44,3 +43,7 @@ which pipsi ^&1 > /dev/null; or begin; echo "Pipsi not found.  Installing..."; a
 which pipenv ^&1 > /dev/null; or begin; echo "Pipenv not found.  Installing..."; and pipsi install pipenv; end
 eval (pipenv --completion)
 set -x PIPENV_SHELL_FANCY 1
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[ -f /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish ]; and . /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish

@@ -304,9 +304,9 @@
     vmap L <Plug>(easymotion-lineforward)
     vmap H <Plug>(easymotion-linebackward)
     " Jump to anywhere with only `s{char}{target}`
-    nmap s <Plug>(easymotion-s)
+    nmap s <Plug>(easymotion-bd-fn)
     " Jump to anywhere in this line with only `s{char}{target}`
-    nmap t <Plug>(easymotion-bd-tl)
+    nmap f <Plug>(easymotion-bd-fln)
 
 " Markdown formatting
     let g:vim_markdown_fenced_languages = ['python=python']
@@ -327,15 +327,6 @@
         noremap <space> za
         " unfold down to the current line, refold everything else
         noremap <leader><space> zxzz
-    " remap escape to hitting both pointer fingers in the home row
-    nnoremap ;a <Esc>
-    nnoremap a; <Esc>
-    vnoremap ;a <Esc>gV
-    vnoremap a; <Esc>gV
-    onoremap ;a <Esc>
-    onoremap a; <Esc>
-    inoremap ;a <Esc>
-    inoremap a; <Esc>
     " retain visual selection after indentation
     vnoremap > >gv
     vnoremap < <gv

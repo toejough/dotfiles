@@ -63,7 +63,7 @@
     call plug#begin()
         " Python
             " python completion/goto/doc - better than python-mode
-            Plug 'davidhalter/jedi-vim'
+            Plug 'davidhalter/jedi-vim', { 'tag': '0.9.0' }
             " jedi-vim better than pymode for completion, but both together
             " made things slow. this module is for just highlighting
             Plug 'vim-python/python-syntax'

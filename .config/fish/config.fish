@@ -16,9 +16,6 @@ set -x EDITOR vim
 # Rust (for alacritty)
 set PATH $PATH /Users/joe/.cargo/bin
 
-# Ruby (for tmuxinator)
-set PATH $PATH /usr/local/lib/ruby/gems/2.3.0/bin
-
 # android
 set -x ANDROID_HOME ~/Library/Android/sdk
 
@@ -35,15 +32,6 @@ status --is-interactive; and source (pyenv virtualenv-init -| psub)
 set -x PYENV_ROOT /Users/joe/.pyenv
 set -x PYTHON_CONFIGURE_OPTS "--enable-framework"
 
-# pipsi
-set -x fish_user_paths ~/.local/bin $fish_user_paths
-which pipsi ^&1 > /dev/null; or begin; echo "Pipsi not found.  Installing..."; and curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python; end
-
-# pipenv
-which pipenv ^&1 > /dev/null; or begin; echo "Pipenv not found.  Installing..."; and pipsi install pipenv; end
-eval (pipenv --completion)
-set -x PIPENV_SHELL_FANCY 1
-
 # tabtab source for electron-forge package
 # uninstall by removing these lines or running `tabtab uninstall electron-forge`
-[ -f /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish ]; and . /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish
+#[ -f /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish ]; and . /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish

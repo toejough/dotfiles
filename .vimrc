@@ -312,10 +312,10 @@
     let g:vim_markdown_fenced_languages = ['python=python']
 
 " Indent guide colors
-    let g:indent_guides_auto_colors = 0
+    let g:indent_guides_auto_colors = 1
     let g:indent_guides_enable_on_vim_startup = 1
-    hi IndentGuidesOdd ctermbg=8
-    hi IndentGuidesEven ctermbg=0
+    "hi IndentGuidesOdd ctermbg=DarkGrey
+    "hi IndentGuidesEven ctermbg=Black
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

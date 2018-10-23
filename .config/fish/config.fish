@@ -35,3 +35,6 @@ set -x PYTHON_CONFIGURE_OPTS "--enable-framework"
 # tabtab source for electron-forge package
 # uninstall by removing these lines or running `tabtab uninstall electron-forge`
 #[ -f /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish ]; and . /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish
+
+# added by pipsi (https://github.com/mitsuhiko/pipsi)
+set -x PATH /Users/joe/.local/bin $PATH

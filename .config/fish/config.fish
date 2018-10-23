@@ -17,7 +17,9 @@ set -x EDITOR vim
 set PATH $PATH /Users/joe/.cargo/bin
 
 # android
-set -x ANDROID_HOME ~/Library/Android/sdk
+#set -x ANDROID_HOME ~/Library/Android/sdk
+set -x ANDROID_SDK_ROOT "/usr/local/share/android-sdk"
+#set -x ANDROID_HOME "/usr/local/share/android-sdk"
 
 # CD to the last known directory
 if test -e $last_dir

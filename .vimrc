@@ -64,13 +64,15 @@
         " Python
             " python completion/goto/doc - better than python-mode
             Plug 'davidhalter/jedi-vim', { 'tag': '0.9.0' }
+            "Plug 'davidhalter/jedi-vim'
             " jedi-vim better than pymode for completion, but both together
             " made things slow. this module is for just highlighting
             Plug 'vim-python/python-syntax'
             " Folding
             Plug 'tmhedberg/SimpylFold'
             " Indentation
-            Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '8b215aac0192f74b5aeb6ae5a2e1766db2ebecb8' }
+            "Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '8b215aac0192f74b5aeb6ae5a2e1766db2ebecb8' }
+            Plug 'Vimjas/vim-python-pep8-indent'
         " solarized color scheme
         Plug 'altercation/vim-colors-solarized'
         " fuzzy search
@@ -94,10 +96,10 @@
         Plug 'mbbill/undotree'
         " Git helpers
         Plug 'tpope/vim-fugitive'
-        " simple statusline
-        Plug 'itchyny/lightline.vim'
         " nice icons for file paths
         Plug 'ryanoasis/vim-devicons'
+        " simple statusline
+        Plug 'itchyny/lightline.vim'
         " smoother scrolling
         Plug 'yuttie/comfortable-motion.vim'
         " faster/better search
@@ -140,7 +142,24 @@
         Plug 'plasticboy/vim-markdown'
         " indent guides
         Plug 'nathanaelkane/vim-indent-guides'
+        " aligning text
+        Plug 'godlygeek/tabular'
+        " elm
+        Plug 'ElmCast/elm-vim'
     call plug#end()
+
+" jedi
+    " change usages shortcut
+    " it defaults to <leader>n, but I want to use that with NERDTree
+    let jedi#usages_command = '<leader>z'
+    " show signature inline
+    let jedi#show_call_signatures = 2
+    " doc
+    let jedi#documentation_command = '<leader>d'
+
+" python-syntax
+    let python_highlight_all = 1
+    let python_slow_sync = 0
 
 " solarized
     syntax enable
@@ -164,18 +183,11 @@
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
 
-" jedi
-    " change usages shortcut
-    " it defaults to <leader>n, but I want to use that with NERDTree
-    let jedi#usages_command = '<leader>z'
-    " show signature inline
-    let jedi#show_call_signatures = 2
-    " doc
-    let jedi#documentation_command = '<leader>d'
-
-" python-syntax
-    let python_highlight_all = 1
-    let python_slow_sync = 0
+" elm completions with neocomplete
+    call neocomplete#util#set_default_dictionary(
+        \ 'g:neocomplete#sources#omni#input_patterns',
+        \ 'elm',
+        \ '\.')
 
 " supertab
     " return key closes the completion window without inserting newline
@@ -191,6 +203,14 @@
 
 " undotree
     nnoremap <leader>u :UndotreeToggle<cr>
+
+" devicons
+    " expects that a nerdfont was installed, such as from
+    " `brew tap Caskroom/fonts; and brew cask install
+    " font-sourcecodepro-nerd-font`
+    if empty(system('brew cask list | grep sourcecodepro'))
+        silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font
+    endif
 
 " lightline
     " show the line
@@ -228,14 +248,6 @@
     endfunction
     " don't show mode, because lightline shows the mode
     set noshowmode
-
-" devicons
-    " expects that a nerdfont was installed, such as from
-    " `brew tap Caskroom/fonts; and brew cask install
-    " font-sourcecodepro-nerd-font`
-    if empty(system('brew cask list | grep sourcecodepro'))
-        silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font
-    endif
 
 " comfortable motion (Scrolling)
     noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
@@ -283,7 +295,7 @@
 
 " Focus on the current text blob
     let g:limelight_conceal_ctermfg = 'DarkGrey'
-    autocmd BufEnter * Limelight
+    autocmd VimEnter * Limelight
 
 " Rainbow parens
     let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
@@ -314,8 +326,15 @@
 " Indent guide colors
     let g:indent_guides_auto_colors = 1
     let g:indent_guides_enable_on_vim_startup = 1
-    "hi IndentGuidesOdd ctermbg=DarkGrey
-    "hi IndentGuidesEven ctermbg=Black
+
+" Livedown
+    if !executable('node')
+        silent !brew install node
+    endif
+    if !executable('livedown')
+        silent !npm install -g livedown
+    endif
+    nmap gm :LivedownToggle<CR>
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

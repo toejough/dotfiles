@@ -40,8 +40,20 @@
             echo '[*] removing old remote branch' && \
             git push origin :\"$NAME\"; \
     }; f"
-    prune-dead-branches = "!git checkout master && git integrate-master && git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D"
+    prune-dead-branches = "!git checkout master && git fetch && git re-tag-from origin/master && git rebase-branch-onto origin/master && git worktree prune && git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D"
     cleanup-from = "!f() { if git has-local-changes-from $1; then git rebase -i $(git last-common-commit $1); else echo 'Same as last common commit with '$1; fi }; f"
+
+    # [ re-tagging actions ]
+    re-tag-from = "!f() { \
+        local LOCAL_TAG=\"local-base.$(git name)\"; \
+        local BRANCH_TAG=\"branch-base.$(git name)\"; \
+        local CURRENT_BRANCH=\"$(git name)\"; \
+        local BRANCHED_FROM=\"${1}\"; \
+        local BRANCH_START=\"$(git last-common-commit ${BRANCHED_FROM})\"; \
+        local LOCAL_START=\"$(git last-common-commit origin/${CURRENT_BRANCH})\"; \
+        git tag -f \"${LOCAL_TAG}\" \"${LOCAL_START}\"; \
+        git tag -f \"${BRANCH_TAG}\" \"${BRANCH_START}\"; \
+    }; f"
 
     # [ file state actions ]
     # unstage a staged file
@@ -54,25 +66,65 @@
     nuke-local-state = "!git reset --hard origin/$(git name) && git clean -xdff"
 
     # [ workflow actions ]
+    # Get a true representation of the remote master, locally
     update-master = "!git checkout master && git fetch && git reset --hard origin/master"
-    new-branch = "!f() { git checkout -b $1; git push --set-upstream origin $(git name); }; f"
-    clean-local = "!git cleanup-from origin/$(git name)"
-    integrate-branch = "!f() { \
-        if [[ \"$#\" -ne 0 ]]; then \
-            echo \"This function takes no args - it rebases your local branch onto the remote branch of the same name.\"; \
-            exit 1; \
-        fi; \
-        git fetch; git rebase origin/$(git name); \
+    # Create a new branch from where-ever you are now.
+    #   Also tags this as your branch's base point for easier rebasing later.
+    #     This tag will get pushed to your remote branch for branch history tracking.
+    #   Also tags this as your local commit history start for easier rebasing later.
+    #     This tag will *not* get pushed to your remote branch - it's for local history tracking _only_.
+    new-branch = "!f() { \
+        git checkout -b $1; \
+        git tag \"branch-base.$1\"; \
+        git push --set-upstream origin $(git name); \
+        git push --tags; \
+        git tag \"local-base.$1\"; \
     }; f"
-    clean-branch = "!git cleanup-from origin/master"
-    integrate-master = "!f() { \
-        if [[ \"$#\" -ne 0 ]]; then \
-            echo \"This function takes no args - it rebases your local branch onto origin/master.\";  \
-            exit 1; \
-        fi; \
-        git fetch; git rebase origin/master; \
+    # clean your local commits up before pushing to the remote
+    clean-local = "!f() { \
+        local START=\"local-base.$(git name)\"; \
+        local STOP=\"$(git name)\"; \
+        local ONTO=\"${START}\"; \
+        git rebase -i --onto \"${ONTO}\" \"${START}\" \"${STOP}\"; \
     }; f"
-    remove-local = "!f() { local NAME=\"$(git name)\" && git update-master && git branch -d \"${NAME}\"; }; f"
+    # rebase your branch from the local base point onto the given commit/branch/tag
+    #   This may or may not be the origin version of this branch (git fetch; git rebase-local-onto origin/<branch>)
+    rebase-local-onto = "!f() { \
+        local START=\"local-base.$(git name)\"; \
+        local STOP=\"$(git name)\"; \
+        local ONTO=\"${1}\"; \
+        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\"; \
+        git tag -f \"${START}\" \"${ONTO}\"; \
+    }; f"
+    # clean your branch's commits up before merging to another branch
+    clean-branch = "!f() { \
+        local START=\"branch-base.$(git name)\"; \
+        local STOP=\"$(git name)\"; \
+        local ONTO=\"${START}\"; \
+        git rebase -i --onto \"${ONTO}\" \"${START}\" \"${STOP}\"; \
+        local LOCAL=\"local-base.$(git name)\"; \
+        git tag -f \"${LOCAL}\" \"${ONTO}\"; \
+    }; f"
+    # rebase your branch from the branch base point onto the given commit/branch/tag
+    rebase-branch-onto = "!f() { \
+        local START=\"branch-base.$(git name)\"; \
+        local STOP=\"$(git name)\"; \
+        local ONTO=\"${1}\"; \
+        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\"; \
+        local LOCAL=\"local-base.$(git name)\"; \
+        git tag -f \"${LOCAL}\" \"${ONTO}\"; \
+        git tag -f \"${START}\" \"${ONTO}\"; \
+    }; f"
+    # push your branch to the remote
+    push-branch = "!f() { \
+        local BRANCH=\"$(git name)\"; \
+        local ONTO=\"${1}\"; \
+        git push -f; \
+        local LOCAL=\"local-base.$(git name)\"; \
+        git tag --delete \"${LOCAL}\"; \
+        git push -f --tags; \
+        git tag -f \"${LOCAL}\" \"${BRANCH}\"; \
+    }; f"
 
     # [ Force-push recovery ]
     recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery-version and git integrate-master again."

@@ -38,3 +38,6 @@ set -x PYTHON_CONFIGURE_OPTS "--enable-framework"
 
 # added by pipsi (https://github.com/mitsuhiko/pipsi)
 set -x PATH /Users/joe/.local/bin $PATH
+
+# use thefuck as nuts
+thefuck --alias nuts | source

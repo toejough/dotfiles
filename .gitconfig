@@ -138,6 +138,7 @@
 
 [push]
     default = simple
+    followTags = true
 
 [commit]
     template = /Users/joe/.settings/git-commit-template.txt
@@ -148,6 +149,9 @@
 [pull]
     ff = only
     rebase = preserve
+
+[remote.origin]
+    tagOpt = --tags
 
 [rebase]
     autosquash = true

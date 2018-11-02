@@ -93,7 +93,7 @@
         local START=\"local-base.$(git name)\"; \
         local STOP=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
-        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\"; \
+        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\" || return 1; \
         git tag -f \"${START}\" \"${ONTO}\"; \
     }; f"
     # clean your branch's commits up before merging to another branch
@@ -101,7 +101,7 @@
         local START=\"branch-base.$(git name)\"; \
         local STOP=\"$(git name)\"; \
         local ONTO=\"${START}\"; \
-        git rebase -i --onto \"${ONTO}\" \"${START}\" \"${STOP}\"; \
+        git rebase -i --onto \"${ONTO}\" \"${START}\" \"${STOP}\" || return 1; \
         local LOCAL=\"local-base.$(git name)\"; \
         git tag -f \"${LOCAL}\" \"${ONTO}\"; \
     }; f"
@@ -110,16 +110,16 @@
         local START=\"branch-base.$(git name)\"; \
         local STOP=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
-        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\"; \
+        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\" || return 1; \
         local LOCAL=\"local-base.$(git name)\"; \
-        git tag -f \"${LOCAL}\" \"${ONTO}\"; \
+        git tag -f \"${LOCAL}\" \"${ONTO}\" && \
         git tag -f \"${START}\" \"${ONTO}\"; \
     }; f"
     # push your branch to the remote
     push-branch = "!f() { \
         local BRANCH=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
-        git push -f; \
+        git push -f || return 1; \
         local LOCAL=\"local-base.$(git name)\"; \
         git tag --delete \"${LOCAL}\"; \
         git push -f --tags; \

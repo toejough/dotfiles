@@ -131,9 +131,23 @@
     use-recovery-version = "!git reset --hard recover.$(git name); echo 'if you are really sure, git integrate-master.'"
 
     # [ Worktree ]
-    workon-new = "!f() { local location=$(echo $1 | tr . -); git worktree add -b $1 ../$location $(git name); cd ../$location; git push -u origin $1; echo \"set up branch $1 at ../$location\"; }; f"
-    workon-local = "!f() { local location=$(echo $1 | tr . -); git worktree add ../$location $1; cd ../$location; git push -u origin $1; echo \"set up branch $1 at ../$location\"; }; f"
-    workon-remote = "!f() { local location=$(echo $1 | tr . -); git worktree add ../$location $1; echo \"set up branch $1 at ../$location\"; }; f"
+    workon-new = "!f() { \
+        local location=$(echo $1 | tr . -); \
+        git worktree add -b $1 ../$location $(git name); \
+        git tag \"branch-base.$1\"; \
+        git tag \"local-base.$1\"; \
+        cd ../$location; \
+        git push --set-upstream origin $(git name); \
+        git push --tags; \
+        echo \"set up branch $1 at ../$location\"; \
+    }; f"
+    workon-existing = "!f() { \
+        local location=$(echo $1 | tr . -); \
+        git worktree add ../$location $1; \
+        cd ../$location; \
+        git push --set-upstream origin $(git name); \
+        echo \"set up branch $1 at ../$location\"; \
+    }; f"
     parent = "!git rev-parse --git-dir | awk -F/ '{ print $(NF-3)  }'"
 
 [push]

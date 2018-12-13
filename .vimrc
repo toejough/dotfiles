@@ -63,16 +63,16 @@
     call plug#begin()
         " Python
             " python completion/goto/doc - better than python-mode
-            Plug 'davidhalter/jedi-vim', { 'tag': '0.9.0' }
-            "Plug 'davidhalter/jedi-vim'
+            "Plug 'davidhalter/jedi-vim', { 'tag': '0.9.0' }
+            Plug 'davidhalter/jedi-vim'
             " jedi-vim better than pymode for completion, but both together
             " made things slow. this module is for just highlighting
             Plug 'vim-python/python-syntax'
             " Folding
             Plug 'tmhedberg/SimpylFold'
             " Indentation
-            "Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '8b215aac0192f74b5aeb6ae5a2e1766db2ebecb8' }
-            Plug 'Vimjas/vim-python-pep8-indent'
+            Plug 'blueyed/vim-python-pep8-indent', { 'commit': 'efa7e6b0ee1448f98f5a359fe2b6a9b330434db7' }
+            "Plug 'Vimjas/vim-python-pep8-indent'
         " solarized color scheme
         Plug 'altercation/vim-colors-solarized'
         " fuzzy search
@@ -123,7 +123,7 @@
         " Toml support
         Plug 'cespare/vim-toml'
         " Ponylang support
-        Plug 'dleonard0/pony-vim-syntax'
+        "Plug 'dleonard0/pony-vim-syntax'
         " Camelcase motions with <leader>w,b,e, etc
         Plug 'bkad/camelcasemotion'
         " Ctrl-n to select things
@@ -145,7 +145,7 @@
         " aligning text
         Plug 'godlygeek/tabular'
         " elm
-        Plug 'ElmCast/elm-vim'
+        "Plug 'ElmCast/elm-vim'
     call plug#end()
 
 " jedi
@@ -184,10 +184,10 @@
     let NERDTreeQuitOnOpen = 1
 
 " elm completions with neocomplete
-    call neocomplete#util#set_default_dictionary(
-        \ 'g:neocomplete#sources#omni#input_patterns',
-        \ 'elm',
-        \ '\.')
+    "call neocomplete#util#set_default_dictionary(
+    "    \ 'g:neocomplete#sources#omni#input_patterns',
+    "    \ 'elm',
+    "    \ '\.')
 
 " supertab
     " return key closes the completion window without inserting newline
@@ -300,6 +300,10 @@
 " Rainbow parens
     let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
     autocmd BufEnter * RainbowParentheses
+
+" Git gutter
+    set signcolumn=yes
+    set updatetime=100
 
 " CamelCase keys
     call camelcasemotion#CreateMotionMappings('<leader>')

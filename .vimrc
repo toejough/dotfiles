@@ -330,8 +330,9 @@
     let g:vim_markdown_fenced_languages = ['python=python']
 
 " Indent guide colors
-    let g:indent_guides_auto_colors = 1
+    let g:indent_guides_auto_colors = 0
     let g:indent_guides_enable_on_vim_startup = 1
+    hi IndentGuidesEven ctermbg=Black
 
 " Livedown
     if !executable('node')

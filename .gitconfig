@@ -102,7 +102,7 @@
         local START=\"local-base.$(git name)\"; \
         local STOP=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
-        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\" || return 1; \
+        git rebase -i --onto \"${ONTO}\" \"${START}\" \"${STOP}\" || return 1; \
         git tag -f \"${START}\" \"${ONTO}\"; \
     }; f"
     # clean your branch's commits up before merging to another branch
@@ -119,7 +119,7 @@
         local START=\"branch-base.$(git name)\"; \
         local STOP=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
-        git rebase --onto \"${ONTO}\" \"${START}\" \"${STOP}\" || return 1; \
+        git rebase -i --onto \"${ONTO}\" \"${START}\" \"${STOP}\" || return 1; \
         local LOCAL=\"local-base.$(git name)\"; \
         git tag -f \"${LOCAL}\" \"${ONTO}\" && \
         git tag -f \"${START}\" \"${ONTO}\"; \

@@ -40,7 +40,16 @@
             echo '[*] removing old remote branch' && \
             git push origin :\"$NAME\"; \
     }; f"
-    prune-dead-branches = "!git checkout master && git fetch && git re-tag-from origin/master && git rebase-branch-onto origin/master && git worktree prune && git remote prune origin; git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D"
+    prune-dead-branches = "!f() { \
+        set -x; \
+        git checkout master && \
+        git fetch && \
+        git pull && \
+        git worktree prune && \
+        git remote prune origin && \
+        git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && \
+        git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D; \
+    }; f"
     cleanup-from = "!f() { if git has-local-changes-from $1; then git rebase -i $(git last-common-commit $1); else echo 'Same as last common commit with '$1; fi }; f"
 
     # [ re-tagging actions ]

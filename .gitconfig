@@ -134,6 +134,14 @@
         git push -f --tags; \
         git tag -f \"${LOCAL}\" \"${BRANCH}\"; \
     }; f"
+    remove-tags-for = "!f() { \
+        local LOCAL=\"local-base.${1}\"; \
+        local BRANCH=\"branch-base.${1}\"; \
+        git tag --delete \"${LOCAL}\"; \
+        git tag --delete \"${BRANCH}\"; \
+        git push --delete origin \"${LOCAL}\"; \
+        git push --delete origin \"${BRANCH}\"; \
+    }; f"
 
     # [ Force-push recovery ]
     recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery-version and git integrate-master again."
@@ -161,7 +169,7 @@
 
 [push]
     default = simple
-    followTags = true
+    followTags = false
 
 [commit]
     template = /Users/joe/.settings/git-commit-template.txt

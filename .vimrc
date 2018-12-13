@@ -146,6 +146,8 @@
         Plug 'godlygeek/tabular'
         " elm
         "Plug 'ElmCast/elm-vim'
+        " autosave
+        Plug '907th/vim-auto-save'
     call plug#end()
 
 " jedi
@@ -337,8 +339,12 @@
     endif
     if !executable('livedown')
         silent !npm install -g livedown
+
     endif
     nmap gm :LivedownToggle<CR>
+
+" Autosave
+    let g:auto_save = 1  "
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

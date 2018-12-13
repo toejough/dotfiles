@@ -374,3 +374,7 @@
     " exit on ctrl-q
     nnoremap <C-q> :q<cr>
     inoremap <C-q> <Esc>:q<cr>
+    " search visual selection
+    vnoremap // y/\M<C-R>"<CR>
+    " replace visual selection
+    vnoremap ss y:%s/\M<C-R>"/

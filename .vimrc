@@ -52,6 +52,8 @@
     " try to speed things up
     set lazyredraw
     set ttyfast
+    " explicitly use fish in interactive mode to mimic normal terminal
+    set shell=fish\ -i
 
 " Plugin management
     " Install manager if not present
@@ -71,8 +73,8 @@
             " Folding
             Plug 'tmhedberg/SimpylFold'
             " Indentation
-            Plug 'blueyed/vim-python-pep8-indent', { 'commit': 'efa7e6b0ee1448f98f5a359fe2b6a9b330434db7' }
-            "Plug 'Vimjas/vim-python-pep8-indent'
+            "Plug 'blueyed/vim-python-pep8-indent', { 'commit': 'efa7e6b0ee1448f98f5a359fe2b6a9b330434db7' }
+            Plug 'Vimjas/vim-python-pep8-indent'
         " solarized color scheme
         Plug 'altercation/vim-colors-solarized'
         " fuzzy search

@@ -26,11 +26,16 @@ if test -e $last_dir
     cd $last_dir
 end
 
+# added for pipx (https://github.com/cs01/pipx)
+set -x PATH /Users/joe/.local/bin $PATH
+
 # pyenv activation hooks
 # NOTE: something that happens above here breaks these calls if they're performed at the
 #       top of the file.  Putting them here makes pyenv work as expected.
-status --is-interactive; and source (pyenv init -| psub)
-status --is-interactive; and source (pyenv virtualenv-init -| psub)
+#status --is-interactive; and source (pyenv init -| psub)
+#status --is-interactive; and source (pyenv virtualenv-init -| psub)
+source (pyenv init -| psub)
+source (pyenv virtualenv-init -| psub)
 set -x PYENV_ROOT /Users/joe/.pyenv
 set -x PYTHON_CONFIGURE_OPTS "--enable-framework"
 

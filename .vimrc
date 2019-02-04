@@ -148,8 +148,6 @@
         Plug 'nathanaelkane/vim-indent-guides'
         " aligning text
         Plug 'godlygeek/tabular'
-        " elm
-        "Plug 'ElmCast/elm-vim'
         " autosave
         Plug '907th/vim-auto-save'
     call plug#end()

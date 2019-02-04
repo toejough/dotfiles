@@ -54,6 +54,8 @@
     set ttyfast
     " explicitly use fish in interactive mode to mimic normal terminal
     set shell=fish\ -i
+    " highlight max line length (flake8 says 79, so mark 80)
+    set colorcolumn=80
 
 " Plugin management
     " Install manager if not present

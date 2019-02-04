@@ -296,6 +296,7 @@
 
 " Whitespace stripping
     autocmd BufEnter * EnableStripWhitespaceOnSave
+    let g:strip_whitespace_confirm=0
 
 " Focus on the current text blob
     let g:limelight_conceal_ctermfg = 'DarkGrey'

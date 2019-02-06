@@ -1,6 +1,4 @@
 function fish_prompt
-	#function _old_fish_prompt
-	#function fish_prompt --description 'Write out the prompt'
 	set laststatus $status
     set -g git_name (git name ^/dev/null)
     if [ "$git_name" ]

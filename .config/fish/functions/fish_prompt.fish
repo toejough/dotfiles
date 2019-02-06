@@ -144,7 +144,4 @@ function fish_prompt
     if functions -q -- iterm2_print_user_vars
       iterm2_print_user_vars
     end
-
-    # set a universal directory
-    set -U last_dir (pwd)
 end

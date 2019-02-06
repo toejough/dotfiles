@@ -6,10 +6,6 @@ set PATH $PATH /Users/joe/.cargo/bin
 
 # android
 set -x ANDROID_SDK_ROOT "/usr/local/share/android-sdk"
-# CD to the last known directory
-if test -e $last_dir
-    cd $last_dir
-end
 
 # added for pipx (https://github.com/cs01/pipx)
 set -x PATH /Users/joe/.local/bin $PATH
@@ -29,3 +25,6 @@ set -x PYTHON_CONFIGURE_OPTS "--enable-framework"
 #[ -f /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish ]; and . /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.fish
 
 
+# Set cd history universally
+set -U dirprev
+set -U dirnext

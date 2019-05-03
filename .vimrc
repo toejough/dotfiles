@@ -150,6 +150,8 @@
         Plug 'godlygeek/tabular'
         " autosave
         Plug '907th/vim-auto-save'
+        " go
+        Plug 'fatih/vim-go'
     call plug#end()
 
 " jedi
@@ -381,3 +383,7 @@
     vnoremap // y/\M<C-R>"<CR>
     " replace visual selection
     vnoremap ss y:%s/\M<C-R>"/
+
+" vim-go
+    " fixup for undo issue (https://github.com/fatih/vim-go/issues/1134)
+    let g:go_fmt_experimental = 1

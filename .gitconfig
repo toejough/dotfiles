@@ -193,11 +193,7 @@
 [diff]
     compactionHeuristic = true
 
-; https://github.com/so-fancy/diff-so-fancy/issues/296
-;[pager]
-;    log = "diff-so-fancy | less --tabs=4 -RFX"
-;    show = "diff-so-fancy | less --tabs=4 -RFX"
-;    diff = "diff-so-fancy | less --tabs=4 -RFX"
-
-;[interactive]
-;    diffFilter = "diff-so-fancy | less --tabs=4 -RFX"
+[pager]
+    log = "diff-so-fancy | less --tabs=4 -RFX"
+    show = "diff-so-fancy | less --tabs=4 -RFX"
+    diff = "diff-so-fancy | less --tabs=4 -RFX"

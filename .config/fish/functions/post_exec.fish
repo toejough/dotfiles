@@ -16,6 +16,12 @@ function post_exec --on-event fish_postexec
             echo "RC: "(set_color red)"$last_status"
         end
         set_color normal
+
+        # git info
+        if git status > /dev/null 2>&1
+            git remote -v
+            git status -sb
+        end
     end
 
     # PWD on change
@@ -25,4 +31,5 @@ function post_exec --on-event fish_postexec
         echo "PWD: "(set_color blue)"$current_dir"
         set_color normal
     end
+
 end

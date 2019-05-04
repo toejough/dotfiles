@@ -1,9 +1,9 @@
-# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.WrK4dT/post_exec.fish @ line 2
+# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.AiMeWa/post_exec.fish @ line 2
 function post_exec --on-event fish_postexec
 	set -l last_status $status
 
     # Last command info if command
-    if test -n "$argv[1]"
+    if test -n "$argv"
         echo "CMD: "(set_color yellow)"$argv[1]"
         set_color normal
 

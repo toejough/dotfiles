@@ -1,4 +1,4 @@
-# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.AiMeWa/post_exec.fish @ line 2
+# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.RJTpaF/post_exec.fish @ line 2
 function post_exec --on-event fish_postexec
 	set -l last_status $status
 
@@ -19,7 +19,8 @@ function post_exec --on-event fish_postexec
 
         # git info
         if git status > /dev/null 2>&1
-            git remote -v
+            echo "GIT REMOTE: "(git config --get remote.(git remote).url)
+            echo -n "GIT STATUS: "
             git status -sb
         end
     end
@@ -31,5 +32,4 @@ function post_exec --on-event fish_postexec
         echo "PWD: "(set_color blue)"$current_dir"
         set_color normal
     end
-
 end

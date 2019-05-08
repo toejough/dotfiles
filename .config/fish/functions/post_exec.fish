@@ -1,4 +1,4 @@
-# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.RJTpaF/post_exec.fish @ line 2
+# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.1OD7kP/post_exec.fish @ line 2
 function post_exec --on-event fish_postexec
 	set -l last_status $status
 
@@ -18,8 +18,10 @@ function post_exec --on-event fish_postexec
         set_color normal
 
         # git info
-        if git status > /dev/null 2>&1
+        if git config --get remote.(git remote > /dev/null 2>&1).url > /dev/null 2>&1
             echo "GIT REMOTE: "(git config --get remote.(git remote).url)
+        end
+        if git status > /dev/null 2>&1
             echo -n "GIT STATUS: "
             git status -sb
         end

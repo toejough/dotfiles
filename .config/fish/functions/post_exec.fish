@@ -18,7 +18,7 @@ function post_exec --on-event fish_postexec
         set_color normal
 
         # git info
-        if git config --get remote.(git remote > /dev/null 2>&1).url > /dev/null 2>&1
+        if git config --get remote.(git remote 2> /dev/null).url > /dev/null 2>&1
             echo "GIT REMOTE: "(git config --get remote.(git remote).url)
         end
         if git status > /dev/null 2>&1

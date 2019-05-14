@@ -33,6 +33,6 @@ function post_exec --on-event fish_postexec
         set -U last_dir $current_dir
         echo "PWD: "(set_color blue)"$current_dir"
         set_color normal
-        tree -htDF -L 1 --du
+        lt
     end
 end

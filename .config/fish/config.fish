@@ -1,5 +1,12 @@
 # Editor
-set -x EDITOR vim
+# Checking if we have already inherited an editor
+if ! set -q EDITOR
+    # if not, use Vim
+    set -x EDITOR vim
+end
+
+# keybindings
+fish_vi_key_bindings
 
 # Set dirnext and dirprev and direction to universals
 set -U dirprev $dirprev

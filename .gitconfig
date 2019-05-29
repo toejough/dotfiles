@@ -61,6 +61,7 @@
         local LOCAL_START=\"$(git last-common-commit origin/${CURRENT_BRANCH})\"; \
         git tag -f \"${LOCAL_TAG}\" \"${LOCAL_START}\"; \
         git tag -f \"${BRANCH_TAG}\" \"${BRANCH_START}\"; \
+        git push -f origin \"${BRANCH_TAG}\"; \
     }; f"
 
     # [ file state actions ]
@@ -85,7 +86,7 @@
         git checkout -b $1; \
         git tag \"branch-base.$1\"; \
         git push --set-upstream origin $(git name); \
-        git push --tags; \
+        git push -f origin \"branch-base.$1\"; \
         git tag \"local-base.$1\"; \
     }; f"
     # clean your local commits up before pushing to the remote
@@ -128,9 +129,9 @@
         local BRANCH=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
         git push -f || return 1; \
-        local LOCAL=\"local-base.$(git name)\"; \
-        git tag --delete \"${LOCAL}\"; \
-        git push -f --tags; \
+        local LOCAL=\"local-base.${BRANCH}\"; \
+        local BRANCH_TAG=\"branch-base.${BRANCH}\"; \
+        git push -f origin $BRANCH_TAG; \
         git tag -f \"${LOCAL}\" \"${BRANCH}\"; \
     }; f"
     remove-tags-for = "!f() { \
@@ -154,7 +155,7 @@
         git tag \"local-base.$1\"; \
         cd ../$location; \
         git push --set-upstream origin $(git name); \
-        git push --tags; \
+        git push -f origin \"branch-base.$1\"; \
         echo \"set up branch $1 at ../$location\"; \
     }; f"
     workon-existing = "!f() { \

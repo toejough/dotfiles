@@ -1,0 +1,7 @@
+1password
+firefox
+font-sourcecodepro-nerd-font
+iterm2
+alfred
+signal
+keybase

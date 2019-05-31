@@ -1,0 +1,13 @@
+ack
+bash
+direnv
+fish
+git
+htop
+ncdu
+tmux
+tree
+vim
+wget
+mosh
+openssh

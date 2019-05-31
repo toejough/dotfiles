@@ -13,6 +13,11 @@ set -U dirprev $dirprev
 set -U dirnext $dirnext
 set -U __fish_cd_direction $__fish_cd_direction
 
+# set initial directories
+if not set -q last_dir
+    set -U last_dir (pwd)
+end
+
 # Enable post-exec
 source ~/dotfiles/.config/fish/functions/post_exec.fish
 

@@ -125,10 +125,19 @@
         git tag -f \"${START}\" \"${ONTO}\"; \
     }; f"
     # push your branch to the remote
-    push-branch = "!f() { \
+    force-push-branch = "!f() { \
         local BRANCH=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
         git push -f || return 1; \
+        local LOCAL=\"local-base.${BRANCH}\"; \
+        local BRANCH_TAG=\"branch-base.${BRANCH}\"; \
+        git push -f origin $BRANCH_TAG; \
+        git tag -f \"${LOCAL}\" \"${BRANCH}\"; \
+    }; f"
+    push-branch = "!f() { \
+        local BRANCH=\"$(git name)\"; \
+        local ONTO=\"${1}\"; \
+        git push || return 1; \
         local LOCAL=\"local-base.${BRANCH}\"; \
         local BRANCH_TAG=\"branch-base.${BRANCH}\"; \
         git push -f origin $BRANCH_TAG; \
@@ -172,7 +181,7 @@
     followTags = false
 
 [commit]
-    template = /Users/joe/.settings/git-commit-template.txt
+    template = /Users/joe/dotfiles/git-commit-template.txt
 
 [help]
     autocorrect = 20

@@ -35,4 +35,7 @@ function post_exec --on-event fish_postexec
         set_color normal
         lt
     end
+
+    # The current time
+    date
 end

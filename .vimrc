@@ -82,7 +82,6 @@
             "Plug 'blueyed/vim-python-pep8-indent', { 'commit': 'efa7e6b0ee1448f98f5a359fe2b6a9b330434db7' }
             Plug 'Vimjas/vim-python-pep8-indent'
         " solarized color scheme
-        " Plug 'altercation/vim-colors-solarized'
         Plug 'lifepillar/vim-solarized8'
         " fuzzy search
         Plug 'ctrlpvim/ctrlp.vim'

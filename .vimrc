@@ -56,6 +56,10 @@
     set shell=fish\ -i
     " highlight max line length (flake8 says 79, so mark 80)
     set colorcolumn=80
+    " use truecolor colors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 
 " Plugin management
     " Install manager if not present
@@ -78,7 +82,8 @@
             "Plug 'blueyed/vim-python-pep8-indent', { 'commit': 'efa7e6b0ee1448f98f5a359fe2b6a9b330434db7' }
             Plug 'Vimjas/vim-python-pep8-indent'
         " solarized color scheme
-        Plug 'altercation/vim-colors-solarized'
+        " Plug 'altercation/vim-colors-solarized'
+        Plug 'lifepillar/vim-solarized8'
         " fuzzy search
         Plug 'ctrlpvim/ctrlp.vim'
         " file navigation/manipulation
@@ -152,6 +157,11 @@
         Plug '907th/vim-auto-save'
         " go
         Plug 'fatih/vim-go'
+        " html
+        Plug 'othree/html5.vim'
+        Plug 'alvan/vim-closetag'
+        " javascript
+        Plug 'pangloss/vim-javascript'
     call plug#end()
 
 " jedi
@@ -170,7 +180,7 @@
 " solarized
     syntax enable
     set background=dark
-    colorscheme solarized
+    colorscheme solarized8
 
 " ctrl-p
     " make first ctlp search be in mru by default, then buffers, then files after that

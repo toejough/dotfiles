@@ -22,7 +22,7 @@ echo "Checking taps... done!"
 
 echo "Checking recipes..."
 set brew_list (brew leaves)
-set desired_brew_list (cat ~/dotfiles/brew-list.txt | awk '{print $1}')
+set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | awk '{print $1}')
 for recipe in $brew_list
     echo -n "  found $recipe..."
     if not echo $desired_brew_list | ack $recipe > /dev/null

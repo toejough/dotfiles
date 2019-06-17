@@ -11,3 +11,8 @@ vim
 wget
 mosh
 openssh
+ivandokov/contrib/phockup
+the_silver_searcher # used by vim
+node # used by vim
+go
+httpie

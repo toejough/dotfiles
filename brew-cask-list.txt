@@ -5,3 +5,5 @@ iterm2
 alfred
 signal
 keybase
+darktable
+visual-studio-code

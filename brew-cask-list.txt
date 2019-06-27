@@ -7,3 +7,6 @@ signal
 keybase
 darktable
 visual-studio-code
+amethyst
+docker
+slack

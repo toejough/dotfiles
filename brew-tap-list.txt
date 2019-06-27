@@ -3,3 +3,4 @@ homebrew/cask
 caskroom/fonts
 beeftornado/rmtree
 ivandokov/contrib
+universal-ctags/universal-ctags

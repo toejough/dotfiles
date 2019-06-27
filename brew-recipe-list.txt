@@ -17,3 +17,7 @@ node # used by vim
 go
 httpie
 diff-so-fancy
+universal-ctags/universal-ctags/universal-ctags
+reattach-to-user-namespace
+gotags
+jq

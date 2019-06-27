@@ -161,6 +161,8 @@
         Plug 'alvan/vim-closetag'
         " javascript
         Plug 'pangloss/vim-javascript'
+        " class outline
+        Plug 'majutsushi/tagbar'
     call plug#end()
 
 " jedi
@@ -361,6 +363,44 @@
 " Autosave
     let g:auto_save = 1  "
 
+" vim-go
+    " fixup for undo issue (https://github.com/fatih/vim-go/issues/1134)
+    let g:go_fmt_experimental = 1
+    let g:go_metalinter_command = "golangci-lint run"
+    let g:go_jump_to_error = 0
+    let g:go_metalinter_autosave = 1
+    let g:go_list_type = "locationlist"
+
+" tagbar
+" config from https://github.com/jstemmer/gotags
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)
     " insert python breakpoint on <leader>p
@@ -392,7 +432,3 @@
     vnoremap // y/\M<C-R>"<CR>
     " replace visual selection
     vnoremap ss y:%s/\M<C-R>"/
-
-" vim-go
-    " fixup for undo issue (https://github.com/fatih/vim-go/issues/1134)
-    let g:go_fmt_experimental = 1

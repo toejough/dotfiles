@@ -10,3 +10,4 @@ visual-studio-code
 amethyst
 docker
 slack
+minecraft

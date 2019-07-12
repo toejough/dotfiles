@@ -337,6 +337,7 @@
     let g:go_jump_to_error = 0
     let g:go_metalinter_autosave = 1
     let g:go_list_type = "locationlist"
+    let g:go_fmt_command = "goimports"
 
 " tagbar
 " config from https://github.com/jstemmer/gotags

@@ -69,18 +69,6 @@
     endif
     " Load plugins
     call plug#begin()
-        " Python
-            " python completion/goto/doc - better than python-mode
-            "Plug 'davidhalter/jedi-vim', { 'tag': '0.9.0' }
-            Plug 'davidhalter/jedi-vim'
-            " jedi-vim better than pymode for completion, but both together
-            " made things slow. this module is for just highlighting
-            Plug 'vim-python/python-syntax'
-            " Folding
-            Plug 'tmhedberg/SimpylFold'
-            " Indentation
-            "Plug 'blueyed/vim-python-pep8-indent', { 'commit': 'efa7e6b0ee1448f98f5a359fe2b6a9b330434db7' }
-            Plug 'Vimjas/vim-python-pep8-indent'
         " solarized color scheme
         Plug 'lifepillar/vim-solarized8'
         " fuzzy search
@@ -164,19 +152,6 @@
         " class outline
         Plug 'majutsushi/tagbar'
     call plug#end()
-
-" jedi
-    " change usages shortcut
-    " it defaults to <leader>n, but I want to use that with NERDTree
-    let jedi#usages_command = '<leader>z'
-    " show signature inline
-    let jedi#show_call_signatures = 2
-    " doc
-    let jedi#documentation_command = '<leader>d'
-
-" python-syntax
-    let python_highlight_all = 1
-    let python_slow_sync = 0
 
 " solarized
     syntax enable
@@ -403,8 +378,6 @@ let g:tagbar_type_go = {
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)
-    " insert python breakpoint on <leader>p
-    noremap <leader>p Oimport bpdb; bpdb.set_trace()<esc>
     " folds
         " <space> opens a fold as long as there's a closed fold under it
         " otherwise closes one fold level

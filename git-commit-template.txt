@@ -3,11 +3,11 @@
 # A description of the problem or feature that triggered this commit.
 **Problem:**
 
-# A discussion of the problem, root causes, and possible solutions/workarounds (and their impacts).
-**Analysis:**
-
 # The solution this commit implements.
 **Resolution:**
+
+# A discussion of the problem, root causes, and possible solutions/workarounds (and their impacts).
+**Analysis:**
 
 # A discussion of your testing/tests for this commit
 **Testing:**

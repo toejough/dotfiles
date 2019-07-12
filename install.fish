@@ -7,8 +7,4 @@ ln -vf ~/dotfiles/.config/fish/fishd.universal  ~/.config/fish/(ls ~/.config/fis
 ln -vFfs ~/dotfiles/.vimrc ~
 ln -vFfs ~/dotfiles/.gitconfig ~
 ln -vFfs ~/dotfiles/.tmux.conf ~
-
-if not brew tap | grep 'beeftornado/rmtree' > dev/null
-    brew tap 'beeftornado/rmtree'
-end
-
+brewm update

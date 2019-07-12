@@ -173,12 +173,6 @@
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
 
-" elm completions with neocomplete
-    "call neocomplete#util#set_default_dictionary(
-    "    \ 'g:neocomplete#sources#omni#input_patterns',
-    "    \ 'elm',
-    "    \ '\.')
-
 " supertab
     " return key closes the completion window without inserting newline
     let SuperTabCrMapping = 1

@@ -118,8 +118,6 @@
         Plug 'djoshea/vim-autoread'
         " Toml support
         Plug 'cespare/vim-toml'
-        " Ponylang support
-        "Plug 'dleonard0/pony-vim-syntax'
         " Camelcase motions with <leader>w,b,e, etc
         Plug 'bkad/camelcasemotion'
         " Ctrl-n to select things

@@ -11,3 +11,4 @@ amethyst
 docker
 slack
 minecraft
+istat-menus

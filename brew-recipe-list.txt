@@ -21,3 +21,4 @@ universal-ctags/universal-ctags/universal-ctags
 reattach-to-user-namespace
 gotags
 jq
+terminal-notifier

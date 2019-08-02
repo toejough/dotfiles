@@ -154,6 +154,9 @@
         Plug 'othree/yajs.vim'
         " class outline
         Plug 'majutsushi/tagbar'
+        " fzf
+        Plug '/usr/local/opt/fzf'
+        Plug 'junegunn/fzf.vim'
     call plug#end()
 
 " solarized

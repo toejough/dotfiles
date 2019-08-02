@@ -22,3 +22,4 @@ reattach-to-user-namespace
 gotags
 jq
 terminal-notifier
+rlwrap

@@ -12,3 +12,4 @@ docker
 slack
 minecraft
 istat-menus
+google-cloud-sdk

@@ -23,3 +23,5 @@ gotags
 jq
 terminal-notifier
 rlwrap
+rsync
+fswatch

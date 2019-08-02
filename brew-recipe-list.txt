@@ -25,3 +25,4 @@ terminal-notifier
 rlwrap
 rsync
 fswatch
+fzf

@@ -3,4 +3,3 @@ FabioAntunes/fish-nvm
 franciscolourenco/done
 jethrokuan/fzf
 jethrokuan/z
-laughedelic/pisces

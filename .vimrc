@@ -159,6 +159,8 @@
         " fzf
         Plug '/usr/local/opt/fzf'
         Plug 'junegunn/fzf.vim'
+        " set cwd to the git root
+        Plug 'airblade/vim-rooter'
     call plug#end()
 
 " solarized

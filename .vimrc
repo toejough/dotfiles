@@ -57,12 +57,14 @@
     set ttyfast
     " explicitly use fish in interactive mode to mimic normal terminal
     set shell=fish\ -i
-    " highlight max line length (flake8 says 79, so mark 80)
-    set colorcolumn=80
+    " highlight max line length
+    set colorcolumn=120
     " use truecolor colors
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
+    " stop all the "hit ENTER to continue" messages
+    set cmdheight=2
 
 " Plugin management
     " Install manager if not present

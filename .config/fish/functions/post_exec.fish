@@ -4,38 +4,38 @@ function post_exec --on-event fish_postexec
 
     # Last command info if command
     if test -n "$argv"
-        echo "CMD: "(set_color yellow)"$argv[1]"
-        set_color normal
+        # separate from previous output
+        echo
 
-        echo "MS: "(set_color yellow)"$CMD_DURATION"
-        set_color normal
+        echo (set_color cyan)"CMD: "(set_color normal)"$argv[1]"
+
+        echo (set_color cyan)"DURATION: "(set_color normal)(echo -n $CMD_DURATION | humanize_duration)
+        # The current time
+        echo (set_color cyan)"COMPLETED AT: "(set_color normal)(date)
 
         if test $last_status -eq 0
-            echo "RC: "(set_color green)"$last_status"
+            echo (set_color cyan)"RC: "(set_color green)"$last_status"(set_color normal)
         else
-            echo "RC: "(set_color red)"$last_status"
+            echo (set_color cyan)"RC: "(set_color red)"$last_status"(set_color normal)
         end
-        set_color normal
-
         # git info
         if git config --get remote.(git remote 2> /dev/null).url > /dev/null 2>&1
-            echo "GIT REMOTE: "(git config --get remote.(git remote).url)
+            echo (set_color cyan)"GIT REMOTE: "(set_color normal)(git config --get remote.(git remote).url)
         end
-        if git status > /dev/null 2>&1
-            echo -n "GIT STATUS: "
+        if test -n "(git status --porcelain)"
+            echo -n (set_color cyan)"GIT STATUS: "(set_color normal)
             git status -sb
         end
-    end
 
-    # PWD on change
-    set -l current_dir (pwd)
-    if test $last_dir != $current_dir
-        set -U last_dir $current_dir
-        echo "PWD: "(set_color blue)"$current_dir"
-        set_color normal
-        lt
-    end
+        # PWD on change
+        set -l current_dir (pwd)
+        if test $last_dir != $current_dir
+            set -U last_dir $current_dir
+            echo (set_color cyan)"PWD: "(set_color blue)"$current_dir"(set_color normal)
+            lt
+        end
 
-    # The current time
-    date
+        # separate from next command
+        echo
+    end
 end

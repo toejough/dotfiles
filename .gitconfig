@@ -180,6 +180,27 @@
     }; f"
     parent = "!git rev-parse --git-dir | awk -F/ '{ print $(NF-3)  }'"
 
+    # [ TDD-ish ]
+    # commit a proof-of-concept
+    poc = "!f() { \
+        git commit -m \"[POC] $1\"; \
+    }; f"
+    # commit non-tdd things
+    other = "!f() { \
+        git commit -m \"[OTHER] $1\"; \
+    }; f"
+    # commit failing test code
+    red = "!f() { \
+        git commit -m \"[RED] $1\"; \
+    }; f"
+    # commit feature implementation code resulting in a passing test
+    green = "!f() { \
+        git commit -m \"[GREEN] $1\"; \
+    }; f"
+    # commit code reorganization updates
+    refactor = "!f() { \
+        git commit -m \"[REFACTOR] $1\"; \
+    }; f"
 [push]
     default = simple
     followTags = false

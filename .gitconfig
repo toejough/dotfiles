@@ -5,6 +5,8 @@
 [core]
     ignoresFile = /Users/joe/.gitignore
     excludesFile = /Users/joe/.gitignore
+    ignorecase = false
+    autocrlf = input
 
 [credential]
     helper = osxkeychain
@@ -48,6 +50,7 @@
         git remote prune origin && \
         git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && \
         git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D; \
+        git remove-stale-tags; \
     }; f"
     cleanup-from = "!f() { if git has-local-changes-from $1; then git rebase -i $(git last-common-commit $1); else echo 'Same as last common commit with '$1; fi }; f"
 
@@ -151,6 +154,7 @@
         git push --delete origin \"${LOCAL}\"; \
         git push --delete origin \"${BRANCH}\"; \
     }; f"
+    remove-stale-tags = "!git tags | cut -f 2 -d. | sort | uniq | xargs -L1 -I% fish -c \"git branch --all | ack % > /dev/null; or git remove-tags-for %\""
 
     # [ Force-push recovery ]
     recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery-version and git integrate-master again."

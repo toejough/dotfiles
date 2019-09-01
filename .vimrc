@@ -344,42 +344,58 @@
     let g:auto_save = 1  "
 
 " vim-go
-    "let g:go_jump_to_error = 0
     let g:go_metalinter_autosave = 0
     let g:go_fmt_autosave = 0
     let g:go_guru_scope = ['...']
-    nnoremap <leader>r :GoReferrers<cr>
-    nnoremap <leader>i :GoImports<cr>
+    " clobbered the easymotion binding for K
+    let g:go_doc_keywordprg_enabled = 0
+    nmap <leader>gr <Plug>(go-referrers)
+    nmap <leader>gf <Plug>(go-imports)
+    nmap <leader>gi <Plug>(go-implements)
+    nmap <leader>gd <Plug>(go-describe)
+    nmap <leader>gg <Plug>(go-generate)
+    nmap <leader>gc <Plug>(go-callstack)
+    nmap <leader>gm :GoImpl<CR>
 
 " tagbar
-" config from https://github.com/jstemmer/gotags
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+    " config from https://github.com/jstemmer/gotags
+    let g:tagbar_type_go = {
+        \ 'ctagstype' : 'go',
+        \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+        \ },
+        \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+        \ },
+        \ 'ctagsbin'  : 'gotags',
+        \ 'ctagsargs' : '-sort -silent'
+    \ }
+    nmap <leader>T :Tagbar<CR>
+
+" fzf
+    let g:fzf_history_dir = '~/.local/share/fzf-history'
+    nnoremap <leader>ff :GFiles<CR>
+    nnoremap <leader>fb :Buffers<CR>
+    nnoremap <leader>fl :Lines<CR>
+    nnoremap <leader>fs :BLines<CR>
+    nnoremap <leader>fm :Maps<CR>
+    nnoremap <leader>fa :Ag<CR>
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)
@@ -413,4 +429,3 @@ let g:tagbar_type_go = {
     " location list jumping
     nnoremap <leader>n :lne<cr>
     nnoremap <leader>p :lpre<cr>
-

@@ -28,3 +28,5 @@ fswatch
 fzf
 pv
 mage
+golangci/tap/golangci-lint
+tig

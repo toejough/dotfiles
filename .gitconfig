@@ -201,6 +201,7 @@
     refactor = "!f() { \
         git commit -m \"[REFACTOR] $1\"; \
     }; f"
+    fixup = commit --fixup HEAD
 [push]
     default = simple
     followTags = false

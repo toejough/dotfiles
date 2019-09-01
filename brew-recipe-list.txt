@@ -26,3 +26,5 @@ rlwrap
 rsync
 fswatch
 fzf
+pv
+mage

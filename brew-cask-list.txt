@@ -14,3 +14,4 @@ minecraft
 istat-menus
 google-cloud-sdk
 borgbackup
+displaycal

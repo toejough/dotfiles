@@ -293,6 +293,7 @@
 " Focus on the current text blob
     let g:limelight_conceal_ctermfg = 'DarkGrey'
     autocmd VimEnter * Limelight
+    nmap <Leader>l :Limelight!!<CR>
 
 " Rainbow parens
     let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
@@ -317,7 +318,7 @@
     vmap L <Plug>(easymotion-lineforward)
     vmap H <Plug>(easymotion-linebackward)
     " Jump to anywhere with only `s{char}{target}`
-    nmap s <Plug>(easymotion-bd-fn)
+    nmap s :Limelight!<CR><Plug>(easymotion-bd-fn)
     " Jump to anywhere in this line with only `s{char}{target}`
     nmap f <Plug>(easymotion-bd-fln)
 

@@ -398,6 +398,9 @@
     nnoremap <leader>fm :Maps<CR>
     nnoremap <leader>fa :Ag<CR>
 
+" vim-rooter
+    let g:rooter_manual_only = 1
+
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)
     " folds
@@ -430,3 +433,8 @@
     " location list jumping
     nnoremap <leader>n :lne<cr>
     nnoremap <leader>p :lpre<cr>
+    " curdir
+    " change current working directory for the local file when you switch buffers
+    " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+    nnoremap <leader>dc :lcd %:p:h
+    nnoremap <leader>dr :Rooter

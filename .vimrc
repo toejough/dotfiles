@@ -55,6 +55,7 @@
     " try to speed things up
     set lazyredraw
     set ttyfast
+    set nocursorline
     " explicitly use fish in interactive mode to mimic normal terminal
     set shell=fish\ -i
     " highlight max line length

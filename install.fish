@@ -7,6 +7,8 @@ ln -vf ~/dotfiles/.config/fish/fishd.universal  ~/.config/fish/(ls ~/.config/fis
 ln -vFfs ~/dotfiles/.vimrc ~
 ln -vFfs ~/dotfiles/.gitconfig ~
 ln -vFfs ~/dotfiles/.tmux.conf ~
+mkdir -p ~/.config/nvim
+ln -vFfs ~/dotfiles/.config/nvim/* ~/.config/nvim
 
 # brew-installable programs
 brewm update

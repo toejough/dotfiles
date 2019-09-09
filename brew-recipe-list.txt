@@ -30,3 +30,4 @@ pv
 mage
 golangci/tap/golangci-lint
 tig
+neovim

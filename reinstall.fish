@@ -11,6 +11,9 @@ ln -vFfs ~/dotfiles/.tmux.conf ~
 # nvim configs
 mkdir -p ~/.config/nvim
 ln -vFfs ~/dotfiles/.config/nvim/* ~/.config/nvim
+# alacritty configs
+mkdir -p ~/.config/alacritty
+ln -vFfs ~/dotfiles/.config/alacritty/* ~/.config/alacritty
 
 # brew-installable programs
 brewm update

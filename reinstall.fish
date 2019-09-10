@@ -16,7 +16,7 @@ ln -vFfs ~/dotfiles/.config/nvim/* ~/.config/nvim
 brewm update
 
 # fish plugins
-fisher --self-update
+fisher self-update
 fisher rm (fisher ls)
 fisher add (cat ~/dotfiles/fisher-list.txt)
 

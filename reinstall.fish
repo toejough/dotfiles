@@ -17,7 +17,7 @@ brewm update
 
 # fish plugins
 fisher self-update
-fisher rm (fisher ls)
+fisher ls | fisher rm
 fisher add (cat ~/dotfiles/fisher-list.txt)
 
 # vim plugins

@@ -1,12 +1,14 @@
 #! /usr/bin/env fish
 
-# configs
-mkdir -p ~/.config/fish
-ln -vFfs ~/dotfiles/.config/fish/* ~/.config/fish
-ln -vf ~/dotfiles/.config/fish/fishd.universal  ~/.config/fish/(ls ~/.config/fish | grep fishd | grep -v universal)
+# fish configs
+mkdir -p ~/.config/fish/functions
+ln -vFfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
+ln -vFfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
+# other configs
 ln -vFfs ~/dotfiles/.vimrc ~
 ln -vFfs ~/dotfiles/.gitconfig ~
 ln -vFfs ~/dotfiles/.tmux.conf ~
+# nvim configs
 mkdir -p ~/.config/nvim
 ln -vFfs ~/dotfiles/.config/nvim/* ~/.config/nvim
 

@@ -18,7 +18,7 @@ brewm update
 # fish plugins
 fisher self-update
 fisher ls | fisher rm
-fisher add (cat ~/dotfiles/fisher-list.txt)
+cat ~/dotfiles/fisher-list.txt | fisher add
 
 # vim plugins
 vim -c ReloadRC

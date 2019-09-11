@@ -440,6 +440,9 @@
     " location list jumping
     nnoremap <leader>n :lne<cr>
     nnoremap <leader>p :lpre<cr>
+    " quickfix list jumping
+    nnoremap <leader>[ :cne<cr>
+    nnoremap <leader>] :cpre<cr>
     " curdir
     " change current working directory for the local file when you switch buffers
     " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file

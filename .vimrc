@@ -163,6 +163,7 @@
         " set cwd to the git root
         Plug 'airblade/vim-rooter'
     call plug#end()
+    autocmd VimEnter * UpdateRemotePlugins
 
 " solarized
     syntax enable

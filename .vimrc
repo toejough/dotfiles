@@ -163,7 +163,6 @@
         " set cwd to the git root
         Plug 'airblade/vim-rooter'
     call plug#end()
-    autocmd VimEnter * UpdateRemotePlugins
 
 " solarized
     syntax enable
@@ -431,7 +430,7 @@
         " :JustReloadRC will just reload this RC file
         command! -bar JustReloadRC source ~/.vimrc
         " :ReloadRC will do all three
-        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
+        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|UpdateRemotePlugins|JustReloadRC
     " insert a date when typing 'dts'
     iab <expr> dts strftime("%F %T%z")
     " exit on ctrl-q

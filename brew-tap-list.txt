@@ -4,3 +4,4 @@ caskroom/fonts
 beeftornado/rmtree
 ivandokov/contrib
 golangci/tap
+universal-ctags/universal-ctags

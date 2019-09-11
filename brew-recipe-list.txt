@@ -30,3 +30,4 @@ golangci/tap/golangci-lint
 neovim
 moreutils
 python # used by vim
+universal-ctags/universal-ctags/universal-ctags

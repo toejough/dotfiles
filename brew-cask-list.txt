@@ -1,12 +1,10 @@
 1password
 firefox
-font-sourcecodepro-nerd-font
-iterm2
+font-sourcecodepro-nerd-font-mono
 alfred
 signal
 keybase
 darktable
-visual-studio-code
 amethyst
 docker
 slack

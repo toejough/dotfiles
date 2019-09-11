@@ -84,9 +84,7 @@
         Plug 'ctrlpvim/ctrlp.vim'
         " file navigation/manipulation
         Plug 'scrooloose/nerdtree'
-        " non-python completions - fs/buffer/etc
-        " youcompleteme kept failing when I'd switch python environments
-        "Plug 'Shougo/neocomplete.vim'
+        " completion
         Plug 'Shougo/deoplete.nvim'
         " tab-completion of the above completions
         Plug 'ervandew/supertab'
@@ -108,8 +106,6 @@
         Plug 'itchyny/lightline.vim'
         " smoother scrolling
         Plug 'yuttie/comfortable-motion.vim'
-        " faster/better search
-        Plug 'mileszs/ack.vim'
         " highlight everything during incremental search
         Plug 'haya14busa/incsearch.vim'
         " Whitespace stripping"
@@ -192,6 +188,13 @@
 
 " deoplete
     let g:deoplete#enable_at_startup = 1
+    " expects python3 and pynvim are installed
+    if empty(system('brew list | grep python'))
+        silent !brewm add recipe python
+    endif
+    if empty(system('pip3 list | grep pynvim'))
+        silent !pip install pynvim
+    endif
 
 " supertab
     " return key closes the completion window without inserting newline

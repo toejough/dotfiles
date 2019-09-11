@@ -7,7 +7,6 @@ htop
 ncdu
 tmux
 tree
-vim
 wget
 mosh
 openssh
@@ -17,7 +16,6 @@ node # used by vim
 go
 httpie
 diff-so-fancy
-universal-ctags/universal-ctags/universal-ctags
 reattach-to-user-namespace
 gotags
 jq
@@ -29,6 +27,6 @@ fzf
 pv
 mage
 golangci/tap/golangci-lint
-tig
 neovim
 moreutils
+python # used by vim

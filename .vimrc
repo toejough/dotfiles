@@ -33,9 +33,12 @@
     set mouse=a
     " enable mouse support in tmux/screen
     " (https://superuser.com/questions/549930/cant-resize-vim-splits-inside-tmux)
-    if &term =~ '^screen'
-        " tmux knows the extended mouse mode
-        set ttymouse=xterm2
+    "
+    if !has('nvim')
+        if &term =~ '^screen'
+            " tmux knows the extended mouse mode
+            set ttymouse=xterm2
+        endif
     endif
     " When a file has been detected to have been changed outside of Vim and
 	" it has not been changed inside of Vim, automatically read it again.
@@ -83,7 +86,8 @@
         Plug 'scrooloose/nerdtree'
         " non-python completions - fs/buffer/etc
         " youcompleteme kept failing when I'd switch python environments
-        Plug 'Shougo/neocomplete.vim'
+        "Plug 'Shougo/neocomplete.vim'
+        Plug 'Shougo/deoplete.nvim'
         " tab-completion of the above completions
         Plug 'ervandew/supertab'
         " fast comment toggling
@@ -185,6 +189,9 @@
     map <leader>t :NERDTreeFind<CR>
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
+
+" deoplete
+    let g:deoplete#enable_at_startup = 1
 
 " supertab
     " return key closes the completion window without inserting newline

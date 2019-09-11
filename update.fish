@@ -24,4 +24,5 @@ fisher ls | fisher rm
 cat ~/dotfiles/fisher-list.txt | fisher add
 
 # vim plugins
+pip3 install pynvim
 vim -c ReloadRC

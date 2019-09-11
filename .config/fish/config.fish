@@ -3,7 +3,7 @@ if status --is-interactive
     # Checking if we have already inherited an editor
     if ! set -q EDITOR
         # if not, use Vim
-        set -x EDITOR vim
+        set -x EDITOR nvim
     end
 
     # keybindings

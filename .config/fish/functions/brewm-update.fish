@@ -33,6 +33,8 @@ function brewm-update
             echo "Checking taps... done!"
         case recipes
             echo "Checking recipes..."
+            # use brew leaves for checking the top-level installations - these are the packages which nothing
+            # else depends on.  If they're not explicitly desired, they can be removed.
             set brew_list (brew leaves)
             set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | awk '{print $1}')
             for recipe in $brew_list
@@ -45,6 +47,9 @@ function brewm-update
                     echo "great!"
                 end
             end
+            # different list now - we want to see what's already installed, which should be the full
+            # list of installed packages, not just the ones with no dependencies
+            set -a brew_list (brew list)
             for recipe in $desired_brew_list
                 if not echo $brew_list | ack $recipe > /dev/null
                     echo -n "  $recipe not found.  Installing..."

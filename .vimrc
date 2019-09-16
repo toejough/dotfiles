@@ -313,6 +313,17 @@
 " Git gutter
     set signcolumn=yes
     set updatetime=100
+    let g:gitgutter_highlight_lines = 1
+    let g:gitgutter_highlight_linenrs = 1
+    let g:gitgutter_preview_win_floating = 1
+    " disable default key mappings
+    let g:gitgutter_map_keys = 0
+    " custom keymappings
+    nmap <leader>hn <Plug>(GitGutterNextHunk)
+    nmap <leader>hp <Plug>(GitGutterPrevHunk)
+    nmap <leader>hs <Plug>(GitGutterStageHunk)
+    nmap <leader>hu <Plug>(GitGutterUndoHunk)
+    nmap <leader>hv <Plug>(GitGutterPreviewHunk)
 
 " CamelCase keys
     call camelcasemotion#CreateMotionMappings('<leader>')

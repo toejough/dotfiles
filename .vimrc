@@ -136,10 +136,10 @@
         Plug 'tpope/vim-abolish'
         " faster/fuzzier searching in buffers
         Plug 'easymotion/vim-easymotion'
-        " markdown preview
-        Plug 'shime/vim-livedown'
-        " markdown formatting
-        Plug 'plasticboy/vim-markdown'
+        "" markdown preview
+        "Plug 'shime/vim-livedown'
+        "" markdown formatting
+        "Plug 'plasticboy/vim-markdown'
         " indent guides
         Plug 'nathanaelkane/vim-indent-guides'
         " aligning text
@@ -344,8 +344,8 @@
     " Jump to anywhere in this line with only `s{char}{target}`
     nmap f <Plug>(easymotion-bd-fln)
 
-" Markdown formatting
-    let g:vim_markdown_fenced_languages = ['python=python']
+"" Markdown formatting
+"    let g:vim_markdown_fenced_languages = ['python=python']
 
 " Indent guide colors
     let g:indent_guides_auto_colors = 0

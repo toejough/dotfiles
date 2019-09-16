@@ -358,6 +358,7 @@
     let g:go_metalinter_autosave = 0
     let g:go_fmt_autosave = 0
     let g:go_guru_scope = ['...']
+    let g:go_doc_popup_window = 1
     " clobbered the easymotion binding for K
     let g:go_doc_keywordprg_enabled = 0
     nmap <leader>gr <Plug>(go-referrers)

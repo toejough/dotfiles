@@ -136,8 +136,8 @@
         Plug 'tpope/vim-abolish'
         " faster/fuzzier searching in buffers
         Plug 'easymotion/vim-easymotion'
-        "" markdown preview
-        "Plug 'shime/vim-livedown'
+        " markdown preview
+        Plug 'shime/vim-livedown'
         "" markdown formatting
         "Plug 'plasticboy/vim-markdown'
         " indent guides

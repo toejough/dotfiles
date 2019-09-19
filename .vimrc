@@ -21,7 +21,6 @@
         set expandtab
         " explicitly set js indentation
         autocmd FileType javascript setlocal ts=2 sts=2 sw=2
-
     " backspace through eol, indentation, and the start of insert mode
     set backspace=indent,eol,start
     " change current working directory for the local file when you switch buffers
@@ -31,15 +30,6 @@
     set clipboard=unnamed
     " enable mouse support
     set mouse=a
-    " enable mouse support in tmux/screen
-    " (https://superuser.com/questions/549930/cant-resize-vim-splits-inside-tmux)
-    "
-    if !has('nvim')
-        if &term =~ '^screen'
-            " tmux knows the extended mouse mode
-            set ttymouse=xterm2
-        endif
-    endif
     " When a file has been detected to have been changed outside of Vim and
 	" it has not been changed inside of Vim, automatically read it again.
     set autoread
@@ -80,12 +70,8 @@
     call plug#begin()
         " solarized color scheme
         Plug 'lifepillar/vim-solarized8'
-        " fuzzy search
-        Plug 'ctrlpvim/ctrlp.vim'
         " file navigation/manipulation
         Plug 'scrooloose/nerdtree'
-        " completion
-        Plug 'Shougo/deoplete.nvim'
         " tab-completion of the above completions
         Plug 'ervandew/supertab'
         " fast comment toggling
@@ -138,8 +124,8 @@
         Plug 'easymotion/vim-easymotion'
         " markdown preview
         Plug 'shime/vim-livedown'
-        "" markdown formatting
-        "Plug 'plasticboy/vim-markdown'
+        " markdown formatting
+        Plug 'plasticboy/vim-markdown'
         " indent guides
         Plug 'nathanaelkane/vim-indent-guides'
         " aligning text
@@ -152,8 +138,6 @@
         Plug 'othree/html5.vim'
         Plug 'alvan/vim-closetag'
         " javascript
-        "Plug 'pangloss/vim-javascript'
-        "Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
         Plug 'othree/yajs.vim'
         " class outline
         Plug 'majutsushi/tagbar'
@@ -162,6 +146,8 @@
         Plug 'junegunn/fzf.vim'
         " set cwd to the git root
         Plug 'airblade/vim-rooter'
+        " completion
+        Plug 'Shougo/deoplete.nvim'
     call plug#end()
 
 " solarized
@@ -169,32 +155,11 @@
     set background=dark
     colorscheme solarized8
 
-" ctrl-p
-    " make first ctlp search be in mru by default, then buffers, then files after that
-    let g:ctrlp_types = ['mru', 'buf', 'fil']
-    " launch ctrl-p if vim is opened without a file
-    function! CtrlpIfEmpty()
-        if @% == ""
-            CtrlP
-        endif
-    endfunction
-    au VimEnter * call CtrlpIfEmpty()
-
 " nerdtree
     " toggle nerdtree with leader-n
     map <leader>t :NERDTreeFind<CR>
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
-
-" deoplete
-    let g:deoplete#enable_at_startup = 1
-    " expects python3 and pynvim are installed
-    if empty(system('brew list | grep python'))
-        silent !brewm add recipe python
-    endif
-    if empty(system('pip3 list | grep pynvim'))
-        silent !pip install pynvim
-    endif
 
 " supertab
     " return key closes the completion window without inserting newline
@@ -260,42 +225,10 @@
     noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
     noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
-" ack
-    " search from the project root
-    cnoreabbrev ag Gcd <bar> Ack!
-    " use ag
-    if !executable('ag')
-        silent !brew install ag
-    endif
-    " depends on ag being installed via `brew install ag`, for instance
-    let g:ackprg = "ag --vimgrep"
-    " highlight results
-    let g:ackhighlight = 1
-    " don't close when a match is selected
-    " this is a tempting default, but it also closes when you do a preview,
-    " because the preview selects a match and jumps back down
-    let g:ack_autoclose = 0
-    " don't fold matches to the same file
-    " this seems cool, but then you see
-    " https://github.com/mileszs/ack.vim/issues/146, which means the
-    " folds apply to all files, not just the quickfix window
-    let g:ack_autofold_results = 0
-    " don't use a preview window
-    " it didn't open my folds, so it wasn't useful
-    let g:ackpreview = 0
-    " make the 'o' key jump to the match, fold everything but the current line,
-    " center the screen, then jump back down into the quickfix window.
-    " If it's the one you want, hit q to exit quickfix and land back
-    " on the match.
-    let g:ack_mappings = { "o": "<CR>zxzz<C-W>j" }
-    " search word under cursor with <leader>a
-    map <leader>a :ag<CR>
-
 " incsearch
     " default search uses inc
     map /  <Plug>(incsearch-forward)
     map ?  <Plug>(incsearch-backward)
-    map g/ <Plug>(incsearch-stay)
 
 " Whitespace stripping
     autocmd BufEnter * EnableStripWhitespaceOnSave
@@ -344,8 +277,10 @@
     " Jump to anywhere in this line with only `s{char}{target}`
     nmap f <Plug>(easymotion-bd-fln)
 
-"" Markdown formatting
-"    let g:vim_markdown_fenced_languages = ['python=python']
+" Markdown formatting
+    let g:vim_markdown_fenced_languages = ['python=python']
+    " folding fix from https://github.com/plasticboy/vim-markdown/issues/414#issuecomment-519061229
+    let g:vim_markdown_folding_style_pythonic = 1
 
 " Indent guide colors
     let g:indent_guides_auto_colors = 0
@@ -372,15 +307,15 @@
     let g:go_doc_popup_window = 1
     " clobbered the easymotion binding for K
     let g:go_doc_keywordprg_enabled = 0
-    nmap <leader>gr <Plug>(go-referrers)
-    nmap <leader>gf <Plug>(go-imports)
-    nmap <leader>gi <Plug>(go-implements)
-    nmap <leader>gd <Plug>(go-describe)
-    nmap <leader>gg <Plug>(go-generate)
-    nmap <leader>gc <Plug>(go-callstack)
-    nmap <leader>gm :GoImpl<CR>
     nmap <leader>ga <Plug>(go-alternate-edit)
+    nmap <leader>gc <Plug>(go-callstack)
+    nmap <leader>gd <Plug>(go-describe)
+    nmap <leader>gf <Plug>(go-imports)
+    nmap <leader>gg <Plug>(go-generate)
+    nmap <leader>gi <Plug>(go-implements)
+    nmap <leader>gm :GoImpl<CR>
     nmap <leader>gn <Plug>(go-rename)
+    nmap <leader>gr <Plug>(go-referrers)
 
 " tagbar
     " config from https://github.com/jstemmer/gotags
@@ -415,15 +350,36 @@
 
 " fzf
     let g:fzf_history_dir = '~/.local/share/fzf-history'
-    nnoremap <leader>ff :GFiles<CR>
-    nnoremap <leader>fb :Buffers<CR>
-    nnoremap <leader>fl :Lines<CR>
-    nnoremap <leader>fs :BLines<CR>
-    nnoremap <leader>fm :Maps<CR>
     nnoremap <leader>fa :Ag<CR>
+    nnoremap <leader>fb :Buffers<CR>
+    nnoremap <leader>ff :GFiles<CR>
+    nnoremap <leader>fl :Lines<CR>
+    nnoremap <leader>fm :Maps<CR>
+    nnoremap <leader>fs :BLines<CR>
+    " launch fzf if vim is opened without a file
+    function! IfEmpty()
+        if @% == ""
+            GFiles
+        endif
+    endfunction
+    au VimEnter * call IfEmpty()
 
 " vim-rooter
     let g:rooter_manual_only = 1
+    " change current working directory for the local file when you switch buffers
+    " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+    nnoremap <leader>dc :lcd %:p:h<cr>
+    nnoremap <leader>dr :Rooter<cr>
+
+" deoplete
+    let g:deoplete#enable_at_startup = 1
+    " expects python3 and pynvim are installed
+    if empty(system('brew list | grep python'))
+        silent !brewm add recipe python
+    endif
+    if empty(system('pip3 list | grep pynvim'))
+        silent !pip install pynvim
+    endif
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)
@@ -460,8 +416,3 @@
     " quickfix list jumping
     nnoremap <leader>[ :cne<cr>
     nnoremap <leader>] :cpre<cr>
-    " curdir
-    " change current working directory for the local file when you switch buffers
-    " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-    nnoremap <leader>dc :lcd %:p:h<cr>
-    nnoremap <leader>dr :Rooter<cr>

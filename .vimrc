@@ -379,6 +379,8 @@
     nmap <leader>gg <Plug>(go-generate)
     nmap <leader>gc <Plug>(go-callstack)
     nmap <leader>gm :GoImpl<CR>
+    nmap <leader>ga <Plug>(go-alternate-edit)
+    nmap <leader>gn <Plug>(go-rename)
 
 " tagbar
     " config from https://github.com/jstemmer/gotags

@@ -1,7 +1,6 @@
-# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.XozMZj/git-report.fish @ line 2
+# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.HzCeS4/git-report.fish @ line 2
 function git-report
 	clear
-	git status -sb
 
     echo -e "\nBRANCH\n"
     git log --oneline branch-base.(git name)..local-base.(git name) --color --decorate --stat --reverse | cat

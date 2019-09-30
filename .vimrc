@@ -350,16 +350,19 @@
 
 " fzf
     let g:fzf_history_dir = '~/.local/share/fzf-history'
+    let g:fzf_layout = { 'window': 'enew' }
+
     nnoremap <leader>fa :Ag<CR>
     nnoremap <leader>fb :Buffers<CR>
     nnoremap <leader>ff :GFiles<CR>
     nnoremap <leader>fl :Lines<CR>
     nnoremap <leader>fm :Maps<CR>
     nnoremap <leader>fs :BLines<CR>
+    nnoremap <leader>fh :History<CR>
     " launch fzf if vim is opened without a file
     function! IfEmpty()
         if @% == ""
-            GFiles
+            History
         endif
     endfunction
     au VimEnter * call IfEmpty()

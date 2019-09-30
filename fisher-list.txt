@@ -1,4 +1,4 @@
-FabioAntunes/fish-nvm
+jorgebucaran/fish-nvm
 franciscolourenco/done
 jethrokuan/fzf
 jethrokuan/z

@@ -185,13 +185,13 @@
     poc = "!f() { \
         git commit -m \"[POC] $1\"; \
     }; f"
-    # commit non-tdd things
-    other = "!f() { \
-        git commit -m \"[OTHER] $1\"; \
-    }; f"
     # commit failing test code
     red = "!f() { \
         git commit -m \"[RED] $1\"; \
+    }; f"
+    # commit WIP towards green tests
+    wip = "!f() { \
+        git commit -m \"[WIP] $1\"; \
     }; f"
     # commit feature implementation code resulting in a passing test
     green = "!f() { \
@@ -201,7 +201,18 @@
     refactor = "!f() { \
         git commit -m \"[REFACTOR] $1\"; \
     }; f"
-    fixup = commit --fixup HEAD
+    # commit non-tdd things
+    other = "!f() { \
+        git commit -m \"[OTHER] $1\"; \
+    }; f"
+    # commit a fixup
+    fixup = "!f() { \
+        git commit --fixup $(git log --oneline branch-base.$(git name)..HEAD | fzf | cut -d' ' -f 1); \
+    }; f"
+    # commit a squash
+    squash = "!f() { \
+        git commit -m \"$1\" --squash $(git log --oneline branch-base.$(git name)..HEAD | fzf | cut -d' ' -f 1); \
+    }; f"
 [push]
     default = simple
     followTags = false

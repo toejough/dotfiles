@@ -148,6 +148,12 @@
         Plug 'airblade/vim-rooter'
         " completion
         Plug 'Shougo/deoplete.nvim'
+        " snippets
+        Plug 'SirVer/ultisnips'
+        " go refactoring
+        Plug 'godoctor/godoctor.vim'
+        " better git conflict resolution
+        Plug 'christoomey/vim-conflicted'
     call plug#end()
 
 " solarized
@@ -198,6 +204,7 @@
             \ 'fileformat': 'DevIconFileformat',
             \ 'readonly': 'LightlineReadonly',
             \ 'fugitive': 'LightlineFugitive',
+            \ 'conflicts': 'LightlineConflicts',
         \ },
     \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
     \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
@@ -212,12 +219,29 @@
         endif
         return ''
     endfunction
+    function! LightlineConflicts()
+        let conflictVersion = ConflictedVersion()
+        return conflictVersion !=# '' ? conflictVersion : ''
+    endfunction
     function! DevIconFiletype()
         return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
     endfunction
     function! DevIconFileformat()
         return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
     endfunction
+    let lightline.active = {
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           [ 'readonly', 'filename', 'modified' ] ],
+    \ 'right': [ [ 'lineinfo' ],
+    \            [ 'percent' ],
+    \            [ 'fileformat', 'fileencoding', 'filetype' ],
+    \            [ 'fugitive', 'conflicts' ],
+    \          ] }
+    let g:lightline.inactive = {
+    \ 'left': [ [ 'filename' ] ],
+    \ 'right': [ [ 'lineinfo' ],
+    \            [ 'percent' ],
+    \            [ 'fugitive', 'conflicts' ] ] }
     " don't show mode, because lightline shows the mode
     set noshowmode
 
@@ -355,10 +379,11 @@
     nnoremap <leader>fa :Ag<CR>
     nnoremap <leader>fb :Buffers<CR>
     nnoremap <leader>ff :GFiles<CR>
-    nnoremap <leader>fl :Lines<CR>
+    nnoremap <leader>fL :Lines<CR>
     nnoremap <leader>fm :Maps<CR>
-    nnoremap <leader>fs :BLines<CR>
+    nnoremap <leader>fl :BLines<CR>
     nnoremap <leader>fh :History<CR>
+    nnoremap <leader>fs :Snippets<CR>
     " launch fzf if vim is opened without a file
     function! IfEmpty()
         if @% == ""
@@ -383,6 +408,24 @@
     if empty(system('pip3 list | grep pynvim'))
         silent !pip install pynvim
     endif
+    " use go omni patterns
+    call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
+" ultisnips
+    " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
+    let g:UltiSnipsExpandTrigger="<nop>"
+    let g:ulti_expand_or_jump_res = 0
+    function! <SID>ExpandSnippetOrReturn()
+      let snippet = UltiSnips#ExpandSnippetOrJump()
+      if g:ulti_expand_or_jump_res > 0
+        return snippet
+      else
+        return "\<CR>"
+      endif
+    endfunction
+    inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

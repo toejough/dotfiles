@@ -31,10 +31,11 @@ if status --is-interactive
 end
 
 # Update path to include go binaries
-set PATH ~/go/bin:$PATH
+set -x GOPATH ~/go
+set -x PATH $GOPATH/bin:$PATH
 #
 # Update path to include local binaries
-set PATH ~/.local/bin:$PATH
+set -x PATH ~/.local/bin:$PATH
 
 # Update envvars per directory
 direnv hook fish | source

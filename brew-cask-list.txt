@@ -14,3 +14,7 @@ google-cloud-sdk
 borgbackup
 displaycal
 alacritty
+intel-haxm
+adoptopenjdk8
+android-sdk
+arduino

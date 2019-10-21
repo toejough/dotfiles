@@ -33,3 +33,4 @@ python # used by vim
 universal-ctags/universal-ctags/universal-ctags
 yarn
 gradle
+postgresql

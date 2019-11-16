@@ -329,6 +329,8 @@
     let g:go_fmt_autosave = 0
     let g:go_guru_scope = ['...']
     let g:go_doc_popup_window = 1
+    let g:go_auto_type_info = 1
+    let g:go_auto_same_ids = 1
     " clobbered the easymotion binding for K
     let g:go_doc_keywordprg_enabled = 0
     nmap <leader>ga <Plug>(go-alternate-edit)

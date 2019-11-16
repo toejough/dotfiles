@@ -34,3 +34,4 @@ universal-ctags/universal-ctags/universal-ctags
 yarn
 gradle
 postgresql
+sshfs

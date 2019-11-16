@@ -154,6 +154,8 @@
         Plug 'godoctor/godoctor.vim'
         " better git conflict resolution
         Plug 'christoomey/vim-conflicted'
+        " better markdown folding
+        Plug 'masukomi/vim-markdown-folding'
     call plug#end()
 
 " solarized
@@ -305,6 +307,8 @@
     let g:vim_markdown_fenced_languages = ['python=python']
     " folding fix from https://github.com/plasticboy/vim-markdown/issues/414#issuecomment-519061229
     let g:vim_markdown_folding_style_pythonic = 1
+    " even that was insufficient and had weird behavior in some files
+    let g:vim_markdown_folding_disabled = 1
 
 " Indent guide colors
     let g:indent_guides_auto_colors = 0

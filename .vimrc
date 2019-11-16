@@ -432,6 +432,7 @@
       endif
     endfunction
     inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+    let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME."/dotfiles/snippets"]
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

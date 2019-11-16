@@ -2,27 +2,32 @@
 
 # fish configs
 mkdir -p ~/.config/fish/functions
-ln -vFfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
-ln -vFfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
+and ln -vFfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
+and ln -vFfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
 # other configs
-ln -vFfs ~/dotfiles/.vimrc ~
-ln -vFfs ~/dotfiles/.gitconfig ~
-ln -vFfs ~/dotfiles/.tmux.conf ~
+and ln -vFfs ~/dotfiles/.vimrc ~
+and ln -vFfs ~/dotfiles/.gitconfig ~
+and ln -vFfs ~/dotfiles/.tmux.conf ~
 # nvim configs
-mkdir -p ~/.config/nvim
-ln -vFfs ~/dotfiles/.config/nvim/* ~/.config/nvim
+and mkdir -p ~/.config/nvim
+and ln -vFfs ~/dotfiles/.config/nvim/* ~/.config/nvim
 # alacritty configs
-mkdir -p ~/.config/alacritty
-ln -vFfs ~/dotfiles/.config/alacritty/* ~/.config/alacritty
+and mkdir -p ~/.config/alacritty
+and ln -vFfs ~/dotfiles/.config/alacritty/* ~/.config/alacritty
 
 # brew-installable programs
-brewm update
+and brewm update
 
 # fish plugins
-fisher self-update
-fisher ls | fisher rm
-cat ~/dotfiles/fisher-list.txt | fisher add
+and fisher self-update
+and fisher ls | fisher rm
+and cat ~/dotfiles/fisher-list.txt | fisher add
 
 # vim plugins
-pip3 install pynvim
-vim -c ReloadRC
+and pip3 install pynvim
+and vim +ReloadRC  # don't quit - want to see what got updated sometimes
+and vim +GoUpdateBinaries +qall
+
+# final message
+and echo "Updates completed!!"
+or echo "Update FAILED (╯°□°）╯︵ ┻━┻ "

@@ -35,3 +35,4 @@ yarn
 gradle
 postgresql
 sshfs
+python-yq

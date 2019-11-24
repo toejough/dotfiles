@@ -335,6 +335,7 @@
     let g:go_doc_popup_window = 1
     let g:go_auto_type_info = 1
     let g:go_auto_same_ids = 1
+    let g:go_gorename_command = 'gopls'
     " clobbered the easymotion binding for K
     let g:go_doc_keywordprg_enabled = 0
     nmap <leader>ga <Plug>(go-alternate-edit)

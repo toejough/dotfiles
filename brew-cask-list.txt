@@ -4,7 +4,6 @@ font-sourcecodepro-nerd-font-mono
 alfred
 signal
 keybase
-darktable
 amethyst
 docker
 slack

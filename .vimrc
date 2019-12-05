@@ -417,6 +417,8 @@
     endif
     " use go omni patterns
     call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+    " don't auto-insert what is thought to be a good match
+    set completeopt+=noinsert
 
 " ultisnips
     " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351

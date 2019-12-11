@@ -470,5 +470,5 @@
     nnoremap <leader>n :lne<cr>
     nnoremap <leader>p :lpre<cr>
     " quickfix list jumping
-    nnoremap <leader>[ :cne<cr>
-    nnoremap <leader>] :cpre<cr>
+    nnoremap <leader>N :cne<cr>
+    nnoremap <leader>P :cpre<cr>

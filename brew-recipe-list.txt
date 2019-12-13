@@ -36,3 +36,4 @@ gradle
 postgresql
 sshfs
 python-yq
+arduino-cli

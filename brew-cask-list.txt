@@ -21,3 +21,4 @@ datagrip
 fastrawviewer
 zerotier-one
 osxfuse
+authy

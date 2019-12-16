@@ -338,6 +338,7 @@
     let g:go_gorename_command = 'gopls'
     " clobbered the easymotion binding for K
     let g:go_doc_keywordprg_enabled = 0
+    let g:go_gopls_use_placeholders = 1
     nmap <leader>ga <Plug>(go-alternate-edit)
     nmap <leader>gc <Plug>(go-callstack)
     nmap <leader>gd <Plug>(go-describe)

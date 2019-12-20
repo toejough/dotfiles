@@ -309,6 +309,8 @@
     let g:vim_markdown_folding_style_pythonic = 1
     " even that was insufficient and had weird behavior in some files
     let g:vim_markdown_folding_disabled = 1
+    " use the auto-folding from vim-markdown-folding
+    autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 
 " Indent guide colors
     let g:indent_guides_auto_colors = 0

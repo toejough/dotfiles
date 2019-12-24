@@ -34,3 +34,5 @@ universal-ctags/universal-ctags/universal-ctags
 postgresql
 python-yq
 arduino-cli
+elm
+nmap

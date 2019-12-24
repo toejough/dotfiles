@@ -156,6 +156,8 @@
         Plug 'christoomey/vim-conflicted'
         " better markdown folding
         Plug 'masukomi/vim-markdown-folding'
+        " elm
+        Plug 'elmcast/elm-vim'
     call plug#end()
 
 " solarized

@@ -15,3 +15,4 @@ arduino
 datagrip
 zerotier-one
 authy
+darktable

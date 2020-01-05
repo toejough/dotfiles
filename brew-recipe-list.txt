@@ -36,3 +36,4 @@ python-yq
 arduino-cli
 elm
 nmap
+datamash

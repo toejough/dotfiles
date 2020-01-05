@@ -31,7 +31,7 @@
     " enable mouse support
     set mouse=a
     " When a file has been detected to have been changed outside of Vim and
-	" it has not been changed inside of Vim, automatically read it again.
+    " it has not been changed inside of Vim, automatically read it again.
     set autoread
     " lines of context when moving
     set so=10
@@ -59,6 +59,13 @@
     set termguicolors
     " stop all the "hit ENTER to continue" messages
     set cmdheight=2
+    " use syntax folding by default
+    set foldmethod=syntax
+    " jump to last postion
+    if has("autocmd")
+      au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal! g'\"" | endif
+    endif
 
 " Plugin management
     " Install manager if not present
@@ -98,8 +105,6 @@
         Plug 'ntpeters/vim-better-whitespace'
         " Focus on the current text blob
         Plug 'junegunn/limelight.vim'
-        " Rainbow parens
-        Plug 'junegunn/rainbow_parentheses.vim'
         " clear hl after search
         Plug 'junegunn/vim-slash'
         " Git marks, staging hunks
@@ -158,6 +163,8 @@
         Plug 'masukomi/vim-markdown-folding'
         " elm
         Plug 'elmcast/elm-vim'
+        " rainbow parens
+        Plug 'luochen1990/rainbow'
     call plug#end()
 
 " solarized
@@ -267,10 +274,6 @@
     autocmd VimEnter * Limelight
     nmap <Leader>l :Limelight!!<CR>
 
-" Rainbow parens
-    let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-    autocmd BufEnter * RainbowParentheses
-
 " Git gutter
     set signcolumn=yes
     set updatetime=100
@@ -339,10 +342,11 @@
     let g:go_doc_popup_window = 1
     let g:go_auto_type_info = 1
     let g:go_auto_same_ids = 1
-    let g:go_gorename_command = 'gopls'
+    let g:go_rename_command = 'gopls'
     " clobbered the easymotion binding for K
     let g:go_doc_keywordprg_enabled = 0
     let g:go_gopls_use_placeholders = 1
+    let g:go_gopls_complete_unimported = 1
     let g:go_diagnostics_enabled = 1
     nmap <leader>ga <Plug>(go-alternate-edit)
     nmap <leader>gc <Plug>(go-callstack)
@@ -442,6 +446,9 @@
     endfunction
     inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
     let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME."/dotfiles/snippets"]
+
+" Rainbow parens
+    let g:rainbow_active = 1
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

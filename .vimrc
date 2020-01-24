@@ -165,6 +165,8 @@
         Plug 'elmcast/elm-vim'
         " rainbow parens
         Plug 'luochen1990/rainbow'
+        " XML
+        Plug 'othree/xml.vim'
     call plug#end()
 
 " solarized

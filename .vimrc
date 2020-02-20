@@ -342,14 +342,19 @@
     let g:go_fmt_autosave = 0
     let g:go_guru_scope = ['./...']
     let g:go_doc_popup_window = 1
-    let g:go_auto_type_info = 1
-    let g:go_auto_same_ids = 1
+    " hold off till gopls 0.4.0: https://github.com/fatih/vim-go/issues/2710
+    "let g:go_auto_type_info = 1
+    "let g:go_auto_sameids = 1
     let g:go_rename_command = 'gopls'
     " clobbered the easymotion binding for K
     let g:go_doc_keywordprg_enabled = 0
     let g:go_gopls_use_placeholders = 1
     let g:go_gopls_complete_unimported = 1
+    let g:go_gopls_deep_completion = 1
+    let g:go_gopls_fuzzy_matching = 1
     let g:go_diagnostics_enabled = 1
+    " all output goes into the location list
+    let g:go_list_type = "locationlist"
     nmap <leader>ga <Plug>(go-alternate-edit)
     nmap <leader>gc <Plug>(go-callstack)
     nmap <leader>gd <Plug>(go-describe)
@@ -482,8 +487,8 @@
     " replace visual selection
     vnoremap ss y:%s/\M<C-R>"/
     " location list jumping
-    nnoremap <leader>n :lne<cr>
-    nnoremap <leader>p :lpre<cr>
+    nnoremap <leader>ln :lne<cr>
+    nnoremap <leader>lp :lpre<cr>
     " quickfix list jumping
-    nnoremap <leader>N :cne<cr>
-    nnoremap <leader>P :cpre<cr>
+    nnoremap <leader>qn :cne<cr>
+    nnoremap <leader>qp :cpre<cr>

@@ -151,8 +151,6 @@
         Plug 'junegunn/fzf.vim'
         " set cwd to the git root
         Plug 'airblade/vim-rooter'
-        " completion
-        Plug 'Shougo/deoplete.nvim'
         " snippets
         Plug 'SirVer/ultisnips'
         " go refactoring
@@ -422,20 +420,6 @@
     " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
     nnoremap <leader>dc :lcd %:p:h<cr>
     nnoremap <leader>dr :Rooter<cr>
-
-" deoplete
-    let g:deoplete#enable_at_startup = 1
-    " expects python3 and pynvim are installed
-    if empty(system('brew list | grep python'))
-        silent !brewm add recipe python
-    endif
-    if empty(system('pip3 list | grep pynvim'))
-        silent !pip install pynvim
-    endif
-    " use go omni patterns
-    call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-    " don't auto-insert what is thought to be a good match
-    set completeopt+=noinsert
 
 " ultisnips
     " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351

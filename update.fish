@@ -24,9 +24,19 @@ and fisher ls | fisher rm
 and cat ~/dotfiles/fisher-list.txt | fisher add
 
 # vim plugins
-and pip3 install pynvim
+and pip3 install neovim
 and vim +ReloadRC  # don't quit - want to see what got updated sometimes
-and vim +GoUpdateBinaries +qall
+# need a quick command for this
+#and vim +"CocInstall coc-json coc-diagnostic"
+
+# go tooling
+and go get golang.org/x/tools/gopls@latest
+and go get golang.org/x/tools/cmd/goimports
+
+# lsp stuff
+and npm install -g npm
+and npm install -g yarn
+and yarn global add diagnostic-languageserver
 
 # final message
 and echo "Updates completed!!"

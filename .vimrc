@@ -138,8 +138,6 @@
         Plug 'godlygeek/tabular'
         " autosave
         Plug '907th/vim-auto-save'
-        " go
-        Plug 'fatih/vim-go'
         " html
         Plug 'othree/html5.vim'
         Plug 'alvan/vim-closetag'
@@ -154,8 +152,6 @@
         Plug 'airblade/vim-rooter'
         " snippets
         Plug 'SirVer/ultisnips'
-        " go refactoring
-        Plug 'godoctor/godoctor.vim'
         " better git conflict resolution
         Plug 'christoomey/vim-conflicted'
         " better markdown folding
@@ -345,34 +341,6 @@
 " Autosave
     let g:auto_save = 1  "
 
-" vim-go
-    let g:go_metalinter_autosave = 0
-    let g:go_fmt_autosave = 0
-    let g:go_guru_scope = ['./...']
-    let g:go_doc_popup_window = 1
-    " hold off till gopls 0.4.0: https://github.com/fatih/vim-go/issues/2710
-    "let g:go_auto_type_info = 1
-    "let g:go_auto_sameids = 1
-    let g:go_rename_command = 'gopls'
-    " clobbered the easymotion binding for K
-    let g:go_doc_keywordprg_enabled = 0
-    let g:go_gopls_use_placeholders = 1
-    let g:go_gopls_complete_unimported = 1
-    let g:go_gopls_deep_completion = 1
-    let g:go_gopls_fuzzy_matching = 1
-    let g:go_diagnostics_enabled = 1
-    " all output goes into the location list
-    let g:go_list_type = "locationlist"
-    nmap <leader>ga <Plug>(go-alternate-edit)
-    nmap <leader>gc <Plug>(go-callstack)
-    nmap <leader>gd <Plug>(go-describe)
-    nmap <leader>gf <Plug>(go-imports)
-    nmap <leader>gg <Plug>(go-generate)
-    nmap <leader>gi <Plug>(go-implements)
-    nmap <leader>gm :GoImpl<CR>
-    nmap <leader>gn <Plug>(go-rename)
-    nmap <leader>gr <Plug>(go-referrers)
-
 " tagbar
     " config from https://github.com/jstemmer/gotags
     let g:tagbar_type_go = {
@@ -500,17 +468,15 @@
     " Or use `complete_info` if your vim support it, like:
     " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-    " Use `[g` and `]g` to navigate diagnostics
-    nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
     " Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gt <Plug>(coc-type-definition)
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
+    nmap <silent> gp <Plug>(coc-diagnostic-prev)
+    nmap <silent> gn <Plug>(coc-diagnostic-next)
 
-    " Use K to show documentation in preview window
+    " Use ld to show documentation in preview window
     nnoremap <silent> <leader>ld :call <SID>show_documentation()<CR>
 
     function! s:show_documentation()
@@ -525,23 +491,13 @@
     autocmd CursorHold * silent call CocActionAsync('highlight')
     " Remap for rename current word
     nmap <leader>lr <Plug>(coc-rename)
-    " Remap for format selected region
-    xmap <leader>lf  <Plug>(coc-format-selected)
-    nmap <leader>lf  <Plug>(coc-format-selected)
 
     augroup mygroup
         autocmd!
-        " Setup formatexpr specified filetype(s).
-        autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
         " Update signature help on jump placeholder
         autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     augroup end
 
-    " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-    xmap <leader>a  <Plug>(coc-codeaction-selected)
-    nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-    " Remap for do codeAction of current line
     nmap <leader>ac  <Plug>(coc-codeaction)
     " Fix autofix problem of current line
     nmap <leader>qf  <Plug>(coc-fix-current)
@@ -556,32 +512,13 @@
     nmap <silent> <TAB> <Plug>(coc-range-select)
     xmap <silent> <TAB> <Plug>(coc-range-select)
 
-    " Use `:Format` to format current buffer
-    command! -nargs=0 Format :call CocAction('format')
-
-    " Use `:Fold` to fold current buffer
-    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-    " use `:OR` for organize import of current buffer
-    command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
     " Using CocList
     " Show all diagnostics
     nnoremap <silent> <leader>lld  :<C-u>CocList diagnostics<cr>
-    " Manage extensions
-    nnoremap <silent> <leader>lle  :<C-u>CocList extensions<cr>
-    " Show commands
-    nnoremap <silent> <leader>llc  :<C-u>CocList commands<cr>
     " Find symbol of current document
-    nnoremap <silent> <leader>llo  :<C-u>CocList outline<cr>
+    nnoremap <silent> <leader>lfl  :<C-u>CocList outline<cr>
     " Search workspace symbols
-    nnoremap <silent> <leader>lls  :<C-u>CocList -I symbols<cr>
-    " Do default action for next item.
-    nnoremap <silent> <leader>lj  :<C-u>CocNext<CR>
-    " Do default action for previous item.
-    nnoremap <silent> <leader>lk  :<C-u>CocPrev<CR>
-    " Resume latest coc list
-    nnoremap <silent> <leader>llr  :<C-u>CocListResume<CR>
+    nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

@@ -1,0 +1,52 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go"
+  ],
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ],
+      "initializationOptions": {
+        "elmAnalyseTrigger": "change"
+      }
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": [
+        "go.mod"
+      ],
+      "filetypes": [
+        "go"
+      ],
+      "initializationOptions": {
+        "completeUnimported": true
+      }
+    }
+  },
+  "codeLens.enable": true,
+  "diagnostic-languageserver.filetypes": {
+    "go": "golangci-lint"
+  },
+  "diagnostic-languageserver.trace.server": "verbose",
+  "diagnostic-languageserver.formatters": {
+    "goimports": {
+      "command": "goimports",
+      "args": [],
+      "rootPatterns": [
+        ".git",
+        "go.mod"
+      ],
+      "isStdout": true,
+      "isStderr": false,
+      "doesWriteToFile": false
+    }
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "go": "goimports"
+  }
+}

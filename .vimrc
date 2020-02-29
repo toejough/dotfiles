@@ -539,7 +539,7 @@
         " :JustReloadRC will just reload this RC file
         command! -bar JustReloadRC source ~/.vimrc
         " :ReloadRC will do all three
-        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|UpdateRemotePlugins|JustReloadRC
+        command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
     " insert a date when typing 'dts'
     iab <expr> dts strftime("%F %T%z")
     " exit on ctrl-q

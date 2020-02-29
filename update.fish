@@ -26,8 +26,7 @@ and cat ~/dotfiles/fisher-list.txt | fisher add
 # vim plugins
 and pip3 install neovim
 and vim +ReloadRC  # don't quit - want to see what got updated sometimes
-# need a quick command for this
-#and vim +"CocInstall coc-json coc-diagnostic"
+and vim -c "CocInstall coc-json coc-diagnostic" +qall
 
 # go tooling
 and go get golang.org/x/tools/gopls@latest

@@ -1,6 +1,5 @@
 ack
 bash
-direnv
 fish
 git
 htop

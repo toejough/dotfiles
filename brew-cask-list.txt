@@ -13,6 +13,5 @@ borgbackup
 alacritty
 arduino
 datagrip
-zerotier-one
 authy
 darktable

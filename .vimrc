@@ -491,6 +491,8 @@
     autocmd CursorHold * silent call CocActionAsync('highlight')
     " Remap for rename current word
     nmap <leader>lr <Plug>(coc-rename)
+    " Format doc
+    nmap <leader>lf <Plug>(coc-format)
 
     augroup mygroup
         autocmd!

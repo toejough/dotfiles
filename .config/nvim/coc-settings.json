@@ -1,7 +1,4 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "go"
-  ],
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",

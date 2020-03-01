@@ -469,12 +469,14 @@
     " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
     " Remap keys for gotos
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gt <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-    nmap <silent> gp <Plug>(coc-diagnostic-prev)
-    nmap <silent> gn <Plug>(coc-diagnostic-next)
+    " use autocmd VimEnter in order to override any plugin redefinitions
+    " https://vi.stackexchange.com/a/785
+    autocmd VimEnter * nmap <silent> gd <Plug>(coc-definition)
+    autocmd VimEnter * nmap <silent> gt <Plug>(coc-type-definition)
+    autocmd VimEnter * nmap <silent> gi <Plug>(coc-implementation)
+    autocmd VimEnter * nmap <silent> gr <Plug>(coc-references)
+    autocmd VimEnter * nmap <silent> gp <Plug>(coc-diagnostic-prev)
+    autocmd VimEnter * nmap <silent> gn <Plug>(coc-diagnostic-next)
 
     " Use ld to show documentation in preview window
     nnoremap <silent> <leader>ld :call <SID>show_documentation()<CR>

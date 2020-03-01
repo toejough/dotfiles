@@ -2,7 +2,7 @@
 
 # get the latest
 if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your branch is up to date' > /dev/null
-    echo (set_color cyan)"Copying homdir configs..."(set_color normal)
+    echo (set_color cyan)"Copying homedir configs..."(set_color normal)
     and ln -vFfs ~/dotfiles/.vimrc ~
     and ln -vFfs ~/dotfiles/.gitconfig ~
     and ln -vFfs ~/dotfiles/.tmux.conf ~

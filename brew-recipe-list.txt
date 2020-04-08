@@ -36,3 +36,6 @@ arduino-cli
 elm
 nmap
 datamash
+lastpass-cli
+task
+timewarrior

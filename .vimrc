@@ -166,6 +166,8 @@
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         " vim elm snippets
         Plug 'honza/vim-snippets'
+        " notes"
+        Plug 'vimwiki/vimwiki'
     call plug#end()
 
 " solarized
@@ -523,6 +525,11 @@
     nnoremap <silent> <leader>lfl  :<C-u>CocList outline<cr>
     " Search workspace symbols
     nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
+
+" vimwiki
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
+
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

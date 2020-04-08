@@ -29,6 +29,18 @@
             "initializationOptions": {
                 "completeUnimported": true
             }
+        },
+        "web": {
+            "command": "html-languageserver",
+            "args": [
+                "--stdio"
+            ],
+            "filetypes": [
+                "html"
+            ],
+            "rootPatterns": [
+                ".git"
+            ]
         }
     },
     "codeLens.enable": true,

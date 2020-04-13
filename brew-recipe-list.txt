@@ -39,3 +39,5 @@ datamash
 lastpass-cli
 task
 timewarrior
+ripgrep
+daemontools

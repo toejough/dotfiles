@@ -16,3 +16,4 @@ datagrip
 authy
 darktable
 keycastr
+1password-cli

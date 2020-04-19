@@ -167,7 +167,9 @@
         " vim elm snippets
         Plug 'honza/vim-snippets'
         " notes"
-        Plug 'vimwiki/vimwiki'
+        Plug 'https://github.com/alok/notational-fzf-vim'
+        " semantic highlighting
+        Plug 'jaxbot/semantic-highlight.vim'
     call plug#end()
 
 " solarized
@@ -526,9 +528,13 @@
     " Search workspace symbols
     nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
 
-" vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
+" fzf notes
+let g:nv_search_paths = ['~/repos/personal/notes']
+nnoremap <silent> <leader>n :NV!<CR>
+let g:nv_create_note_window = 'e'
+
+" semantic versioning
+    nnoremap <Leader>s :SemanticHighlightToggle<cr>
 
 
 " Custom key mappings and commands
@@ -551,8 +557,12 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
         command! -bar JustReloadRC source ~/.vimrc
         " :ReloadRC will do all three
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
-    " insert a date when typing 'dts'
+    " insert a datetime when typing 'dts'
     iab <expr> dts strftime("%F %T%z")
+    " insert a date when typing 'ds'
+    iab <expr> ds strftime("%F")
+    " insert a time when typing 'ts'
+    iab <expr> ts strftime("%T")
     " exit on ctrl-q
     nnoremap <C-q> :q<cr>
     inoremap <C-q> <Esc>:q<cr>

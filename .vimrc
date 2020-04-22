@@ -223,10 +223,14 @@
             \ 'fugitive': 'LightlineFugitive',
             \ 'conflicts': 'LightlineConflicts',
             \ 'lsp': 'coc#status',
+            \ 'tag': 'LightlineTagbar',
         \ },
     \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
     \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
     \ }
+    function! LightlineTagbar()
+        return tagbar#currenttag('%s', '')
+    endfunction
     function! LightlineReadonly()
         return &readonly ? '' : ''
     endfunction
@@ -249,7 +253,7 @@
     endfunction
     let lightline.active = {
     \ 'left': [ [ 'mode', 'paste' ],
-    \           [ 'readonly', 'filename', 'modified' ],
+    \           [ 'readonly', 'filename', 'modified', 'tag' ],
     \           [ 'lsp' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'percent' ],
@@ -387,7 +391,9 @@
     \ 's:functions:0:0',
     \ ]
     \}
-    nmap <leader>T :Tagbar<CR>
+    nmap <leader>T :TagbarOpenAutoClose<CR>
+    let g:tagbar_case_insensitive = 1
+    let g:tagbar_autoshowtag = 1
 
 " fzf
     let g:fzf_history_dir = '~/.local/share/fzf-history'

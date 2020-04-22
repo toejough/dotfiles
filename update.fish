@@ -46,7 +46,8 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     and echo (set_color green)"Updates completed!!"(set_color normal)
     or echo (set_color red)"Update FAILED (╯°□°）╯︵ ┻━┻ "(set_color normal)
 else
+    cd ~/dotfiles
     echo (set_color yellow)"Updating the update script..."(set_color normal)
     git pull
-    and update.fish
+    and ./update.fish
 end

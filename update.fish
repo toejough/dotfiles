@@ -49,5 +49,6 @@ else
     cd ~/dotfiles
     echo (set_color yellow)"Updating the update script..."(set_color normal)
     git pull
+    git push
     and ./update.fish
 end

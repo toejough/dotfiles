@@ -105,7 +105,7 @@
         " Whitespace stripping"
         Plug 'ntpeters/vim-better-whitespace'
         " Focus on the current text blob
-        Plug 'junegunn/limelight.vim'
+        Plug 'https://github.com/xi/limelight.vim/', {'branch': 'feature-movement'}
         " clear hl after search
         Plug 'junegunn/vim-slash'
         " Git marks, staging hunks
@@ -170,6 +170,8 @@
         Plug 'https://github.com/alok/notational-fzf-vim'
         " semantic highlighting
         Plug 'jaxbot/semantic-highlight.vim'
+        " things vim-go did that lsp doesn't
+        Plug 'laher/gothx.vim'
     call plug#end()
 
 " solarized
@@ -287,6 +289,9 @@
     let g:limelight_conceal_ctermfg = 'DarkGrey'
     autocmd VimEnter * Limelight
     nmap <Leader>L :Limelight!!<CR>
+    let g:limelight_mode = 'movement'
+    let g:limelight_bop = '[z'
+    let g:limelight_eop = ']z'
 
 " Git gutter
     set signcolumn=yes

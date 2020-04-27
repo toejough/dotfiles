@@ -27,7 +27,15 @@
                 "go"
             ],
             "initializationOptions": {
-                "completeUnimported": true
+                "completeUnimported": true,
+                "analyses": {
+                    "fillreturns": true,
+                    "nonewvars": true,
+                    "undeclaredname": true,
+                    "unusedparams": true
+                },
+                "usePlaceholders": true,
+                "format": false
             }
         },
         "web": {
@@ -81,7 +89,7 @@
     "diagnostic-languageserver.trace.server": "verbose",
     "diagnostic-languageserver.formatters": {
         "goimports": {
-            "command": "goimports",
+            "command": "gofumports",
             "args": [],
             "rootPatterns": [
                 ".git",

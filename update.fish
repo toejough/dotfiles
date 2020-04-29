@@ -40,7 +40,6 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     echo (set_color cyan)"Updating global js binaries..."(set_color normal)
     and npm install -g npm
     and npm install -g yarn
-    and yarn global add diagnostic-languageserver
 
     # final message
     and echo (set_color green)"Updates completed!!"(set_color normal)

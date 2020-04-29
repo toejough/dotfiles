@@ -80,8 +80,7 @@
         " file navigation/manipulation
         Plug 'scrooloose/nerdtree'
         " tab-completion of the above completions
-        " commented out for now for coc
-        "Plug 'ervandew/supertab'
+        Plug 'ervandew/supertab'
         " fast comment toggling
         Plug 'scrooloose/nerdcommenter'
         " surround things with parens/quotes
@@ -163,7 +162,14 @@
         " XML
         Plug 'othree/xml.vim'
         " language server protocol client
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        "Plug 'prabirshrestha/async.vim'
+        "Plug 'prabirshrestha/vim-lsp'
+        "Plug 'prabirshrestha/asyncomplete.vim'
+        "Plug 'prabirshrestha/asyncomplete-lsp.vim'
+        "Plug 'autozimu/LanguageClient-neovim', {
+        "\ 'branch': 'next',
+        "\ 'do': 'bash install.sh',
+        "\ }
         " vim elm snippets
         Plug 'honza/vim-snippets'
         " notes"
@@ -185,18 +191,17 @@
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
 
-" commented out now for coc tab use
-"" supertab
-"    " return key closes the completion window without inserting newline
-"    let SuperTabCrMapping = 1
-"    " context-aware tab completion (filepath/function/text)
-"    let g:SuperTabDefaultCompletionType = "context"
-"    " chain completion to fall back to omnifunc if context completion doesn't
-"    " work
-"    autocmd FileType *
-"    \ if &omnifunc != '' |
-"    \   call SuperTabChain(&omnifunc, "<c-p>") |
-"    \ endif
+" supertab
+    " return key closes the completion window without inserting newline
+    let g:SuperTabCrMapping = 1
+    " context-aware tab completion (filepath/function/text)
+    let g:SuperTabDefaultCompletionType = "context"
+    " chain completion to fall back to omnifunc if context completion doesn't
+    " work
+    autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \ endif
 
 " undotree
     nnoremap <leader>u :UndotreeToggle<cr>
@@ -224,8 +229,8 @@
             \ 'readonly': 'LightlineReadonly',
             \ 'fugitive': 'LightlineFugitive',
             \ 'conflicts': 'LightlineConflicts',
-            \ 'lsp': 'coc#status',
             \ 'tag': 'LightlineTagbar',
+            \ 'gitstatus': 'GitStatus',
         \ },
     \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
     \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
@@ -253,10 +258,15 @@
     function! DevIconFileformat()
         return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
     endfunction
+    function! GitStatus()
+      let [a,m,r] = GitGutterGetHunkSummary()
+      return printf('+%d ~%d -%d', a, m, r)
+    endfunction
+    " XXX come back and remove lsp here
     let lightline.active = {
     \ 'left': [ [ 'mode', 'paste' ],
     \           [ 'readonly', 'filename', 'modified', 'tag' ],
-    \           [ 'lsp' ] ],
+    \           [ 'gitstatus' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'percent' ],
     \            [ 'fileformat', 'fileencoding', 'filetype' ],
@@ -269,8 +279,6 @@
     \            [ 'fugitive', 'conflicts' ] ] }
     " don't show mode, because lightline shows the mode
     set noshowmode
-    " update lightline on coc status changes
-    autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " comfortable motion (Scrolling)
     noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
@@ -296,9 +304,10 @@
 " Git gutter
     set signcolumn=yes
     set updatetime=100
-    let g:gitgutter_highlight_lines = 1
+    "let g:gitgutter_highlight_lines = 1
     let g:gitgutter_highlight_linenrs = 1
     let g:gitgutter_preview_win_floating = 1
+    let g:gitgutter_sign_removed = 'x'
     " disable default key mappings
     let g:gitgutter_map_keys = 0
     " custom keymappings
@@ -307,6 +316,8 @@
     nmap <leader>hs <Plug>(GitGutterStageHunk)
     nmap <leader>hu <Plug>(GitGutterUndoHunk)
     nmap <leader>hv <Plug>(GitGutterPreviewHunk)
+    nmap <leader>hf <Plug>(GitGutterFold)
+    set foldtext=gitgutter#fold#foldtext()
 
 " CamelCase keys
     call camelcasemotion#CreateMotionMappings('<leader>')
@@ -447,104 +458,150 @@
 " Rainbow parens
     let g:rainbow_active = 1
 
-" COC
-    " Set hidden?
-    " from the help: When off a buffer is unloaded when it is abandoned
-    " from coc: if hidden is not set, TextEdit might fail.
-    " presumably coc uses hidden buffers for some source edits?
-    set hidden
-    " no backups.  default off, but this makes it explicit
-    set nobackup
-    set nowritebackup
-    " a faster update time
-    set updatetime=300
-    " don't give ins-completion-menu messages
-    set shortmess+=c
-    " always show the sign column
-    set signcolumn=yes
-    " coc wants to control tab completion...
-    inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"" vim-lsp
+"    if executable('gopls')
+"        au User lsp_setup call lsp#register_server({
+"        \    'name': 'gopls',
+"        \    'cmd': {server_info->['gopls']},
+"        \    'whitelist': ['go'],
+"        \    'root_uri':{server_info->lsp#utils#path_to_uri(
+"        \        lsp#utils#find_nearest_parent_file_directory(
+"        \            lsp#utils#get_buffer_path(),
+"        \            ['.git/']
+"        \    ))},
+"        \    'initialization_options': {
+"        \        "completeUnimported": v:true,
+"        \        "analyses": {
+"        \            "fillreturns": v:true,
+"        \            "nonewvars": v:true,
+"        \            "undeclaredname": v:true,
+"        \            "unusedparams": v:true
+"        \        },
+"        \        "usePlaceholders": v:true,
+"        \        "format": v:false
+"        \    },
+"        \})
+"    endif
+"    "if executable('diagnostic-languageserver')
+"    "    au User lsp_setup call lsp#register_server({
+"    "    \    'name': 'diagnostic-languageserver',
+"    "    \    'cmd': {server_info->['diagnostic-languageserver', '--stdio']},
+"    "    \    'whitelist': ['go'],
+"    "    \    'root_uri':{server_info->lsp#utils#path_to_uri(
+"    "    \        lsp#utils#find_nearest_parent_file_directory(
+"    "    \            lsp#utils#get_buffer_path(),
+"    "    \            ['.git/']
+"    "    \    ))},
+"    "    \    'initialization_options': {
+"    "    \        "linters": {
+"    "    \            "openlynt": {
+"    "    \                "command": "openlynt",
+"    "    \                "rootPatterns": [
+"    "    \                    ".git"
+"    "    \                ],
+"    "    \                "isStdout": v:false,
+"    "    \                "isStderr": v:true,
+"    "    \                "args": [
+"    "    \                    "-path",
+"    "    \                    "%filepath"
+"    "    \                ],
+"    "    \                "sourceName": "openlynt",
+"    "    \                "formatLines": 1,
+"    "    \                "formatPattern": [
+"    "    \                    "^[^:]+:(\\d+)\\s+(.*)$",
+"    "    \                    {
+"    "    \                        "line": 1,
+"    "    \                        "message": [
+"    "    \                            2
+"    "    \                        ]
+"    "    \                    }
+"    "    \                ],
+"    "    \                "requiredFiles": [
+"    "    \                    ".openlynt.yml"
+"    "    \                ]
+"    "    \            }
+"    "    \        },
+"    "    \        "filetypes": {
+"    "    \            "go": [
+"    "    \                "golangci-lint",
+"    "    \                "openlynt"
+"    "    \            ]
+"    "    \        },
+"    "    \        "formatters": {
+"    "    \            "goimports": {
+"    "    \                "command": "gofumports",
+"    "    \                "args": [],
+"    "    \                "rootPatterns": [
+"    "    \                    ".git",
+"    "    \                    "go.mod"
+"    "    \                ],
+"    "    \                "isStdout": v:true,
+"    "    \                "isStderr": v:false,
+"    "    \                "doesWriteToFile": v:false
+"    "    \            }
+"    "    \        },
+"    "    \        "formatFiletypes": {
+"    "    \            "go": "goimports"
+"    "    \        }
+"    "    \    },
+"    "    \})
+"    "endif
 
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
+"    function! s:on_lsp_buffer_enabled() abort
+"        set foldmethod=expr
+"          \ foldexpr=lsp#ui#vim#folding#foldexpr()
+"          \ foldtext=lsp#ui#vim#folding#foldtext()
 
-    " Use <c-space> to trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
+"        setlocal omnifunc=lsp#complete
+"        setlocal signcolumn=yes
+"        nmap <buffer> gd <plug>(lsp-definition)
+"        nmap <buffer> <f2> <plug>(lsp-rename)
+"        " refer to doc to add more commands
+"    endfunction
 
-    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-    " Coc only does snippet and additional edit on confirm.
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    " Or use `complete_info` if your vim support it, like:
-    " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+"    augroup lsp_install
+"        au!
+"        " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+"        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+"    augroup END
+"    "let g:lsp_log_file = expand('~/vim-lsp.log')
+"    let g:lsp_diagnostics_float_cursor = 1
+"    let g:lsp_virtual_text_enabled = 0
+"    let g:lsp_diagnostics_float_delay = 50
+"    autocmd VimEnter * nmap <silent> gd <Plug>(lsp-definition)
+"    autocmd VimEnter * nmap <silent> gt <Plug>(lsp-type-definition)
+"    autocmd VimEnter * nmap <silent> gi <Plug>(lsp-implementation)
+"    autocmd VimEnter * nmap <silent> gr <Plug>(lsp-references)
+"    autocmd VimEnter * nmap <silent> gp <Plug>(lsp-previous-diagnostic)
+"    autocmd VimEnter * nmap <silent> gn <Plug>(lsp-next-diagnostic)
+"    autocmd VimEnter * nmap <silent> lr <Plug>(lsp-rename)
+"    autocmd VimEnter * nmap <silent> la <Plug>(lsp-code-action)
 
-    " Remap keys for gotos
-    " use autocmd VimEnter in order to override any plugin redefinitions
-    " https://vi.stackexchange.com/a/785
-    autocmd VimEnter * nmap <silent> gd <Plug>(coc-definition)
-    autocmd VimEnter * nmap <silent> gt <Plug>(coc-type-definition)
-    autocmd VimEnter * nmap <silent> gi <Plug>(coc-implementation)
-    autocmd VimEnter * nmap <silent> gr <Plug>(coc-references)
-    autocmd VimEnter * nmap <silent> gp <Plug>(coc-diagnostic-prev)
-    autocmd VimEnter * nmap <silent> gn <Plug>(coc-diagnostic-next)
-
-    " Use ld to show documentation in preview window
-    nnoremap <silent> <leader>ld :call <SID>show_documentation()<CR>
-
-    function! s:show_documentation()
-      if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-      else
-        call CocAction('doHover')
-      endif
-    endfunction
-
-    " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-    " Remap for rename current word
-    nmap <leader>lr <Plug>(coc-rename)
-    " Format doc
-    nmap <leader>lf <Plug>(coc-format)
-
-    augroup mygroup
-        autocmd!
-        " Update signature help on jump placeholder
-        autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-    augroup end
-
-    nmap <leader>ac  <Plug>(coc-codeaction)
-    " Fix autofix problem of current line
-    nmap <leader>qf  <Plug>(coc-fix-current)
-
-    " Create mappings for function text object, requires document symbols feature of languageserver.
-    xmap if <Plug>(coc-funcobj-i)
-    xmap af <Plug>(coc-funcobj-a)
-    omap if <Plug>(coc-funcobj-i)
-    omap af <Plug>(coc-funcobj-a)
-
-    " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-    nmap <silent> <TAB> <Plug>(coc-range-select)
-    xmap <silent> <TAB> <Plug>(coc-range-select)
-
-    " Using CocList
-    " Show all diagnostics
-    nnoremap <silent> <leader>lld  :<C-u>CocList diagnostics<cr>
-    " Find symbol of current document
-    nnoremap <silent> <leader>lfl  :<C-u>CocList outline<cr>
-    " Search workspace symbols
-    nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
+"" languageClient-neovim
+"let settings = json_decode('
+"\{
+"\    "completeUnimported": v:true,
+"\    "analyses": {
+"\        "fillreturns": v:true,
+"\        "nonewvars": v:true,
+"\        "undeclaredname": v:true,
+"\        "unusedparams": v:true
+"\    },
+"\    "usePlaceholders": v:true,
+"\    "format": v:false
+"\}')
+"augroup LanguageClient_config
+"    autocmd!
+"    autocmd User LanguageClientStarted call LanguageClient#Notify(
+"        \ 'workspace/didChangeConfiguration', {'settings': settings})
+"augroup END
 
 " fzf notes
 let g:nv_search_paths = ['~/repos/personal/notes']
 nnoremap <silent> <leader>n :NV!<CR>
 let g:nv_create_note_window = 'e'
 
-" semantic versioning
+" semantic highlighting
     nnoremap <Leader>s :SemanticHighlightToggle<cr>
 
 

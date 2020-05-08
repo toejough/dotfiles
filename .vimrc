@@ -494,10 +494,6 @@
     omap if <Plug>(coc-funcobj-i)
     omap af <Plug>(coc-funcobj-a)
 
-    " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-    nmap <silent> <TAB> <Plug>(coc-range-select)
-    xmap <silent> <TAB> <Plug>(coc-range-select)
-
     " Using CocList
     " Show all diagnostics
     nnoremap <silent> <leader>lld  :<C-u>CocList diagnostics<cr>

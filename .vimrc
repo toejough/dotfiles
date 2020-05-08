@@ -19,8 +19,9 @@
         set shiftwidth=4
         " On pressing tab, insert 4 spaces
         set expandtab
-        " explicitly set js indentation
+        " explicitly set indentation per filetype
         autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+        autocmd FileType markdown setlocal ts=2 sts=2 sw=2
     " backspace through eol, indentation, and the start of insert mode
     set backspace=indent,eol,start
     " change current working directory for the local file when you switch buffers

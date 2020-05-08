@@ -145,6 +145,8 @@
         Plug 'alvan/vim-closetag'
         " javascript
         Plug 'othree/yajs.vim'
+        " class outline
+        Plug 'majutsushi/tagbar'
         " fzf
         Plug '/usr/local/opt/fzf'
         Plug 'junegunn/fzf.vim'
@@ -219,24 +221,28 @@
             \ 'fugitive': 'LightlineFugitive',
             \ 'conflicts': 'LightlineConflicts',
             \ 'lsp': 'StatusDiagnostic',
+            \ 'tag': 'LightlineTagbar',
             \ 'gitstatus': 'GitStatus',
         \ },
     \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
     \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
     \ }
     function! StatusDiagnostic() abort
-	  let info = get(b:, 'coc_diagnostic_info', {})
-	  if empty(info) | return '' | endif
-	  let msgs = []
-	  if get(info, 'error', 0)
-	    call add(msgs, 'E:' . info['error'])
-	  endif
-	  if get(info, 'warning', 0)
-	    call add(msgs, 'W:' . info['warning'])
-	  endif
-	  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+        let info = get(b:, 'coc_diagnostic_info', {})
+        if empty(info) | return '' | endif
+        let msgs = []
+        if get(info, 'error', 0)
+            call add(msgs, 'E:' . info['error'])
+        endif
+        if get(info, 'warning', 0)
+            call add(msgs, 'W:' . info['warning'])
+        endif
+        return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 	endfunction
 
+    function! LightlineTagbar()
+        return tagbar#currenttag('%s', '')
+    endfunction
     function! LightlineReadonly()
         return &readonly ? '' : ''
     endfunction
@@ -367,6 +373,52 @@
 
 " Autosave
     let g:auto_save = 1  "
+
+" tagbar
+    " config from https://github.com/jstemmer/gotags
+    let g:tagbar_type_go = {
+        \ 'ctagstype' : 'go',
+        \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+        \ },
+        \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+        \ },
+        \ 'ctagsbin'  : 'gotags',
+        \ 'ctagsargs' : '-sort -silent'
+    \ }
+    " config from https://github.com/elm-tooling/elm-vim#tagbar
+    let g:tagbar_type_elm = {
+    \ 'kinds' : [
+    \ 'f:function:0:0',
+    \ 'm:modules:0:0',
+    \ 'i:imports:1:0',
+    \ 't:types:1:0',
+    \ 'a:type aliases:0:0',
+    \ 'c:type constructors:0:0',
+    \ 'p:ports:0:0',
+    \ 's:functions:0:0',
+    \ ]
+    \}
+    nmap <leader>T :TagbarOpenAutoClose<CR>
+    let g:tagbar_case_insensitive = 1
+    let g:tagbar_autoshowtag = 1
 
 " fzf
     let g:fzf_history_dir = '~/.local/share/fzf-history'

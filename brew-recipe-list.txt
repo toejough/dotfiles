@@ -16,6 +16,7 @@ go
 httpie
 diff-so-fancy
 reattach-to-user-namespace
+gotags
 jq
 terminal-notifier
 rlwrap

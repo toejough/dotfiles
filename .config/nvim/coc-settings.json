@@ -1,7 +1,12 @@
 {
     "coc.preferences.formatOnSaveFiletypes": [
-        "go"
+        "go",
+        "json"
     ],
+    "markdownlint.config": {
+        "line_length": false,
+        "MD024": false
+    },
     "languageserver": {
         "elmLS": {
             "command": "elm-language-server",
@@ -17,9 +22,6 @@
         },
         "golang": {
             "command": "gopls",
-            "args": [
-                "-rpc.trace"
-            ],
             "rootPatterns": [
                 "go.mod"
             ],

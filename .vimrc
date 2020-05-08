@@ -106,7 +106,8 @@
         " Whitespace stripping"
         Plug 'ntpeters/vim-better-whitespace'
         " Focus on the current text blob
-        Plug 'https://github.com/xi/limelight.vim/', {'branch': 'feature-movement'}
+        "Plug 'https://github.com/xi/limelight.vim/', {'branch': 'feature-movement'}
+        Plug 'junegunn/limelight.vim'
         " clear hl after search
         Plug 'junegunn/vim-slash'
         " Git marks, staging hunks
@@ -297,9 +298,9 @@
     let g:limelight_conceal_ctermfg = 'DarkGrey'
     autocmd VimEnter * Limelight
     nmap <Leader>L :Limelight!!<CR>
-    let g:limelight_mode = 'movement'
-    let g:limelight_bop = '[z'
-    let g:limelight_eop = ']z'
+    "let g:limelight_mode = 'movement'
+    "let g:limelight_bop = '[z'
+    "let g:limelight_eop = ']z'
 
 " Git gutter
     set signcolumn=yes

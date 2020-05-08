@@ -346,6 +346,8 @@
     let g:vim_markdown_folding_disabled = 1
     " use the auto-folding from vim-markdown-folding
     autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
+    " use the indentation the LSP expects
+    let g:vim_markdown_new_list_item_indent = 2
 
 " Indent guide colors
     let g:indent_guides_auto_colors = 0

@@ -155,18 +155,12 @@
         Plug 'christoomey/vim-conflicted'
         " better markdown folding
         Plug 'masukomi/vim-markdown-folding'
-        " elm syntax
-        Plug 'andys8/vim-elm-syntax'
         " rainbow parens
         Plug 'luochen1990/rainbow'
         " XML
         Plug 'othree/xml.vim'
         " language server protocol client
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
-        " vim elm snippets
-        Plug 'honza/vim-snippets'
-        " notes"
-        Plug 'https://github.com/alok/notational-fzf-vim'
         " semantic highlighting
         Plug 'jaxbot/semantic-highlight.vim'
         " things vim-go did that lsp doesn't
@@ -497,14 +491,9 @@
     " Search workspace symbols
     nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
 
-" fzf notes
-let g:nv_search_paths = ['~/repos/personal/notes']
-nnoremap <silent> <leader>n :NV!<CR>
-let g:nv_create_note_window = 'e'
 
 " semantic highlighting
     nnoremap <Leader>s :SemanticHighlightToggle<cr>
-
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

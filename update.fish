@@ -31,7 +31,7 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
     and pip3 install neovim
     and vim +ReloadRC  # don't quit - want to see what got updated sometimes
-    and vim -c "CocInstall coc-json coc-diagnostic" +qall
+    and vim -c "CocInstall coc-json coc-vimlsp coc-markdownlint coc-xml" +qall
 
     echo (set_color cyan)"Updating global go binaries..."(set_color normal)
     and go get golang.org/x/tools/gopls@latest

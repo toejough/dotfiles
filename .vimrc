@@ -217,12 +217,25 @@
             \ 'readonly': 'LightlineReadonly',
             \ 'fugitive': 'LightlineFugitive',
             \ 'conflicts': 'LightlineConflicts',
-            \ 'lsp': 'coc#status',
+            \ 'lsp': 'StatusDiagnostic',
             \ 'gitstatus': 'GitStatus',
         \ },
     \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
     \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
     \ }
+    function! StatusDiagnostic() abort
+	  let info = get(b:, 'coc_diagnostic_info', {})
+	  if empty(info) | return '' | endif
+	  let msgs = []
+	  if get(info, 'error', 0)
+	    call add(msgs, 'E:' . info['error'])
+	  endif
+	  if get(info, 'warning', 0)
+	    call add(msgs, 'W:' . info['warning'])
+	  endif
+	  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+	endfunction
+
     function! LightlineReadonly()
         return &readonly ? '' : ''
     endfunction
@@ -491,6 +504,8 @@
     " Search workspace symbols
     nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
 
+    " organize imports on save
+    autocmd BufWritePost *.go call CocAction('runCommand', 'editor.action.organizeImport')
 
 " semantic highlighting
     nnoremap <Leader>s :SemanticHighlightToggle<cr>

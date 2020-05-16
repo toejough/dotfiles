@@ -556,7 +556,7 @@
     nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
 
     " organize imports on save
-    autocmd BufWritePost *.go call CocAction('runCommand', 'editor.action.organizeImport')
+    nnoremap <silent> <leader>li :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " semantic highlighting
     nnoremap <Leader>s :SemanticHighlightToggle<cr>

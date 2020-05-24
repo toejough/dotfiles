@@ -40,3 +40,5 @@ task
 timewarrior
 ripgrep
 daemontools
+bat
+lolcat

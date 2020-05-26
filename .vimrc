@@ -51,7 +51,7 @@
     set ttyfast
     set nocursorline
     " explicitly use fish in interactive mode to mimic normal terminal
-    set shell=fish\ -i
+    "set shell=fish\ -i
     " highlight max line length
     set colorcolumn=120
     " use truecolor colors
@@ -80,9 +80,8 @@
         Plug 'lifepillar/vim-solarized8'
         " file navigation/manipulation
         Plug 'scrooloose/nerdtree'
-        " tab-completion of the above completions
-        " commented out for now for coc
-        "Plug 'ervandew/supertab'
+        " tab-completion for all the completions
+        Plug 'ervandew/supertab'
         " fast comment toggling
         Plug 'scrooloose/nerdcommenter'
         " surround things with parens/quotes
@@ -162,12 +161,18 @@
         Plug 'luochen1990/rainbow'
         " XML
         Plug 'othree/xml.vim'
-        " language server protocol client
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
         " semantic highlighting
         Plug 'jaxbot/semantic-highlight.vim'
         " things vim-go did that lsp doesn't
         Plug 'laher/gothx.vim'
+        " vimlsp
+        Plug 'prabirshrestha/async.vim'
+        Plug 'prabirshrestha/vim-lsp'
+        Plug 'prabirshrestha/asyncomplete.vim'
+        Plug 'prabirshrestha/asyncomplete-lsp.vim'
+        Plug 'mattn/vim-lsp-settings'
+        Plug 'thomasfaingnaert/vim-lsp-snippets'
+        Plug 'thomasfaingnaert/vim-lsp-ultisnips'
     call plug#end()
 
 " solarized
@@ -181,18 +186,17 @@
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
 
-" commented out now for coc tab use
-"" supertab
-"    " return key closes the completion window without inserting newline
-"    let SuperTabCrMapping = 1
-"    " context-aware tab completion (filepath/function/text)
-"    let g:SuperTabDefaultCompletionType = "context"
-"    " chain completion to fall back to omnifunc if context completion doesn't
-"    " work
-"    autocmd FileType *
-"    \ if &omnifunc != '' |
-"    \   call SuperTabChain(&omnifunc, "<c-p>") |
-"    \ endif
+" supertab
+    " return key closes the completion window without inserting newline
+    let g:SuperTabCrMapping = 1
+    " context-aware tab completion (filepath/function/text)
+    let g:SuperTabDefaultCompletionType = "context"
+    " chain completion to fall back to omnifunc if context completion doesn't
+    " work
+    autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \ endif
 
 " undotree
     nnoremap <leader>u :UndotreeToggle<cr>
@@ -220,25 +224,12 @@
             \ 'readonly': 'LightlineReadonly',
             \ 'fugitive': 'LightlineFugitive',
             \ 'conflicts': 'LightlineConflicts',
-            \ 'lsp': 'StatusDiagnostic',
             \ 'tag': 'LightlineTagbar',
             \ 'gitstatus': 'GitStatus',
         \ },
     \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
     \ 'subseparator': { 'left': "\ue0b5", 'right': "\ue0b7" },
     \ }
-    function! StatusDiagnostic() abort
-        let info = get(b:, 'coc_diagnostic_info', {})
-        if empty(info) | return '' | endif
-        let msgs = []
-        if get(info, 'error', 0)
-            call add(msgs, 'E:' . info['error'])
-        endif
-        if get(info, 'warning', 0)
-            call add(msgs, 'W:' . info['warning'])
-        endif
-        return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
-	endfunction
 
     function! LightlineTagbar()
         return tagbar#currenttag('%s', '')
@@ -267,11 +258,10 @@
       let [a,m,r] = GitGutterGetHunkSummary()
       return printf('+%d ~%d -%d', a, m, r)
     endfunction
-    " XXX come back and remove lsp here
     let lightline.active = {
     \ 'left': [ [ 'mode', 'paste' ],
     \           [ 'readonly', 'filename', 'modified', 'tag' ],
-    \           [ 'lsp', 'gitstatus' ] ],
+    \           [ 'gitstatus' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'percent' ],
     \            [ 'fileformat', 'fileencoding', 'filetype' ],
@@ -284,8 +274,6 @@
     \            [ 'fugitive', 'conflicts' ] ] }
     " don't show mode, because lightline shows the mode
     set noshowmode
-    " update lightline on coc status changes
-    autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " comfortable motion (Scrolling)
     noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
@@ -449,117 +437,39 @@
 
 " ultisnips
     " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
-    let g:UltiSnipsExpandTrigger="<nop>"
-    let g:ulti_expand_or_jump_res = 0
-    function! <SID>ExpandSnippetOrReturn()
-      let snippet = UltiSnips#ExpandSnippetOrJump()
-      if g:ulti_expand_or_jump_res > 0
-        return snippet
-      else
-        return "\<CR>"
-      endif
-    endfunction
-    inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-    let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME."/dotfiles/snippets"]
+    "let g:UltiSnipsJumpForwardTrigger="<tab>"
+    "let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
+    "let g:UltiSnipsExpandTrigger="<nop>"
+    "let g:ulti_expand_or_jump_res = 0
+    "function! <SID>ExpandSnippetOrReturn()
+    "  let snippet = UltiSnips#ExpandSnippetOrJump()
+    "  if g:ulti_expand_or_jump_res > 0
+    "    return snippet
+    "  else
+    "    return "\<CR>"
+    "  endif
+    "endfunction
+    "inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+    "let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME."/dotfiles/snippets"]
 
 " Rainbow parens
     let g:rainbow_active = 1
 
-" COC
-    " Set hidden?
-    " from the help: When off a buffer is unloaded when it is abandoned
-    " from coc: if hidden is not set, TextEdit might fail.
-    " presumably coc uses hidden buffers for some source edits?
-    set hidden
-    " no backups.  default off, but this makes it explicit
-    set nobackup
-    set nowritebackup
-    " a faster update time
-    set updatetime=300
-    " don't give ins-completion-menu messages
-    set shortmess+=c
-    " always show the sign column
-    set signcolumn=yes
-    " coc wants to control tab completion...
-    inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
-
-    " Use <c-space> to trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
-
-    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-    " Coc only does snippet and additional edit on confirm.
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    " Or use `complete_info` if your vim support it, like:
-    " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-    " Remap keys for gotos
-    " use autocmd VimEnter in order to override any plugin redefinitions
-    " https://vi.stackexchange.com/a/785
-    autocmd VimEnter * nmap <silent> gd <Plug>(coc-definition)
-    autocmd VimEnter * nmap <silent> gt <Plug>(coc-type-definition)
-    autocmd VimEnter * nmap <silent> gi <Plug>(coc-implementation)
-    autocmd VimEnter * nmap <silent> gr <Plug>(coc-references)
-    autocmd VimEnter * nmap <silent> gp <Plug>(coc-diagnostic-prev)
-    autocmd VimEnter * nmap <silent> gn <Plug>(coc-diagnostic-next)
-
-    " Use ld to show documentation in preview window
-    nnoremap <silent> <leader>ld :call <SID>show_documentation()<CR>
-
-    function! s:show_documentation()
-      if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-      else
-        call CocAction('doHover')
-      endif
-    endfunction
-
-    " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-    " Remap for rename current word
-    nmap <leader>lr <Plug>(coc-rename)
-    " Format doc
-    nmap <leader>lf <Plug>(coc-format)
-
-    augroup mygroup
-        autocmd!
-        " Update signature help on jump placeholder
-        autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-    augroup end
-
-    nmap <leader>ac  <Plug>(coc-codeaction)
-    " Fix autofix problem of current line
-    nmap <leader>qf  <Plug>(coc-fix-current)
-
-    " Create mappings for function text object, requires document symbols feature of languageserver.
-    xmap if <Plug>(coc-funcobj-i)
-    xmap af <Plug>(coc-funcobj-a)
-    omap if <Plug>(coc-funcobj-i)
-    omap af <Plug>(coc-funcobj-a)
-
-    " Using CocList
-    " Show all diagnostics
-    nnoremap <silent> <leader>lld  :<C-u>CocList diagnostics<cr>
-    " Find symbol of current document
-    nnoremap <silent> <leader>lfl  :<C-u>CocList outline<cr>
-    " Search workspace symbols
-    nnoremap <silent> <leader>lfa  :<C-u>CocList -I symbols<cr>
-
-    " organize imports on save
-    nnoremap <silent> <leader>li :call CocAction('runCommand', 'editor.action.organizeImport')
-
 " semantic highlighting
     nnoremap <Leader>s :SemanticHighlightToggle<cr>
+
+" Vim LSP
+    "let g:asyncomplete_auto_popup = 0
+
+    let g:asyncomplete_auto_completeopt = 0
+
+    set completeopt=menuone,noinsert,noselect,preview
+    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+    nnoremap gn :LspNextDiagnostic<cr>
+    nnoremap gp :LspPreviousDiagnostic<cr>
+
+    nnoremap <Leader>la :LspCodeAction<cr>
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

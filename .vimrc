@@ -436,18 +436,21 @@
     nnoremap <leader>dr :Rooter<cr>
 
 " ultisnips
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
     " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
     "let g:UltiSnipsJumpForwardTrigger="<tab>"
     "let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
     "let g:UltiSnipsExpandTrigger="<nop>"
     "let g:ulti_expand_or_jump_res = 0
     "function! <SID>ExpandSnippetOrReturn()
-    "  let snippet = UltiSnips#ExpandSnippetOrJump()
-    "  if g:ulti_expand_or_jump_res > 0
-    "    return snippet
-    "  else
-    "    return "\<CR>"
-    "  endif
+      "let snippet = UltiSnips#ExpandSnippetOrJump()
+      "if g:ulti_expand_or_jump_res > 0
+        "return snippet
+      "else
+        "return "\<CR>"
+      "endif
     "endfunction
     "inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
     "let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME."/dotfiles/snippets"]
@@ -468,8 +471,14 @@
 
     nnoremap gn :LspNextDiagnostic<cr>
     nnoremap gp :LspPreviousDiagnostic<cr>
+    " gd is remapped by vim-slash
+    autocmd VimEnter * nnoremap gd :LspDefinition<cr>
+    nnoremap gt :LspTypeDefinition<cr>
+    nnoremap gr :LspReferences<cr>
 
     nnoremap <Leader>la :LspCodeAction<cr>
+    nnoremap <Leader>lr :LspRename<cr>
+    nnoremap <Leader>lf :LspDocumentFormat<cr>
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

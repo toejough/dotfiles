@@ -129,10 +129,13 @@
         Plug 'tpope/vim-abolish'
         " faster/fuzzier searching in buffers
         Plug 'easymotion/vim-easymotion'
-        " markdown preview
-        Plug 'shime/vim-livedown'
-        " markdown formatting
-        Plug 'plasticboy/vim-markdown'
+        " markdown
+            " preview
+            Plug 'shime/vim-livedown'
+            " formatting
+            Plug 'plasticboy/vim-markdown'
+            " better folding
+            Plug 'masukomi/vim-markdown-folding'
         " indent guides
         Plug 'nathanaelkane/vim-indent-guides'
         " aligning text
@@ -153,26 +156,27 @@
         Plug 'airblade/vim-rooter'
         " snippets
         Plug 'SirVer/ultisnips'
+        Plug 'honza/vim-snippets'
         " better git conflict resolution
         Plug 'christoomey/vim-conflicted'
-        " better markdown folding
-        Plug 'masukomi/vim-markdown-folding'
         " rainbow parens
         Plug 'luochen1990/rainbow'
         " XML
         Plug 'othree/xml.vim'
         " semantic highlighting
         Plug 'jaxbot/semantic-highlight.vim'
-        " things vim-go did that lsp doesn't
-        Plug 'laher/gothx.vim'
         " vimlsp
-        Plug 'prabirshrestha/async.vim'
         Plug 'prabirshrestha/vim-lsp'
+        Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+        Plug 'thomasfaingnaert/vim-lsp-snippets'
         Plug 'prabirshrestha/asyncomplete.vim'
         Plug 'prabirshrestha/asyncomplete-lsp.vim'
+        Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
         Plug 'mattn/vim-lsp-settings'
-        Plug 'thomasfaingnaert/vim-lsp-snippets'
-        Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+        " things vim-go did that lsp doesn't
+        Plug 'laher/gothx.vim'
+        " distraction free mode
+        Plug 'junegunn/goyo.vim'
     call plug#end()
 
 " solarized
@@ -185,18 +189,6 @@
     map <leader>t :NERDTreeFind<CR>
     " close the nerdtree when a file is opened from it
     let NERDTreeQuitOnOpen = 1
-
-" supertab
-    " return key closes the completion window without inserting newline
-    let g:SuperTabCrMapping = 1
-    " context-aware tab completion (filepath/function/text)
-    let g:SuperTabDefaultCompletionType = "context"
-    " chain completion to fall back to omnifunc if context completion doesn't
-    " work
-    autocmd FileType *
-    \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-p>") |
-    \ endif
 
 " undotree
     nnoremap <leader>u :UndotreeToggle<cr>
@@ -360,7 +352,7 @@
     nmap gm :LivedownToggle<CR>
 
 " Autosave
-    let g:auto_save = 1  "
+    let g:auto_save = 1
 
 " tagbar
     " config from https://github.com/jstemmer/gotags
@@ -436,24 +428,27 @@
     nnoremap <leader>dr :Rooter<cr>
 
 " ultisnips
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
     " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
-    "let g:UltiSnipsJumpForwardTrigger="<tab>"
-    "let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
-    "let g:UltiSnipsExpandTrigger="<nop>"
-    "let g:ulti_expand_or_jump_res = 0
-    "function! <SID>ExpandSnippetOrReturn()
-      "let snippet = UltiSnips#ExpandSnippetOrJump()
-      "if g:ulti_expand_or_jump_res > 0
-        "return snippet
-      "else
-        "return "\<CR>"
-      "endif
-    "endfunction
-    "inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-    "let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME."/dotfiles/snippets"]
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
+    let g:UltiSnipsExpandTrigger="<nop>"
+    let g:ulti_expand_or_jump_res = 0
+    function! <SID>ExpandSnippetOrReturn()
+      let snippet = UltiSnips#ExpandSnippetOrJump()
+      if g:ulti_expand_or_jump_res > 0
+        return snippet
+      else
+        return "\<CR>"
+      endif
+    endfunction
+    inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+    let g:UltiSnipsSnippetDirectories=[$HOME."/dotfiles/snippets"]
+
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+    \ 'name': 'ultisnips',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+    \ }))
 
 " Rainbow parens
     let g:rainbow_active = 1
@@ -462,15 +457,31 @@
     nnoremap <Leader>s :SemanticHighlightToggle<cr>
 
 " Vim LSP
+    let g:lsp_settings = {
+    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
+    \}
+
+    function! s:on_lsp_buffer_enabled() abort
+        setlocal omnifunc=lsp#complete
+    endfunction
+
+    augroup lsp_install
+        au!
+        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    augroup END
+
     "let g:asyncomplete_auto_popup = 0
+    " cancel the popup
+    inoremap <expr> <C-e> pumvisible() ? asyncomplete#cancel_popup() : "\<C-e>"
+    inoremap <expr> <C-y> pumvisible() ? asyncomplete#close_popup() : "\<C-y>"
+    "let g:asyncomplete_auto_completeopt = 0
 
-    let g:asyncomplete_auto_completeopt = 0
-
-    set completeopt=menuone,noinsert,noselect,preview
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+    "set completeopt=noinsert,noselect,preview,menuone
+    "autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
     nnoremap gn :LspNextDiagnostic<cr>
     nnoremap gp :LspPreviousDiagnostic<cr>
+    nnoremap gh :LspHover<cr>
     " gd is remapped by vim-slash
     autocmd VimEnter * nnoremap gd :LspDefinition<cr>
     nnoremap gt :LspTypeDefinition<cr>
@@ -479,6 +490,16 @@
     nnoremap <Leader>la :LspCodeAction<cr>
     nnoremap <Leader>lr :LspRename<cr>
     nnoremap <Leader>lf :LspDocumentFormat<cr>
+
+    " format before save
+    autocmd BufWritePre *.go  call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports')
+
+" supertab
+    " return key closes the completion window without inserting newline
+    let g:SuperTabCrMapping = 1
+    " context-aware tab completion (filepath/function/text)
+    let g:SuperTabDefaultCompletionType = "context"
+    let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

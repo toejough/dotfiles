@@ -21,7 +21,7 @@
     last-common-commit = merge-base HEAD
     has-local-changes-from = "!f() { if ( git fetch && git diff --quiet $(git last-common-commit $1) ); then test; fi }; f"
     has-changes-from-branch = "!git has-local-changes-from origin/$(git name)"
-    has-changes-from-master = "!git has-local-changes-from origin/master"
+    has-changes-from-main = "!git has-local-changes-from origin/main"
     branches = branch -a
     tags = tag
     stashes = stash list
@@ -43,12 +43,12 @@
     }; f"
     prune-dead-branches = "!f() { \
         set -x; \
-        git checkout master && \
+        git checkout main && \
         git fetch && \
         git pull && \
         git worktree prune && \
         git remote prune origin && \
-        git branch --merged | egrep -v '^\\s*master$|^\\s*\\*.*' | xargs -L1 git branch -d && \
+        git branch --merged | egrep -v '^\\s*main$|^\\s*\\*.*' | xargs -L1 git branch -d && \
         git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D; \
         git remove-stale-tags; \
     }; f"
@@ -78,8 +78,8 @@
     nuke-local-state = "!git reset --hard origin/$(git name) && git clean -xdff"
 
     # [ workflow actions ]
-    # Get a true representation of the remote master, locally
-    update-master = "!git checkout master && git fetch && git reset --hard origin/master"
+    # Get a true representation of the remote main, locally
+    update-main = "!git checkout main && git fetch && git reset --hard origin/main"
     # Create a new branch from where-ever you are now.
     #   Also tags this as your branch's base point for easier rebasing later.
     #     This tag will get pushed to your remote branch for branch history tracking.
@@ -157,8 +157,8 @@
     remove-stale-tags = "!git tags | cut -f 2 -d. | sort | uniq | xargs -L1 -I% fish -c \"git branch --all | ack % > /dev/null; or git remove-tags-for %\""
 
     # [ Force-push recovery ]
-    recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery-version and git integrate-master again."
-    use-recovery-version = "!git reset --hard recover.$(git name); echo 'if you are really sure, git integrate-master.'"
+    recover-last-remote = "!git checkout -b recover.$(git name) && git reset --hard refs/remotes/origin/$(git name)@{1}; echo 'triple check this is the branch state you want, and then switch back to your branch, run git use-recovery-version and git integrate-main again."
+    use-recovery-version = "!git reset --hard recover.$(git name); echo 'if you are really sure, git integrate-main.'"
 
     # [ Worktree ]
     workon-new = "!f() { \

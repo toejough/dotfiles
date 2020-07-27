@@ -1,4 +1,4 @@
-# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.LdHTJP/code-owners.fish @ line 2
+# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.hQcBAb/code-owners.fish @ line 2
 function code-owners
 	echo -e "\nCHANGED FILES"
     git diff --name-only --diff-filter 'CDMRTUXB' branch-base.(git name)
@@ -7,7 +7,7 @@ function code-owners
     echo -e "\nCOMMITTERS"
     echo $changed_files | \
     tr ' ' \n | \
-    xargs -L1 git blame --line-porcelain origin/master | \
+    xargs -L1 git blame --line-porcelain origin/main | \
     sed -n 's/^author //p' | \
     sort | \
     uniq
@@ -15,7 +15,7 @@ function code-owners
     echo -e "\nLINES CHANGED"
     # line breaks being translated to just spaces screws things up - got to re-run the whole thing here.
     git diff --name-only --diff-filter 'CDMRTUXB' branch-base.(git name) | \
-    xargs -L1 -J% git blame --line-porcelain origin/master % | \
+    xargs -L1 -J% git blame --line-porcelain origin/main % | \
     sed -n 's/^author //p' | \
     sort | \
     uniq | \

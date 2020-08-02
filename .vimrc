@@ -499,7 +499,7 @@
     let g:SuperTabCrMapping = 1
     " context-aware tab completion (filepath/function/text)
     let g:SuperTabDefaultCompletionType = "context"
-    let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+    "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 " Custom key mappings and commands
 " (set here to avoid plugin overrides)

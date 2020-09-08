@@ -1,4 +1,4 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
+# configuration for alacritty, the gpu enhanced terminal emulator.
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -193,9 +193,9 @@ colors:
   #
   indexed_colors: []
 
-# Visual Bell
+# Bell
 #
-# Any time the BEL code is received, Alacritty "rings" the visual bell. Once
+# Any time the BEL code is received, Alacritty "rings" the bell. Once
 # rung, the terminal background will be set to white and transition back to the
 # default background color. You can control the rate of this transition by
 # setting the `duration` property (represented in milliseconds). You can also
@@ -213,8 +213,8 @@ colors:
 #   - EaseOutCirc
 #   - Linear
 #
-# Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+# Specifying a `duration` of `0` will disable the bell.
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
@@ -284,7 +284,7 @@ selection:
   save_to_clipboard: true
 
 # Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
+window.dynamic_title: true
 
 cursor:
   # Cursor style

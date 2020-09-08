@@ -9,7 +9,6 @@ docker
 slack
 istat-menus
 google-cloud-sdk
-borgbackup
 alacritty
 arduino
 datagrip
@@ -19,3 +18,5 @@ keycastr
 1password-cli
 visual-studio-code
 ngrok
+osxfuse
+godot

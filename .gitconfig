@@ -105,6 +105,7 @@
         git push -f origin \"branch-base.$1\"; \
         git tag \"local-base.$1\"; \
     }; f"
+    fire = "!git new-branch $USER/FIRE/$(date | tr ' :' '-') && git add -A && git commit -m FIRE && git push-branch"
     # clean your local commits up before pushing to the remote
     clean-local = "!f() { \
         local START=\"local-base.$(git name)\"; \

@@ -14,7 +14,6 @@ the_silver_searcher # used by vim
 node # used by vim
 go
 httpie
-diff-so-fancy
 reattach-to-user-namespace
 gotags
 jq

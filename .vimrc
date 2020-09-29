@@ -487,6 +487,7 @@
     autocmd VimEnter * nnoremap gd :LspDefinition<cr>
     nnoremap gt :LspTypeDefinition<cr>
     nnoremap gr :LspReferences<cr>
+    nnoremap gi :LspImplementation<cr>
 
     nnoremap <Leader>la :LspCodeAction<cr>
     nnoremap <Leader>lr :LspRename<cr>

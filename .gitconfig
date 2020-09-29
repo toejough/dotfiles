@@ -145,10 +145,10 @@
     force-push-branch = "!f() { \
         local BRANCH=\"$(git name)\"; \
         local ONTO=\"${1}\"; \
-        git push -f || return 1; \
+        git push --force-with-lease || return 1; \
         local LOCAL=\"local-base.${BRANCH}\"; \
         local BRANCH_TAG=\"branch-base.${BRANCH}\"; \
-        git push -f origin $BRANCH_TAG; \
+        git push --force-with-lease origin $BRANCH_TAG; \
         git tag -f \"${LOCAL}\" \"${BRANCH}\"; \
     }; f"
     push-branch = "!f() { \
@@ -180,19 +180,57 @@
         git worktree add -b $1 ../$location $(git name); \
         git tag \"branch-base.$1\"; \
         git tag \"local-base.$1\"; \
-        cd ../$location; \
+        local parent=$(git parent) && \
+        cd $parent/../$location && \
         git push --set-upstream origin $(git name); \
-        git push -f origin \"branch-base.$1\"; \
-        echo \"set up branch $1 at ../$location\"; \
+        git push --force-with-lease origin \"branch-base.$1\"; \
+        echo \"set up branch $1 at $(pwd)\" && \
+        fish -c \"set -U last_dir $(pwd)\" && \
+        fish; \
     }; f"
     workon-existing = "!f() { \
-        local location=$(echo $1 | tr . -); \
-        git worktree add ../$location $1; \
-        cd ../$location; \
-        git push --set-upstream origin $(git name); \
-        echo \"set up branch $1 at ../$location\"; \
+        local branch=$(git branches | fzf | sed 's/remotes\\/origin\\///' | sed 's/[[:space:]]*//g'); \
+        local location=$(echo $branch | tr . -); \
+        git worktree add ../$location $branch && \
+        local parent=$(git parent) && \
+        cd $parent/../$location && \
+        echo \"set up branch $branch at $(pwd)\" && \
+        fish -c \"set -U last_dir $(pwd)\" && \
+        fish; \
     }; f"
-    parent = "!git rev-parse --git-dir | awk -F/ '{ print $(NF-3)  }'"
+    main-location = "!f() { \
+        local main_location=$(git worktree list | ag '\\[main]' | awk '{print $1'}) && \
+        echo $main_location; \
+    }; f"
+    pick-worktree = "!f() { \
+        local w=$(git worktree list | fzf | awk '{print $1'}) && \
+        fish -c \"set -U last_dir $w\" && \
+        fish; \
+    }; f"
+    stop-working-on = "!f() { \
+        local parent_location=$(git parent) && \
+        cd $parent_location && \
+        local location=$(git worktree list | ag -v $parent_location | fzf | awk '{print $1'}) && \
+        echo $location | xargs -L1 -p rm -rf && \
+        rmdir -p $(dirname $location) &> /dev/null; \
+        git worktree prune && \
+        echo \"removed worktree at $location\";\
+    }; f"
+    # rev-parse --git-dir gets the git directory this branch is getting its git info from (not necessarily
+    #   the root directory, if we're in a worktree. eg /User/foo/repo/.git/worktrees/branch
+    # awk -F/ separates the result by /. eg " " User foo repo .git worktrees branch
+    # for i=2 starts at the second arg. eg User
+    # NF-3 stops before the third arg. eg .git
+    # awk auto-sets empty vars, so d=d... effectively joins the fields with the / separator prepended to each
+    parent = "!f() { \
+        local maybe_parent=$(git rev-parse --git-dir | awk -F/ '{ {for(i=2; i<=NF-3;i++) {d=d \"/\" $i}} {print d }}') && \
+        if test -n \"$maybe_parent\"; then \
+            echo $maybe_parent; \
+        else \
+            git root; \
+        fi; \
+    }; f"
+    root = "!git rev-parse --show-toplevel"
 
     # [ TDD-ish ]
     # commit a proof-of-concept

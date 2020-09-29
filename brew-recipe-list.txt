@@ -43,3 +43,4 @@ daemontools
 bat
 lolcat
 borgbackup
+git-delta

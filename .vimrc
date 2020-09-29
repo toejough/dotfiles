@@ -422,7 +422,7 @@
     au VimEnter * call IfEmpty()
 
 " vim-rooter
-    let g:rooter_manual_only = 1
+    let g:rooter_manual_only = 0
     " change current working directory for the local file when you switch buffers
     " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
     nnoremap <leader>dc :lcd %:p:h<cr>

@@ -416,7 +416,7 @@
     " launch fzf if vim is opened without a file
     function! IfEmpty()
         if @% == ""
-            History
+            Ag
         endif
     endfunction
     au VimEnter * call IfEmpty()

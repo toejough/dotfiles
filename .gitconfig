@@ -7,6 +7,19 @@
     excludesFile = /Users/joe/.gitignore
     ignorecase = false
     autocrlf = input
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = line-numbers decorations side-by-side
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = yellow box
+    file-decoration-style = blue box
+    hunk-header-decoration-style = yellow ul
 
 [credential]
     helper = osxkeychain

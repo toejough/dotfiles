@@ -106,7 +106,7 @@
         Plug 'ntpeters/vim-better-whitespace'
         " Focus on the current text blob
         "Plug 'https://github.com/xi/limelight.vim/', {'branch': 'feature-movement'}
-        Plug 'junegunn/limelight.vim'
+        "Plug 'junegunn/limelight.vim'
         " clear hl after search
         Plug 'junegunn/vim-slash'
         " Git marks, staging hunks
@@ -281,9 +281,9 @@
     let g:strip_whitespace_confirm=0
 
 " Focus on the current text blob
-    let g:limelight_conceal_ctermfg = 'DarkGrey'
-    autocmd VimEnter * Limelight
-    nmap <Leader>L :Limelight!!<CR>
+    "let g:limelight_conceal_ctermfg = 'DarkGrey'
+    "autocmd VimEnter * Limelight
+    "nmap <Leader>L :Limelight!!<CR>
     "let g:limelight_mode = 'movement'
     "let g:limelight_bop = '[z'
     "let g:limelight_eop = ']z'
@@ -321,7 +321,8 @@
     vmap L <Plug>(easymotion-lineforward)
     vmap H <Plug>(easymotion-linebackward)
     " Jump to anywhere with only `s{char}{target}`
-    nmap s :Limelight!<CR><Plug>(easymotion-bd-fn)
+    "nmap s :Limelight!<CR><Plug>(easymotion-bd-fn)
+    nmap s <Plug>(easymotion-bd-fn)
     " Jump to anywhere in this line with only `s{char}{target}`
     nmap f <Plug>(easymotion-bd-fln)
 

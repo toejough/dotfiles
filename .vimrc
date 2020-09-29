@@ -252,7 +252,7 @@
     endfunction
     let lightline.active = {
     \ 'left': [ [ 'mode', 'paste' ],
-    \           [ 'readonly', 'filename', 'modified', 'tag' ],
+    \           [ 'readonly', 'relativepath', 'modified', 'tag' ],
     \           [ 'gitstatus' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'percent' ],

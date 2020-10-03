@@ -176,45 +176,72 @@
 
     # [ Worktree ]
     workon-new = "!f() { \
-        local location=$(echo $1 | tr . -); \
-        git worktree add -b $1 ../$location $(git name); \
+        local parent_location=$(git parent) && \
+        local name=$(echo $1 | tr . -); \
+        local location=$parent_location/../$(basename $parent_location)-worktrees/$name; \
+        echo \"adding worktree for branch $1 at $location\"; \
+        git worktree add -b $1 --checkout $location $(git name); \
+        echo \"adding rebase tags\"; \
         git tag \"branch-base.$1\"; \
         git tag \"local-base.$1\"; \
-        local parent=$(git parent) && \
-        cd $parent/../$location && \
-        git push --set-upstream origin $(git name); \
+        echo \"moving to worktree directory\"; \
+        cd $location && \
+        echo \"setting origin to $1\"; \
+        git push --set-upstream origin $1; \
+        echo \"pushing branch rebase tag\"; \
         git push --force-with-lease origin \"branch-base.$1\"; \
-        echo \"set up branch $1 at $(pwd)\" && \
-        fish -c \"set -U last_dir $(pwd)\" && \
-        fish; \
+        fish -C \"cd $location; set -u GIT_DIR\"; \
     }; f"
     workon-existing = "!f() { \
-        local branch=$(git branches | fzf | sed 's/remotes\\/origin\\///' | sed 's/[[:space:]]*//g'); \
-        local location=$(echo $branch | tr . -); \
-        git worktree add ../$location $branch && \
-        local parent=$(git parent) && \
-        cd $parent/../$location && \
-        echo \"set up branch $branch at $(pwd)\" && \
-        fish -c \"set -U last_dir $(pwd)\" && \
-        fish; \
+        local parent_location=$(git parent) && \
+        local name=$(echo $1 | tr . -); \
+        local location=$parent_location/../$(basename $parent_location)-worktrees/$name; \
+        echo \"adding worktree for branch $1 at $location\"; \
+        git worktree add --checkout $location $1; \
+        echo \"moving to worktree directory\"; \
+        cd $location && \
+        fish -C \"cd $location; set -u GIT_DIR\"; \
     }; f"
-    main-location = "!f() { \
-        local main_location=$(git worktree list | ag '\\[main]' | awk '{print $1'}) && \
-        echo $main_location; \
-    }; f"
-    pick-worktree = "!f() { \
-        local w=$(git worktree list | fzf | awk '{print $1'}) && \
-        fish -c \"set -U last_dir $w\" && \
-        fish; \
+    workon = "!f() { \
+        local choice=$(git branches | fzf --print-query | tail -1); \
+        if test -z \"$choice\"; then \
+            return; \
+        fi; \
+        echo \"chose: $choice\"; \
+        local choice=$(echo \"$choice\" | sed 's/remotes\\/origin\\///'); \
+        echo \"remote-stripped: $choice\"; \
+        local choice=$(echo \"$choice\" | sed 's/[*+[:space:]]*//g'); \
+        echo \"char-stripped: $choice\"; \
+        local is_branch=$(git branches | ag $choice'$' > /dev/null && echo yes || echo no); \
+        echo \"is branch?: $is_branch\"; \
+        if test $is_branch = no; then \
+            echo \"workon-new\"; \
+            git workon-new $choice; \
+            return; \
+        fi; \
+        local current_location=$(git worktree list | ag '\\['$choice']$' | awk '{print $1}'); \
+        echo \"current location: $current_location\"; \
+        if test -z \"$current_location\"; then \
+            echo \"workon-existing\"; \
+            git workon-existing $choice; \
+            return; \
+        fi; \
+        echo \"goto-existing\"; \
+        fish -C \"cd $current_location; set -u GIT_DIR\"; \
     }; f"
     stop-working-on = "!f() { \
         local parent_location=$(git parent) && \
         cd $parent_location && \
-        local location=$(git worktree list | ag -v $parent_location | fzf | awk '{print $1'}) && \
+        local location=$(git worktree list | ag -v \"$parent_location\\s+\" | fzf | awk '{print $1'}) && \
+        if test -z \"$location\"; then \
+            return; \
+        fi; \
         echo $location | xargs -L1 -p rm -rf && \
         rmdir -p $(dirname $location) &> /dev/null; \
         git worktree prune && \
         echo \"removed worktree at $location\";\
+        fish -c \"set -U last_dir $parent_location\"; \
+        fish -C \"set -u GIT_DIR\"; \
     }; f"
     # rev-parse --git-dir gets the git directory this branch is getting its git info from (not necessarily
     #   the root directory, if we're in a worktree. eg /User/foo/repo/.git/worktrees/branch

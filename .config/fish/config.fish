@@ -37,6 +37,7 @@ set -x GO111MODULE on
 
 # Update path to include local binaries
 set -x PATH ~/.local/bin:$PATH
+dedup PATH
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '~/google-cloud-sdk/path.fish.inc' ]; . '~/google-cloud-sdk/path.fish.inc'; end

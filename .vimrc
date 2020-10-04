@@ -31,8 +31,8 @@
     set clipboard=unnamed
     " enable mouse support
     set mouse=a
-    " When a file has been detected to have been changed outside of Vim and
-    " it has not been changed inside of Vim, automatically read it again.
+    " When a file has been detected to have been changed outside of Vim and it has not been changed inside of Vim,
+    " automatically read it again.
     set autoread
     " lines of context when moving
     set so=10
@@ -54,6 +54,7 @@
     "set shell=fish\ -i
     " highlight max line length
     set colorcolumn=120
+    set textwidth=120
     " use truecolor colors
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -106,7 +107,7 @@
         Plug 'ntpeters/vim-better-whitespace'
         " Focus on the current text blob
         "Plug 'https://github.com/xi/limelight.vim/', {'branch': 'feature-movement'}
-        "Plug 'junegunn/limelight.vim'
+        Plug 'junegunn/limelight.vim'
         " clear hl after search
         Plug 'junegunn/vim-slash'
         " Git marks, staging hunks
@@ -194,8 +195,7 @@
     nnoremap <leader>u :UndotreeToggle<cr>
 
 " devicons
-    " expects that a nerdfont was installed, such as from
-    " `brew tap Caskroom/fonts; and brew cask install
+    " expects that a nerdfont was installed, such as from `brew tap Caskroom/fonts; and brew cask install
     " font-sourcecodepro-nerd-font`
     if empty(system('brew cask list | grep sourcecodepro'))
         silent !brew tap Caskroom/fonts; brew cask install font-sourcecodepro-nerd-font
@@ -281,9 +281,9 @@
     let g:strip_whitespace_confirm=0
 
 " Focus on the current text blob
-    "let g:limelight_conceal_ctermfg = 'DarkGrey'
-    "autocmd VimEnter * Limelight
-    "nmap <Leader>L :Limelight!!<CR>
+    let g:limelight_conceal_ctermfg = 'DarkGrey'
+    autocmd BufEnter *.go,*.vimrc Limelight
+    nmap <Leader>L :Limelight!!<CR>
     "let g:limelight_mode = 'movement'
     "let g:limelight_bop = '[z'
     "let g:limelight_eop = ']z'
@@ -456,6 +456,7 @@
 
 " semantic highlighting
     nnoremap <Leader>s :SemanticHighlightToggle<cr>
+    autocmd BufEnter *.go,*.vimrc SemanticHighlight
 
 " Vim LSP
     let g:lsp_settings = {
@@ -503,19 +504,16 @@
     let g:SuperTabDefaultCompletionType = "context"
     "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
-" Custom key mappings and commands
-" (set here to avoid plugin overrides)
+" Custom key mappings and commands (set here to avoid plugin overrides)
     " folds
-        " <space> opens a fold as long as there's a closed fold under it
-        " otherwise closes one fold level
+        " <space> opens a fold as long as there's a closed fold under it otherwise closes one fold level
         noremap <space> za
         " unfold down to the current line, refold everything else
         noremap <leader><space> zxzz
     " retain visual selection after indentation
     vnoremap > >gv
     vnoremap < <gv
-    " always move up/down a displayed row, instead of
-    " by line (different when lines wrap)
+    " always move up/down a displayed row, instead of by line (different when lines wrap)
     noremap j gj
     noremap k gk
     " reload & clean & update

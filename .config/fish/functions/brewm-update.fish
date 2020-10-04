@@ -63,7 +63,7 @@ function brewm-update
             echo -e "\rUpgrading outdated brew recipes... done!"
         case casks
             echo "Checking casks..."
-            set brew_cask_list (brew cask list)
+            set brew_cask_list (brew list --cask)
             set desired_brew_cask_list (cat ~/dotfiles/brew-cask-list.txt | awk '{print $1}')
             for cask in $brew_cask_list
                 echo -n "  found $cask..."
@@ -84,7 +84,7 @@ function brewm-update
             end
             echo "Checking casks... done!"
             echo "Upgrading outdated brew casks..."
-            brew cask upgrade; or return 1
+            brew upgrade --cask; or return 1
             echo -e "\rUpgrading outdated brew casks... done!"
         case '*'
             echo "Unknown brew type '$argv[1]' - cannot update"

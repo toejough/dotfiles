@@ -36,6 +36,7 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     echo (set_color cyan)"Updating global go binaries..."(set_color normal)
     and go get golang.org/x/tools/gopls@latest
     and go get golang.org/x/tools/cmd/goimports
+    and go get github.com/GoogleCloudPlatform/cloudsql-proxy/cmd/cloud_sql_proxy
 
     echo (set_color cyan)"Updating global js binaries..."(set_color normal)
     and npm install -g npm

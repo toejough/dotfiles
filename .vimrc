@@ -509,7 +509,10 @@
         " <space> opens a fold as long as there's a closed fold under it otherwise closes one fold level
         noremap <space> za
         " unfold down to the current line, refold everything else
-        noremap <leader><space> zxzz
+        " refold the current line
+        " recursively unfold current line
+        " move to middle
+        noremap <leader><space> zxzazAzz
     " retain visual selection after indentation
     vnoremap > >gv
     vnoremap < <gv

@@ -54,7 +54,12 @@
     "set shell=fish\ -i
     " highlight max line length
     set colorcolumn=120
-    set textwidth=120
+    " no wrapping
+    set textwidth=0
+    "" only soft-wrapping unless rewrapped explicitly
+    "set wrap
+    " only wrap on word boundaries
+    set linebreak
     " use truecolor colors
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -543,3 +548,10 @@
     " quickfix list jumping
     nnoremap <leader>qn :cne<cr>
     nnoremap <leader>qp :cpre<cr>
+    " reformat visually selected text to width limit
+    function Rewrap()
+        set textwidth=120
+        norm v_gq
+        set textwidth=0
+    endfunction
+    vnoremap <leader>gq :call Rewrap()<cr>

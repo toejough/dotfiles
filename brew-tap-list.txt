@@ -1,7 +1,7 @@
 homebrew/core
 homebrew/cask
-caskroom/fonts
-beeftornado/rmtree
-ivandokov/contrib
-golangci/tap
-universal-ctags/universal-ctags
+caskroom/fonts # saucecodepro
+beeftornado/rmtree # rmtree
+ivandokov/contrib # phockup
+golangci/tap # golangci-linter
+# universal-ctags/universal-ctags

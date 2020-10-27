@@ -7,7 +7,7 @@ ncdu
 tmux
 tree
 wget
-mosh
+# mosh
 openssh
 ivandokov/contrib/phockup
 the_silver_searcher # used by vim
@@ -15,7 +15,7 @@ node # used by vim
 go
 httpie
 reattach-to-user-namespace
-gotags
+gotags # used by vim
 jq
 terminal-notifier
 rlwrap
@@ -28,7 +28,7 @@ golangci/tap/golangci-lint
 neovim
 moreutils
 python # used by vim
-universal-ctags/universal-ctags/universal-ctags
+# universal-ctags/universal-ctags/universal-ctags
 postgresql
 python-yq
 arduino-cli
@@ -36,10 +36,10 @@ nmap
 datamash
 lastpass-cli
 task
-timewarrior
+# timewarrior
 ripgrep
 daemontools
 bat
 lolcat
-borgbackup
+# borgbackup
 git-delta

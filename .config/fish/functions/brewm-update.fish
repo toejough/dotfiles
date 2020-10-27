@@ -12,7 +12,7 @@ function brewm-update
         case taps
             echo "Checking taps..."
             set brew_tap_list (brew tap)
-            set desired_brew_tap_list (cat ~/dotfiles/brew-tap-list.txt | awk '{print $1}')
+            set desired_brew_tap_list (cat ~/dotfiles/brew-tap-list.txt | awk '{print $1}' | sed -e '/^#/d')
             for tap in $brew_tap_list
                 echo -n "  found $tap..."
                 if not echo $desired_brew_tap_list | ack $tap > /dev/null
@@ -36,7 +36,7 @@ function brewm-update
             # use brew leaves for checking the top-level installations - these are the packages which nothing
             # else depends on.  If they're not explicitly desired, they can be removed.
             set brew_list (brew leaves)
-            set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | awk '{print $1}')
+            set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | awk '{print $1}' | sed -e '/^#/d')
             for recipe in $brew_list
                 echo -n "  found $recipe..."
                 if not echo $desired_brew_list | ack $recipe > /dev/null
@@ -49,7 +49,7 @@ function brewm-update
             end
             # different list now - we want to see what's already installed, which should be the full
             # list of installed packages, not just the ones with no dependencies
-            set -a brew_list (brew list)
+            set -a brew_list (brew list --formula)
             for recipe in $desired_brew_list
                 if not echo $brew_list | ack $recipe > /dev/null
                     echo -n "  $recipe not found.  Installing..."
@@ -64,7 +64,7 @@ function brewm-update
         case casks
             echo "Checking casks..."
             set brew_cask_list (brew list --cask)
-            set desired_brew_cask_list (cat ~/dotfiles/brew-cask-list.txt | awk '{print $1}')
+            set desired_brew_cask_list (cat ~/dotfiles/brew-cask-list.txt | awk '{print $1}' | sed -e '/^#/d')
             for cask in $brew_cask_list
                 echo -n "  found $cask..."
                 if not echo $desired_brew_cask_list | ack $cask > /dev/null

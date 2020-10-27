@@ -435,26 +435,26 @@
 
 " ultisnips
     " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
-    let g:UltiSnipsExpandTrigger="<nop>"
-    let g:ulti_expand_or_jump_res = 0
-    function! <SID>ExpandSnippetOrReturn()
-      let snippet = UltiSnips#ExpandSnippetOrJump()
-      if g:ulti_expand_or_jump_res > 0
-        return snippet
-      else
-        return "\<CR>"
-      endif
-    endfunction
-    inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-    let g:UltiSnipsSnippetDirectories=[$HOME."/dotfiles/snippets"]
+    "let g:UltiSnipsJumpForwardTrigger="<tab>"
+    "let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
+    "let g:UltiSnipsExpandTrigger="<nop>"
+    "let g:ulti_expand_or_jump_res = 0
+    "function! <SID>ExpandSnippetOrReturn()
+    "  let snippet = UltiSnips#ExpandSnippetOrJump()
+    "  if g:ulti_expand_or_jump_res > 0
+    "    return snippet
+    "  else
+    "    return "\<CR>"
+    "  endif
+    "endfunction
+    "inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+    "let g:UltiSnipsSnippetDirectories=[$HOME."/dotfiles/snippets"]
 
-    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-    \ 'name': 'ultisnips',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-    \ }))
+    "call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+    "\ 'name': 'ultisnips',
+    "\ 'whitelist': ['*'],
+    "\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+    "\ }))
 
 " Rainbow parens
     let g:rainbow_active = 1
@@ -506,7 +506,9 @@
     " return key closes the completion window without inserting newline
     let g:SuperTabCrMapping = 1
     " context-aware tab completion (filepath/function/text)
-    let g:SuperTabDefaultCompletionType = "context"
+    "let g:SuperTabDefaultCompletionType = "context"
+    " use default omnifunc by default
+    "set omnifunc=syntaxcomplete#Complete
     "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 " Custom key mappings and commands (set here to avoid plugin overrides)

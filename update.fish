@@ -43,7 +43,7 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     #and npm install -g yarn
 
     echo (set_color cyan)"Updating gcloud..."(set_color normal)
-    and gcloud components update
+    and env CLOUDSDK_PYTHON=python3.8 gcloud components update
 
     # final message
     and echo (set_color green)"Updates completed!!"(set_color normal)

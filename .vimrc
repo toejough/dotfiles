@@ -183,6 +183,8 @@
         Plug 'laher/gothx.vim'
         " distraction free mode
         Plug 'junegunn/goyo.vim'
+        " extract bits of files
+        Plug 'rstacruz/vim-xtract'
     call plug#end()
 
 " solarized
@@ -465,7 +467,7 @@
 
 " Vim LSP
     let g:lsp_settings = {
-    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
+    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
     \}
 
     function! s:on_lsp_buffer_enabled() abort

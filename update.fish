@@ -24,9 +24,9 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     and brewm update
 
     echo (set_color cyan)"Updating fisher plugins..."(set_color normal)
-    and fisher self-update
+    and fisher update
     and fisher ls | fisher rm
-    and cat ~/dotfiles/fisher-list.txt | fisher add
+    and cat ~/dotfiles/fisher-list.txt | fisher install
 
     echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
     and pip3 install neovim

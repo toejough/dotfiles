@@ -185,6 +185,7 @@
         Plug 'junegunn/goyo.vim'
         " extract bits of files
         Plug 'rstacruz/vim-xtract'
+        Plug 'chrisbra/Colorizer'
     call plug#end()
 
 " solarized
@@ -535,6 +536,10 @@
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
     " insert a datetime when typing 'dts'
     iab <expr> dts strftime("%F %T%z")
+    " insert a start timestamp when typing 'dta'
+    iab <expr> dta "[started @ ".strftime("%F %T%z")."]"
+    " insert a stop timestamp when typing 'dto'
+    iab <expr> dta "[stopped @ ".strftime("%F %T%z")."]"
     " insert a date when typing 'ds'
     iab <expr> ds strftime("%F")
     " insert a time when typing 'ts'

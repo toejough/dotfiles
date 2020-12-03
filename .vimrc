@@ -509,7 +509,7 @@
     " return key closes the completion window without inserting newline
     let g:SuperTabCrMapping = 1
     " context-aware tab completion (filepath/function/text)
-    "let g:SuperTabDefaultCompletionType = "context"
+    let g:SuperTabDefaultCompletionType = "context"
     " use default omnifunc by default
     "set omnifunc=syntaxcomplete#Complete
     "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"

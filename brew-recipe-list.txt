@@ -43,3 +43,4 @@ bat
 lolcat
 # borgbackup
 git-delta
+ctags-exuberant

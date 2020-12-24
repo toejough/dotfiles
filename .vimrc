@@ -468,7 +468,7 @@
 
 " Vim LSP
     let g:lsp_settings = {
-    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
+    \  'gopls': {'initialization_options': {'gofumpt':v:true, 'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
     \}
 
     function! s:on_lsp_buffer_enabled() abort
@@ -536,10 +536,10 @@
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
     " insert a datetime when typing 'dts'
     iab <expr> dts strftime("%F %T%z")
-    " insert a start timestamp when typing 'dta'
+    " insert a stArt timestamp when typing 'dta'
     iab <expr> dta "[started @ ".strftime("%F %T%z")."]"
-    " insert a stop timestamp when typing 'dto'
-    iab <expr> dta "[stopped @ ".strftime("%F %T%z")."]"
+    " insert a stOp timestamp when typing 'dto'
+    iab <expr> dto "[stopped @ ".strftime("%F %T%z")."]"
     " insert a date when typing 'ds'
     iab <expr> ds strftime("%F")
     " insert a time when typing 'ts'

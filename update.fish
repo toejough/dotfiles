@@ -24,9 +24,10 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     and brewm update
 
     echo (set_color cyan)"Updating fisher plugins..."(set_color normal)
-    and fisher update
+    and fisher update (fisher list)
 
     echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
+    and pip3 install --upgrade pip
     and pip3 install neovim
     and vim +ReloadRC  # don't quit - want to see what got updated sometimes
     #and vim -c "CocInstall coc-json coc-vimlsp coc-markdownlint coc-xml" +qall

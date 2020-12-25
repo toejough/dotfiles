@@ -186,6 +186,8 @@
         " extract bits of files
         Plug 'rstacruz/vim-xtract'
         Plug 'chrisbra/Colorizer'
+        " elixir
+        Plug 'elixir-editors/vim-elixir'
     call plug#end()
 
 " solarized

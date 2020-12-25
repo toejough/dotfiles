@@ -43,5 +43,5 @@ bat
 lolcat
 # borgbackup
 git-delta
-ctags-exuberant
 elixir
+ctags

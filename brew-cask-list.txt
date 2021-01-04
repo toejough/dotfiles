@@ -20,3 +20,4 @@ visual-studio-code
 ngrok
 # osxfuse
 godot
+freecad

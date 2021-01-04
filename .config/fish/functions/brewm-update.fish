@@ -69,7 +69,7 @@ function brewm-update
                 echo -n "  found $cask..."
                 if not echo $desired_brew_cask_list | ack $cask > /dev/null
                     echo -n "not desired.  Uninstalling..."
-                    brew cask uninstall $cask; or return 1
+                    brew uninstall --cask $cask; or return 1
                     echo "done!"
                 else
                     echo "great!"
@@ -78,7 +78,7 @@ function brewm-update
             for cask in $desired_brew_cask_list
                 if not echo $brew_cask_list | ack $cask > /dev/null
                     echo -n "  $cask not found.  Installing..."
-                    brew cask install $cask; or return 1
+                    brew install --cask $cask; or return 1
                     echo "done!"
                 end
             end

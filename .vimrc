@@ -22,6 +22,8 @@
         " explicitly set indentation per filetype
         autocmd FileType javascript setlocal ts=2 sts=2 sw=2
         autocmd FileType markdown setlocal ts=2 sts=2 sw=2
+        " round to the nearest shift interval
+        set shiftround
     " backspace through eol, indentation, and the start of insert mode
     set backspace=indent,eol,start
     " change current working directory for the local file when you switch buffers
@@ -470,7 +472,7 @@
 
 " Vim LSP
     let g:lsp_settings = {
-    \  'gopls': {'initialization_options': {'gofumpt':v:true, 'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
+    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
     \}
 
     function! s:on_lsp_buffer_enabled() abort
@@ -503,9 +505,10 @@
     nnoremap <Leader>la :LspCodeAction<cr>
     nnoremap <Leader>lr :LspRename<cr>
     nnoremap <Leader>lf :LspDocumentFormat<cr>
+    nnoremap <Leader>li :LspCodeActionSync source.organizeImports<cr>
 
     " format before save
-    autocmd BufWritePre *.go  call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports')
+    autocmd BufWritePre *.go  call execute('LspDocumentFormatSync') "| call execute('LspCodeActionSync source.organizeImports')
 
 " supertab
     " return key closes the completion window without inserting newline

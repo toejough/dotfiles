@@ -59,8 +59,9 @@
         git checkout main && \
         git fetch && \
         git pull && \
-        git worktree prune && \
+        git stop-working-on-gone && \
         git remote prune origin && \
+        git worktree prune && \
         git branch --merged | egrep -v '^\\s*main$|^\\s*\\*.*' | xargs -L1 git branch -d && \
         git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D; \
         git remove-stale-tags; \
@@ -242,6 +243,16 @@
         echo \"removed worktree at $location\";\
         fish -c \"set -U last_dir $parent_location\"; \
         fish -C \"set -u GIT_DIR\"; \
+    }; f"
+    stop-working-on-gone = "!f() { \
+        local parent_location=$(git parent) && \
+        cd $parent_location && \
+        git worktree prune && \
+        git branch -vv | ack '^\\+' | ack ': gone' | awk '{print $4}' | sed -E 's/\\((.*)\\)/\\1/g' | xargs -L1 -I% echo \"removing worktree at %\" && \
+        git branch -vv | ack '^\\+' | ack ': gone' | awk '{print $4}' | sed -E 's/\\((.*)\\)/\\1/g' | xargs -L1 -I% rm -rf % && \
+        git branch -vv | ack '^\\+' | ack ': gone' | awk '{print $4}' | sed -E 's/\\((.*)\\)/\\1/g' | xargs -L1 -I% fish -c \"rmdir -p (dirname %)\" &> /dev/null && \
+        git worktree prune && \
+        fish -c \"set -U last_dir $parent_location\"; \
     }; f"
     # rev-parse --git-dir gets the git directory this branch is getting its git info from (not necessarily
     #   the root directory, if we're in a worktree. eg /User/foo/repo/.git/worktrees/branch

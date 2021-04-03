@@ -2,6 +2,9 @@
     name = toejough
     email = toejough@gmail.com
 
+[init]
+    defaultBranch = main
+
 [core]
     ignoresFile = /Users/joe/.gitignore
     excludesFile = /Users/joe/.gitignore

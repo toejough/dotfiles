@@ -45,3 +45,4 @@ lolcat
 git-delta
 elixir
 ctags
+cocoapods

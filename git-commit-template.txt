@@ -1,23 +1,9 @@
-# A one-line summary, generally of the form "Fixes #x: abcd"
+(NEW|DOC|FIX|TEST|REFACTOR|POC|[BREAKING ]UPDATE): <Imperative summary (initial cap, no period)
 
-# A description of the problem or feature that triggered this commit.
-**Problem:**
+Use simple markdown for the following sections (no headers (conflicts with comments))
 
-# The solution this commit implements.
-**Resolution:**
+**What this does**
+(if more elaboration desired after the summary, otherwise, delete)
 
-# A discussion of the problem, root causes, and possible solutions/workarounds (and their impacts).
-**Analysis:**
-
-# A discussion of your testing/tests for this commit
-**Testing:**
-
-# A discussion of your documentation for this commit
-**Documentation:**
-
-# A discussion of the impact of this commit, preferably in terms of semver
-# Initial for initial commit
-# 1.0.0 for 1.0.0 release
-# Major/minor/patch otherwise
-# include a quick discussion of why this commit has this impact.
-**Impact:**
+**Why this is being done**
+(this is required)

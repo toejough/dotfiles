@@ -541,10 +541,8 @@
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
     " insert a datetime when typing 'dts'
     iab <expr> dts strftime("%F %T%z")
-    " insert a stArt timestamp when typing 'dta'
-    iab <expr> dta "[started @ ".strftime("%F %T%z")."]"
-    " insert a stOp timestamp when typing 'dto'
-    iab <expr> dto "[stopped @ ".strftime("%F %T%z")."]"
+    " insert a surrounded date stamp when typing 'sds'
+    iab <expr> sds "[".strftime("%F")."]"
     " insert a date when typing 'ds'
     iab <expr> ds strftime("%F")
     " insert a time when typing 'ts'

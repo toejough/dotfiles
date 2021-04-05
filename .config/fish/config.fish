@@ -40,10 +40,12 @@ set -x PATH ~/.local/bin:$PATH
 dedup PATH
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/google-cloud-sdk/path.fish.inc' ]; . '~/google-cloud-sdk/path.fish.inc'; end
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc' ]; . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc'; end
+
 
 # Set bat/delta theme to solarized dark by default
 set -x BAT_THEME "Solarized (dark)"
 
 # Tell FZF to use fzf.vim's previewer for previews by default
 set -x FZF_DEFAULT_OPTS "--preview 'preview {}'"
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths

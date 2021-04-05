@@ -3,7 +3,6 @@ firefox
 font-sourcecodepro-nerd-font-mono
 alfred
 signal
-keybase
 amethyst
 docker
 slack
@@ -23,3 +22,5 @@ godot
 freecad
 flutter
 tiled
+gather
+paw

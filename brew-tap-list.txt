@@ -1,6 +1,5 @@
 homebrew/core
 homebrew/cask
-caskroom/fonts # saucecodepro
 beeftornado/rmtree # rmtree
 ivandokov/contrib # phockup
 golangci/tap # golangci-linter

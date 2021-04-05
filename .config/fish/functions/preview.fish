@@ -1,4 +1,4 @@
-# Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.aET126/preview.fish @ line 2
+# Defined in /var/folders/94/q46vzxqd5855jk2zbwqj5mbm0000gn/T//fish.BnMxeP/preview.fish @ line 2
 function preview
     set thing (string trim $argv[1])
     # files
@@ -10,14 +10,17 @@ function preview
     # commits/branches
     else if git rev-parse --verify --quiet $thing
         git log --graph --oneline --decorate --color $thing
+    # other
     else
         # commits/branches from a worktree
         set maybe_hash (echo $thing | awk '{print $2}')
         if git rev-parse --verify --quiet $maybe_hash
             git log --graph --oneline --decorate --color $maybe_hash
+        # idk, let the built-in fzf vim preview do its thing
         else
-            echo "Unable to preview '$thing'"
-            return 1
+            echo "$thing"
+            #echo "Unable to preview '$thing'"
+            #return 1
         end
     end
 end

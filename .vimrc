@@ -190,6 +190,8 @@
         Plug 'chrisbra/Colorizer'
         " elixir
         Plug 'elixir-editors/vim-elixir'
+        " preview registers
+        Plug 'junegunn/vim-peekaboo'
     call plug#end()
 
 " solarized

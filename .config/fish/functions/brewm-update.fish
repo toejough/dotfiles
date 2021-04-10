@@ -1,3 +1,4 @@
+# Defined in /var/folders/94/q46vzxqd5855jk2zbwqj5mbm0000gn/T//fish.ohIDmx/brewm-update.fish @ line 2
 function brewm-update
     if not count $argv > /dev/null
         brewm-update taps; or return 1
@@ -36,7 +37,7 @@ function brewm-update
             # use brew leaves for checking the top-level installations - these are the packages which nothing
             # else depends on.  If they're not explicitly desired, they can be removed.
             set brew_list (brew leaves)
-            set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | awk '{print $1}' | sed -e '/^#/d')
+            set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | sed -e '/^#/d' | awk '{print $1}')
             for recipe in $brew_list
                 echo -n "  found $recipe..."
                 if not echo $desired_brew_list | ack $recipe > /dev/null
@@ -50,10 +51,12 @@ function brewm-update
             # different list now - we want to see what's already installed, which should be the full
             # list of installed packages, not just the ones with no dependencies
             set -a brew_list (brew list --formula)
+            set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | sed -e '/^#/d' | gsed -E 's/\s*#.*//')
             for recipe in $desired_brew_list
-                if not echo $brew_list | ack $recipe > /dev/null
+                set recipe_name (echo $recipe | awk '{print $1}')
+                if not echo $brew_list | ack $recipe_name > /dev/null
                     echo -n "  $recipe not found.  Installing..."
-                    brew install $recipe; or return 1
+                    eval brew install $recipe; or return 1
                     echo "done!"
                 end
             end

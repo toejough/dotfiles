@@ -1,3 +1,4 @@
+# Defined in /var/folders/94/q46vzxqd5855jk2zbwqj5mbm0000gn/T//fish.eWzWUa/brewm-remove.fish @ line 2
 function brewm-remove
     set num_args (count $argv)
     if test $num_args -lt 2
@@ -13,7 +14,7 @@ function brewm-remove
         case tap recipe cask
             echo "Checking "$the_type"s..."
             set the_file ~/dotfiles/brew-"$the_type"-list.txt
-            set brew_list (cat $the_file | awk '{print $1}')
+            set brew_list (cat $the_file | gsed -E 's/\s*#.*//')
             for item in $items
                 if echo $brew_list | ack $item > /dev/null
                     echo -n "  $item found.  Removing..."

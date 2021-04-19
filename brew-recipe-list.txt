@@ -24,10 +24,9 @@ fswatch
 fzf
 pv
 mage
-golangci/tap/golangci-lint
+golangci-lint
 moreutils
 python # used by vim
-# universal-ctags/universal-ctags/universal-ctags
 postgresql
 python-yq
 arduino-cli
@@ -51,3 +50,4 @@ docker
 exa
 gnu-sed
 neovim --HEAD
+exa

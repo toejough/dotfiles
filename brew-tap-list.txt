@@ -2,5 +2,3 @@ homebrew/core
 homebrew/cask
 beeftornado/rmtree # rmtree
 ivandokov/contrib # phockup
-golangci/tap # golangci-linter
-# universal-ctags/universal-ctags

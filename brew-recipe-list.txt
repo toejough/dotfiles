@@ -51,3 +51,4 @@ exa
 gnu-sed
 neovim --HEAD
 exa
+fontforge

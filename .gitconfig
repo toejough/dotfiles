@@ -345,3 +345,5 @@
 
 [rerere]
     enabled = true
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com

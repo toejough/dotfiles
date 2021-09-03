@@ -75,6 +75,12 @@
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal! g'\"" | endif
     endif
+    " define line highlight color
+    highlight LineHighlight ctermbg=blue guibg=blue
+    " highlight the current line
+    nnoremap m :call matchadd('LineHighlight', '\%'.line('.').'l')
+    " clear all the highlighted lines
+    nnoremap M :call clearmatches()   endif
 
 " Plugin management
     " Install manager if not present
@@ -474,7 +480,7 @@
 
 " Vim LSP
     let g:lsp_settings = {
-    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}, 'symbolMatcher': v:true}},
+    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}}},
     \}
 
     function! s:on_lsp_buffer_enabled() abort
@@ -569,3 +575,5 @@
         set textwidth=0
     endfunction
     vnoremap <leader>gq :call Rewrap()<cr>
+    " clear last search hl
+    nnoremap <leader>/ :noh<cr>

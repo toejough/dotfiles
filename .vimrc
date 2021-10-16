@@ -130,7 +130,7 @@
         " better auto read - doesn't require buffer change
         Plug 'djoshea/vim-autoread'
         " Toml support
-        Plug 'cespare/vim-toml'
+        "Plug 'cespare/vim-toml'
         " Camelcase motions with <leader>w,b,e, etc
         Plug 'bkad/camelcasemotion'
         " Ctrl-n to select things
@@ -157,10 +157,10 @@
         " autosave
         Plug '907th/vim-auto-save'
         " html
-        Plug 'othree/html5.vim'
-        Plug 'alvan/vim-closetag'
+        "Plug 'othree/html5.vim'
+        "Plug 'alvan/vim-closetag'
         " javascript
-        Plug 'othree/yajs.vim'
+        "Plug 'othree/yajs.vim'
         " class outline
         Plug 'majutsushi/tagbar'
         " fzf
@@ -169,33 +169,35 @@
         " set cwd to the git root
         Plug 'airblade/vim-rooter'
         " snippets
-        Plug 'SirVer/ultisnips'
-        Plug 'honza/vim-snippets'
+        "Plug 'SirVer/ultisnips'
+        "Plug 'honza/vim-snippets'
         " better git conflict resolution
         Plug 'christoomey/vim-conflicted'
         " rainbow parens
         Plug 'luochen1990/rainbow'
         " XML
-        Plug 'othree/xml.vim'
+        "Plug 'othree/xml.vim'
         " semantic highlighting
         Plug 'jaxbot/semantic-highlight.vim'
         " vimlsp
-        Plug 'prabirshrestha/vim-lsp'
-        Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-        Plug 'thomasfaingnaert/vim-lsp-snippets'
-        Plug 'prabirshrestha/asyncomplete.vim'
-        Plug 'prabirshrestha/asyncomplete-lsp.vim'
-        Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-        Plug 'mattn/vim-lsp-settings'
+        "Plug 'prabirshrestha/vim-lsp'
+        "Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+        "Plug 'thomasfaingnaert/vim-lsp-snippets'
+        "Plug 'prabirshrestha/asyncomplete.vim'
+        "Plug 'prabirshrestha/asyncomplete-lsp.vim'
+        "Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+        "Plug 'mattn/vim-lsp-settings'
+        Plug 'neovim/nvim-lspconfig'
         " things vim-go did that lsp doesn't
         Plug 'laher/gothx.vim'
         " distraction free mode
         Plug 'junegunn/goyo.vim'
-        " extract bits of files
+        " extract bits of files into other files
         Plug 'rstacruz/vim-xtract'
+        " color names & color codes
         Plug 'chrisbra/Colorizer'
         " elixir
-        Plug 'elixir-editors/vim-elixir'
+        "Plug 'elixir-editors/vim-elixir'
         " preview registers
         Plug 'junegunn/vim-peekaboo'
     call plug#end()
@@ -479,44 +481,44 @@
     autocmd BufEnter *.go,*.vimrc SemanticHighlight
 
 " Vim LSP
-    let g:lsp_settings = {
-    \  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}}},
-    \}
+    "let g:lsp_settings = {
+    "\  'gopls': {'initialization_options': {'usePlaceholders': v:true, 'allExperiments': v:true, 'analyses': {'fillreturns': v:true, 'nonewvars': v:true, 'undeclaredname': v:true, 'unusedparams': v:true}}},
+    "\}
 
-    function! s:on_lsp_buffer_enabled() abort
-        setlocal omnifunc=lsp#complete
-    endfunction
+    "function! s:on_lsp_buffer_enabled() abort
+    "    setlocal omnifunc=lsp#complete
+    "endfunction
 
-    augroup lsp_install
-        au!
-        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-    augroup END
+    "augroup lsp_install
+    "    au!
+    "    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    "augroup END
 
-    "let g:asyncomplete_auto_popup = 0
-    " cancel the popup
-    inoremap <expr> <C-e> pumvisible() ? asyncomplete#cancel_popup() : "\<C-e>"
-    inoremap <expr> <C-y> pumvisible() ? asyncomplete#close_popup() : "\<C-y>"
+    ""let g:asyncomplete_auto_popup = 0
+    "" cancel the popup
+    "inoremap <expr> <C-e> pumvisible() ? asyncomplete#cancel_popup() : "\<C-e>"
+    "inoremap <expr> <C-y> pumvisible() ? asyncomplete#close_popup() : "\<C-y>"
     "let g:asyncomplete_auto_completeopt = 0
 
     "set completeopt=noinsert,noselect,preview,menuone
     "autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-    nnoremap gn :LspNextDiagnostic<cr>
-    nnoremap gp :LspPreviousDiagnostic<cr>
-    nnoremap gh :LspHover<cr>
-    " gd is remapped by vim-slash
-    autocmd VimEnter * nnoremap gd :LspDefinition<cr>
-    nnoremap gt :LspTypeDefinition<cr>
-    nnoremap gr :LspReferences<cr>
-    nnoremap gi :LspImplementation<cr>
+    "nnoremap gn :LspNextDiagnostic<cr>
+    "nnoremap gp :LspPreviousDiagnostic<cr>
+    "nnoremap gh :LspHover<cr>
+    "" gd is remapped by vim-slash
+    "autocmd VimEnter * nnoremap gd :LspDefinition<cr>
+    "nnoremap gt :LspTypeDefinition<cr>
+    "nnoremap gr :LspReferences<cr>
+    "nnoremap gi :LspImplementation<cr>
 
-    nnoremap <Leader>la :LspCodeAction<cr>
-    nnoremap <Leader>lr :LspRename<cr>
-    nnoremap <Leader>lf :LspDocumentFormat<cr>
-    nnoremap <Leader>li :LspCodeActionSync source.organizeImports<cr>
+    "nnoremap <Leader>la :LspCodeAction<cr>
+    "nnoremap <Leader>lr :LspRename<cr>
+    "nnoremap <Leader>lf :LspDocumentFormat<cr>
+    "nnoremap <Leader>li :LspCodeActionSync source.organizeImports<cr>
 
     " format before save
-    autocmd BufWritePre *.go  call execute('LspDocumentFormatSync') "| call execute('LspCodeActionSync source.organizeImports')
+    "autocmd BufWritePre *.go  call execute('LspDocumentFormatSync') "| call execute('LspCodeActionSync source.organizeImports')
 
 " supertab
     " return key closes the completion window without inserting newline

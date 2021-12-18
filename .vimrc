@@ -56,8 +56,6 @@
     set colorcolumn=120
     " no wrapping
     set textwidth=0
-    "" only soft-wrapping unless rewrapped explicitly
-    "set wrap
     " only wrap on word boundaries
     set linebreak
     " use truecolor colors

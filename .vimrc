@@ -128,8 +128,6 @@
         Plug 'junegunn/gv.vim'
         " better auto read - doesn't require buffer change
         Plug 'djoshea/vim-autoread'
-        " Toml support
-        "Plug 'cespare/vim-toml'
         " Camelcase motions with <leader>w,b,e, etc
         Plug 'bkad/camelcasemotion'
         " Ctrl-n to select things
@@ -153,11 +151,6 @@
         Plug 'godlygeek/tabular'
         " autosave
         Plug '907th/vim-auto-save'
-        " html
-        "Plug 'othree/html5.vim'
-        "Plug 'alvan/vim-closetag'
-        " javascript
-        "Plug 'othree/yajs.vim'
         " class outline
         Plug 'majutsushi/tagbar'
         " fzf
@@ -172,8 +165,6 @@
         Plug 'christoomey/vim-conflicted'
         " rainbow parens
         Plug 'luochen1990/rainbow'
-        " XML
-        "Plug 'othree/xml.vim'
         " semantic highlighting
         " fun, but doesn't work with treesitter highlighting
         Plug 'jaxbot/semantic-highlight.vim'
@@ -194,8 +185,6 @@
         Plug 'rstacruz/vim-xtract'
         " color names & color codes
         Plug 'chrisbra/Colorizer'
-        " elixir
-        "Plug 'elixir-editors/vim-elixir'
         " preview registers
         Plug 'junegunn/vim-peekaboo'
         " treesitter for highlighting... maybe eventually folding &

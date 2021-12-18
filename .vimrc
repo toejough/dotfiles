@@ -68,8 +68,10 @@
     set termguicolors
     " stop all the "hit ENTER to continue" messages
     set cmdheight=2
-    " use syntax folding by default
-    set foldmethod=syntax
+    "" use syntax folding by default
+    "set foldmethod=syntax
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
     " jump to last postion
     if has("autocmd")
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
@@ -91,7 +93,8 @@
     " Load plugins
     call plug#begin()
         " solarized color scheme
-        Plug 'lifepillar/vim-solarized8'
+        "Plug 'lifepillar/vim-solarized8'
+        Plug 'ishan9299/nvim-solarized-lua'
         " file navigation/manipulation
         Plug 'scrooloose/nerdtree'
         " tab-completion for all the completions
@@ -176,6 +179,7 @@
         " XML
         "Plug 'othree/xml.vim'
         " semantic highlighting
+        " fun, but doesn't work with treesitter highlighting
         Plug 'jaxbot/semantic-highlight.vim'
         " vimlsp
         "Plug 'prabirshrestha/vim-lsp'
@@ -198,6 +202,9 @@
         "Plug 'elixir-editors/vim-elixir'
         " preview registers
         Plug 'junegunn/vim-peekaboo'
+        " treesitter for highlighting... maybe eventually folding &
+        " indentation too?
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
         " faster/fuzzier searching in buffers
         Plug 'phaazon/hop.nvim'
     call plug#end()
@@ -205,7 +212,7 @@
 " solarized
     syntax enable
     set background=dark
-    colorscheme solarized8
+    colorscheme solarized
 
 " nerdtree
     " toggle nerdtree with leader-n
@@ -461,7 +468,7 @@
 
 " semantic highlighting
     nnoremap <Leader>s :SemanticHighlightToggle<cr>
-    autocmd BufEnter *.go,*.vimrc SemanticHighlight
+    autocmd BufEnter *.txt SemanticHighlight
 
 " Vim LSP
     "let g:lsp_settings = {

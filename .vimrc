@@ -168,14 +168,7 @@
         " semantic highlighting
         " fun, but doesn't work with treesitter highlighting
         Plug 'jaxbot/semantic-highlight.vim'
-        " vimlsp
-        "Plug 'prabirshrestha/vim-lsp'
-        "Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-        "Plug 'thomasfaingnaert/vim-lsp-snippets'
-        "Plug 'prabirshrestha/asyncomplete.vim'
-        "Plug 'prabirshrestha/asyncomplete-lsp.vim'
-        "Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-        "Plug 'mattn/vim-lsp-settings'
+        " lsp
         Plug 'neovim/nvim-lspconfig'
         " things vim-go did that lsp doesn't
         Plug 'laher/gothx.vim'

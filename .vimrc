@@ -141,8 +141,6 @@
         Plug 'tpope/vim-repeat'
         " Change cases and more (camel-case with crc, snake with crs)
         Plug 'tpope/vim-abolish'
-        " faster/fuzzier searching in buffers
-        Plug 'easymotion/vim-easymotion'
         " markdown
             " preview
             Plug 'shime/vim-livedown'
@@ -200,6 +198,8 @@
         "Plug 'elixir-editors/vim-elixir'
         " preview registers
         Plug 'junegunn/vim-peekaboo'
+        " faster/fuzzier searching in buffers
+        Plug 'phaazon/hop.nvim'
     call plug#end()
 
 " solarized
@@ -330,23 +330,6 @@
 
 " CamelCase keys
     call camelcasemotion#CreateMotionMappings('<leader>')
-
-" Easy motion
-    " jk motions: up/down lines
-    nmap J <Plug>(easymotion-j)
-    nmap K <Plug>(easymotion-k)
-    vmap J <Plug>(easymotion-j)
-    vmap K <Plug>(easymotion-k)
-    " lh motions: right/left in line
-    nmap L <Plug>(easymotion-lineforward)
-    nmap H <Plug>(easymotion-linebackward)
-    vmap L <Plug>(easymotion-lineforward)
-    vmap H <Plug>(easymotion-linebackward)
-    " Jump to anywhere with only `s{char}{target}`
-    "nmap s :Limelight!<CR><Plug>(easymotion-bd-fn)
-    nmap s <Plug>(easymotion-bd-fn)
-    " Jump to anywhere in this line with only `s{char}{target}`
-    nmap f <Plug>(easymotion-bd-fln)
 
 " Markdown formatting
     let g:vim_markdown_fenced_languages = ['python=python']
@@ -528,6 +511,22 @@
     " use default omnifunc by default
     "set omnifunc=syntaxcomplete#Complete
     "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+" Hop
+    nmap J :HopLineStartAC<CR>
+    nmap K :HopLineStartBC<CR>
+    nmap L :HopWordCurrentLineAC<CR>
+    nmap H :HopWordCurrentLineBC<CR>
+    vmap J :HopLineStartAC<CR>
+    vmap K :HopLineStartBC<CR>
+    vmap L :HopWordCurrentLineAC<CR>
+    vmap H :HopWordCurrentLineBC<CR>
+    nmap f :HopChar1CurrentLine<CR>
+    nmap s :HopChar1<CR>
+    nmap S :HopPattern<CR>
+    vmap f :HopChar1CurrentLine<CR>
+    vmap s :HopChar1<CR>
+    vmap S :HopPattern<CR>
 
 " Custom key mappings and commands (set here to avoid plugin overrides)
     " folds

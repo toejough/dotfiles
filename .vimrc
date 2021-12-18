@@ -183,6 +183,8 @@
         " treesitter for highlighting... maybe eventually folding &
         " indentation too?
         Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        " minimap?!
+        Plug 'wfxr/minimap.vim'
         " faster/fuzzier searching in buffers
         Plug 'phaazon/hop.nvim'
     call plug#end()
@@ -496,6 +498,13 @@
     " use default omnifunc by default
     "set omnifunc=syntaxcomplete#Complete
     "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+" minimap
+    let g:minimap_width = 10
+    let g:minimap_auto_start = 1
+    let g:minimap_auto_start_win_enter = 1
+    let g:minimap_git_colors = 1
+    let g:minimap_highlight_search = 1
 
 " Hop
     nmap J :HopLineStartAC<CR>

@@ -158,9 +158,6 @@
         Plug 'junegunn/fzf.vim'
         " set cwd to the git root
         Plug 'airblade/vim-rooter'
-        " snippets
-        "Plug 'SirVer/ultisnips'
-        "Plug 'honza/vim-snippets'
         " better git conflict resolution
         Plug 'christoomey/vim-conflicted'
         " rainbow parens
@@ -187,6 +184,22 @@
         Plug 'wfxr/minimap.vim'
         " faster/fuzzier searching in buffers
         Plug 'phaazon/hop.nvim'
+        " completion
+        Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
+        Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
+        Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
+        Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
+        Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+        Plug 'hrsh7th/cmp-vsnip', { 'branch': 'main' }
+        " snippets
+        "Plug 'hrsh7th/vim-vsnip'
+        "Plug 'hrsh7th/vim-vsnip-integ'
+        "Plug 'golang/vscode-go'
+        Plug 'SirVer/ultisnips'
+        Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'branch': 'main' }
+        Plug 'honza/vim-snippets'
+        " lsp action helper
+        Plug 'tami5/lspsaga.nvim', {'branch':'main'}
     call plug#end()
 
 " solarized
@@ -420,29 +433,6 @@
     nnoremap <leader>dc :lcd %:p:h<cr>
     nnoremap <leader>dr :Rooter<cr>
 
-" ultisnips
-    " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
-    "let g:UltiSnipsJumpForwardTrigger="<tab>"
-    "let g:UltiSnipsJumpBackwardTrigger="<shift-tab>"
-    "let g:UltiSnipsExpandTrigger="<nop>"
-    "let g:ulti_expand_or_jump_res = 0
-    "function! <SID>ExpandSnippetOrReturn()
-    "  let snippet = UltiSnips#ExpandSnippetOrJump()
-    "  if g:ulti_expand_or_jump_res > 0
-    "    return snippet
-    "  else
-    "    return "\<CR>"
-    "  endif
-    "endfunction
-    "inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-    "let g:UltiSnipsSnippetDirectories=[$HOME."/dotfiles/snippets"]
-
-    "call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-    "\ 'name': 'ultisnips',
-    "\ 'whitelist': ['*'],
-    "\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-    "\ }))
-
 " Rainbow parens
     let g:rainbow_active = 1
 
@@ -492,9 +482,9 @@
 
 " supertab
     " return key closes the completion window without inserting newline
-    let g:SuperTabCrMapping = 1
+    "let g:SuperTabCrMapping = 1
     " context-aware tab completion (filepath/function/text)
-    let g:SuperTabDefaultCompletionType = "context"
+    "let g:SuperTabDefaultCompletionType = "context"
     " use default omnifunc by default
     "set omnifunc=syntaxcomplete#Complete
     "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
@@ -507,20 +497,44 @@
     let g:minimap_highlight_search = 1
 
 " Hop
-    nmap J :HopLineStartAC<CR>
-    nmap K :HopLineStartBC<CR>
-    nmap L :HopWordCurrentLineAC<CR>
-    nmap H :HopWordCurrentLineBC<CR>
-    vmap J :HopLineStartAC<CR>
-    vmap K :HopLineStartBC<CR>
-    vmap L :HopWordCurrentLineAC<CR>
-    vmap H :HopWordCurrentLineBC<CR>
-    nmap f :HopChar1CurrentLine<CR>
-    nmap s :HopChar1<CR>
-    nmap S :HopPattern<CR>
-    vmap f :HopChar1CurrentLine<CR>
-    vmap s :HopChar1<CR>
-    vmap S :HopPattern<CR>
+    "normal
+        "up
+        nmap K :HopLineStartBC<CR>
+        "down
+        nmap J :HopLineStartAC<CR>
+        "left
+        nmap H :HopWordCurrentLineBC<CR>
+        "right
+        nmap L :HopWordCurrentLineAC<CR>
+        "char anywhere
+        nmap f :HopChar1<CR>
+        "pattern anywhere
+        nmap s :HopPattern<CR>
+    "visual
+        vmap K <cmd>HopLineStartBC<CR>
+        "down
+        vmap J <cmd>HopLineStartAC<CR>
+        "left
+        vmap H <cmd>HopWordCurrentLineBC<CR>
+        "right
+        vmap L <cmd>HopWordCurrentLineAC<CR>
+        "char anywhere
+        vmap f <cmd>HopChar1<CR>
+        "pattern anywhere
+        vmap s <cmd>HopPattern<CR>
+
+" nvim-cmp
+    set completeopt=menu,menuone,noselect
+
+" ultisnips
+    " make work with supertab: https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
+    let g:UltiSnipsExpandTrigger="<nop>"
+    let g:UltiSnipsJumpForwardTrigger="<Tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+    let g:UltiSnipsSnippetDirectories=[$HOME."/dotfiles/snippets"]
+
+" LSP
+  nmap <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 
 " Custom key mappings and commands (set here to avoid plugin overrides)
     " folds

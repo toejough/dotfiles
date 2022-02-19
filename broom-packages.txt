@@ -1,0 +1,72 @@
+ack
+bash
+fish
+git
+htop
+ncdu
+tmux
+tree
+wget
+# mosh
+openssh
+ivandokov/contrib/phockup
+the_silver_searcher # used by vim
+node # used by vim
+go
+httpie
+reattach-to-user-namespace # copy/paste in tmux
+gotags # used by vim
+jq
+terminal-notifier
+# rlwrap
+rsync
+fswatch
+fzf
+pv
+mage
+golangci-lint
+# moreutils
+python@3.9 # used by vim
+postgresql
+python-yq
+arduino-cli
+nmap
+# datamash
+lastpass-cli
+# task
+# ripgrep
+daemontools # used for envdir
+bat
+lolcat
+git-delta
+elixir
+ctags
+# cocoapods
+exiftool
+gping
+docker
+gnu-sed
+neovim
+# fontforge
+# casks
+1password
+firefox
+font-sourcecodepro-nerd-font-mono
+alfred
+signal
+amethyst
+docker
+slack
+istat-menus
+google-cloud-sdk
+alacritty
+arduino
+datagrip
+# authy
+keycastr
+1password-cli
+visual-studio-code
+# ngrok
+gather
+paw
+keybase

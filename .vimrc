@@ -59,8 +59,8 @@
     " only wrap on word boundaries
     set linebreak
     " use truecolor colors
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    "let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
     " stop all the "hit ENTER to continue" messages
     set cmdheight=2

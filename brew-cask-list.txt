@@ -12,7 +12,6 @@ alacritty
 arduino
 datagrip
 authy
-darktable
 keycastr
 1password-cli
 visual-studio-code
@@ -24,3 +23,4 @@ tiled
 gather
 paw
 keybase
+spotify

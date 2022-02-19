@@ -33,13 +33,13 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     #and vim -c "CocInstall coc-json coc-vimlsp coc-markdownlint coc-xml" +qall
 
     and echo (set_color cyan)"Updating global go binaries..."(set_color normal)
-    and go get golang.org/x/tools/gopls@latest
-    and go get golang.org/x/tools/cmd/goimports
-    and go get github.com/GoogleCloudPlatform/cloudsql-proxy/cmd/cloud_sql_proxy
+    and go install golang.org/x/tools/gopls@latest
+    and go install golang.org/x/tools/cmd/goimports@latest
+    and go install github.com/GoogleCloudPlatform/cloudsql-proxy/cmd/cloud_sql_proxy@latest
 
     and echo (set_color cyan)"Updating global js binaries..."(set_color normal)
+    and nvm install latest
     and npm install -g npm
-    #and npm install -g yarn
 
     and echo (set_color cyan)"Updating gcloud..."(set_color normal)
     and gcloud components update

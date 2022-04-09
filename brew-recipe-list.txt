@@ -53,3 +53,4 @@ neovim --HEAD
 exa
 fontforge
 code-minimap
+git-lfs

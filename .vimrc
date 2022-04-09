@@ -181,7 +181,7 @@
         " indentation too?
         Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
         " minimap?!
-        Plug 'wfxr/minimap.vim'
+        "Plug 'wfxr/minimap.vim'
         " faster/fuzzier searching in buffers
         Plug 'phaazon/hop.nvim'
         " completion
@@ -190,10 +190,7 @@
         Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
         Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
         Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
-        Plug 'hrsh7th/cmp-vsnip', { 'branch': 'main' }
         " snippets
-        "Plug 'hrsh7th/vim-vsnip'
-        "Plug 'hrsh7th/vim-vsnip-integ'
         "Plug 'golang/vscode-go'
         Plug 'SirVer/ultisnips'
         Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'branch': 'main' }

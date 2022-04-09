@@ -38,12 +38,13 @@ lua << EOF
         buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
         -- lspsaga updates
-        buf_set_keymap("n", "gd", "<cmd>Lspsaga preview_definition<cr>", {silent = true, noremap = true})
-        buf_set_keymap("n", "gr", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
-        buf_set_keymap("n", "la", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
+        buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+        buf_set_keymap("n", "gD", "<cmd>Lspsaga preview_definition<cr>", {silent = true, noremap = true})
+        buf_set_keymap("n", "<leader>lr", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
+        buf_set_keymap("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
         buf_set_keymap("v", "gx", "<cmd>Lspsaga range_code_action<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "gh",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
-        buf_set_keymap("n", "ld", "<cmd>Lspsaga show_line_diagnostics<cr>", {silent = true, noremap = true})
+        buf_set_keymap("n", "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", {silent = true, noremap = true})

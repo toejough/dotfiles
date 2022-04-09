@@ -200,8 +200,6 @@
         Plug 'honza/vim-snippets'
         " lsp action helper
         Plug 'tami5/lspsaga.nvim', {'branch':'main'}
-        " transparent background?
-        Plug 'tribela/vim-transparent'
     call plug#end()
 
 " solarized

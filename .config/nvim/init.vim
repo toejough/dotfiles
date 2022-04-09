@@ -73,16 +73,16 @@ lua << EOF
             },
         },
     }
---    local servers = { 'gopls' }
---    for _, lsp in ipairs(servers) do
---        nvim_lsp[lsp].setup {
---            on_attach = on_attach,
---            capabilities = capabilities,
---            flags = {
---                debounce_text_changes = 150,
---            }
---        }
---    end
+    local servers = { 'pyright' }
+    for _, lsp in ipairs(servers) do
+        nvim_lsp[lsp].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            flags = {
+                debounce_text_changes = 150,
+            }
+        }
+    end
 
 -- Highlighting with Treesitter
     require'nvim-treesitter.configs'.setup {

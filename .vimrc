@@ -79,6 +79,9 @@
     nnoremap m :call matchadd('LineHighlight', '\%'.line('.').'l')
     " clear all the highlighted lines
     nnoremap M :call clearmatches()   endif
+    " change the direction of new splits
+    set splitbelow
+    set splitright
 
 " Plugin management
     " Install manager if not present
@@ -583,3 +586,5 @@
     vnoremap <leader>gq :call Rewrap()<cr>
     " clear last search hl
     nnoremap <leader>/ :noh<cr>
+    " reselect pasted text
+    nnoremap gp `[v`]

@@ -17,10 +17,8 @@ keycastr
 visual-studio-code
 ngrok
 godot
-freecad
 flutter
 tiled
-gather
 paw
 keybase
 spotify

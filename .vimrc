@@ -118,6 +118,7 @@
         Plug 'yuttie/comfortable-motion.vim'
         " highlight everything during incremental search
         Plug 'haya14busa/incsearch.vim'
+        Plug 'haya14busa/incsearch-fuzzy.vim'
         " Whitespace stripping"
         Plug 'ntpeters/vim-better-whitespace'
         " Focus on the current text blob
@@ -297,6 +298,8 @@
     " default search uses inc
     map /  <Plug>(incsearch-forward)
     map ?  <Plug>(incsearch-backward)
+    map z/ <Plug>(incsearch-fuzzy-/)
+    map z? <Plug>(incsearch-fuzzy-?)
 
 " Whitespace stripping
     autocmd BufEnter * EnableStripWhitespaceOnSave
@@ -509,7 +512,7 @@
         "char anywhere
         nmap f :HopChar1<CR>
         "pattern anywhere
-        nmap s :HopPattern<CR>
+        nmap s :HopWordMW<CR>
     "visual
         vmap K <cmd>HopLineStartBC<CR>
         "down
@@ -521,7 +524,7 @@
         "char anywhere
         vmap f <cmd>HopChar1<CR>
         "pattern anywhere
-        vmap s <cmd>HopPattern<CR>
+        vmap s <cmd>HopWordMW<CR>
 
 " nvim-cmp
     set completeopt=menu,menuone,noselect

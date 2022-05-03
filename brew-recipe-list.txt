@@ -49,7 +49,7 @@ gping
 docker
 exa
 gnu-sed
-neovim --HEAD
+neovim
 exa
 fontforge
 code-minimap

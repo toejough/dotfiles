@@ -559,14 +559,14 @@
         command! -bar JustReloadRC source ~/.vimrc
         " :ReloadRC will do all three
         command! ReloadRC JustReloadRC|PlugClean|PlugUpdate|JustReloadRC
-    " insert a datetime when typing 'dts'
-    iab <expr> dts strftime("%F %T%z")
-    " insert a surrounded date stamp when typing 'sds'
-    iab <expr> sds "[".strftime("%F")."]"
-    " insert a date when typing 'ds'
-    iab <expr> ds strftime("%F")
-    " insert a time when typing 'ts'
-    iab <expr> ts strftime("%T")
+    "" insert a datetime when typing 'dts'
+    "iab <expr> dts strftime("%F %T%z")
+    "" insert a surrounded date stamp when typing 'sds'
+    "iab <expr> sds "[".strftime("%F")."]"
+    "" insert a date when typing 'ds'
+    "iab <expr> ds strftime("%F")
+    "" insert a time when typing 'ts'
+    "iab <expr> ts strftime("%T")
     " exit on ctrl-q
     nnoremap <C-q> :q<cr>
     inoremap <C-q> <Esc>:q<cr>

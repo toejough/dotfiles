@@ -86,7 +86,7 @@ lua << EOF
 
 -- Highlighting with Treesitter
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        ensure_installed = {'comment', 'fish', 'json', 'lua', 'vim', 'python', 'bash', 'go', 'markdown'}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
         --ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {

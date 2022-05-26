@@ -65,7 +65,7 @@
         git stop-working-on-gone && \
         git remote prune origin && \
         git worktree prune && \
-        git branch --merged | egrep -v '^\\s*main$|^\\s*\\*.*' | xargs -L1 git branch -d && \
+        git branch --merged | egrep -v '^\\s*main$|^\\s*\\*.*|^||+' | xargs -L1 git branch -d && \
         git branch -vv | ack ': gone' | awk '{print $1}' | xargs -L1 git branch -D; \
         git remove-stale-tags; \
     }; f"
@@ -305,6 +305,11 @@
     # commit a squash
     squash = "!f() { \
         git commit -m \"$1\" --squash $(git log --oneline branch-base.$(git name)..HEAD | fzf | cut -d' ' -f 1); \
+    }; f"
+    # delete local and remote
+    nevermind = "!f() { \
+        git push -d origin $(git name); \
+        git branch -d $(git name); \
     }; f"
 [push]
     default = simple

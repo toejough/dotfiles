@@ -54,3 +54,5 @@ exa
 fontforge
 code-minimap
 git-lfs
+lua
+pyright

@@ -109,7 +109,7 @@
         " Sweet undo history
         Plug 'mbbill/undotree'
         " Git helpers
-        Plug 'tpope/vim-fugitive'
+        "Plug 'tpope/vim-fugitive'
         " nice icons for file paths
         Plug 'ryanoasis/vim-devicons'
         " simple statusline
@@ -129,7 +129,7 @@
         " Git marks, staging hunks
         Plug 'airblade/vim-gitgutter'
         " git browser
-        Plug 'junegunn/gv.vim'
+        "Plug 'junegunn/gv.vim'
         " better auto read - doesn't require buffer change
         Plug 'djoshea/vim-autoread'
         " Camelcase motions with <leader>w,b,e, etc
@@ -201,6 +201,8 @@
         Plug 'honza/vim-snippets'
         " lsp action helper
         Plug 'tami5/lspsaga.nvim', {'branch':'main'}
+        " git blame info
+        Plug 'f-person/git-blame.nvim'
     call plug#end()
 
 " solarized

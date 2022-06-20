@@ -1,6 +1,6 @@
-(NEW|DOC|FIX|TEST|REFACTOR|POC|[BREAKING ]UPDATE): <Imperative summary (initial cap, no period)
+(RED|GREEN|REFACTOR|DOC): <Imperative summary (initial cap, no period)
 
-Use simple markdown for the following sections (no headers (conflicts with comments))
+# Use simple markdown for the following sections (no headers (conflicts with comments))
 
 **What this does**
 (if more elaboration desired after the summary, otherwise, delete)

@@ -9,7 +9,6 @@ tree
 wget
 # mosh
 openssh
-ivandokov/contrib/phockup
 the_silver_searcher # used by vim
 node # used by vim
 go
@@ -32,21 +31,17 @@ python-yq
 arduino-cli
 nmap
 datamash
-lastpass-cli
 task
-# timewarrior
 ripgrep
 daemontools
 bat
 lolcat
-# borgbackup
 git-delta
 elixir
 ctags
-cocoapods
+# cocoapods
 exiftool
 gping
-docker
 exa
 gnu-sed
 neovim

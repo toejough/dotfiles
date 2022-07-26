@@ -1,6 +1,5 @@
 1password
-firefox
-font-sourcecodepro-nerd-font-mono
+font-sauce-code-pro-nerd-font
 alfred
 signal
 amethyst
@@ -11,14 +10,9 @@ google-cloud-sdk
 alacritty
 arduino
 datagrip
-authy
 keycastr
 1password-cli
 visual-studio-code
 ngrok
-godot
-flutter
-tiled
 paw
-keybase
-spotify
+# keybase

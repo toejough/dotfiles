@@ -96,7 +96,6 @@ font:
     #   - (Linux) monospace
     #   - (Windows) Consolas
     family: SauceCodePro Nerd Font
-    family: Input Nerd Font
     # abcdefghijklmnopqrstuvwxyz
     # ABCDEFGHIJKLMNOPQRSTUVWXYZ
     # family: Input

@@ -51,3 +51,4 @@ code-minimap
 git-lfs
 lua
 pyright
+restic

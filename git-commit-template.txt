@@ -1,4 +1,10 @@
-(RED|GREEN|REFACTOR|DOC): <Imperative summary (initial cap, no period)
+(RED|YELLOW|GREEN|REFACTOR|DEV|DOC): <Imperative summary (initial cap, no period)
+# RED - introduces test failures
+# YELLOW - incremental work towards green
+# GREEN - resolves all test failures
+# REFACTOR - reorganizes without affecting test results
+# DEV - only updates dev tooling
+# DOC - only updates documentation
 
 # Use simple markdown for the following sections (no headers (conflicts with comments))
 

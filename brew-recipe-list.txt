@@ -26,7 +26,7 @@ mage
 golangci-lint
 moreutils
 python # used by vim
-postgresql
+postgresql@14
 python-yq
 arduino-cli
 nmap

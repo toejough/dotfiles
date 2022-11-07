@@ -35,7 +35,7 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     and echo (set_color cyan)"Updating global go binaries..."(set_color normal)
     and go install golang.org/x/tools/gopls@latest
     and go install golang.org/x/tools/cmd/goimports@latest
-    and go install github.com/GoogleCloudPlatform/cloudsql-proxy/cmd/cloud_sql_proxy@latest
+    and go install github.com/GoogleCloudPlatform/cloud-sql-proxy/v2@latest
 
     and echo (set_color cyan)"Updating global js binaries..."(set_color normal)
     and nvm install latest

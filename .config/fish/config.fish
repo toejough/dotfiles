@@ -37,6 +37,9 @@ set -x GO111MODULE on
 
 # Update path to include local binaries
 set -x PATH ~/.local/bin:$PATH
+
+# Update path to include brew binaries
+fish_add_path /opt/homebrew/bin
 dedup PATH
 
 # The next line updates PATH for the Google Cloud SDK.

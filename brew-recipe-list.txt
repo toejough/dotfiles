@@ -52,3 +52,4 @@ git-lfs
 lua
 pyright
 restic
+diffutils

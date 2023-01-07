@@ -35,27 +35,27 @@ lua << EOF
         -- buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
         buf_set_keymap('n', '<leader>ld', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
         buf_set_keymap('n', '<leader>lq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-        buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+        buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opts)
 
         -- lspsaga updates
         buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
         buf_set_keymap("n", "gD", "<cmd>Lspsaga preview_definition<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "<leader>lr", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
-        --buf_set_keymap("v", "<leader>la", "<cmd>Lspsaga range_code_action<cr>", {silent = true, noremap = true})
         buf_set_keymap("v", "<leader>la", "<cmd>Lspsaga range_code_action<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "gh",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<cr>", {silent = true, noremap = true})
         buf_set_keymap("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", {silent = true, noremap = true})
-        buf_set_keymap("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", {silent = true, noremap = true})
-        buf_set_keymap("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>", {silent = true, noremap = true})
+        --buf_set_keymap("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", {silent = true, noremap = true})
+        --buf_set_keymap("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>", {silent = true, noremap = true})
     end
 
     -- Setup nvm-cmp / lsp combo.
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
+    require'lspconfig'.unison.setup{}
     nvim_lsp['gopls'].setup {
         on_attach = on_attach,
         capabilities = capabilities,
@@ -69,8 +69,13 @@ lua << EOF
                     nilness = true,
                     shadow = true,
                     unusedwrite = true,
+                    useany = true,
                 },
                 staticcheck = true,
+                vulncheck = "Imports",
+                gofumpt = true,
+                usePlaceholders = true,
+                hints = {parameterNames = true},
             },
         },
     }
@@ -84,12 +89,10 @@ lua << EOF
             }
         }
     end
-
 -- Highlighting with Treesitter
     require'nvim-treesitter.configs'.setup {
         ensure_installed = {'comment', 'fish', 'json', 'lua', 'vim', 'python', 'bash', 'go', 'markdown'}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-        --ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
             enable = true,              -- false will disable the whole extension
             --disable = { "c", "rust" },  -- list of language that will be disabled
@@ -165,5 +168,4 @@ lua << EOF
 
 -- set up hop
     require'hop'.setup()
-
 EOF

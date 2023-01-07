@@ -1,15 +1,24 @@
-(RED|YELLOW|GREEN|REFACTOR|DEV|DOC): <Imperative summary (initial cap, no period)
-# RED - introduces test failures
-# YELLOW - incremental work towards green
-# GREEN - resolves all test failures
-# REFACTOR - reorganizes without affecting test results
-# DEV - only updates dev tooling
-# DOC - only updates documentation
+(fix|feat|test|refactor|dev|doc)[!](scope): <Imperative summary (initial cap, no period)
+# fix - a fix
+# feat - a feature / new functionality 
+# test - a test
+# refactor - a refactor
+# dev - only updates dev tooling
+# doc - only updates documentation/comments
 
-# Use simple markdown for the following sections (no headers (conflicts with comments))
+# The optional ! indicates a breaking change.
+
+# By default, every type except feature is a semver patch.
+# By default, features are a semver minor.
+# The only deviation from default is when the ! is present, indicating a breaking change, which is a semver major.
+
+# Use simple markdown for the following optional sections (no headers (conflicts with comments))
 
 **What this does**
-(if more elaboration desired after the summary, otherwise, delete)
 
 **Why this is being done**
-(this is required)
+
+# Testing footer
+[test-status: RED|GREEN]
+# RED - tests are failing
+# GREEN - tests are passing

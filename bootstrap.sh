@@ -5,7 +5,7 @@ set -euo pipefail
 
 # xcode devtools
 echo "Installing XCode devtools..."
-xcode-select --install
+xcode-select --install; or echo "assuming error means installed. moving on..."
 
 # homebrew
 echo "Installing homebrew..."

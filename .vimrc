@@ -117,8 +117,7 @@
         " smoother scrolling
         Plug 'yuttie/comfortable-motion.vim'
         " highlight everything during incremental search
-        Plug 'haya14busa/incsearch.vim'
-        Plug 'haya14busa/incsearch-fuzzy.vim'
+        Plug 'haya14busa/is.vim'
         " Whitespace stripping"
         Plug 'ntpeters/vim-better-whitespace'
         " Focus on the current text blob
@@ -298,10 +297,10 @@
 
 " incsearch
     " default search uses inc
-    map /  <Plug>(incsearch-forward)
-    map ?  <Plug>(incsearch-backward)
-    map z/ <Plug>(incsearch-fuzzy-/)
-    map z? <Plug>(incsearch-fuzzy-?)
+    "map /  <Plug>(incsearch-forward)
+    "map ?  <Plug>(incsearch-backward)
+    "map z/ <Plug>(incsearch-fuzzy-/)
+    "map z? <Plug>(incsearch-fuzzy-?)
 
 " Whitespace stripping
     autocmd BufEnter * EnableStripWhitespaceOnSave
@@ -593,3 +592,5 @@
     nnoremap <leader>/ :noh<cr>
     " reselect pasted text
     nnoremap gp `[v`]
+    " go completion with gopls
+    autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc

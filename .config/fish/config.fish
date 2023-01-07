@@ -39,12 +39,11 @@ set -x GO111MODULE on
 set -x PATH ~/.local/bin:$PATH
 
 # Update path to include brew binaries
-fish_add_path /opt/homebrew/bin
+eval (/opt/homebrew/bin/brew shellenv)
 dedup PATH
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc' ]; . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc'; end
-
 
 # Set bat/delta theme to solarized dark by default
 set -x BAT_THEME "Solarized (dark)"

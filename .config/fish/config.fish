@@ -39,7 +39,12 @@ set -x GO111MODULE on
 set -x PATH ~/.local/bin:$PATH
 
 # Update path to include brew binaries, first for Apple silicon, second backup for intel.
-eval (/opt/homebrew/bin/brew shellenv); or eval (/usr/local/bin/brew shellenv)
+if test -e /opt/homebrew/bin/brew
+    eval (/opt/homebrew/bin/brew shellenv)
+else
+    eval (/usr/local/bin/brew shellenv)
+end
+
 dedup PATH
 
 # The next line updates PATH for the Google Cloud SDK.

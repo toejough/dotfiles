@@ -1,9 +1,9 @@
 # Defined in /var/folders/94/q46vzxqd5855jk2zbwqj5mbm0000gn/T//fish.ohIDmx/brewm-update.fish @ line 2
 function brewm-update
     if not count $argv > /dev/null
-        brewm-update taps; or return 1
         brewm-update recipes; or return 1
         brewm-update casks; or return 1
+        brewm-update taps; or return 1
         return
     end
 

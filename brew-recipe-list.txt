@@ -1,55 +1,53 @@
-ack
-bash
-fish
-git
-htop
-ncdu
-tmux
-tree
-wget
+ack # better grep
+bash # default shell for a lot of scripts
+fish # my preferred shell
+git # vcs
+htop # system monitoring
+ncdu # disk space
+tmux # terminal multiplexing
+tree # ls++
+# wget
 # mosh
-openssh
+openssh # SSH
 the_silver_searcher # used by vim
 node # used by vim
-go
-httpie
-reattach-to-user-namespace
+go # go language
+httpie # nicer curl
+reattach-to-user-namespace # used by tmux
 gotags # used by vim
-jq
-terminal-notifier
-rlwrap
-rsync
-fswatch
+jq # json query
+terminal-notifier # get notified when long running tasks end
+# rlwrap
+# rsync 
+# fswatch
 fzf
-pv
-mage
-golangci-lint
-moreutils
+# pv
+mage # go makefiles
+golangci-lint # go linting
+# moreutils
 python # used by vim
-postgresql@14
-python-yq
-arduino-cli
-nmap
-datamash
-task
-ripgrep
-daemontools
-bat
-lolcat
-git-delta
-elixir
-ctags
-# cocoapods
-exiftool
-gping
-exa
-gnu-sed
-neovim
-exa
-fontforge
-code-minimap
-git-lfs
-lua
-pyright
-restic
-diffutils
+postgresql@14 # postgres db
+python-yq # yaml jq
+arduino-cli # arduino!
+nmap # network mapping
+# datamash
+# task
+# ripgrep
+# daemontools
+bat # better cat
+lolcat # hilarious cat
+git-delta # better git diff
+# ctags
+# exiftool
+# gping
+gnu-sed # better sed
+neovim # better vim
+# exa
+# fontforge
+git-lfs # for large file management with github
+lua # for nvim
+pyright # python lsp
+restic # backups
+diffutils # better diff, used by git-delta
+gum # some nice cli scripting utils
+# coreutils

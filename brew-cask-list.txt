@@ -12,7 +12,7 @@ arduino
 datagrip
 keycastr
 1password-cli
-visual-studio-code
+# visual-studio-code
 ngrok
-paw
+# paw
 # keybase

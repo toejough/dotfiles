@@ -8,13 +8,13 @@ function preview
     else if test -d thing
         lt $thing
     # commits/branches
-    else if git rev-parse --verify --quiet $thing
+    else if git rev-parse --verify --quiet $thing &> /dev/null
         git log --graph --oneline --decorate --color $thing
     # other
     else
         # commits/branches from a worktree
         set maybe_hash (echo $thing | awk '{print $2}')
-        if git rev-parse --verify --quiet $maybe_hash
+        if git rev-parse --verify --quiet $maybe_hash &> /dev/null
             git log --graph --oneline --decorate --color $maybe_hash
         # idk, let the built-in fzf vim preview do its thing
         else

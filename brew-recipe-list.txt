@@ -18,7 +18,7 @@ gotags # used by vim
 jq # json query
 terminal-notifier # get notified when long running tasks end
 # rlwrap
-# rsync 
+# rsync
 # fswatch
 fzf
 # pv
@@ -51,3 +51,4 @@ restic # backups
 diffutils # better diff, used by git-delta
 gum # some nice cli scripting utils
 # coreutils
+luarocks # used for nvim lua packages

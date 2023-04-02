@@ -35,8 +35,6 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- import/override with your plugins
-    { import = "plugins" },
     -- Configure LazyVim to load solarized
     {
       "LazyVim/LazyVim",
@@ -44,6 +42,24 @@ require("lazy").setup({
       opts = {
         colorscheme = "solarized",
       },
+    },
+    -- Add fzy native
+    {
+      "telescope.nvim",
+      dependencies = {
+        "nvim-telescope/telescope-fzy-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzy_native")
+        end,
+      },
+    },
+    -- add symbols-outline
+    {
+      "simrat39/symbols-outline.nvim",
+      cmd = "SymbolsOutline",
+      keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
+      config = true,
     },
     -- fish
     { "dag/vim-fish" },
@@ -69,9 +85,6 @@ require("lazy").setup({
     },
     -- smoother scrolling
     { "yuttie/comfortable-motion.vim" },
-    -- Ctrl-n to select things
-    -- TODO: need a replacement for this one
-    --{ "terryma/vim-multiple-cursors" },
     -- autosave
     {
       "907th/vim-auto-save",

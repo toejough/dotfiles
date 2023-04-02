@@ -37,8 +37,6 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
     { import = "plugins" },
-    { "ggandor/flit.nvim", enabled = false },
-    { "ggandor/leap.nvim", enabled = false },
     -- Configure LazyVim to load solarized
     {
       "LazyVim/LazyVim",
@@ -101,6 +99,9 @@ require("lazy").setup({
     { "junegunn/goyo.vim" },
     -- color names & color codes
     { "chrisbra/Colorizer" },
+    -- I don't like these for movement - I'd rather use hop
+    { "ggandor/flit.nvim", enabled = false },
+    { "ggandor/leap.nvim", enabled = false },
     -- faster/fuzzier searching in buffers
     {
       "phaazon/hop.nvim",

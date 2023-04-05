@@ -1,24 +1,3 @@
--- options
-
--- make all tabs and indents 4 spaces
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-
--- no swapfile or backup files, please. these are clutter.
-vim.opt.swapfile = false
-vim.opt.backup = false
-
--- put a nice color column at column 120 (the maxlen I generally want my lines to be)
-vim.opt.colorcolumn = "120"
-
--- 50ms updatetime. fast responses to the cursor stopping.
-vim.opt.updatetime = 50
-
--- set undofile & directory
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
@@ -34,7 +13,7 @@ require("lazy").setup({
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- Configure LazyVim to load solarized
     {
       "LazyVim/LazyVim",
@@ -66,9 +45,6 @@ require("lazy").setup({
     -- undotree
     {
       "mbbill/undotree",
-      -- config = function()
-      --   vim.keymap.set("n", "<leader>U", vim.cmd.UndotreeToggle, { desc = "Undotree" })
-      -- end,
       keys = { { "<leader>U", vim.cmd.UndotreeToggle, desc = "Undotree" } },
     },
     -- shows the context of your current place (what function are you in)
@@ -83,8 +59,6 @@ require("lazy").setup({
         { "<leader>gol", "<cmd>CellularAutomaton game_of_life<CR>" },
       },
     },
-    -- smoother scrolling
-    { "yuttie/comfortable-motion.vim" },
     -- autosave
     {
       "907th/vim-auto-save",
@@ -101,13 +75,6 @@ require("lazy").setup({
     },
     -- better git conflict resolution
     { "christoomey/vim-conflicted" },
-    -- rainbow parens
-    {
-      "luochen1990/rainbow",
-      config = function()
-        vim.g.rainbow_active = 1
-      end,
-    },
     -- distraction free mode
     { "junegunn/goyo.vim" },
     -- color names & color codes
@@ -168,6 +135,30 @@ require("lazy").setup({
   },
 })
 
+-- other options
+
+-- make all tabs and indents 4 spaces
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+
+-- no swapfile or backup files, please. these are clutter.
+vim.opt.swapfile = false
+vim.opt.backup = false
+
+-- put a nice color column at column 120 (the maxlen I generally want my lines to be)
+vim.opt.colorcolumn = "120"
+
+-- how many lines to leave if possible at top/bottom when scrolling
+vim.opt.scrolloff = 13
+
+-- 50ms updatetime. fast responses to the cursor stopping.
+vim.opt.updatetime = 50
+
+-- set undofile & directory
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
 -- Other autocmds
 
 -- change current working directory for the local file when you switch buffers
@@ -185,3 +176,8 @@ vim.keymap.set({ "n", "v" }, "<leader>p", [["_dP]], { desc = "Repeatable paste" 
 
 -- delete to the black hole register
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hole" })
+
+-- jump to next, vertically center, and expand all folds here
+vim.keymap.set("n", "n", "nzzzv")
+-- jump to previous, vertically center, and expand all folds here
+vim.keymap.set("n", "N", "Nzzzv")

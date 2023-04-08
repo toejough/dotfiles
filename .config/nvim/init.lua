@@ -10,14 +10,20 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
+    -- animated movement / scroll
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- Configure LazyVim to load solarized
+    -- Configure LazyVim to use solarized
     {
       "LazyVim/LazyVim",
-      dependencies = { "maxmx03/solarized.nvim" },
+      dependencies = {
+        {
+          "ishan9299/nvim-solarized-lua",
+          config = function()
+            -- don't show the tabs so brightly
+            vim.g.solarized_visibility = "low"
+          end,
+        },
+      },
       opts = {
         colorscheme = "solarized",
       },
@@ -52,12 +58,17 @@ require("lazy").setup({
     -- lolol fun cellular automaton stuff - rain & game of life
     {
       "eandrju/cellular-automaton.nvim",
-      keys = {
-        -- lolol make all the characters fall.
-        { "<leader>mir", "<cmd>CellularAutomaton make_it_rain<CR>" },
-        -- lolol make all the characters do conway's game of life.
-        { "<leader>gol", "<cmd>CellularAutomaton game_of_life<CR>" },
-      },
+      config = function()
+        require("which-key").register({
+          ["<leader>a"] = {
+            name = "+automata",
+            -- lolol make all the characters fall.
+            r = { "<cmd>CellularAutomaton make_it_rain<CR>", "Make it rain" },
+            -- lolol make all the characters do conway's game of life.
+            l = { "<cmd>CellularAutomaton game_of_life<CR>", "Game of Life" },
+          },
+        }, { mode = { "n", "v" } })
+      end,
     },
     -- autosave
     {
@@ -107,10 +118,44 @@ require("lazy").setup({
     },
     -- git blame info
     { "f-person/git-blame.nvim" },
+    -- highlight the color column as I approach it
+    {
+      "Bekaboo/deadcolumn.nvim",
+      config = function()
+        -- put a nice color column at column 120 (the maxlen I generally want my lines to be)
+        vim.opt.colorcolumn = "120"
+        require("deadcolumn").setup({
+          modes = { "i", "n" },
+          scope = "cursor",
+          blending = { threshold = 0.5 },
+        })
+      end,
+    },
+    -- enable rainbow parens
+    {
+      "nvim-treesitter/nvim-treesitter",
+      dependencies = { "mrjones2014/nvim-ts-rainbow" },
+      opts = { rainbow = { enable = true } },
+    },
+    -- only color the section of code you're in
+    { "folke/twilight.nvim" },
+    -- zen mode
+    {
+      "folke/zen-mode.nvim",
+      config = function()
+        require("zen-mode").setup({
+          window = { width = 130 },
+          plugins = {
+            tmux = { enabled = true },
+            alacritty = { enabled = true, font = 16 },
+          },
+        })
+      end,
+    },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default
     lazy = false,
     -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
     -- have outdated releases, which may break your Neovim install.
@@ -145,9 +190,6 @@ vim.opt.shiftwidth = 4
 -- no swapfile or backup files, please. these are clutter.
 vim.opt.swapfile = false
 vim.opt.backup = false
-
--- put a nice color column at column 120 (the maxlen I generally want my lines to be)
-vim.opt.colorcolumn = "120"
 
 -- how many lines to leave if possible at top/bottom when scrolling
 vim.opt.scrolloff = 13

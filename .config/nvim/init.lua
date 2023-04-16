@@ -12,6 +12,14 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- animated movement / scroll
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- move things around
+    {
+      "echasnovski/mini.move",
+      version = false,
+      config = function()
+        require("mini.move").setup({})
+      end,
+    },
     -- Configure LazyVim to use solarized
     {
       "LazyVim/LazyVim",
@@ -136,6 +144,13 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       dependencies = { "mrjones2014/nvim-ts-rainbow" },
       opts = { rainbow = { enable = true } },
+      config = function(_, opts)
+        -- all the default config for lazy
+        require("nvim-treesitter.configs").setup(opts)
+        -- fold!
+        vim.opt.foldmethod = "expr"
+        vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+      end,
     },
     -- only color the section of code you're in
     { "folke/twilight.nvim" },
@@ -152,6 +167,7 @@ require("lazy").setup({
         })
       end,
     },
+    -- further configure trouble:     require("trouble").next({skip_groups = true, jump = true});
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

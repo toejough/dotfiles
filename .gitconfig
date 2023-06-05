@@ -306,10 +306,19 @@
     squash = "!f() { \
         git commit -m \"$1\" --squash $(git log --oneline branch-base.$(git name)..HEAD | fzf | cut -d' ' -f 1); \
     }; f"
-    # delete local and remote
+    # delete local and remote from inside branch
     nevermind = "!f() { \
         git push -d origin $(git name); \
         git branch -d $(git name); \
+    }; f"
+    # delete local and remote 
+    delete-branch = "!f() { \
+        local choice=$(git branches | fzf --print-query | tail -1); \
+        if test -z \"$choice\"; then \
+            return; \
+        fi; \
+        git push -d origin $choice; \
+        git branch -d $choice; \
     }; f"
 [push]
     default = simple

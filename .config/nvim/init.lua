@@ -168,6 +168,15 @@ require("lazy").setup({
       end,
     },
     -- further configure trouble:     require("trouble").next({skip_groups = true, jump = true});
+    -- markdown preview
+    {
+      "iamcco/markdown-preview.nvim",
+      ft = "markdown",
+      build = "cd app && npm install && git reset --hard",
+    },
+    -- multiple cursors? no. This is the only mainstream plugin I've found for this, and lots of complaints in the
+    -- issue list about keybindings. I can't make them work, either.
+    -- { "mg979/vim-visual-multi" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

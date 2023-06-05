@@ -248,3 +248,31 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hol
 vim.keymap.set("n", "n", "nzzzv")
 -- jump to previous, vertically center, and expand all folds here
 vim.keymap.set("n", "N", "Nzzzv")
+
+-- overrides for hopping
+vim.keymap.set("n", "H", function()
+  require("hop").hint_words({
+    direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+    current_line_only = true,
+    -- hint_offset = 1,
+  })
+end, { desc = "Hop back" })
+vim.keymap.set("n", "L", function()
+  require("hop").hint_words({
+    direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+    current_line_only = true,
+    -- hint_offset = 1,
+  })
+end, { desc = "Hop forward" })
+vim.keymap.set("n", "J", function()
+  require("hop").hint_lines({
+    direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+    -- hint_offset = 1,
+  })
+end, { desc = "Hop down" })
+vim.keymap.set("n", "K", function()
+  require("hop").hint_lines({
+    direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+    -- hint_offset = 1,
+  })
+end, { desc = "Hop up" })

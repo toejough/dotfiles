@@ -1,7 +1,7 @@
 #! /usr/bin/env fish
 
 # get the latest
-if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your branch is up to date' > /dev/null
+if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branch is up to date' >/dev/null
     echo (set_color cyan)"Copying homedir configs..."(set_color normal)
     and ln -vFfs ~/dotfiles/.vimrc ~
     and ln -vFfs ~/dotfiles/.gitconfig ~
@@ -29,8 +29,7 @@ if cd ~/dotfiles; and git fetch > /dev/null; and git status | grep -i 'your bran
     and echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
     and pip3 install --upgrade pip
     and pip3 install neovim
-    and vim +ReloadRC  # don't quit - want to see what got updated sometimes
-    #and vim -c "CocInstall coc-json coc-vimlsp coc-markdownlint coc-xml" +qall
+    and nvim --headless "+Lazy! sync" +qa
 
     and echo (set_color cyan)"Updating global go binaries..."(set_color normal)
     and go install golang.org/x/tools/gopls@latest

@@ -11,7 +11,8 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- animated movement / scroll
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { "yuttie/comfortable-motion.vim" },
     -- move things around
     {
       "echasnovski/mini.move",
@@ -179,6 +180,14 @@ require("lazy").setup({
     -- multiple cursors? no. This is the only mainstream plugin I've found for this, and lots of complaints in the
     -- issue list about keybindings. I can't make them work, either.
     -- { "mg979/vim-visual-multi" },
+    {
+      "neovim/nvim-lspconfig",
+      init = function()
+        local keys = require("lazyvim.plugins.lsp.keymaps").get()
+        -- disable the hover keymap so I can use it for hop, down below
+        keys[#keys + 1] = { "K", false }
+      end,
+    },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

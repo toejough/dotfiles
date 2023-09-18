@@ -85,6 +85,8 @@ require("lazy").setup({
         vim.g.auto_save = 1
       end,
     },
+    -- auotoread
+    { "djoshea/vim-autoread" },
     -- set cwd to the git root
     {
       "airblade/vim-rooter",

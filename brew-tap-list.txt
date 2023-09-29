@@ -1,4 +1,3 @@
-homebrew/core
 homebrew/cask
 homebrew/cask-fonts
 beeftornado/rmtree # rmtree

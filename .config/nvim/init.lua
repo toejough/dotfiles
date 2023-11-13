@@ -177,17 +177,60 @@ require("lazy").setup({
       ft = "markdown",
       build = "cd app && npm install && git reset --hard",
     },
+    -- supertab
+    -- disable luasnip tab behavior
+    {
+      "L3MON4D3/LuaSnip",
+      keys = function()
+        return {}
+      end,
+    },
+    {
+      "hrsh7th/nvim-cmp",
+      dependencies = {
+        "hrsh7th/cmp-emoji",
+      },
+      ---@param opts cmp.ConfigSchema
+      opts = function(_, opts)
+        local has_words_before = function()
+          unpack = unpack or table.unpack
+          local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+          return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+        end
+
+        local luasnip = require("luasnip")
+        local cmp = require("cmp")
+
+        opts.mapping = vim.tbl_extend("force", opts.mapping, {
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
+              cmp.select_next_item()
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+            -- this way you will only jump inside the snippet region
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            elseif has_words_before() then
+              cmp.complete()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+        })
+      end,
+    },
     -- multiple cursors? no. This is the only mainstream plugin I've found for this, and lots of complaints in the
     -- issue list about keybindings. I can't make them work, either.
     -- { "mg979/vim-visual-multi" },
-    {
-      "neovim/nvim-lspconfig",
-      init = function()
-        local keys = require("lazyvim.plugins.lsp.keymaps").get()
-        -- disable the hover keymap so I can use it for hop, down below
-        keys[#keys + 1] = { "K", false }
-      end,
-    },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -259,31 +302,3 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hol
 vim.keymap.set("n", "n", "nzzzv")
 -- jump to previous, vertically center, and expand all folds here
 vim.keymap.set("n", "N", "Nzzzv")
-
--- overrides for hopping
-vim.keymap.set("n", "H", function()
-  require("hop").hint_words({
-    direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-    current_line_only = true,
-    -- hint_offset = 1,
-  })
-end, { desc = "Hop back" })
-vim.keymap.set("n", "L", function()
-  require("hop").hint_words({
-    direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-    current_line_only = true,
-    -- hint_offset = 1,
-  })
-end, { desc = "Hop forward" })
-vim.keymap.set("n", "J", function()
-  require("hop").hint_lines({
-    direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-    -- hint_offset = 1,
-  })
-end, { desc = "Hop down" })
-vim.keymap.set("n", "K", function()
-  require("hop").hint_lines({
-    direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-    -- hint_offset = 1,
-  })
-end, { desc = "Hop up" })

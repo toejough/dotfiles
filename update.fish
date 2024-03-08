@@ -27,8 +27,8 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and fisher update (fisher list)
 
     and echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
-    and pip3 install --upgrade pip
-    and pip3 install neovim
+    # and pip3 install --upgrade pip
+    # and pip3 install neovim
     and nvim --headless "+Lazy! sync" +qa
 
     and echo (set_color cyan)"Updating global go binaries..."(set_color normal)

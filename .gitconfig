@@ -238,6 +238,7 @@
         cd $parent_location && \
         local location=$(git worktree list | ag -v \"$parent_location\\s+\" | fzf | awk '{print $1'}) && \
         if test -z \"$location\"; then \
+            echo \"no directory $location\" \
             return; \
         fi; \
         echo $location | xargs -L1 -p rm -rf && \
@@ -366,3 +367,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+; make go use ssh so I can use private repos in github for personal projects
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/

@@ -1,6 +1,6 @@
 # Defined in /var/folders/v5/mgpjg7ms68n_tb2mfljgy1d40000gn/T//fish.1OD7kP/post_exec.fish @ line 2
 function post_exec --on-event fish_postexec
-	set -l last_status $status
+    set -l last_status $status
 
     # Last command info if command
     if test -n "$argv"
@@ -19,8 +19,8 @@ function post_exec --on-event fish_postexec
             echo (set_color cyan)"RC: "(set_color red)"$last_status"(set_color normal)
         end
         # git info
-        if git status > /dev/null 2>&1
-            if git config --get remote.(git remote 2> /dev/null).url > /dev/null 2>&1
+        if git status >/dev/null 2>&1
+            if git config --get remote.(git remote 2> /dev/null).url >/dev/null 2>&1
                 echo (set_color cyan)"GIT REMOTE: "(set_color normal)(git config --get remote.(git remote).url)
             end
             if test -n "(git status --porcelain)"
@@ -36,6 +36,10 @@ function post_exec --on-event fish_postexec
             echo (set_color cyan)"PWD: "(set_color blue)"$current_dir"(set_color normal)
             lt
         end
+
+        # post the zdirs
+        echo (set_color cyan)"Z dirs: "(set_color yellow)(z -l | wc -l)(set_color normal)
+        echo -e (set_color yellow)"$(z -l)"(set_color normal)
 
         # separate from next command
         echo

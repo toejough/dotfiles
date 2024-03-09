@@ -1,14 +1,14 @@
 -- Set up Lazy.nvim as my package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -39,3 +39,8 @@ require("lazy").setup(
 local wk = require("which-key")
 wk.register({["<"] = { "<gv", "unindent"}}, {mode="v"})
 wk.register({[">"] = { ">gv", "indent"}}, {mode="v"})
+
+-- make all tabs and indents 4 spaces
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4

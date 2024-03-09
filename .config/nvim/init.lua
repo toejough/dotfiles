@@ -14,25 +14,21 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Install some packages
 require("lazy").setup(
-{
 	{
-		"ishan9299/nvim-solarized-lua",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			-- load the colorscheme here
-			vim.opt.termguicolors = true
-			vim.cmd([[colorscheme solarized-high]])
-		end,
-	},
-	{ "folke/which-key.nvim", lazy = true },
-},
-	{
-		install = {
-			-- try to load one of these colorschemes when starting an installation during startup
-			colorscheme = { "solarized" },
+		{
+			"ishan9299/nvim-solarized-lua",
+			lazy = false, -- make sure we load this during startup if it is your main colorscheme
+			priority = 1000, -- make sure to load this before all the other start plugins
+			config = function()
+				-- load the colorscheme here
+				vim.opt.termguicolors = true
+				vim.cmd([[colorscheme solarized-high]])
+			end,
 		},
-	}
+		{ "folke/which-key.nvim", lazy = true },
+	},
+	-- try to load one of these colorschemes when starting an installation during startup
+	{install = {colorscheme = { "solarized" }}}
 )
 
 -- Set up some keymaps

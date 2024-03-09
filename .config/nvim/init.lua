@@ -1,3 +1,4 @@
+-- Set up Lazy.nvim as my package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -11,7 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Install some packages
 require("lazy").setup(
+{
 	{
 		"ishan9299/nvim-solarized-lua",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -22,6 +25,8 @@ require("lazy").setup(
 			vim.cmd([[colorscheme solarized-high]])
 		end,
 	},
+	{ "folke/which-key.nvim", lazy = true },
+},
 	{
 		install = {
 			-- try to load one of these colorschemes when starting an installation during startup
@@ -29,3 +34,8 @@ require("lazy").setup(
 		},
 	}
 )
+
+-- Set up some keymaps
+local wk = require("which-key")
+wk.register({["<"] = { "<gv", "unindent"}}, {mode="v"})
+wk.register({[">"] = { ">gv", "indent"}}, {mode="v"})

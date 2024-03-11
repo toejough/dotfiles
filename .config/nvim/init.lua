@@ -60,6 +60,35 @@ require("lazy").setup(
 		},
 		-- nicer UI
 		"stevearc/dressing.nvim",
+		{
+			"folke/noice.nvim",
+			event = "VeryLazy",
+			opts = {
+				lsp = {
+					-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+					override = {
+						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+						["vim.lsp.util.stylize_markdown"] = true,
+						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+					},
+				},
+				-- you can enable a preset for easier configuration
+				presets = {
+					command_palette = true, -- position the cmdline and popupmenu together
+					long_message_to_split = true, -- long messages will be sent to a split
+					inc_rename = false, -- enables an input dialog for inc-rename.nvim
+					lsp_doc_border = false, -- add a border to hover docs and signature help
+				},
+			},
+			dependencies = {
+				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+				"MunifTanjim/nui.nvim",
+				-- OPTIONAL:
+				--   `nvim-notify` is only needed, if you want to use the notification view.
+				--   If not available, we use `mini` as the fallback
+				"rcarriga/nvim-notify",
+			}
+		},
 		-- fish niceties
 		"dag/vim-fish",
 		-- shows the context of your current place (what function are you in)
@@ -89,6 +118,19 @@ require("lazy").setup(
 		},
 		-- numbers.vim
 		"myusuf3/numbers.vim",
+		-- need some kind of file tree explorer
+		{
+			"nvim-neo-tree/neo-tree.nvim",
+			branch = "v3.x",
+			dependencies = {
+				"nvim-lua/plenary.nvim",
+				"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+				"MunifTanjim/nui.nvim",
+				"3rd/image.nvim",  -- Optional image support in preview window: See `# Preview Mode` for more information
+			}
+		},
+		-- undotree
+		"mbbill/undotree"
 	},
 	-- try to load one of these colorschemes when starting an installation during startup
 	{ install = { colorscheme = { "solarized" } } }
@@ -121,8 +163,15 @@ wk.register({
 		p = { ":HopPattern<cr>", "pattern" },
 		v = { ":HopVertical<cr>", "vertical" },
 		h = { ":HopWordCurrentLine<cr>", "horizontal" }
-	}
+	},
+	["<leader>t"] = { ":Neotree toggle<cr>", "fileTree" },
+	["<leader>u"] = { vim.cmd.UndotreeToggle, "undotree" },
 })
+
+-- set undofile & directory
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
 -- not necessary with mini-move?
 -- wk.register({
 --	["<"] = { "<gv", "unindent" },

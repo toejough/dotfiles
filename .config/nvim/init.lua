@@ -22,7 +22,7 @@ require("lazy").setup(
 			config = function()
 				-- load the colorscheme here
 				vim.opt.termguicolors = true
-				vim.cmd([[colorscheme solarized-high]])
+				vim.cmd([[colorscheme solarized]])
 			end,
 		},
 		{ "folke/which-key.nvim", lazy = true },
@@ -48,37 +48,93 @@ require("lazy").setup(
 		"hrsh7th/nvim-cmp",
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip",
+		-- animated movement / scroll
+		"yuttie/comfortable-motion.vim",
+		-- move things around
+		"echasnovski/mini.move",
+		-- treesitter for parsing/querying/highlighting/folding/indenting/selecting
+		{
+			"nvim-treesitter/nvim-treesitter",
+			version = nil,
+			build = ":TSUpdate",
+		},
+		-- nicer UI
+		"stevearc/dressing.nvim",
+		-- fish niceties
+		"dag/vim-fish",
+		-- shows the context of your current place (what function are you in)
+		"nvim-treesitter/nvim-treesitter-context",
+		-- hop around the screen
+		"smoka7/hop.nvim",
+		-- git blame
+		"f-person/git-blame.nvim",
+		-- only highlight where you are
+		"folke/twilight.nvim",
+		-- nice statusline
+		-- TODO: where else can we get the default setup called via config = true?
+		{
+			'nvim-lualine/lualine.nvim',
+			dependencies = { 'nvim-tree/nvim-web-devicons' },
+			config = true,
+		},
+		-- rainbow delimiters
+		"HiPhish/rainbow-delimiters.nvim",
+		-- indent animation
+		{
+			"echasnovski/mini.indentscope",
+			opts = {
+				symbol = "│",
+				options = { try_as_border = true },
+			},
+		},
+		-- numbers.vim
+		"myusuf3/numbers.vim",
 	},
 	-- try to load one of these colorschemes when starting an installation during startup
 	{ install = { colorscheme = { "solarized" } } }
 )
 
--- TODO all the vim stuff in one place?
 -- Set up leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
--- Set up some keymaps
--- TODO: all within the same registration call?
-local wk = require("which-key")
-wk.register({ ["<"] = { "<gv", "unindent" } }, { mode = "v" })
-wk.register({ [">"] = { ">gv", "indent" } }, { mode = "v" })
 
 -- make all tabs and indents 4 spaces
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
+-- how many lines to leave if possible at top/bottom when scrolling
+vim.opt.scrolloff = 13
+
+-- format on save with configured LSP's
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+
+-- Set up some keymaps
+local wk = require("which-key")
+
+-- hop around the screen
+require("hop").setup()
+wk.register({
+	["<leader>h"] = {
+		name = "+hop",
+		w = { ":HopWord<cr>", "words" },
+		p = { ":HopPattern<cr>", "pattern" },
+		v = { ":HopVertical<cr>", "vertical" },
+		h = { ":HopWordCurrentLine<cr>", "horizontal" }
+	}
+})
+-- not necessary with mini-move?
+-- wk.register({
+--	["<"] = { "<gv", "unindent" },
+--	[">"] = { ">gv", "indent" },
+-- }, { mode = "v" })
+
 -- mason setup for installing lsp servers
 require("neodev").setup()          -- allows neovim autocompletion
 require("mason").setup()           -- lsp server management
 require("mason-lspconfig").setup() -- lsp config help
 
--- format on save with configured LSP's
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-
 -- set up completion
--- TODO: make all these within the setup call?
 local cmp = require('cmp')
 
 cmp.setup({
@@ -88,6 +144,7 @@ cmp.setup({
 			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
+	-- TODO: use which_key?
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -97,22 +154,13 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' }, -- For luasnip users.
+		{ name = 'luasnip' },
 	}, {
 		{ name = 'buffer' },
 	})
 })
 
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-	sources = cmp.config.sources({
-		{ name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-	}, {
-		{ name = 'buffer' },
-	})
-})
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+-- Use buffer source for `/` and `?`
 cmp.setup.cmdline({ '/', '?' }, {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
@@ -120,7 +168,7 @@ cmp.setup.cmdline({ '/', '?' }, {
 	}
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- Use cmdline & path source for ':'
 cmp.setup.cmdline(':', {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
@@ -148,13 +196,25 @@ require("mason-lspconfig").setup_handlers {
 	--end
 }
 
--- TODO: use which-key for mappings
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+-- Global lsp mappings.
+wk.register({
+	["<leader>e"] = {
+		name = "+Error",
+		s = { vim.diagnostic.open_float, "Show error" },
+		p = { vim.diagnostic.goto_prev, "goto Previous error" },
+		n = { vim.diagnostic.goto_next, "goto Next error" },
+		l = { vim.diagnostic.setloclist, "set errors in Location list" },
+	},
+	["g"] = {
+		name = "+Goto",
+		p = { vim.diagnostic.goto_prev, "Previous error" },
+		n = { vim.diagnostic.goto_next, "Next error" },
+	},
+	["s"] = {
+		name = "+Show",
+		e = { vim.diagnostic.open_float, "Error" },
+	}
+})
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -167,22 +227,84 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf }
-		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-		vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-		vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-		vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-		vim.keymap.set('n', '<space>wl', function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, opts)
-		vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-		vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-		vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-		vim.keymap.set('n', '<space>f', function()
-			vim.lsp.buf.format { async = true }
-		end, opts)
+		wk.register({
+			["g"] = {
+				name = "+goto",
+				D = { vim.lsp.buf.declaration, "declaration" },
+				d = { vim.lsp.buf.definition, "definition" },
+				i = { vim.lsp.buf.implementation, "implementation" },
+				t = { vim.lsp.buf.type_definition, "Type definition" },
+				r = { vim.lsp.buf.references, "references" },
+			},
+			["s"] = {
+				name = "+Show",
+				d = { vim.lsp.buf.hover, "documentation" },
+				s = { vim.lsp.buf.signature_help, "Signature help" },
+			},
+		}, opts)
+		wk.register({
+			["<leader>l"] = {
+				name = "+lsp",
+				r = { vim.lsp.buf.rename, "rename" },
+				f = { vim.lsp.buf.format, "format" },
+			},
+		}, opts)
+		wk.register({
+			["<leader>l"] = {
+				name = "+lsp",
+				a = { vim.lsp.buf.code_action, "code Action" },
+			},
+		}, {
+			mode = { "n", "v" },
+			buffer = ev.buf
+		})
 	end,
 })
+
+-- mini move to move blocks of text and keep them selected
+require("mini.move").setup()
+
+-- treesitter config
+require('nvim-treesitter.configs').setup({
+	ensure_installed = {
+		"bash",
+		"c",
+		"diff",
+		"fish",
+		"go",
+		"html",
+		"javascript",
+		"jsdoc",
+		"json",
+		"jsonc",
+		"lua",
+		"luadoc",
+		"luap",
+		"markdown",
+		"markdown_inline",
+		"python",
+		"query",
+		"regex",
+		"toml",
+		"vim",
+		"vimdoc",
+		"xml",
+		"yaml",
+	},
+	highlight = { enable = true },
+	indent = { enable = true },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = false, -- set to `false` to disable one of the mappings
+			node_incremental = "m",
+			scope_incremental = false,
+			node_decremental = "l",
+		},
+	},
+})
+
+-- use treesitter folding
+vim.cmd [[set foldmethod=expr]]
+vim.cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
+vim.cmd [[set nofoldenable]]

@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Install some packages
 require("lazy").setup(
 	{
+		-- solarized is the one true colorscheme
 		{
 			"ishan9299/nvim-solarized-lua",
 			lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -25,86 +26,65 @@ require("lazy").setup(
 				vim.cmd([[colorscheme solarized]])
 			end,
 		},
-		{ "folke/which-key.nvim", lazy = true },
-		-- autosave
+		-- nice keymapping UI!
+		"folke/which-key.nvim",
+		-- autosave when you change the file
 		{
 			"907th/vim-auto-save",
 			config = function()
 				vim.g.auto_save = 1
 			end,
 		},
-		-- auotoread
+		-- auotoload when the file changes you
 		"djoshea/vim-autoread",
 		-- lsp's & such
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
-		"folke/neodev.nvim",
-		-- completion
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-cmdline",
-		"hrsh7th/nvim-cmp",
-		"L3MON4D3/LuaSnip",
-		"saadparwaiz1/cmp_luasnip",
-		-- animated movement / scroll
+		{ "williamboman/mason.nvim",           config = true }, -- manage the installed LSP's
+		{ "williamboman/mason-lspconfig.nvim", config = true }, -- bridge between mason & nvim-lspconfig
+		"neovim/nvim-lspconfig",                  -- neovim's lsp config management
+		{ "folke/neodev.nvim",     config = true }, -- custom bits for neovim's lua API that the lua LSP doesn't cover
+		-- completion & snippets
+		"hrsh7th/cmp-nvim-lsp",                   -- complete from lsp
+		"hrsh7th/cmp-buffer",                     -- complete from buffer contents
+		"hrsh7th/cmp-path",                       -- complete from filestystem
+		"hrsh7th/cmp-cmdline",                    -- complete from vim's commands
+		"hrsh7th/nvim-cmp",                       -- completion core plugin
+		"L3MON4D3/LuaSnip",                       -- snippets
+		"saadparwaiz1/cmp_luasnip",               -- completion from snippets
+		-- smooth scrolling instead of just jumping the screen
 		"yuttie/comfortable-motion.vim",
-		-- move things around
-		"echasnovski/mini.move",
+		-- move visually selected blocks & retain selection
+		{ "echasnovski/mini.move", config = true },
 		-- treesitter for parsing/querying/highlighting/folding/indenting/selecting
 		{
 			"nvim-treesitter/nvim-treesitter",
 			version = nil,
 			build = ":TSUpdate",
 		},
-		-- nicer UI
+		-- nicer UI for borders & stuff
 		"stevearc/dressing.nvim",
 		{
+			-- nicer UI for notifications, messages, and commandline
 			"folke/noice.nvim",
-			event = "VeryLazy",
-			opts = {
-				lsp = {
-					-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-					override = {
-						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-						["vim.lsp.util.stylize_markdown"] = true,
-						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-					},
-				},
-				-- you can enable a preset for easier configuration
-				presets = {
-					command_palette = true, -- position the cmdline and popupmenu together
-					long_message_to_split = true, -- long messages will be sent to a split
-					inc_rename = false, -- enables an input dialog for inc-rename.nvim
-					lsp_doc_border = false, -- add a border to hover docs and signature help
-				},
-			},
+			config = true,
 			dependencies = {
-				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 				"MunifTanjim/nui.nvim",
-				-- OPTIONAL:
-				--   `nvim-notify` is only needed, if you want to use the notification view.
-				--   If not available, we use `mini` as the fallback
 				"rcarriga/nvim-notify",
 			}
 		},
-		-- fish niceties
+		-- fish niceties, because there's no fish LSP in mason
 		"dag/vim-fish",
-		-- shows the context of your current place (what function are you in)
+		-- keeps your function header on-screen if you're in a function but the header would be scrolled
+		-- off the top.
 		"nvim-treesitter/nvim-treesitter-context",
-		-- hop around the screen
-		"smoka7/hop.nvim",
-		-- git blame
+		-- move anywhere on-screen with just a few keys
+		{ "smoka7/hop.nvim",       config = true },
+		-- git blame on each line
 		"f-person/git-blame.nvim",
-		-- only highlight where you are
-		"folke/twilight.nvim",
 		-- nice statusline
-		-- TODO: where else can we get the default setup called via config = true?
 		{
 			'nvim-lualine/lualine.nvim',
-			dependencies = { 'nvim-tree/nvim-web-devicons' },
 			config = true,
+			dependencies = { 'nvim-tree/nvim-web-devicons' },
 		},
 		-- rainbow delimiters
 		"HiPhish/rainbow-delimiters.nvim",
@@ -116,9 +96,11 @@ require("lazy").setup(
 				options = { try_as_border = true },
 			},
 		},
-		-- numbers.vim
+		-- commenting
+		{ "numToStr/Comment.nvim", opts = { mappings = false } },
+		-- relative numbers in the sidebar while in normal mode
 		"myusuf3/numbers.vim",
-		-- need some kind of file tree explorer
+		-- file tree explorer
 		{
 			"nvim-neo-tree/neo-tree.nvim",
 			branch = "v3.x",
@@ -126,13 +108,38 @@ require("lazy").setup(
 				"nvim-lua/plenary.nvim",
 				"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 				"MunifTanjim/nui.nvim",
-				"3rd/image.nvim",  -- Optional image support in preview window: See `# Preview Mode` for more information
+				"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 			}
 		},
-		-- undotree
-		"mbbill/undotree"
+		-- like git, but for undo!
+		{
+			"mbbill/undotree",
+			config = function()
+				-- set undofile & directory
+				vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+				vim.opt.undofile = true
+			end
+		},
+		-- jump around the functions in a file
+		{ "stevearc/aerial.nvim", config = true },
+		-- fuzzy find
+		{
+			'nvim-telescope/telescope.nvim',
+			branch = '0.1.x',
+			dependencies = {
+				'nvim-lua/plenary.nvim',
+				'sharkdp/fd',
+				{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+			},
+			config = function()
+				require('telescope').load_extension('fzf')
+				require("telescope").load_extension("aerial")
+			end,
+		},
+		-- open a file to the last position you were at
+		"farmergreg/vim-lastplace",
 	},
-	-- try to load one of these colorschemes when starting an installation during startup
+	-- try to load one solarized when starting an installation during startup
 	{ install = { colorscheme = { "solarized" } } }
 )
 
@@ -145,20 +152,17 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
+-- use the system clipboard for nice copy/paste between other apps & vim
+vim.opt.clipboard = "unnamed"
+
 -- how many lines to leave if possible at top/bottom when scrolling
 vim.opt.scrolloff = 13
 
--- format on save with configured LSP's
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-
 -- Set up some keymaps
 local wk = require("which-key")
-
--- hop around the screen
-require("hop").setup()
 wk.register({
-	["<leader>h"] = {
-		name = "+hop",
+	["m"] = {
+		name = "+move",
 		w = { ":HopWord<cr>", "words" },
 		p = { ":HopPattern<cr>", "pattern" },
 		v = { ":HopVertical<cr>", "vertical" },
@@ -166,22 +170,17 @@ wk.register({
 	},
 	["<leader>t"] = { ":Neotree toggle<cr>", "fileTree" },
 	["<leader>u"] = { vim.cmd.UndotreeToggle, "undotree" },
+	["<leader>s"] = { ":Telescope aerial<cr>", "symbols" },
+	["<leader>f"] = { ":Telescope<cr>", "find" },
 })
-
--- set undofile & directory
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
-
--- not necessary with mini-move?
--- wk.register({
---	["<"] = { "<gv", "unindent" },
---	[">"] = { ">gv", "indent" },
--- }, { mode = "v" })
-
--- mason setup for installing lsp servers
-require("neodev").setup()          -- allows neovim autocompletion
-require("mason").setup()           -- lsp server management
-require("mason-lspconfig").setup() -- lsp config help
+wk.register({
+	["<leader><space>"] = { '<plug>(comment_toggle_linewise_current)', "toggle comment" },
+})
+wk.register({
+	["<leader><space>"] = { '<plug>(comment_toggle_linewise_visual)', "toggle comment" },
+}, {
+	mode = { "v" },
+})
 
 -- set up completion
 local cmp = require('cmp')
@@ -230,19 +229,12 @@ cmp.setup.cmdline(':', {
 -- set up each LSP with completion by cmp_nvim_lsp	
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason-lspconfig").setup_handlers {
-	-- The first entry (without a key) will be the default handler
-	-- and will be called for each installed server that doesn't have
-	-- a dedicated handler.
-	function(server_name) -- default handler (optional)
+	-- default lsp handler.
+	function(server_name)
 		require("lspconfig")[server_name].setup {
 			capabilities = capabilities
 		}
 	end,
-	-- Next, you can provide a dedicated handler for specific servers.
-	-- For example, a handler override for the `rust_analyzer`:
-	--["rust_analyzer"] = function ()
-	--    require("rust-tools").setup {}
-	--end
 }
 
 -- Global lsp mappings.
@@ -270,20 +262,18 @@ wk.register({
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+		-- format on save with configured LSP's
+		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 		-- Buffer local mappings.
-		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf }
 		wk.register({
 			["g"] = {
 				name = "+goto",
-				D = { vim.lsp.buf.declaration, "declaration" },
-				d = { vim.lsp.buf.definition, "definition" },
-				i = { vim.lsp.buf.implementation, "implementation" },
-				t = { vim.lsp.buf.type_definition, "Type definition" },
-				r = { vim.lsp.buf.references, "references" },
+				d = { ":Telescope lsp_definitions<cr>", "definition" },
+				i = { ":Telescope lsp_implementations<cr>", "implementation" },
+				t = { ":Telescope lsp_type_definitions<cr>", "Type definition" },
+				r = { ":Telescope lsp_references<cr>", "references" },
 			},
 			["s"] = {
 				name = "+Show",
@@ -309,9 +299,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		})
 	end,
 })
-
--- mini move to move blocks of text and keep them selected
-require("mini.move").setup()
 
 -- treesitter config
 require('nvim-treesitter.configs').setup({
@@ -346,9 +333,9 @@ require('nvim-treesitter.configs').setup({
 		enable = true,
 		keymaps = {
 			init_selection = false, -- set to `false` to disable one of the mappings
-			node_incremental = "m",
+			node_incremental = "+",
 			scope_incremental = false,
-			node_decremental = "l",
+			node_decremental = "-",
 		},
 	},
 })

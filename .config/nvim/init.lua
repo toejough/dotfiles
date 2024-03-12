@@ -184,7 +184,7 @@ wk.register({
 	["<leader>s"] = { ":Telescope aerial<cr>", "symbols" },
 	["<leader>f"] = { ":Telescope<cr>", "find" },
 	["<leader>S"] = { ":Telescope luasnip<cr>", "snippets" },
-	["<leader>h"] = {
+	["H"] = {
 		name = "+hunk",
 		s = { ":Gitsigns preview_hunk_inline<cr>", "show" },
 		r = { ":Gitsigns reset_hunk<cr>", "reset" },

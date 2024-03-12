@@ -129,7 +129,7 @@ require("lazy").setup(
 			end
 		},
 		-- jump around the functions in a file
-		{ "stevearc/aerial.nvim", config = true },
+		{ "stevearc/aerial.nvim",    config = true },
 		-- fuzzy find
 		{
 			'nvim-telescope/telescope.nvim',
@@ -147,6 +147,8 @@ require("lazy").setup(
 		},
 		-- open a file to the last position you were at
 		"farmergreg/vim-lastplace",
+		-- git signs for code state along the left sidebar
+		{ "lewis6991/gitsigns.nvim", config = true },
 	},
 	-- try to load one solarized when starting an installation during startup
 	{ install = { colorscheme = { "solarized" } } }
@@ -182,6 +184,11 @@ wk.register({
 	["<leader>s"] = { ":Telescope aerial<cr>", "symbols" },
 	["<leader>f"] = { ":Telescope<cr>", "find" },
 	["<leader>S"] = { ":Telescope luasnip<cr>", "snippets" },
+	["<leader>h"] = {
+		name = "+hunk",
+		s = { ":Gitsigns preview_hunk_inline<cr>", "show" },
+		r = { ":Gitsigns reset_hunk<cr>", "reset" },
+	},
 })
 wk.register({
 	["<leader><space>"] = { '<plug>(comment_toggle_linewise_current)', "toggle comment" },

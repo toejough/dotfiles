@@ -18,7 +18,6 @@ require("lazy").setup(
 		-- solarized is the one true colorscheme
 		{
 			"ishan9299/nvim-solarized-lua",
-			lazy = false, -- make sure we load this during startup if it is your main colorscheme
 			priority = 1000, -- make sure to load this before all the other start plugins
 			config = function()
 				-- load the colorscheme here
@@ -29,85 +28,62 @@ require("lazy").setup(
 		-- nice keymapping UI!
 		"folke/which-key.nvim",
 		-- autosave when you change the file
-		{
-			"907th/vim-auto-save",
-			config = function()
-				vim.g.auto_save = 1
-			end,
-		},
+		{ "907th/vim-auto-save",               config = function() vim.g.auto_save = 1 end },
 		-- auotoload when the file changes you
 		"djoshea/vim-autoread",
 		-- lsp's & such
 		{ "williamboman/mason.nvim",           config = true }, -- manage the installed LSP's
 		{ "williamboman/mason-lspconfig.nvim", config = true }, -- bridge between mason & nvim-lspconfig
 		"neovim/nvim-lspconfig",                          -- neovim's lsp config management
-		{ "folke/neodev.nvim",     config = true },       -- custom bits for neovim's lua API that the lua LSP doesn't cover
-		-- completion & snippets
+		{ "folke/neodev.nvim",               config = true }, -- custom bits for neovim's lua API that the lua LSP doesn't cover
+		"dag/vim-fish",                                   -- fish niceties, because there's no fish LSP in mason
+		-- completion
+		"hrsh7th/nvim-cmp",                               -- core completion plugin
 		"hrsh7th/cmp-nvim-lsp",                           -- complete from lsp
 		"hrsh7th/cmp-buffer",                             -- complete from buffer contents
 		"hrsh7th/cmp-path",                               -- complete from filestystem
 		"hrsh7th/cmp-cmdline",                            -- complete from vim's commands
-		"hrsh7th/nvim-cmp",                               -- completion core plugin
+		"saadparwaiz1/cmp_luasnip",                       -- complete from snippets
 		-- snippets
 		{
 			"L3MON4D3/LuaSnip",
 			dependencies = { "rafamadriz/friendly-snippets" },
-			config = function()
-				require("luasnip.loaders.from_vscode").lazy_load()
-			end
+			config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
 		},
-		"saadparwaiz1/cmp_luasnip",   -- completion from snippets
-		"benfowler/telescope-luasnip.nvim", -- telescope snippet picker
-		-- smooth scrolling instead of just jumping the screen
-		"yuttie/comfortable-motion.vim",
-		-- move visually selected blocks & retain selection
-		{ "echasnovski/mini.move", config = true },
+		"benfowler/telescope-luasnip.nvim",             -- telescope snippet picker
+		-- movement
+		"yuttie/comfortable-motion.vim",                -- move the screen: smooth scrolling instead of just jumping the screen
+		{ "echasnovski/mini.move",           config = true }, -- move things on the screen: visually selected blocks & retain selection
+		{ "smoka7/hop.nvim",                 config = true }, -- move around the screen: hop around with just a few keys
 		-- treesitter for parsing/querying/highlighting/folding/indenting/selecting
+		{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+		-- UI
+		"stevearc/dressing.nvim", -- nicer UI for borders & stuff
 		{
-			"nvim-treesitter/nvim-treesitter",
-			version = nil,
-			build = ":TSUpdate",
-		},
-		-- nicer UI for borders & stuff
-		"stevearc/dressing.nvim",
-		{
-			-- nicer UI for notifications, messages, and commandline
-			"folke/noice.nvim",
+			"folke/noice.nvim", -- nicer UI for notifications, messages, and commandline
 			config = true,
 			dependencies = {
 				"MunifTanjim/nui.nvim",
 				"rcarriga/nvim-notify",
 			}
 		},
-		-- fish niceties, because there's no fish LSP in mason
-		"dag/vim-fish",
-		-- keeps your function header on-screen if you're in a function but the header would be scrolled
-		-- off the top.
-		"nvim-treesitter/nvim-treesitter-context",
-		-- move anywhere on-screen with just a few keys
-		{ "smoka7/hop.nvim",       config = true },
-		-- git blame on each line
-		"f-person/git-blame.nvim",
-		-- nice statusline
+		"nvim-treesitter/nvim-treesitter-context", -- keeps your function header from scrolling off-screen
 		{
-			'nvim-lualine/lualine.nvim',
+			'nvim-lualine/lualine.nvim',     -- nice statusline
 			config = true,
 			dependencies = { 'nvim-tree/nvim-web-devicons' },
 		},
-		-- rainbow delimiters
-		"HiPhish/rainbow-delimiters.nvim",
-		-- indent animation
+		"HiPhish/rainbow-delimiters.nvim", -- rainbow delimiters
 		{
-			"echasnovski/mini.indentscope",
+			"echasnovski/mini.indentscope", -- indent animation
 			opts = {
 				symbol = "│",
 				options = { try_as_border = true },
 			},
 		},
+		"myusuf3/numbers.vim", -- relative numbers in the sidebar while in normal mode
 		-- commenting
-		{ "numToStr/Comment.nvim", opts = { mappings = false } },
-		-- relative numbers in the sidebar while in normal mode
-		"myusuf3/numbers.vim",
+		{ "numToStr/Comment.nvim",   opts = { mappings = false } },
 		-- file tree explorer
 		{
 			"nvim-neo-tree/neo-tree.nvim",
@@ -119,17 +95,26 @@ require("lazy").setup(
 				"3rd/image.nvim",  -- Optional image support in preview window: See `# Preview Mode` for more information
 			}
 		},
-		-- like git, but for undo!
+		-- git
+		"f-person/git-blame.nvim", -- git blame on each line
 		{
-			"mbbill/undotree",
+			"mbbill/undotree", -- like git, but for undo!
 			config = function()
 				-- set undofile & directory
 				vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 				vim.opt.undofile = true
 			end
 		},
-		-- jump around the functions in a file
-		{ "stevearc/aerial.nvim",    config = true },
+		{ "lewis6991/gitsigns.nvim", config = true }, -- git signs for code state along the left sidebar
+		{
+			"NeogitOrg/neogit",                 -- git UI in vim
+			dependencies = {
+				"nvim-lua/plenary.nvim",        -- required
+				"sindrets/diffview.nvim",       -- optional - Diff integration
+				"nvim-telescope/telescope.nvim", -- optional
+			},
+			config = true
+		},
 		-- fuzzy find
 		{
 			'nvim-telescope/telescope.nvim',
@@ -138,17 +123,16 @@ require("lazy").setup(
 				'nvim-lua/plenary.nvim',
 				'sharkdp/fd',
 				{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+				{ "stevearc/aerial.nvim",                     config = true },
 			},
 			config = function()
-				require('telescope').load_extension('fzf')
-				require("telescope").load_extension("aerial")
-				require('telescope').load_extension('luasnip')
+				require('telescope').load_extension('fzf') -- fzf fuzzy search
+				require("telescope").load_extension("aerial") -- file symbols
+				require('telescope').load_extension('luasnip') -- snippets
 			end,
 		},
 		-- open a file to the last position you were at
 		"farmergreg/vim-lastplace",
-		-- git signs for code state along the left sidebar
-		{ "lewis6991/gitsigns.nvim", config = true },
 	},
 	-- try to load one solarized when starting an installation during startup
 	{ install = { colorscheme = { "solarized" } } }
@@ -203,12 +187,7 @@ wk.register({
 local cmp = require('cmp')
 
 cmp.setup({
-	snippet = {
-		-- REQUIRED - you must specify a snippet engine
-		expand = function(args)
-			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-		end,
-	},
+	snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
 	-- TODO: use which_key?
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -228,19 +207,13 @@ cmp.setup({
 -- Use buffer source for `/` and `?`
 cmp.setup.cmdline({ '/', '?' }, {
 	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = 'buffer' }
-	}
+	sources = { { name = 'buffer' } }
 })
 
 -- Use cmdline & path source for ':'
 cmp.setup.cmdline(':', {
 	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-		{ name = 'cmdline' }
-	})
+	sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
 })
 
 -- set up each LSP with completion by cmp_nvim_lsp	
@@ -256,13 +229,6 @@ require("mason-lspconfig").setup_handlers {
 
 -- Global lsp mappings.
 wk.register({
-	["<leader>e"] = {
-		name = "+Error",
-		s = { vim.diagnostic.open_float, "Show error" },
-		p = { vim.diagnostic.goto_prev, "goto Previous error" },
-		n = { vim.diagnostic.goto_next, "goto Next error" },
-		l = { vim.diagnostic.setloclist, "set errors in Location list" },
-	},
 	["g"] = {
 		name = "+Goto",
 		p = { vim.diagnostic.goto_prev, "Previous error" },
@@ -271,6 +237,7 @@ wk.register({
 	["s"] = {
 		name = "+Show",
 		e = { vim.diagnostic.open_float, "Error" },
+		l = { vim.diagnostic.setloclist, "show errors in Location list" },
 	}
 })
 
@@ -283,7 +250,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 		-- Buffer local mappings.
-		local opts = { buffer = ev.buf }
 		wk.register({
 			["g"] = {
 				name = "+goto",
@@ -297,16 +263,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				d = { vim.lsp.buf.hover, "documentation" },
 				s = { vim.lsp.buf.signature_help, "Signature help" },
 			},
-		}, opts)
-		wk.register({
-			["<leader>l"] = {
+			["L"] = {
 				name = "+lsp",
 				r = { vim.lsp.buf.rename, "rename" },
 				f = { vim.lsp.buf.format, "format" },
 			},
-		}, opts)
+		}, { buffer = ev.buf })
 		wk.register({
-			["<leader>l"] = {
+			["L"] = {
 				name = "+lsp",
 				a = { vim.lsp.buf.code_action, "code Action" },
 			},

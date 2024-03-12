@@ -40,16 +40,24 @@ require("lazy").setup(
 		-- lsp's & such
 		{ "williamboman/mason.nvim",           config = true }, -- manage the installed LSP's
 		{ "williamboman/mason-lspconfig.nvim", config = true }, -- bridge between mason & nvim-lspconfig
-		"neovim/nvim-lspconfig",                  -- neovim's lsp config management
-		{ "folke/neodev.nvim",     config = true }, -- custom bits for neovim's lua API that the lua LSP doesn't cover
+		"neovim/nvim-lspconfig",                          -- neovim's lsp config management
+		{ "folke/neodev.nvim",     config = true },       -- custom bits for neovim's lua API that the lua LSP doesn't cover
 		-- completion & snippets
-		"hrsh7th/cmp-nvim-lsp",                   -- complete from lsp
-		"hrsh7th/cmp-buffer",                     -- complete from buffer contents
-		"hrsh7th/cmp-path",                       -- complete from filestystem
-		"hrsh7th/cmp-cmdline",                    -- complete from vim's commands
-		"hrsh7th/nvim-cmp",                       -- completion core plugin
-		"L3MON4D3/LuaSnip",                       -- snippets
-		"saadparwaiz1/cmp_luasnip",               -- completion from snippets
+		"hrsh7th/cmp-nvim-lsp",                           -- complete from lsp
+		"hrsh7th/cmp-buffer",                             -- complete from buffer contents
+		"hrsh7th/cmp-path",                               -- complete from filestystem
+		"hrsh7th/cmp-cmdline",                            -- complete from vim's commands
+		"hrsh7th/nvim-cmp",                               -- completion core plugin
+		-- snippets
+		{
+			"L3MON4D3/LuaSnip",
+			dependencies = { "rafamadriz/friendly-snippets" },
+			config = function()
+				require("luasnip.loaders.from_vscode").lazy_load()
+			end
+		},
+		"saadparwaiz1/cmp_luasnip",   -- completion from snippets
+		"benfowler/telescope-luasnip.nvim", -- telescope snippet picker
 		-- smooth scrolling instead of just jumping the screen
 		"yuttie/comfortable-motion.vim",
 		-- move visually selected blocks & retain selection
@@ -108,7 +116,7 @@ require("lazy").setup(
 				"nvim-lua/plenary.nvim",
 				"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 				"MunifTanjim/nui.nvim",
-				"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+				"3rd/image.nvim",  -- Optional image support in preview window: See `# Preview Mode` for more information
 			}
 		},
 		-- like git, but for undo!
@@ -134,6 +142,7 @@ require("lazy").setup(
 			config = function()
 				require('telescope').load_extension('fzf')
 				require("telescope").load_extension("aerial")
+				require('telescope').load_extension('luasnip')
 			end,
 		},
 		-- open a file to the last position you were at
@@ -172,6 +181,7 @@ wk.register({
 	["<leader>u"] = { vim.cmd.UndotreeToggle, "undotree" },
 	["<leader>s"] = { ":Telescope aerial<cr>", "symbols" },
 	["<leader>f"] = { ":Telescope<cr>", "find" },
+	["<leader>S"] = { ":Telescope luasnip<cr>", "snippets" },
 })
 wk.register({
 	["<leader><space>"] = { '<plug>(comment_toggle_linewise_current)', "toggle comment" },

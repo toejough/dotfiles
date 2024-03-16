@@ -179,7 +179,8 @@ wk.register({ -- normal mode
 			g = { ":Telescope git_files<cr>", "git files" },
 			l = { ":Telescope live_grep<cr>", "live grep" },
 		},
-		m = { ":Mason<cr>", "mason" },
+		l = { ":Mason<cr>", "lsp packages" },
+		p = { ":Lazy<cr>", "plugins" },
 	},
 })
 wk.register({ -- visual mode

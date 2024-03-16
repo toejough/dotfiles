@@ -240,9 +240,35 @@ require("mason-lspconfig").setup_handlers {
 	-- default lsp handler.
 	function(server_name)
 		require("lspconfig")[server_name].setup {
-			capabilities = capabilities
+			capabilities = capabilities,
 		}
 	end,
+	-- dedicated handlers for specific servers.
+	["gopls"] = function()
+		require('lspconfig').gopls.setup {
+			on_attach = function(_, b)
+				if vim.lsp.inlay_hint then
+					vim.lsp.inlay_hint.enable(b, true)
+				end
+			end,
+			-- hint = { enabled = true },
+			capabilities = capabilities,
+			settings = {
+				gopls = {
+					allExperiments         = true,
+					["ui.inlayhint.hints"] = {
+						assignVariableTypes = true,
+						compositeLiteralFields = true,
+						compositeLiteralTypes = true,
+						constantValues = true,
+						functionTypeParameters = true,
+						parameterNames = true,
+						rangeVariableTypes = true,
+					},
+				}
+			}
+		}
+	end
 }
 
 -- Global lsp mappings.

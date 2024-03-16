@@ -191,13 +191,28 @@ vim.opt.scrolloff = 13
 
 -- Set up some keymaps
 local wk = require("which-key")
-wk.register({ -- normal mode
+-- normal mode
+wk.register({
 	["H"] = {
 		name = "+hunk",
 		s = { ":Gitsigns preview_hunk_inline<cr>", "show" },
 		r = { ":Gitsigns reset_hunk<cr>", "reset" },
+		n = { ":Gitsigns next_hunk<cr>", "next" },
+		p = { ":Gitsigns prev_hunk<cr>", "previous" },
+		S = { ":Gitsigns stage_hunk<cr>", "stage" },
+		u = { ":Gitsigns undo_stage_hunk<cr>", "unstage last" },
 	},
 	["C"] = { '<plug>(comment_toggle_linewise_current)', "toggle comment" },
+	["g"] = {
+		name = "+Goto",
+		p = { vim.diagnostic.goto_prev, "Previous error" },
+		n = { vim.diagnostic.goto_next, "Next error" },
+	},
+	["s"] = {
+		name = "+Show",
+		e = { vim.diagnostic.open_float, "Error" },
+		l = { vim.diagnostic.setloclist, "show errors in Location list" },
+	},
 	["<leader>"] = {
 		name = "+interfaces",
 		t = { ":Neotree toggle<cr>", "fileTree" },
@@ -218,16 +233,21 @@ wk.register({ -- normal mode
 		},
 		l = { ":Mason<cr>", "lsp packages" },
 		p = { ":Lazy<cr>", "plugins" },
+		g = { ":Neogit<cr>", "git" },
 	},
 })
-wk.register({ -- visual mode
+wk.register({
+})
+-- visual mode
+wk.register({
 	["C"] = { '<plug>(comment_toggle_linewise_visual)', "toggle comment" },
 }, {
 	mode = { "v" },
 })
+-- normal AND visual mode
 local hop = require("hop")
 local tsHop = require("hop-treesitter")
-wk.register({  -- normal AND visual mode
+wk.register({
 	["m"] = {
 		name = "+move",
 		w = { hop.hint_words, "words" },
@@ -310,21 +330,6 @@ require("mason-lspconfig").setup_handlers {
 		}
 	end
 }
-
--- Global lsp mappings.
-wk.register({
-	["g"] = {
-		name = "+Goto",
-		p = { vim.diagnostic.goto_prev, "Previous error" },
-		n = { vim.diagnostic.goto_next, "Next error" },
-	},
-	["s"] = {
-		name = "+Show",
-		e = { vim.diagnostic.open_float, "Error" },
-		l = { vim.diagnostic.setloclist, "show errors in Location list" },
-	}
-})
-
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -332,8 +337,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(ev)
 		-- format on save with configured LSP's
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-
-		-- Buffer local mappings.
+		-- normal mode mappings
 		wk.register({
 			["g"] = {
 				name = "+goto",
@@ -353,6 +357,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				f = { vim.lsp.buf.format, "format" },
 			},
 		}, { buffer = ev.buf })
+		-- normal & visual mode mappings
 		wk.register({
 			["L"] = {
 				name = "+lsp",

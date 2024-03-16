@@ -25,95 +25,133 @@ require("lazy").setup(
 				vim.cmd([[colorscheme solarized-flat]])
 			end,
 		},
-		-- nice keymapping UI!
+
+		-- nice keymapping UI/system
 		"folke/which-key.nvim",
+
+		-- file state interactions
 		-- autosave when you change the file
 		{ "907th/vim-auto-save",               config = function() vim.g.auto_save = 1 end },
 		-- auotoload when the file changes you
 		"djoshea/vim-autoread",
-		-- lsp's & such
-		{ "williamboman/mason.nvim",           config = true }, -- manage the installed LSP's
-		{ "williamboman/mason-lspconfig.nvim", config = true }, -- bridge between mason & nvim-lspconfig
-		"neovim/nvim-lspconfig",                          -- neovim's lsp config management
-		{ "folke/neodev.nvim",               config = true }, -- custom bits for neovim's lua API that the lua LSP doesn't cover
-		"dag/vim-fish",                                   -- fish niceties, because there's no fish LSP in mason
-		-- completion
-		"hrsh7th/nvim-cmp",                               -- core completion plugin
-		"hrsh7th/cmp-nvim-lsp",                           -- complete from lsp
-		"hrsh7th/cmp-buffer",                             -- complete from buffer contents
-		"hrsh7th/cmp-path",                               -- complete from filestystem
-		"hrsh7th/cmp-cmdline",                            -- complete from vim's commands
-		"saadparwaiz1/cmp_luasnip",                       -- complete from snippets
-		-- snippets
+		-- open a file to the last position you were at
+		"farmergreg/vim-lastplace",
+		-- like git, but for undo!
 		{
-			"L3MON4D3/LuaSnip",
-			dependencies = { "rafamadriz/friendly-snippets" },
-			config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
-		},
-		-- movement
-		"yuttie/comfortable-motion.vim",                -- move the screen: smooth scrolling instead of just jumping the screen
-		{ "echasnovski/mini.move",           config = true }, -- move things on the screen: visually selected blocks & retain selection
-		{ "smoka7/hop.nvim",                 config = true }, -- move around the screen: hop around with just a few keys
-		-- treesitter for parsing/querying/highlighting/folding/indenting/selecting
-		{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-		-- UI
-		"stevearc/dressing.nvim", -- nicer UI for borders & stuff
-		{
-			"folke/noice.nvim", -- nicer UI for notifications, messages, and commandline
-			config = true,
-			dependencies = {
-				"MunifTanjim/nui.nvim",
-				"rcarriga/nvim-notify",
-			}
-		},
-		"nvim-treesitter/nvim-treesitter-context", -- keeps your function header from scrolling off-screen
-		{
-			'nvim-lualine/lualine.nvim',     -- nice statusline
-			config = true,
-			dependencies = { 'nvim-tree/nvim-web-devicons' },
-		},
-		"HiPhish/rainbow-delimiters.nvim", -- rainbow delimiters
-		{
-			"echasnovski/mini.indentscope", -- indent animation
-			opts = {
-				symbol = "│",
-				options = { try_as_border = true },
-			},
-		},
-		"myusuf3/numbers.vim", -- relative numbers in the sidebar while in normal mode
-		-- commenting
-		{ "numToStr/Comment.nvim",   opts = { mappings = false } },
-		-- file tree explorer
-		{
-			"nvim-neo-tree/neo-tree.nvim",
-			branch = "v3.x",
-			dependencies = {
-				"nvim-lua/plenary.nvim",
-				"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-				"MunifTanjim/nui.nvim",
-				"3rd/image.nvim",  -- Optional image support in preview window: See `# Preview Mode` for more information
-			}
-		},
-		-- git
-		"f-person/git-blame.nvim", -- git blame on each line
-		{
-			"mbbill/undotree", -- like git, but for undo!
+			"mbbill/undotree",
 			config = function()
 				-- set undofile & directory
 				vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 				vim.opt.undofile = true
 			end
 		},
-		{ "lewis6991/gitsigns.nvim", config = true }, -- git signs for code state along the left sidebar
+
+		-- lsp's & such
+		-- manage the installed LSP's
+		{ "williamboman/mason.nvim",           config = true },
+		-- bridge between mason & nvim-lspconfig
+		{ "williamboman/mason-lspconfig.nvim", config = true },
+		-- neovim's lsp config management
+		"neovim/nvim-lspconfig",
+		-- custom bits for neovim's lua API that the lua LSP doesn't cover
+		{ "folke/neodev.nvim",               config = true },
+		-- fish niceties, because there's no fish LSP in mason
+		"dag/vim-fish",
+
+		-- completion
+		"hrsh7th/nvim-cmp",   -- core completion plugin
+		"hrsh7th/cmp-nvim-lsp", -- complete from lsp
+		"hrsh7th/cmp-buffer", -- complete from buffer contents
+		"hrsh7th/cmp-path",   -- complete from filestystem
+		"hrsh7th/cmp-cmdline", -- complete from vim's commands
+		"saadparwaiz1/cmp_luasnip", -- complete from snippets
+
+		-- snippets
+		-- provides snippet framework
 		{
-			"NeogitOrg/neogit",                 -- git UI in vim
+			"L3MON4D3/LuaSnip",
+			-- provides a bunch of actual snippets
+			dependencies = { "rafamadriz/friendly-snippets" },
+			config = function()
+				require("luasnip.loaders.from_vscode").lazy_load()
+			end,
+		},
+
+		-- movement
+		-- move the screen: smooth scrolling instead of just jumping the screen
+		"yuttie/comfortable-motion.vim",
+		-- move things on the screen: visually selected blocks & retain selection
+		{ "echasnovski/mini.move",           config = true },
+		-- move around the screen: hop around with just a few keys
+		{ "smoka7/hop.nvim",                 config = true },
+
+		-- treesitter for parsing/querying/highlighting/folding/indenting/selecting
+		{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+		-- UI
+		-- nicer UI for borders & stuff
+		"stevearc/dressing.nvim",
+		-- nicer UI for notifications, messages, and commandline
+		{
+			"folke/noice.nvim",
+			config = true,
 			dependencies = {
-				"nvim-lua/plenary.nvim",        -- required
-				"sindrets/diffview.nvim",       -- optional - Diff integration
-				"nvim-telescope/telescope.nvim", -- optional
+				"MunifTanjim/nui.nvim",
+				"rcarriga/nvim-notify",
+			}
+		},
+		-- keeps your function header from scrolling off-screen
+		"nvim-treesitter/nvim-treesitter-context",
+		-- nice statusline
+		{
+			'nvim-lualine/lualine.nvim',
+			config = true,
+			dependencies = { 'nvim-tree/nvim-web-devicons' },
+		},
+		-- rainbow delimiters
+		"HiPhish/rainbow-delimiters.nvim",
+		-- indent animation
+		{
+			"echasnovski/mini.indentscope",
+			opts = {
+				symbol = "│",
+				options = { try_as_border = true },
+			},
+		},
+		-- relative numbers in the sidebar while in normal mode
+		"myusuf3/numbers.vim",
+
+		-- commenting
+		{ "numToStr/Comment.nvim",   opts = { mappings = false } },
+
+		-- file tree explorer
+		{
+			"nvim-neo-tree/neo-tree.nvim",
+			branch = "v3.x",
+			dependencies = {
+				"nvim-lua/plenary.nvim", -- plugin utils
+				"nvim-tree/nvim-web-devicons", -- cool icons
+				"MunifTanjim/nui.nvim", -- nice UI utils
+				"3rd/image.nvim",  -- image support in preview window
+			}
+		},
+
+		-- git
+		-- git blame on each line
+		"f-person/git-blame.nvim",
+		-- git signs for code state along the left sidebar
+		{ "lewis6991/gitsigns.nvim", config = true },
+		-- git UI in vim
+		{
+			"NeogitOrg/neogit",
+			dependencies = {
+				"nvim-lua/plenary.nvim", -- plugin utils
+				"sindrets/diffview.nvim", -- Diff integration
+				"nvim-telescope/telescope.nvim", -- telescope menus
 			},
 			config = true
 		},
+
 		-- fuzzy find
 		{
 			'nvim-telescope/telescope.nvim',
@@ -131,8 +169,6 @@ require("lazy").setup(
 				require('telescope').load_extension('luasnip') -- snippets
 			end,
 		},
-		-- open a file to the last position you were at
-		"farmergreg/vim-lastplace",
 	},
 	-- try to load one solarized when starting an installation during startup
 	{ install = { colorscheme = { "solarized" } } }

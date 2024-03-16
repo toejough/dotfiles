@@ -190,12 +190,15 @@ wk.register({ -- visual mode
 	mode = { "v" },
 })
 local hop = require("hop")
-wk.register({ -- normal AND visual mode
+local tsHop = require("hop-treesitter")
+wk.register({  -- normal AND visual mode
 	["m"] = {
 		name = "+move",
 		w = { hop.hint_words, "words" },
 		p = { hop.hint_patterns, "pattern" },
 		v = { hop.hint_vertical, "vertical" },
+		a = { hop.hint_anywhere, "anywhere" },
+		n = { tsHop.hint_nodes, "nodes" },
 		h = { function() hop.hint_words({ current_line_only = true }) end, "horizontal" }
 	},
 }, {

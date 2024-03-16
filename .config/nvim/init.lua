@@ -50,7 +50,6 @@ require("lazy").setup(
 			dependencies = { "rafamadriz/friendly-snippets" },
 			config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
 		},
-		"benfowler/telescope-luasnip.nvim",             -- telescope snippet picker
 		-- movement
 		"yuttie/comfortable-motion.vim",                -- move the screen: smooth scrolling instead of just jumping the screen
 		{ "echasnovski/mini.move",           config = true }, -- move things on the screen: visually selected blocks & retain selection
@@ -124,6 +123,7 @@ require("lazy").setup(
 				'sharkdp/fd',
 				{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 				{ "stevearc/aerial.nvim",                     config = true },
+				"benfowler/telescope-luasnip.nvim",
 			},
 			config = function()
 				require('telescope').load_extension('fzf') -- fzf fuzzy search
@@ -155,32 +155,50 @@ vim.opt.scrolloff = 13
 
 -- Set up some keymaps
 local wk = require("which-key")
-wk.register({
-	["m"] = {
-		name = "+move",
-		w = { ":HopWord<cr>", "words" },
-		p = { ":HopPattern<cr>", "pattern" },
-		v = { ":HopVertical<cr>", "vertical" },
-		h = { ":HopWordCurrentLine<cr>", "horizontal" }
-	},
-	["<leader>t"] = { ":Neotree toggle<cr>", "fileTree" },
-	["<leader>u"] = { vim.cmd.UndotreeToggle, "undotree" },
-	["<leader>s"] = { ":Telescope aerial<cr>", "symbols" },
-	["<leader>f"] = { ":Telescope<cr>", "find" },
-	["<leader>S"] = { ":Telescope luasnip<cr>", "snippets" },
+wk.register({ -- normal mode
 	["H"] = {
 		name = "+hunk",
 		s = { ":Gitsigns preview_hunk_inline<cr>", "show" },
 		r = { ":Gitsigns reset_hunk<cr>", "reset" },
 	},
+	["C"] = { '<plug>(comment_toggle_linewise_current)', "toggle comment" },
+	["<leader>"] = {
+		name = "+interfaces",
+		t = { ":Neotree toggle<cr>", "fileTree" },
+		u = { vim.cmd.UndotreeToggle, "undotree" },
+		f = {
+			name = "+find",
+			a = { ":Telescope builtin include_extensions=true<cr>", "all" },
+			b = { ":Telescope builtin include_extensions=true<cr>", "builtin" },
+			s = {
+				name = "+s[ymbols|nippets]",
+				y = { ":Telescope aerial<cr>", "symbols" },
+				n = { ":Telescope luasnip<cr>", "snippets" },
+			},
+			f = { ":Telescope current_buffer_fuzzy_find<cr>", "fuzzy find" },
+			g = { ":Telescope git_files<cr>", "git files" },
+			l = { ":Telescope live_grep<cr>", "live grep" },
+		},
+		m = { ":Mason<cr>", "mason" },
+	},
 })
-wk.register({
-	["<leader><space>"] = { '<plug>(comment_toggle_linewise_current)', "toggle comment" },
-})
-wk.register({
-	["<leader><space>"] = { '<plug>(comment_toggle_linewise_visual)', "toggle comment" },
+wk.register({ -- visual mode
+	["C"] = { '<plug>(comment_toggle_linewise_visual)', "toggle comment" },
 }, {
 	mode = { "v" },
+})
+local hop = require("hop")
+wk.register({ -- normal AND visual mode
+	["m"] = {
+		name = "+move",
+		w = { ":HopWord<cr>", "words" },
+		-- w = { hop.hint_words, "words" },
+		p = { hop.hint_patterns, "pattern" },
+		v = { hop.hint_vertical, "vertical" },
+		h = { function() hop.hint_words({ current_line_only = true }) end, "horizontal" }
+	},
+}, {
+	mode = { "n", "v" },
 })
 
 -- set up completion

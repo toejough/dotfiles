@@ -178,6 +178,7 @@ wk.register({ -- normal mode
 			f = { ":Telescope current_buffer_fuzzy_find<cr>", "fuzzy find" },
 			g = { ":Telescope git_files<cr>", "git files" },
 			l = { ":Telescope live_grep<cr>", "live grep" },
+			h = { ":Telescope help_tags<cr>", "help" },
 		},
 		l = { ":Mason<cr>", "lsp packages" },
 		p = { ":Lazy<cr>", "plugins" },

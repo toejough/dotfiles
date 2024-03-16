@@ -192,8 +192,7 @@ local hop = require("hop")
 wk.register({ -- normal AND visual mode
 	["m"] = {
 		name = "+move",
-		w = { ":HopWord<cr>", "words" },
-		-- w = { hop.hint_words, "words" },
+		w = { hop.hint_words, "words" },
 		p = { hop.hint_patterns, "pattern" },
 		v = { hop.hint_vertical, "vertical" },
 		h = { function() hop.hint_words({ current_line_only = true }) end, "horizontal" }

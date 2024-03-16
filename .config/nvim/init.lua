@@ -263,7 +263,7 @@ wk.register({
 
 -- set up completion
 local cmp = require('cmp')
-
+-- overall setup
 cmp.setup({
 	snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
 	-- TODO: use which_key?

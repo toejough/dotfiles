@@ -263,7 +263,7 @@ wk.register({
 
 -- set up completion
 local cmp = require('cmp')
-
+-- overall setup
 cmp.setup({
 	snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
 	-- TODO: use which_key?
@@ -281,23 +281,22 @@ cmp.setup({
 		{ name = 'buffer' },
 	})
 })
-
 -- Use buffer source for `/` and `?`
 cmp.setup.cmdline({ '/', '?' }, {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = { { name = 'buffer' } }
 })
-
 -- Use cmdline & path source for ':'
 cmp.setup.cmdline(':', {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
 })
 
--- set up each LSP with completion by cmp_nvim_lsp	
+-- LSP setup
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason-lspconfig").setup_handlers {
 	-- default lsp handler.
+	-- set up each LSP with completion by cmp_nvim_lsp	
 	function(server_name)
 		require("lspconfig")[server_name].setup {
 			capabilities = capabilities,
@@ -370,7 +369,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
--- treesitter config
+-- treesitter
+-- overall config
 require('nvim-treesitter.configs').setup({
 	ensure_installed = {
 		"bash",
@@ -409,7 +409,6 @@ require('nvim-treesitter.configs').setup({
 		},
 	},
 })
-
 -- use treesitter folding
 vim.cmd [[set foldmethod=expr]]
 vim.cmd [[set foldexpr=nvim_treesitter#foldexpr()]]

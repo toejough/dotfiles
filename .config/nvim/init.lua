@@ -294,7 +294,7 @@ cmp.setup.cmdline(':', {
 -- LSP setup
 require("mason-lspconfig").setup_handlers {
 	-- default lsp handler.
-	-- function(server_name) require("lspconfig")[server_name].setup({}) end,
+	function(server_name) require("lspconfig")[server_name].setup({}) end,
 	-- dedicated handlers for specific servers.
 	["gopls"] = function()
 		require('lspconfig').gopls.setup {
@@ -323,6 +323,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- set up inlay hints (https://neovim.io/doc/user/lsp.html#lsp-inlay_hint)
 		if vim.lsp.inlay_hint then
 			vim.lsp.inlay_hint.enable(ev.buf, true)
+			vim.api.nvim_set_hl(0, 'LspInlayHint', {
+				italic = true,
+				fg = vim.g.terminal_color_10,
+				underdotted = true,
+				sp = vim.g.terminal_color_4,
+			})
 		end
 		-- format on save with configured LSP's
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]

@@ -22,7 +22,7 @@ require("lazy").setup(
 			config = function()
 				-- load the colorscheme here
 				vim.opt.termguicolors = true
-				vim.cmd([[colorscheme solarized-flat]])
+				vim.cmd([[colorscheme solarized]])
 			end,
 		},
 

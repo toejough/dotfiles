@@ -323,11 +323,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- set up inlay hints (https://neovim.io/doc/user/lsp.html#lsp-inlay_hint)
 		if vim.lsp.inlay_hint then
 			vim.lsp.inlay_hint.enable(ev.buf, true)
+			-- set up colors I like better
 			vim.api.nvim_set_hl(0, 'LspInlayHint', {
 				italic = true,
-				fg = vim.g.terminal_color_10,
-				underdotted = true,
-				sp = vim.g.terminal_color_4,
+				fg = vim.g.terminal_color_10, -- comment grey
+				underdotted = true, -- indicate this thing is different
+				sp = vim.g.terminal_color_4, -- blue for some subtle standout
 			})
 		end
 		-- format on save with configured LSP's

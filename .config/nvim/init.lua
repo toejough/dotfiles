@@ -292,28 +292,15 @@ cmp.setup.cmdline(':', {
 })
 
 -- LSP setup
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason-lspconfig").setup_handlers {
 	-- default lsp handler.
-	-- set up each LSP with completion by cmp_nvim_lsp	
-	function(server_name)
-		require("lspconfig")[server_name].setup {
-			capabilities = capabilities,
-		}
-	end,
+	-- function(server_name) require("lspconfig")[server_name].setup({}) end,
 	-- dedicated handlers for specific servers.
 	["gopls"] = function()
 		require('lspconfig').gopls.setup {
-			on_attach = function(_, b)
-				if vim.lsp.inlay_hint then
-					vim.lsp.inlay_hint.enable(b, true)
-				end
-			end,
-			-- hint = { enabled = true },
-			capabilities = capabilities,
 			settings = {
 				gopls = {
-					allExperiments         = true,
+					allExperiments = true,
 					["ui.inlayhint.hints"] = {
 						assignVariableTypes = true,
 						compositeLiteralFields = true,
@@ -333,6 +320,10 @@ require("mason-lspconfig").setup_handlers {
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 	callback = function(ev)
+		-- set up inlay hints (https://neovim.io/doc/user/lsp.html#lsp-inlay_hint)
+		if vim.lsp.inlay_hint then
+			vim.lsp.inlay_hint.enable(ev.buf, true)
+		end
 		-- format on save with configured LSP's
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 		-- normal mode mappings
@@ -353,6 +344,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				name = "+lsp",
 				r = { vim.lsp.buf.rename, "rename" },
 				f = { vim.lsp.buf.format, "format" },
+				i = { function()
+					vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+				end, "toggle inlay hints" },
 			},
 		}, { buffer = ev.buf })
 		-- normal & visual mode mappings

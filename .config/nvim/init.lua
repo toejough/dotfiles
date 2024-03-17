@@ -263,22 +263,21 @@ wk.register({
 
 -- set up completion
 local cmp = require('cmp')
+local cmptypes = require('cmp.types')
 -- overall setup
 cmp.setup({
 	snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
-	-- TODO: use which_key?
 	mapping = cmp.mapping.preset.insert({
-		['<C-b>'] = cmp.mapping.scroll_docs(-4),
-		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		['<tab>'] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		['<s-tab>'] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item.
 		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
 	}, {
-		{ name = 'buffer' },
+		{ name = 'buffer' }, -- use if lsp/snip sources are empty
 	})
 })
 -- Use buffer source for `/` and `?`

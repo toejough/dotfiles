@@ -41,6 +41,7 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and npm install -g npm
 
     and echo (set_color cyan)"Updating gcloud..."(set_color normal)
+    and brew upgrade google-cloud-sdk
     and gcloud components update
 
     # final message

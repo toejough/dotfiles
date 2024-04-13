@@ -37,10 +37,6 @@ function post_exec --on-event fish_postexec
             lt
         end
 
-        # post the zdirs
-        echo (set_color cyan)"Z dirs: "(set_color yellow)(z -l | wc -l)(set_color normal)
-        echo -e (set_color yellow)"$(z -l)"(set_color normal)
-
         # separate from next command
         echo
     end

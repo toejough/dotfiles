@@ -56,3 +56,4 @@ ripgrep # used by treesitter in nvim
 fzy # used by vim telescope
 lazygit # used by vim git plugin
 pv
+zoxide

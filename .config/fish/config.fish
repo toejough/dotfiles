@@ -56,3 +56,6 @@ set -x BAT_THEME "Solarized (dark)"
 # Tell FZF to use fzf.vim's previewer for previews by default
 set -x FZF_DEFAULT_OPTS "--preview 'preview {}'"
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+
+# set up zoxide
+zoxide init fish | source

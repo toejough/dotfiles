@@ -314,7 +314,7 @@
     }; f"
     # delete local and remote 
     delete-branch = "!f() { \
-        local choice=$(git branches | fzf --print-query | tail -1); \
+        local choice=$(git branches | fzf --print-query | tail -1 | awk '{print substr($0,2)}'); \
         if test -z \"$choice\"; then \
             return; \
         fi; \

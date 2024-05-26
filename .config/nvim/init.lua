@@ -336,7 +336,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(ev)
 		-- set up inlay hints (https://neovim.io/doc/user/lsp.html#lsp-inlay_hint)
 		if vim.lsp.inlay_hint then
-			vim.lsp.inlay_hint.enable(ev.buf, true)
+			vim.lsp.inlay_hint.enable(true)
 			-- set up colors I like better
 			vim.api.nvim_set_hl(0, 'LspInlayHint', {
 				italic = true,
@@ -366,7 +366,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				r = { vim.lsp.buf.rename, "rename" },
 				f = { vim.lsp.buf.format, "format" },
 				i = { function()
-					vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+					vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 				end, "toggle inlay hints" },
 			},
 		}, { buffer = ev.buf })

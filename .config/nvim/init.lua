@@ -317,6 +317,16 @@ require("mason-lspconfig").setup_handlers {
 			}
 		}
 	end,
+	["golangci_lint_ls"] = function()
+		require('lspconfig').golangci_lint_ls.setup {
+			filetypes = { 'go', 'gomod' },
+			cmd = { 'golangci-lint-langserver' },
+			root_dir = require('lspconfig').util.root_pattern('.git', 'go.mod'),
+			init_options = {
+				command = { "golangci-lint", "run", "-c", "dev/golangci.toml", "--out-format", "json", "--issues-exit-code=1" },
+			}
+		}
+	end,
 }
 
 -- Use LspAttach autocommand to only map the following keys

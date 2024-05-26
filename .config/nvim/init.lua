@@ -85,6 +85,9 @@ require("lazy").setup(
 		-- move around the screen: hop around with just a few keys
 		{ "smoka7/hop.nvim",                 config = true },
 
+		-- surround
+		{ "tpope/vim-surround" },
+
 		-- treesitter for parsing/querying/highlighting/folding/indenting/selecting
 		{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 

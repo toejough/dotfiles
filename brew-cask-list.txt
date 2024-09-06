@@ -13,6 +13,5 @@ datagrip
 keycastr
 1password-cli
 # visual-studio-code
-ngrok
 # paw
 # keybase

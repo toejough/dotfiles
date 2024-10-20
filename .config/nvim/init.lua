@@ -411,7 +411,7 @@ require('nvim-treesitter.configs').setup({
 		"yaml",
 	},
 	highlight = { enable = true },
-	indent = { enable = true },
+	indent = { enable = false }, -- this was not working well for me with go.
 	incremental_selection = {
 		enable = true,
 		keymaps = {

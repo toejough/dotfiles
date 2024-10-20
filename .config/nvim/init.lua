@@ -194,74 +194,62 @@ vim.opt.scrolloff = 13
 
 -- Set up some keymaps
 local wk = require("which-key")
--- normal mode
-wk.register({
-	["H"] = {
-		name = "+hunk",
-		s = { ":Gitsigns preview_hunk_inline<cr>", "show" },
-		r = { ":Gitsigns reset_hunk<cr>", "reset" },
-		n = { ":Gitsigns next_hunk<cr>", "next" },
-		p = { ":Gitsigns prev_hunk<cr>", "previous" },
-		S = { ":Gitsigns stage_hunk<cr>", "stage" },
-		u = { ":Gitsigns undo_stage_hunk<cr>", "unstage last" },
-	},
-	["C"] = { '<plug>(comment_toggle_linewise_current)', "toggle comment" },
-	["g"] = {
-		name = "+Goto",
-		p = { vim.diagnostic.goto_prev, "Previous error" },
-		n = { vim.diagnostic.goto_next, "Next error" },
-	},
-	["s"] = {
-		name = "+Show",
-		e = { vim.diagnostic.open_float, "Error" },
-		l = { vim.diagnostic.setloclist, "show errors in Location list" },
-	},
-	["<leader>"] = {
-		name = "+interfaces",
-		t = { ":Neotree toggle<cr>", "fileTree" },
-		u = { vim.cmd.UndotreeToggle, "undotree" },
-		f = {
-			name = "+find",
-			a = { ":Telescope builtin include_extensions=true<cr>", "all" },
-			b = { ":Telescope builtin include_extensions=true<cr>", "builtin" },
-			s = {
-				name = "+s[ymbols|nippets]",
-				y = { ":Telescope aerial<cr>", "symbols" },
-				n = { ":Telescope luasnip<cr>", "snippets" },
-			},
-			f = { ":Telescope current_buffer_fuzzy_find<cr>", "fuzzy find" },
-			g = { ":Telescope git_files<cr>", "git files" },
-			l = { ":Telescope live_grep<cr>", "live grep" },
-			h = { ":Telescope help_tags<cr>", "help" },
-		},
-		l = { ":Mason<cr>", "lsp packages" },
-		p = { ":Lazy<cr>", "plugins" },
-		g = { ":Neogit<cr>", "git" },
-	},
-})
-wk.register({
-})
--- visual mode
-wk.register({
-	["C"] = { '<plug>(comment_toggle_linewise_visual)', "toggle comment" },
-}, {
-	mode = { "v" },
-})
--- normal AND visual mode
 local hop = require("hop")
 local tsHop = require("hop-treesitter")
-wk.register({
-	["m"] = {
-		name = "+move",
-		w = { hop.hint_words, "words" },
-		p = { hop.hint_patterns, "pattern" },
-		v = { hop.hint_vertical, "vertical" },
-		a = { hop.hint_anywhere, "anywhere" },
-		n = { tsHop.hint_nodes, "nodes" },
-		h = { function() hop.hint_words({ current_line_only = true }) end, "horizontal" }
+wk.add({
+	{ "<leader>", group = "Interfaces" },
+	{
+		{ "<leader>f", group = "Find" },
+		{
+			{ "<leader>fa", ":Telescope builtin include_extensions=true<cr>", desc = "all" },
+			{ "<leader>fb", ":Telescope builtin include_extensions=true<cr>", desc = "builtin" },
+			{ "<leader>ff", ":Telescope current_buffer_fuzzy_find<cr>",       desc = "fuzzy find" },
+			{ "<leader>fg", ":Telescope git_files<cr>",                       desc = "git files" },
+			{ "<leader>fh", ":Telescope help_tags<cr>",                       desc = "help" },
+			{ "<leader>fl", ":Telescope live_grep<cr>",                       desc = "live grep" },
+			{ "<leader>fs", group = "S[ymbols|nippets]" },
+			{
+				{ "<leader>fsn", ":Telescope luasnip<cr>", desc = "snippets" },
+				{ "<leader>fsy", ":Telescope aerial<cr>",  desc = "symbols" },
+			},
+		},
+		{ "<leader>g", ":Neogit<cr>",          desc = "git" },
+		{ "<leader>l", ":Mason<cr>",           desc = "lsp packages" },
+		{ "<leader>p", ":Lazy<cr>",            desc = "plugins" },
+		{ "<leader>t", ":Neotree toggle<cr>",  desc = "fileTree" },
+		{ "<leader>u", vim.cmd.UndotreeToggle, desc = "undotree" },
 	},
-}, {
-	mode = { "n", "v" },
+	{ "C",        "<plug>(comment_toggle_linewise_current)", desc = "toggle comment" },
+	{ "C",        "<plug>(comment_toggle_linewise_visual)",  desc = "toggle comment", mode = "v" },
+	{ "H",        group = "Hunk" },
+	{
+		{ "HS", ":Gitsigns stage_hunk<cr>",          desc = "stage" },
+		{ "Hn", ":Gitsigns next_hunk<cr>",           desc = "next" },
+		{ "Hp", ":Gitsigns prev_hunk<cr>",           desc = "previous" },
+		{ "Hr", ":Gitsigns reset_hunk<cr>",          desc = "reset" },
+		{ "Hs", ":Gitsigns preview_hunk_inline<cr>", desc = "show" },
+		{ "Hu", ":Gitsigns undo_stage_hunk<cr>",     desc = "unstage last" },
+	},
+	{ "g", group = "Goto" },
+	{
+		{ "gn", vim.diagnostic.goto_next, desc = "Next error" },
+		{ "gp", vim.diagnostic.goto_prev, desc = "Previous error" },
+	},
+	{ "s", group = "Show" },
+	{
+		{ "se", vim.diagnostic.open_float, desc = "Error" },
+		{ "sl", vim.diagnostic.setloclist, desc = "show errors in Location list" },
+	},
+	{
+		mode = { "n", "v" },
+		{ "m",  group = "move" },
+		{ "ma", hop.hint_anywhere,                                           desc = "anywhere" },
+		{ "mh", function() hop.hint_words({ current_line_only = true }) end, desc = "horizontal" },
+		{ "mn", tsHop.hint_nodes,                                            desc = "nodes" },
+		{ "mp", hop.hint_patterns,                                           desc = "pattern" },
+		{ "mv", hop.hint_vertical,                                           desc = "vertical" },
+		{ "mw", hop.hint_words,                                              desc = "words" },
+	},
 })
 
 -- set up completion
@@ -327,6 +315,21 @@ require("mason-lspconfig").setup_handlers {
 			}
 		}
 	end,
+	["lua_ls"] = function()
+		require('lspconfig').lua_ls.setup {
+			settings = {
+				Lua = {
+					diagnostics = {
+						-- Get the language server to recognize the `vim` global
+						-- This was bonkers hard to figure out. Found the right config snippet
+						-- here, for a different server that uses the same config structure
+						-- https://neovim.discourse.group/t/how-to-suppress-warning-undefined-global-vim/1882/3
+						globals = { 'vim' },
+					},
+				},
+			},
+		}
+	end,
 }
 
 -- Use LspAttach autocommand to only map the following keys
@@ -347,38 +350,34 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end
 		-- format on save with configured LSP's
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-		-- normal mode mappings
-		wk.register({
-			["g"] = {
-				name = "+goto",
-				d = { ":Telescope lsp_definitions<cr>", "definition" },
-				i = { ":Telescope lsp_implementations<cr>", "implementation" },
-				t = { ":Telescope lsp_type_definitions<cr>", "Type definition" },
-				r = { ":Telescope lsp_references<cr>", "references" },
+		-- key mappings
+		wk.add({
+			{ "L", group = "lsp", mode = { "n", "v" } },
+			{
+				{ "Lf", vim.lsp.buf.format,      buffer = ev.buf, desc = "format" },
+				{
+					"Li",
+					function()
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+					end,
+					buffer = ev.buf,
+					desc = "toggle inlay hints"
+				},
+				{ "Lr", vim.lsp.buf.rename,      buffer = ev.buf, desc = "rename" },
+				{ "La", vim.lsp.buf.code_action, buffer = 1,      desc = "code Action", mode = { "n", "v" } },
 			},
-			["s"] = {
-				name = "+Show",
-				d = { vim.lsp.buf.hover, "documentation" },
-				s = { vim.lsp.buf.signature_help, "Signature help" },
+			-- { "g", group = "goto" }, --this group should already exist
+			{
+				{ "gd", ":Telescope lsp_definitions<cr>",      buffer = ev.buf, desc = "definition" },
+				{ "gi", ":Telescope lsp_implementations<cr>",  buffer = ev.buf, desc = "implementation" },
+				{ "gr", ":Telescope lsp_references<cr>",       buffer = ev.buf, desc = "references" },
+				{ "gt", ":Telescope lsp_type_definitions<cr>", buffer = ev.buf, desc = "Type definition" },
 			},
-			["L"] = {
-				name = "+lsp",
-				r = { vim.lsp.buf.rename, "rename" },
-				f = { vim.lsp.buf.format, "format" },
-				i = { function()
-					vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-				end, "toggle inlay hints" },
+			-- { "s", group = "Show" }, -- this group should already exist
+			{
+				{ "sd", vim.lsp.buf.hover,          buffer = ev.buf, desc = "documentation" },
+				{ "ss", vim.lsp.buf.signature_help, buffer = ev.buf, desc = "Signature help" },
 			},
-		}, { buffer = ev.buf })
-		-- normal & visual mode mappings
-		wk.register({
-			["L"] = {
-				name = "+lsp",
-				a = { vim.lsp.buf.code_action, "code Action" },
-			},
-		}, {
-			mode = { "n", "v" },
-			buffer = ev.buf
 		})
 	end,
 })

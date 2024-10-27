@@ -3,7 +3,7 @@ animation = "EaseOutExpo"
 color = "0xffffff"
 duration = 0
 
-[shell]
+[terminal.shell]
 # because alacritty's core dev doesn't want to fix this
 # https://github.com/alacritty/alacritty/issues/7710
 #program = "/opt/homebrew/bin/fish"
@@ -641,3 +641,5 @@ lines = 0
 [window.padding]
 x = 0
 y = 0
+
+[terminal]

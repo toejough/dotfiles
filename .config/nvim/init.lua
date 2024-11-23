@@ -349,7 +349,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			})
 		end
 		-- format on save with configured LSP's
-		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+		local client = vim.lsp.get_active_clients()[1]
+
+		-- Client may be nil
+		if client then
+			-- Check if the server supports formatting
+			if client.supports_method("textDocument/formatting") then
+				vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+			end
+		end
 		-- key mappings
 		wk.add({
 			{ "L", group = "lsp", mode = { "n", "v" } },

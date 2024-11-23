@@ -38,6 +38,16 @@ set -x GO111MODULE on
 # Update path to include local binaries
 set -x PATH ~/.local/bin:$PATH
 
+# Update path to include local ruby
+set -x PATH /usr/local/opt/ruby/bin:$PATH
+set -x PATH /usr/local/lib/ruby/gems/3.3.0/bin:$PATH
+
+# add a java home for android dev
+set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+set -x ANDROID_HOME "~/Library/Android/sdk"
+set -x ANDROID_SDK_ROOT "~/Library/Android/sdk"
+set -x PATH $PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools
+
 # Update path to include brew binaries, first for Apple silicon, second backup for intel.
 if test -e /opt/homebrew/bin/brew
     eval (/opt/homebrew/bin/brew shellenv)

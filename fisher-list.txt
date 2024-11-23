@@ -1,4 +1,3 @@
-jorgebucaran/fish-nvm
 franciscolourenco/done
 jethrokuan/fzf
 jorgebucaran/autopair.fish

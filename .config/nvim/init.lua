@@ -87,6 +87,7 @@ require("lazy").setup(
 
 		-- surround
 		{ "tpope/vim-surround" },
+		{ "windwp/nvim-ts-autotag" },
 
 		-- treesitter for parsing/querying/highlighting/folding/indenting/selecting
 		{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
@@ -125,19 +126,11 @@ require("lazy").setup(
 		"myusuf3/numbers.vim",
 
 		-- commenting
-		{ "numToStr/Comment.nvim",   opts = { mappings = false } },
+		{ "numToStr/Comment.nvim",  opts = { mappings = false } },
 
 		-- file tree explorer
-		{
-			"nvim-neo-tree/neo-tree.nvim",
-			branch = "v3.x",
-			dependencies = {
-				"nvim-lua/plenary.nvim", -- plugin utils
-				"nvim-tree/nvim-web-devicons", -- cool icons
-				"MunifTanjim/nui.nvim", -- nice UI utils
-				"3rd/image.nvim",  -- image support in preview window
-			}
-		},
+		{ 'echasnovski/mini.files', version = '*',              config = true },
+		{ 'echasnovski/mini.icons', version = '*',              config = true },
 
 		-- git
 		-- git blame on each line
@@ -199,7 +192,7 @@ local tsHop = require("hop-treesitter")
 wk.add({
 	{ "<leader>", group = "Interfaces" },
 	{
-		{ "<leader>f", group = "Find" },
+		{ "<leader>f",  group = "Find" },
 		{
 			{ "<leader>fa", ":Telescope builtin include_extensions=true<cr>", desc = "all" },
 			{ "<leader>fb", ":Telescope builtin include_extensions=true<cr>", desc = "builtin" },
@@ -213,11 +206,11 @@ wk.add({
 				{ "<leader>fsy", ":Telescope aerial<cr>",  desc = "symbols" },
 			},
 		},
-		{ "<leader>g", ":Neogit<cr>",          desc = "git" },
-		{ "<leader>l", ":Mason<cr>",           desc = "lsp packages" },
-		{ "<leader>p", ":Lazy<cr>",            desc = "plugins" },
-		{ "<leader>t", ":Neotree toggle<cr>",  desc = "fileTree" },
-		{ "<leader>u", vim.cmd.UndotreeToggle, desc = "undotree" },
+		{ "<leader>g",  ":Neogit<cr>",               desc = "git" },
+		{ "<leader>l",  ":Mason<cr>",                desc = "lsp packages" },
+		{ "<leader>p",  ":Lazy<cr>",                 desc = "plugins" },
+		{ "<leader>t", ":lua MiniFiles.open()<cr>", desc = "fileMiniTree" },
+		{ "<leader>u",  vim.cmd.UndotreeToggle,      desc = "undotree" },
 	},
 	{ "C",        "<plug>(comment_toggle_linewise_current)", desc = "toggle comment" },
 	{ "C",        "<plug>(comment_toggle_linewise_visual)",  desc = "toggle comment", mode = "v" },
@@ -330,6 +323,91 @@ require("mason-lspconfig").setup_handlers {
 			},
 		}
 	end,
+	-- the volar & TS stuff came from https://github.com/williamboman/mason-lspconfig.nvim/issues/371#issuecomment-2249935162
+	["volar"] = function()
+		require("lspconfig").volar.setup({
+			-- NOTE: Uncomment to enable volar in file types other than vue.
+			-- (Similar to Takeover Mode)
+
+			-- filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
+
+			-- NOTE: Uncomment to restrict Volar to only Vue/Nuxt projects. This will enable Volar to work alongside other language servers (tsserver).
+
+			-- root_dir = require("lspconfig").util.root_pattern(
+			--   "vue.config.js",
+			--   "vue.config.ts",
+			--   "nuxt.config.js",
+			--   "nuxt.config.ts"
+			-- ),
+			init_options = {
+				vue = {
+					hybridMode = false,
+				},
+				-- NOTE: This might not be needed. Uncomment if you encounter issues.
+
+				-- typescript = {
+				--   tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+				-- },
+			},
+			settings = {
+				typescript = {
+					inlayHints = {
+						enumMemberValues = {
+							enabled = true,
+						},
+						functionLikeReturnTypes = {
+							enabled = true,
+						},
+						propertyDeclarationTypes = {
+							enabled = true,
+						},
+						parameterTypes = {
+							enabled = true,
+							suppressWhenArgumentMatchesName = true,
+						},
+						variableTypes = {
+							enabled = true,
+						},
+					},
+				},
+			},
+		})
+	end,
+
+	["ts_ls"] = function()
+		local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+		local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+
+		require("lspconfig").ts_ls.setup({
+			-- NOTE: To enable hybridMode, change HybrideMode to true above and uncomment the following filetypes block.
+			-- WARN: THIS MAY CAUSE HIGHLIGHTING ISSUES WITHIN THE TEMPLATE SCOPE WHEN TSSERVER ATTACHES TO VUE FILES
+
+			-- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+			init_options = {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = volar_path,
+						languages = { "vue" },
+					},
+				},
+			},
+			settings = {
+				typescript = {
+					inlayHints = {
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+					},
+				},
+			},
+		})
+	end,
 }
 
 -- Use LspAttach autocommand to only map the following keys
@@ -434,3 +512,6 @@ require('nvim-treesitter.configs').setup({
 vim.cmd [[set foldmethod=expr]]
 vim.cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
 vim.cmd [[set nofoldenable]]
+
+-- set textwidth
+vim.cmd [[set textwidth=120]]

@@ -58,3 +58,5 @@ lazygit # used by vim git plugin
 pv
 zoxide
 jj
+pnpm
+firebase-cli

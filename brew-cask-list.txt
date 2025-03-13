@@ -4,13 +4,8 @@ alfred
 signal
 amethyst
 docker
-slack
-istat-menus
-google-cloud-sdk
 alacritty
 arduino
-datagrip
-keycastr
 1password-cli
 # visual-studio-code
 # paw

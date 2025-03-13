@@ -86,9 +86,9 @@
 
     # [ file state actions ]
     # unstage a staged file
-    unstage = reset HEAD --
+    unstage-files = reset HEAD --
     # discard a file's changes
-    discard = checkout --
+    discard-files = checkout --
     # undo last commit
     uncommit = reset --soft HEAD~
     # remove all local state
@@ -277,27 +277,27 @@
     # [ TDD-ish ]
     # commit a proof-of-concept
     poc = "!f() { \
-        git commit -m \"[POC] $1\"; \
+        git commit -am \"poc: $1\"; \
     }; f"
     # commit failing test code
     red = "!f() { \
-        git commit -m \"[RED] $1\"; \
+        git commit -am \"red: $1\"; \
     }; f"
     # commit WIP towards green tests
     wip = "!f() { \
-        git commit -m \"[WIP] $1\"; \
+        git commit -am \"wip: $1\"; \
     }; f"
     # commit feature implementation code resulting in a passing test
     green = "!f() { \
-        git commit -m \"[GREEN] $1\"; \
+        git commit -am \"green: $1\"; \
     }; f"
     # commit code reorganization updates
     refactor = "!f() { \
-        git commit -m \"[REFACTOR] $1\"; \
+        git commit -am \"refactor: $1\"; \
     }; f"
-    # commit non-tdd things
-    other = "!f() { \
-        git commit -m \"[OTHER] $1\"; \
+    # commit code reorganization updates
+    formatting = "!f() { \
+        git commit -am \"formatting: $1\"; \
     }; f"
     # commit a fixup
     fixup = "!f() { \
@@ -308,7 +308,7 @@
         git commit -m \"$1\" --squash $(git log --oneline branch-base.$(git name)..HEAD | fzf | cut -d' ' -f 1); \
     }; f"
     # delete local and remote from inside branch
-    nevermind = "!f() { \
+    delete-me = "!f() { \
         git push -d origin $(git name); \
         git branch -d $(git name); \
     }; f"

@@ -450,7 +450,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 					desc = "toggle inlay hints"
 				},
 				{ "Lr", vim.lsp.buf.rename,      buffer = ev.buf, desc = "rename" },
-				{ "La", vim.lsp.buf.code_action, buffer = 1,      desc = "code Action", mode = { "n", "v" } },
+				{ "La", vim.lsp.buf.code_action, buffer = ev.buf,      desc = "code Action", mode = { "n", "v" } },
 			},
 			-- { "g", group = "goto" }, --this group should already exist
 			{

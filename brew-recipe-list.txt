@@ -60,3 +60,4 @@ zoxide
 jj
 pnpm
 firebase-cli
+gofumpt

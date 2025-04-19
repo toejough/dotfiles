@@ -10,3 +10,4 @@ arduino
 # visual-studio-code
 # paw
 # keybase
+calibre

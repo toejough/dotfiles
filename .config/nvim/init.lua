@@ -192,7 +192,7 @@ local tsHop = require("hop-treesitter")
 wk.add({
 	{ "<leader>", group = "Interfaces" },
 	{
-		{ "<leader>f",  group = "Find" },
+		{ "<leader>f", group = "Find" },
 		{
 			{ "<leader>fa", ":Telescope builtin include_extensions=true<cr>", desc = "all" },
 			{ "<leader>fb", ":Telescope builtin include_extensions=true<cr>", desc = "builtin" },
@@ -206,11 +206,11 @@ wk.add({
 				{ "<leader>fsy", ":Telescope aerial<cr>",  desc = "symbols" },
 			},
 		},
-		{ "<leader>g",  ":Neogit<cr>",               desc = "git" },
-		{ "<leader>l",  ":Mason<cr>",                desc = "lsp packages" },
-		{ "<leader>p",  ":Lazy<cr>",                 desc = "plugins" },
+		{ "<leader>g", ":Neogit<cr>",               desc = "git" },
+		{ "<leader>l", ":Mason<cr>",                desc = "lsp packages" },
+		{ "<leader>p", ":Lazy<cr>",                 desc = "plugins" },
 		{ "<leader>t", ":lua MiniFiles.open()<cr>", desc = "fileMiniTree" },
-		{ "<leader>u",  vim.cmd.UndotreeToggle,      desc = "undotree" },
+		{ "<leader>u", vim.cmd.UndotreeToggle,      desc = "undotree" },
 	},
 	{ "C",        "<plug>(comment_toggle_linewise_current)", desc = "toggle comment" },
 	{ "C",        "<plug>(comment_toggle_linewise_visual)",  desc = "toggle comment", mode = "v" },
@@ -427,7 +427,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			})
 		end
 		-- format on save with configured LSP's
-		local client = vim.lsp.get_active_clients()[1]
+		local client = vim.lsp.get_clients()[1]
 
 		-- Client may be nil
 		if client then
@@ -450,7 +450,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 					desc = "toggle inlay hints"
 				},
 				{ "Lr", vim.lsp.buf.rename,      buffer = ev.buf, desc = "rename" },
-				{ "La", vim.lsp.buf.code_action, buffer = ev.buf,      desc = "code Action", mode = { "n", "v" } },
+				{ "La", vim.lsp.buf.code_action, buffer = ev.buf, desc = "code Action", mode = { "n", "v" } },
 			},
 			-- { "g", group = "goto" }, --this group should already exist
 			{

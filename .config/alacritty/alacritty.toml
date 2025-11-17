@@ -6,8 +6,8 @@ duration = 0
 [terminal.shell]
 # because alacritty's core dev doesn't want to fix this
 # https://github.com/alacritty/alacritty/issues/7710
-#program = "/opt/homebrew/bin/fish"
-program = "/usr/local/bin/fish"
+program = "/opt/homebrew/bin/fish"
+#program = "/usr/local/bin/fish"
 
 [colors]
 draw_bold_text_with_bright_colors = true

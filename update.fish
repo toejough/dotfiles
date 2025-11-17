@@ -3,22 +3,22 @@
 # get the latest
 if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branch is up to date' >/dev/null
     echo (set_color cyan)"Copying homedir configs..."(set_color normal)
-    and ln -vFfs ~/dotfiles/.vimrc ~
-    and ln -vFfs ~/dotfiles/.gitconfig ~
-    and ln -vFfs ~/dotfiles/.tmux.conf ~
+    and ln -vfs ~/dotfiles/.vimrc ~
+    and ln -vfs ~/dotfiles/.gitconfig ~
+    and ln -vfs ~/dotfiles/.tmux.conf ~
 
     and echo (set_color cyan)"Copying fish configs..."(set_color normal)
     and mkdir -p ~/.config/fish/functions
-    and ln -vFfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
-    and ln -vFfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
+    and ln -vfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
+    and ln -vfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
 
     and echo (set_color cyan)"Copying nvim configs..."(set_color normal)
     and mkdir -p ~/.config/nvim
-    and ln -vFfs ~/dotfiles/.config/nvim/* ~/.config/nvim
+    and ln -vfs ~/dotfiles/.config/nvim/* ~/.config/nvim
 
     and echo (set_color cyan)"Copying alacritty configs..."(set_color normal)
     and mkdir -p ~/.config/alacritty
-    and ln -vFfs ~/dotfiles/.config/alacritty/* ~/.config/alacritty
+    and ln -vfs ~/dotfiles/.config/alacritty/* ~/.config/alacritty
 
     and echo (set_color cyan)"Updating brew packages..."(set_color normal)
     and brewm update

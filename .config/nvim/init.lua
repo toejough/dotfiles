@@ -276,139 +276,133 @@ cmp.setup.cmdline(':', {
 })
 
 -- LSP setup
-require("mason-lspconfig").setup_handlers {
-	-- default lsp handler.
-	function(server_name) require("lspconfig")[server_name].setup({}) end,
-	-- dedicated handlers for specific servers.
-	["gopls"] = function()
-		require('lspconfig').gopls.setup {
-			settings = {
-				gopls = {
-					allExperiments = true,
-					["ui.inlayhint.hints"] = {
-						assignVariableTypes = true,
-						compositeLiteralFields = true,
-						compositeLiteralTypes = true,
-						constantValues = true,
-						functionTypeParameters = true,
-						parameterNames = true,
-						rangeVariableTypes = true,
-					},
-				}
-			}
-		}
-	end,
-	["golangci_lint_ls"] = function()
-		require('lspconfig').golangci_lint_ls.setup {
-			filetypes = { 'go', 'gomod' },
-			cmd = { 'golangci-lint-langserver' },
-			root_dir = require('lspconfig').util.root_pattern('.git', 'go.mod'),
-			init_options = {
-				command = { "golangci-lint", "run", "-c", "dev/golangci.toml", "--out-format", "json", "--issues-exit-code=1" },
-			}
-		}
-	end,
-	["lua_ls"] = function()
-		require('lspconfig').lua_ls.setup {
-			settings = {
-				Lua = {
-					diagnostics = {
-						-- Get the language server to recognize the `vim` global
-						-- This was bonkers hard to figure out. Found the right config snippet
-						-- here, for a different server that uses the same config structure
-						-- https://neovim.discourse.group/t/how-to-suppress-warning-undefined-global-vim/1882/3
-						globals = { 'vim' },
-					},
-				},
+-- dedicated handlers for specific servers.
+vim.lsp.config('gopls', {
+	settings = {
+		gopls = {
+			allExperiments = true,
+			["ui.inlayhint.hints"] = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
 			},
 		}
-	end,
-	-- the volar & TS stuff came from https://github.com/williamboman/mason-lspconfig.nvim/issues/371#issuecomment-2249935162
-	["volar"] = function()
-		require("lspconfig").volar.setup({
-			-- NOTE: Uncomment to enable volar in file types other than vue.
-			-- (Similar to Takeover Mode)
-
-			-- filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
-
-			-- NOTE: Uncomment to restrict Volar to only Vue/Nuxt projects. This will enable Volar to work alongside other language servers (tsserver).
-
-			-- root_dir = require("lspconfig").util.root_pattern(
-			--   "vue.config.js",
-			--   "vue.config.ts",
-			--   "nuxt.config.js",
-			--   "nuxt.config.ts"
-			-- ),
-			init_options = {
-				vue = {
-					hybridMode = false,
-				},
-				-- NOTE: This might not be needed. Uncomment if you encounter issues.
-
-				-- typescript = {
-				--   tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-				-- },
-			},
-			settings = {
-				typescript = {
-					inlayHints = {
-						enumMemberValues = {
-							enabled = true,
-						},
-						functionLikeReturnTypes = {
-							enabled = true,
-						},
-						propertyDeclarationTypes = {
-							enabled = true,
-						},
-						parameterTypes = {
-							enabled = true,
-							suppressWhenArgumentMatchesName = true,
-						},
-						variableTypes = {
-							enabled = true,
-						},
-					},
-				},
-			},
-		})
-	end,
-
-	["ts_ls"] = function()
-		local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
-		local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
-
-		require("lspconfig").ts_ls.setup({
-			-- NOTE: To enable hybridMode, change HybrideMode to true above and uncomment the following filetypes block.
-			-- WARN: THIS MAY CAUSE HIGHLIGHTING ISSUES WITHIN THE TEMPLATE SCOPE WHEN TSSERVER ATTACHES TO VUE FILES
-
-			-- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-			init_options = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = volar_path,
-						languages = { "vue" },
-					},
-				},
-			},
-			settings = {
-				typescript = {
-					inlayHints = {
-						includeInlayParameterNameHints = "all",
-						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-						includeInlayFunctionParameterTypeHints = true,
-						includeInlayVariableTypeHints = true,
-						includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-						includeInlayPropertyDeclarationTypeHints = true,
-						includeInlayFunctionLikeReturnTypeHints = true,
-						includeInlayEnumMemberValueHints = true,
-					},
-				},
-			},
-		})
-	end,
-}
+	}
+})
+	-- ["golangci_lint_ls"] = function()
+	-- 	require('lspconfig').golangci_lint_ls.setup {
+	-- 		filetypes = { 'go', 'gomod' },
+	-- 		cmd = { 'golangci-lint-langserver' },
+	-- 		root_dir = require('lspconfig').util.root_pattern('.git', 'go.mod'),
+	-- 		init_options = {
+	-- 			command = { "golangci-lint", "run", "-c", "dev/golangci.toml", "--out-format", "json", "--issues-exit-code=1" },
+	-- 		}
+	-- 	}
+	-- end,
+	-- ["lua_ls"] = function()
+	-- 	require('lspconfig').lua_ls.setup {
+	-- 		settings = {
+	-- 			Lua = {
+	-- 				diagnostics = {
+	-- 					-- Get the language server to recognize the `vim` global
+	-- 					-- This was bonkers hard to figure out. Found the right config snippet
+	-- 					-- here, for a different server that uses the same config structure
+	-- 					-- https://neovim.discourse.group/t/how-to-suppress-warning-undefined-global-vim/1882/3
+	-- 					globals = { 'vim' },
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	}
+	-- end,
+	-- -- the volar & TS stuff came from https://github.com/williamboman/mason-lspconfig.nvim/issues/371#issuecomment-2249935162
+	-- ["volar"] = function()
+	-- 	require("lspconfig").volar.setup({
+	-- 		-- NOTE: Uncomment to enable volar in file types other than vue.
+	-- 		-- (Similar to Takeover Mode)
+	--
+	-- 		-- filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
+	--
+	-- 		-- NOTE: Uncomment to restrict Volar to only Vue/Nuxt projects. This will enable Volar to work alongside other language servers (tsserver).
+	--
+	-- 		-- root_dir = require("lspconfig").util.root_pattern(
+	-- 		--   "vue.config.js",
+	-- 		--   "vue.config.ts",
+	-- 		--   "nuxt.config.js",
+	-- 		--   "nuxt.config.ts"
+	-- 		-- ),
+	-- 		init_options = {
+	-- 			vue = {
+	-- 				hybridMode = false,
+	-- 			},
+	-- 			-- NOTE: This might not be needed. Uncomment if you encounter issues.
+	--
+	-- 			-- typescript = {
+	-- 			--   tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+	-- 			-- },
+	-- 		},
+	-- 		settings = {
+	-- 			typescript = {
+	-- 				inlayHints = {
+	-- 					enumMemberValues = {
+	-- 						enabled = true,
+	-- 					},
+	-- 					functionLikeReturnTypes = {
+	-- 						enabled = true,
+	-- 					},
+	-- 					propertyDeclarationTypes = {
+	-- 						enabled = true,
+	-- 					},
+	-- 					parameterTypes = {
+	-- 						enabled = true,
+	-- 						suppressWhenArgumentMatchesName = true,
+	-- 					},
+	-- 					variableTypes = {
+	-- 						enabled = true,
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	})
+	-- end,
+	--
+	-- ["ts_ls"] = function()
+	-- 	local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+	-- 	local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+	--
+	-- 	require("lspconfig").ts_ls.setup({
+	-- 		-- NOTE: To enable hybridMode, change HybrideMode to true above and uncomment the following filetypes block.
+	-- 		-- WARN: THIS MAY CAUSE HIGHLIGHTING ISSUES WITHIN THE TEMPLATE SCOPE WHEN TSSERVER ATTACHES TO VUE FILES
+	--
+	-- 		-- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+	-- 		init_options = {
+	-- 			plugins = {
+	-- 				{
+	-- 					name = "@vue/typescript-plugin",
+	-- 					location = volar_path,
+	-- 					languages = { "vue" },
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		settings = {
+	-- 			typescript = {
+	-- 				inlayHints = {
+	-- 					includeInlayParameterNameHints = "all",
+	-- 					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+	-- 					includeInlayFunctionParameterTypeHints = true,
+	-- 					includeInlayVariableTypeHints = true,
+	-- 					includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+	-- 					includeInlayPropertyDeclarationTypeHints = true,
+	-- 					includeInlayFunctionLikeReturnTypeHints = true,
+	-- 					includeInlayEnumMemberValueHints = true,
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	})
+	-- end
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

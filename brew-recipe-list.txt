@@ -61,3 +61,6 @@ jj
 pnpm
 firebase-cli
 gofumpt
+perl
+uv
+volta

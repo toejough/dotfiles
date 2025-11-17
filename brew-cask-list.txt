@@ -1,13 +1,15 @@
-1password
+# 1password
 font-sauce-code-pro-nerd-font
 alfred
 signal
 amethyst
 docker
 alacritty
-arduino
+# arduino
 1password-cli
 # visual-studio-code
 # paw
 # keybase
 calibre
+docker-desktop
+gcloud-cli

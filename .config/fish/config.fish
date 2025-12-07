@@ -69,3 +69,6 @@ set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 
 # set up zoxide
 zoxide init fish | source
+
+# Added by Antigravity
+fish_add_path /Users/joe/.antigravity/antigravity/bin

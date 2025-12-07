@@ -28,6 +28,19 @@ function post_exec --on-event fish_postexec
                 git status -sb
             end
         end
+        # jujitsu info
+        if jj status >/dev/null 2>&1
+			echo -n (set_color cyan)"JJ STATUS: "(set_color normal)
+			jj status
+		end
+        #     if git config --get remote.(git remote 2> /dev/null).url >/dev/null 2>&1
+        #         echo (set_color cyan)"GIT REMOTE: "(set_color normal)(git config --get remote.(git remote).url)
+        #     end
+        #     if test -n "(git status --porcelain)"
+        #         echo -n (set_color cyan)"GIT STATUS: "(set_color normal)
+        #         git status -sb
+        #     end
+        # end
 
         # PWD on change
         set -l current_dir (pwd)

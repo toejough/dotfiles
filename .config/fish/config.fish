@@ -63,3 +63,9 @@ zoxide init fish | source
 
 # Added by Antigravity
 fish_add_path /Users/joe/.antigravity/antigravity/bin
+
+# Added by Windsurf
+fish_add_path /Users/joe/.codeium/windsurf/bin
+
+# Add completion for targ
+targ --completion | source

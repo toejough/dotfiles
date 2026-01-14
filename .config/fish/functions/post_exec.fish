@@ -47,7 +47,6 @@ function post_exec --on-event fish_postexec
         if test $last_dir != $current_dir
             set -U last_dir $current_dir
             echo (set_color cyan)"PWD: "(set_color blue)"$current_dir"(set_color normal)
-            lt
         end
 
         # separate from next command

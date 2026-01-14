@@ -38,27 +38,18 @@ set -x GO111MODULE on
 # Update path to include local binaries
 set -x PATH ~/.local/bin:$PATH
 
-# Update path to include local ruby
-set -x PATH /usr/local/opt/ruby/bin:$PATH
-set -x PATH /usr/local/lib/ruby/gems/3.3.0/bin:$PATH
-
 # add a java home for android dev
 set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 set -x ANDROID_HOME "~/Library/Android/sdk"
 set -x ANDROID_SDK_ROOT "~/Library/Android/sdk"
 set -x PATH $PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools
 
-# Update path to include brew binaries, first for Apple silicon, second backup for intel.
+# Update path to include brew binaries, if they exist
 if test -e /opt/homebrew/bin/brew
     eval (/opt/homebrew/bin/brew shellenv)
-else
-    eval (/usr/local/bin/brew shellenv)
 end
 
 dedup PATH
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc' ]; . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc'; end
 
 # Set bat/delta theme to solarized dark by default
 set -x BAT_THEME "Solarized (dark)"

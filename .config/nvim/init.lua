@@ -246,6 +246,15 @@ vim.opt.clipboard = "unnamed"
 vim.opt.scrolloff = 13
 
 -- Set up some keymaps
+-- temporary copilot cmp setup
+-- use alt-tab to accept copilot suggestions
+vim.keymap.set("i", "<M-TAB>", 'copilot#Accept("\\<CR>")', {
+	expr = true,
+	replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true
+-- end temporary copilot cmp setup
+-- preferred which-key mappings setup
 local wk = require("which-key")
 local hop = require("hop")
 local tsHop = require("hop-treesitter")

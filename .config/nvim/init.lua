@@ -148,14 +148,31 @@ require("lazy").setup(
 		-- git signs for code state along the left sidebar
 		{ "lewis6991/gitsigns.nvim", config = true },
 		-- git UI in vim
+		-- {
+		-- 	"NeogitOrg/neogit",
+		-- 	dependencies = {
+		-- 		"nvim-lua/plenary.nvim", -- plugin utils
+		-- 		"sindrets/diffview.nvim", -- Diff integration
+		-- 		"nvim-telescope/telescope.nvim", -- telescope menus
+		-- 	},
+		-- 	config = true,
+		-- },
+		-- lazygit
+		-- nvim v0.8.0
 		{
-			"NeogitOrg/neogit",
-			dependencies = {
-				"nvim-lua/plenary.nvim", -- plugin utils
-				"sindrets/diffview.nvim", -- Diff integration
-				"nvim-telescope/telescope.nvim", -- telescope menus
+			"kdheepak/lazygit.nvim",
+			lazy = true,
+			cmd = {
+				"LazyGit",
+				"LazyGitConfig",
+				"LazyGitCurrentFile",
+				"LazyGitFilter",
+				"LazyGitFilterCurrentFile",
 			},
-			config = true,
+			-- optional for floating window border decoration
+			dependencies = {
+				"nvim-lua/plenary.nvim",
+			},
 		},
 
 		-- fuzzy find
@@ -183,10 +200,35 @@ require("lazy").setup(
 			dependencies = "nvim-lua/plenary.nvim",
 			opts = {},
 		},
+		-- claude
+		{
+			"coder/claudecode.nvim",
+			dependencies = { "folke/snacks.nvim" },
+			config = true,
+			opts = {
+				focus_after_send = true,
+				diff_opts = {
+					keep_terminal_focus = true,
+				},
+			},
+		},
+		-- augment code (auggie)
+		-- { "augmentcode/augment.vim" },
+		-- markdown formatting
+		{
+			"stevearc/conform.nvim",
+			config = {
+				format_on_save = { timeout_ms = 500, lsp_fallback = true, async = false },
+				formatters_by_ft = { markdown = { "prettier" } },
+			},
+		},
 	},
 	-- try to load one solarized when starting an installation during startup
 	{ install = { colorscheme = { "solarized" } } }
 )
+
+-- set up autoformat on save for markdown
+-- vim.cmd([[autocmd BufWritePre *.md lua ]])
 
 -- Set up leader key
 vim.g.mapleader = " "

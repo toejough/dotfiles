@@ -64,3 +64,5 @@ gofumpt
 perl
 uv
 volta
+schpet/tap/linear
+glow

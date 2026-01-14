@@ -345,7 +345,8 @@ cmp.setup({
 	mapping = cmp.mapping.preset.insert({
 		["<tab>"] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
 		["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
-		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item.
+		["<Right>"] = cmp.mapping.confirm({ select = false }), -- Use right arrow to confirm completion and stay in dialog
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<C-Space>"] = cmp.mapping.complete(),
 	}),
 	sources = cmp.config.sources({
@@ -357,18 +358,28 @@ cmp.setup({
 })
 -- Use buffer source for `/` and `?`
 cmp.setup.cmdline({ "/", "?" }, {
-	mapping = cmp.mapping.preset.cmdline(),
+	mapping = cmp.mapping.preset.cmdline({
+		["<tab>"] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		["<Right>"] = cmp.mapping.confirm({ select = false }),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+	}),
 	sources = { { name = "buffer" } },
 })
 -- Use cmdline & path source for ':'
 cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
+	mapping = cmp.mapping.preset.cmdline({
+		["<tab>"] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		["<Right>"] = cmp.mapping.confirm({ select = false }),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+	}),
 	sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 
 -- LSP setup
 -- dedicated handlers for specific servers.
-vim.lsp.config('gopls', {
+vim.lsp.config("gopls", {
 	settings = {
 		gopls = {
 			allExperiments = true,
@@ -383,7 +394,7 @@ vim.lsp.config('gopls', {
 			},
 		},
 	},
-}
+})
 vim.lsp.config["golangci_lint_ls"] = {
 	filetypes = { "go", "gomod" },
 	cmd = { "golangci-lint-langserver" },

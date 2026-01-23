@@ -22,9 +22,6 @@ if status --is-interactive
     # Enable post-exec
     source ~/dotfiles/.config/fish/functions/post_exec.fish
 
-    # CD to last dir
-    cd $last_dir
-
     # Prevent the press-and-hold key behavior
     defaults write -g ApplePressAndHoldEnabled -bool false
 
@@ -69,3 +66,25 @@ fish_add_path /Users/joe/.codeium/windsurf/bin
 
 # Add completion for targ
 targ --completion | source
+
+# Mark fish as initialized (enables PWD change hook)
+set -g __fish_initialized 1
+
+# Source the PWD hook and restore last directory (after PATH is set up)
+if status --is-interactive
+    source ~/dotfiles/.config/fish/functions/__pws_on_pwd_change.fish
+
+    # Restore last directory (suppress hook during initial cd)
+    set -g __fish_startup 1
+    if test -d "$last_dir"
+        cd $last_dir
+    else
+        set -U last_dir $HOME
+        cd $HOME
+    end
+    set -e __fish_startup
+
+    # Show initial status
+    clear
+    pws
+end

@@ -65,3 +65,4 @@ perl
 uv
 volta
 glow
+tailscale

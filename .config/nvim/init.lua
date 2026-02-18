@@ -343,8 +343,8 @@ cmp.setup({
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<tab>"] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
-		["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
+		["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
 		["<Right>"] = cmp.mapping.confirm({ select = false }), -- Use right arrow to confirm completion and stay in dialog
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<C-Space>"] = cmp.mapping.complete(),
@@ -358,22 +358,26 @@ cmp.setup({
 })
 -- Use buffer source for `/` and `?`
 cmp.setup.cmdline({ "/", "?" }, {
-	mapping = cmp.mapping.preset.cmdline({
-		["<tab>"] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
-		["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
-		["<Right>"] = cmp.mapping.confirm({ select = false }),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-	}),
+	mapping = {
+		["<Tab>"] = { c = function() if cmp.visible() then cmp.select_next_item() else cmp.complete() end end },
+		["<S-Tab>"] = { c = function() if cmp.visible() then cmp.select_prev_item() else cmp.complete() end end },
+		["<Down>"] = { c = function() if cmp.visible() then cmp.select_next_item() end end },
+		["<Up>"] = { c = function() if cmp.visible() then cmp.select_prev_item() end end },
+		["<Right>"] = { c = function() cmp.confirm({ select = false }) end },
+		["<CR>"] = { c = function() if cmp.visible() then cmp.confirm({ select = true }) else vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true) end end },
+	},
 	sources = { { name = "buffer" } },
 })
 -- Use cmdline & path source for ':'
 cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline({
-		["<tab>"] = cmp.mapping.select_next_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
-		["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmptypes.cmp.SelectBehavior.Insert }),
-		["<Right>"] = cmp.mapping.confirm({ select = false }),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-	}),
+	mapping = {
+		["<Tab>"] = { c = function() if cmp.visible() then cmp.select_next_item() else cmp.complete() end end },
+		["<S-Tab>"] = { c = function() if cmp.visible() then cmp.select_prev_item() else cmp.complete() end end },
+		["<Down>"] = { c = function() if cmp.visible() then cmp.select_next_item() end end },
+		["<Up>"] = { c = function() if cmp.visible() then cmp.select_prev_item() end end },
+		["<Right>"] = { c = function() cmp.confirm({ select = false }) end },
+		["<CR>"] = { c = function() if cmp.visible() then cmp.confirm({ select = true }) else vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true) end end },
+	},
 	sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 

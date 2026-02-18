@@ -2,7 +2,7 @@
 
 # fish plugins
 echo "Installing fisher..."
-curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher && fisher install (cat ~/dotfiles/fisher-list.txt)
 
 # expected prereqs to the update script
 echo "Installing update prereqs..."

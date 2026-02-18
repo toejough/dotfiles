@@ -24,7 +24,7 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and brewm update
 
     and echo (set_color cyan)"Updating fisher plugins..."(set_color normal)
-    and fisher update (fisher list)
+    and fisher update (cat ~/dotfiles/fisher-list.txt)
 
     and echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
     # and pip3 install --upgrade pip

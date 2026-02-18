@@ -64,8 +64,11 @@ fish_add_path /Users/joe/.antigravity/antigravity/bin
 # Added by Windsurf
 fish_add_path /Users/joe/.codeium/windsurf/bin
 
-# Add completion for targ
-targ --completion | source
+# Add completion for targ (disabled due to slow startup)
+# TODO: Re-enable when targ is fixed
+# if command -q targ
+#     targ --completion 2>/dev/null | source
+# end
 
 # Mark fish as initialized (enables PWD change hook)
 set -g __fish_initialized 1

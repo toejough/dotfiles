@@ -370,3 +370,5 @@
 ; make go use ssh so I can use private repos in github for personal projects
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+[url "https://github.com/"]
+	insteadOf = git@github.com:

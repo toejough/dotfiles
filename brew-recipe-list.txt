@@ -66,3 +66,4 @@ uv
 volta
 glow
 tailscale
+mosh

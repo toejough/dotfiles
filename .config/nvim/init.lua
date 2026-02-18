@@ -123,7 +123,7 @@ require("lazy").setup(
 			dependencies = { "nvim-tree/nvim-web-devicons" },
 		},
 		-- rainbow delimiters
-		"HiPhish/rainbow-delimiters.nvim",
+		{ "HiPhish/rainbow-delimiters.nvim", submodules = false },
 		-- indent animation
 		{
 			"echasnovski/mini.indentscope",

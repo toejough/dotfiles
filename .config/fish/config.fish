@@ -9,11 +9,6 @@ if status --is-interactive
     # keybindings
     fish_vi_key_bindings
 
-    # Set dirnext and dirprev and direction to universals
-    set -U dirprev $dirprev
-    set -U dirnext $dirnext
-    set -U __fish_cd_direction $__fish_cd_direction
-
     # set initial directories
     if not set -q last_dir
         set -U last_dir (pwd)
@@ -24,16 +19,9 @@ end
 # Update path to include go binaries
 set -x GOPATH ~/go
 fish_add_path $GOPATH/bin
-set -x GO111MODULE on
 
 # Update path to include local binaries
 fish_add_path ~/.local/bin
-
-# add a java home for android dev
-set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-set -x ANDROID_HOME "~/Library/Android/sdk"
-set -x ANDROID_SDK_ROOT "~/Library/Android/sdk"
-fish_add_path $ANDROID_SDK_ROOT/tools $ANDROID_SDK_ROOT/platform-tools
 
 # Update path to include brew binaries, if they exist
 if test -e /opt/homebrew/bin/brew
@@ -49,12 +37,6 @@ fish_add_path /usr/local/sbin
 
 # set up zoxide
 zoxide init fish | source
-
-# Added by Antigravity
-fish_add_path /Users/joe/.antigravity/antigravity/bin
-
-# Added by Windsurf
-fish_add_path /Users/joe/.codeium/windsurf/bin
 
 # Add completion for targ (disabled due to slow startup)
 # TODO: Re-enable when targ is fixed

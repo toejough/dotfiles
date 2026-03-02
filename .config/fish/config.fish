@@ -19,9 +19,6 @@ if status --is-interactive
         set -U last_dir (pwd)
     end
 
-    # Prevent the press-and-hold key behavior
-    defaults write -g ApplePressAndHoldEnabled -bool false
-
 end
 
 # Update path to include go binaries
@@ -83,6 +80,5 @@ if status --is-interactive
     set -e __fish_startup
 
     # Show initial status
-    clear
     pws
 end

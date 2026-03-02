@@ -1,3 +1,5 @@
 franciscolourenco/done
-jethrokuan/fzf
+PatrickF1/fzf.fish
 jorgebucaran/autopair.fish
+IlanCosman/tide
+meaningful-ooo/sponge

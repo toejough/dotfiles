@@ -1,10 +1,11 @@
 # 1password
+font-meslo-lg-nerd-font
 font-sauce-code-pro-nerd-font
 alfred
 signal
 amethyst
 docker
-alacritty
+ghostty
 # arduino
 1password-cli
 # visual-studio-code

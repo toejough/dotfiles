@@ -16,9 +16,9 @@ function brewm-remove
             set the_file ~/dotfiles/brew-"$the_type"-list.txt
             set brew_list (cat $the_file | gsed -E 's/\s*#.*//')
             for item in $items
-                if echo $brew_list | ack $item > /dev/null
+                if echo $brew_list | rg -F $item > /dev/null
                     echo -n "  $item found.  Removing..."
-                    cat $the_file | ack -v $item > tmp.txt; and mv tmp.txt $the_file
+                    cat $the_file | rg -Fv $item > tmp.txt; and mv tmp.txt $the_file
                     echo "done!"
                 else
                     echo "  $item already not present.  Great!"

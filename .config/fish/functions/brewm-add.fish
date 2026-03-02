@@ -15,7 +15,7 @@ function brewm-add
             set the_file ~/dotfiles/brew-"$the_type"-list.txt
             set brew_list (cat $the_file | awk '{print $1}')
             for item in $items
-                if not echo $brew_list | ack $item > /dev/null
+                if not echo $brew_list | rg -F $item > /dev/null
                     echo -n "  $item not found.  Adding..."
                     echo $item >> $the_file
                     echo "done!"

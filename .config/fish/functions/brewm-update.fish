@@ -16,7 +16,7 @@ function brewm-update
             set desired_brew_tap_list (cat ~/dotfiles/brew-tap-list.txt | awk '{print $1}' | sed -e '/^#/d')
             for tap in $brew_tap_list
                 echo -n "  found $tap..."
-                if not echo $desired_brew_tap_list | ack $tap >/dev/null
+                if not echo $desired_brew_tap_list | rg -F $tap >/dev/null
                     echo -n "not desired.  Untapping..."
                     brew untap $tap; or return 1
                     echo "done!"
@@ -25,7 +25,7 @@ function brewm-update
                 end
             end
             for tap in $desired_brew_tap_list
-                if not echo $brew_tap_list | ack $tap >/dev/null
+                if not echo $brew_tap_list | rg -F $tap >/dev/null
                     echo -n "  $tap not found.  Tapping..."
                     brew tap $tap; or return 1
                     echo "done!"
@@ -34,13 +34,13 @@ function brewm-update
             echo "Checking taps... done!"
         case recipes
             echo "Checking recipes..."
-            # use brew leaves for checking the top-level installations - these are the packages which nothing
+            # use brew leaves for checking the top-level installations - these are the prg -Fages which nothing
             # else depends on.  If they're not explicitly desired, they can be removed.
             set brew_list (brew leaves)
             set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | sed -e '/^#/d' | awk '{print $1}')
             for recipe in $brew_list
                 echo -n "  found $recipe..."
-                if not echo $desired_brew_list | ack $recipe >/dev/null
+                if not echo $desired_brew_list | rg -F $recipe >/dev/null
                     echo -n "not desired.  Uninstalling..."
                     brew rm $recipe; or return 1
                     echo "done!"
@@ -49,12 +49,12 @@ function brewm-update
                 end
             end
             # different list now - we want to see what's already installed, which should be the full
-            # list of installed packages, not just the ones with no dependencies
+            # list of installed prg -Fages, not just the ones with no dependencies
             set -a brew_list (brew list --formula)
             set desired_brew_list (cat ~/dotfiles/brew-recipe-list.txt | sed -e '/^#/d' | gsed -E 's/\s*#.*//')
             for recipe in $desired_brew_list
                 set recipe_name (echo $recipe | awk '{print $1}')
-                if not echo $brew_list | ack $recipe_name >/dev/null
+                if not echo $brew_list | rg -F $recipe_name >/dev/null
                     echo -n "  $recipe not found.  Installing..."
                     eval brew install $recipe; or return 1
                     echo "done!"
@@ -70,7 +70,7 @@ function brewm-update
             set desired_brew_cask_list (cat ~/dotfiles/brew-cask-list.txt | awk '{print $1}' | sed -e '/^#/d')
             for cask in $brew_cask_list
                 echo -n "  found $cask..."
-                if not echo $desired_brew_cask_list | ack $cask >/dev/null
+                if not echo $desired_brew_cask_list | rg -F $cask >/dev/null
                     echo -n "not desired.  Uninstalling..."
                     brew uninstall --cask $cask; or return 1
                     echo "done!"
@@ -79,7 +79,7 @@ function brewm-update
                 end
             end
             for cask in $desired_brew_cask_list
-                if not echo $brew_cask_list | ack $cask >/dev/null
+                if not echo $brew_cask_list | rg -F $cask >/dev/null
                     echo -n "  $cask not found.  Installing..."
                     brew install --cask $cask; or return 1
                     echo "done!"

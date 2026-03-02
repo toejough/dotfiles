@@ -1,0 +1,62 @@
+# Ghostty config — migrated from Alacritty
+# Reload: Cmd+Shift+, | Docs: https://ghostty.org/docs/config
+
+# Shell (login shell is zsh; override to fish)
+command = /opt/homebrew/bin/fish
+
+# Theme
+theme = Builtin Solarized Dark
+
+# Font
+font-family = MesloLGM Nerd Font
+font-size = 12
+
+# macOS: Option keys act as Alt/Meta (for fish & neovim)
+macos-option-as-alt = true
+
+# Restore windows/tabs/splits across restarts
+window-save-state = always
+
+# Keybinds — Ctrl+B prefix (tmux muscle memory)
+# Splits
+keybind = ctrl+b>backslash=new_split:right
+keybind = ctrl+b>minus=new_split:down
+
+# Navigate splits
+keybind = ctrl+b>arrow_left=goto_split:left
+keybind = ctrl+b>arrow_right=goto_split:right
+keybind = ctrl+b>arrow_up=goto_split:up
+keybind = ctrl+b>arrow_down=goto_split:down
+
+# Zoom split (prefix+z)
+keybind = ctrl+b>z=toggle_split_zoom
+
+# Equalize splits
+keybind = ctrl+b>e=equalize_splits
+
+# Close split (prefix+x)
+keybind = ctrl+b>x=close_surface
+
+# Kill window (prefix+X — your tmux custom)
+keybind = ctrl+b>shift+x=close_window
+
+# New tab (= tmux window: prefix+c)
+keybind = ctrl+b>c=new_tab
+
+# Next/prev tab (prefix+n / prefix+p)
+keybind = ctrl+b>n=next_tab
+keybind = ctrl+b>p=previous_tab
+
+# Tab overview (prefix+t — your tmux choose-tree)
+keybind = ctrl+b>t=toggle_tab_overview
+
+# Switch tab by number (prefix+0-9)
+keybind = ctrl+b>one=goto_tab:1
+keybind = ctrl+b>two=goto_tab:2
+keybind = ctrl+b>three=goto_tab:3
+keybind = ctrl+b>four=goto_tab:4
+keybind = ctrl+b>five=goto_tab:5
+keybind = ctrl+b>six=goto_tab:6
+keybind = ctrl+b>seven=goto_tab:7
+keybind = ctrl+b>eight=goto_tab:8
+keybind = ctrl+b>nine=goto_tab:9

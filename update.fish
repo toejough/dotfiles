@@ -11,6 +11,10 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and ln -vfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
     and ln -vfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
 
+    and echo (set_color cyan)"Copying ghostty configs..."(set_color normal)
+    and mkdir -p ~/Library/"Application Support"/com.mitchellh.ghostty
+    and ln -vfs ~/dotfiles/.config/ghostty/config ~/Library/"Application Support"/com.mitchellh.ghostty/config
+
     and echo (set_color cyan)"Copying nvim configs..."(set_color normal)
     and mkdir -p ~/.config/nvim
     and ln -vfs ~/dotfiles/.config/nvim/* ~/.config/nvim

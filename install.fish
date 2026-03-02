@@ -6,7 +6,7 @@ curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fi
 
 # expected prereqs to the update script
 echo "Installing update prereqs..."
-brew install ack gsed
+brew install ripgrep gsed
 
 # update dirs/configs/packages
 echo "Running update.fish..."

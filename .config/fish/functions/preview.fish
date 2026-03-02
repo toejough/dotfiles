@@ -2,10 +2,10 @@
 function preview
     set thing (string trim $argv[1])
     # files
-    if test -f thing
+    if test -f $thing
         bat --color always $thing
     # dirs
-    else if test -d thing
+    else if test -d $thing
         lt $thing
     # commits/branches
     else if git rev-parse --verify --quiet $thing &> /dev/null

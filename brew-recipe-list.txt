@@ -61,3 +61,4 @@ volta
 glow
 tailscale
 mosh
+claude-code

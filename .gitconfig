@@ -6,7 +6,6 @@
     defaultBranch = main
 
 [core]
-    ignoresFile = /Users/joe/.gitignore
     excludesFile = /Users/joe/.gitignore
     ignorecase = false
     autocrlf = input

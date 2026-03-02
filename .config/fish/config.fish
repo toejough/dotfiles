@@ -29,31 +29,29 @@ end
 
 # Update path to include go binaries
 set -x GOPATH ~/go
-set -x PATH $GOPATH/bin:$PATH
+fish_add_path $GOPATH/bin
 set -x GO111MODULE on
 
 # Update path to include local binaries
-set -x PATH ~/.local/bin:$PATH
+fish_add_path ~/.local/bin
 
 # add a java home for android dev
 set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 set -x ANDROID_HOME "~/Library/Android/sdk"
 set -x ANDROID_SDK_ROOT "~/Library/Android/sdk"
-set -x PATH $PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools
+fish_add_path $ANDROID_SDK_ROOT/tools $ANDROID_SDK_ROOT/platform-tools
 
 # Update path to include brew binaries, if they exist
 if test -e /opt/homebrew/bin/brew
     eval (/opt/homebrew/bin/brew shellenv)
 end
 
-dedup PATH
-
 # Set bat/delta theme to solarized dark by default
 set -x BAT_THEME "Solarized (dark)"
 
 # Tell FZF to use fzf.vim's previewer for previews by default
 set -x FZF_DEFAULT_OPTS "--preview 'preview {}'"
-set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+fish_add_path /usr/local/sbin
 
 # set up zoxide
 zoxide init fish | source

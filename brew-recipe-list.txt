@@ -1,4 +1,3 @@
-ack # better grep
 bash # default shell for a lot of scripts
 fish # my preferred shell
 git # vcs
@@ -9,14 +8,10 @@ tree # ls++
 # wget
 # mosh
 openssh # SSH
-the_silver_searcher # used by vim
 node # used by vim
 go # go language
 httpie # nicer curl
-reattach-to-user-namespace # used by tmux
-gotags # used by vim
 jq # json query
-terminal-notifier # get notified when long running tasks end
 # rlwrap
 # rsync
 # fswatch
@@ -32,7 +27,7 @@ arduino-cli # arduino!
 nmap # network mapping
 # datamash
 # task
-# ripgrep
+# ripgrep (active — listed below)
 # daemontools
 bat # better cat
 lolcat # hilarious cat
@@ -52,8 +47,7 @@ diffutils # better diff, used by git-delta
 gum # some nice cli scripting utils
 # coreutils
 luarocks # used for nvim lua packages
-ripgrep # used by treesitter in nvim
-fzy # used by vim telescope
+ripgrep # search tool, also used by nvim treesitter
 lazygit # used by vim git plugin
 pv
 zoxide

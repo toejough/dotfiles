@@ -19,9 +19,6 @@ if status --is-interactive
         set -U last_dir (pwd)
     end
 
-    # Enable post-exec
-    source ~/dotfiles/.config/fish/functions/post_exec.fish
-
     # Prevent the press-and-hold key behavior
     defaults write -g ApplePressAndHoldEnabled -bool false
 

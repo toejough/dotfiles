@@ -1,31 +1,33 @@
 function brewm-add
-    set num_args (count $argv)
-    if test $num_args -lt 2
-        echo "Both brew type and at least one item are required!"
-        echo
+    set -l cask_flag ''
+    set -l items
+
+    for arg in $argv
+        switch $arg
+            case --cask
+                set cask_flag ' --cask'
+            case '*'
+                set -a items $arg
+        end
+    end
+
+    if test (count $items) -eq 0
+        echo "At least one package name is required!"
         return 1
     end
 
-    set the_type $argv[1]
-    set items $argv[2..(count $argv)]
+    set -l package_file ~/dotfiles/brew-package-list.txt
+    set -l existing (cat $package_file | awk '{print $1}')
 
-    switch $the_type
-        case tap recipe cask
-            echo "Checking "$the_type"s..."
-            set the_file ~/dotfiles/brew-"$the_type"-list.txt
-            set brew_list (cat $the_file | awk '{print $1}')
-            for item in $items
-                if not echo $brew_list | rg -F $item > /dev/null
-                    echo -n "  $item not found.  Adding..."
-                    echo $item >> $the_file
-                    echo "done!"
-                else
-                    echo "  $item already present.  Great!"
-                end
-            end
-        case '*'
-            echo "Unknown brew type '$argv[1]' - cannot add."
-            return 1
+    for item in $items
+        if not contains -- $item $existing
+            echo -n "  $item not found. Adding..."
+            echo "$item$cask_flag" >>$package_file
+            echo "done!"
+        else
+            echo "  $item already present. Great!"
+        end
     end
-    brewm update $the_type"s"; or return 1
+
+    brewm update; or return 1
 end

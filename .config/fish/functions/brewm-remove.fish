@@ -1,32 +1,21 @@
-# Defined in /var/folders/94/q46vzxqd5855jk2zbwqj5mbm0000gn/T//fish.eWzWUa/brewm-remove.fish @ line 2
 function brewm-remove
-    set num_args (count $argv)
-    if test $num_args -lt 2
-        echo "Both brew type and at least one item are required!"
-        echo
+    if test (count $argv) -eq 0
+        echo "At least one package name is required!"
         return 1
     end
 
-    set the_type $argv[1]
-    set items $argv[2..(count $argv)]
+    set -l package_file ~/dotfiles/brew-package-list.txt
+    set -l existing (cat $package_file | awk '{print $1}')
 
-    switch $the_type
-        case tap recipe cask
-            echo "Checking "$the_type"s..."
-            set the_file ~/dotfiles/brew-"$the_type"-list.txt
-            set brew_list (cat $the_file | gsed -E 's/\s*#.*//')
-            for item in $items
-                if echo $brew_list | rg -F $item > /dev/null
-                    echo -n "  $item found.  Removing..."
-                    cat $the_file | rg -Fv $item > tmp.txt; and mv tmp.txt $the_file
-                    echo "done!"
-                else
-                    echo "  $item already not present.  Great!"
-                end
-            end
-        case '*'
-            echo "Unknown brew type '$argv[1]' - cannot remove"
-            return 1
+    for item in $argv
+        if contains -- $item $existing
+            echo -n "  $item found. Removing..."
+            rg -Fv $item $package_file >$package_file.tmp; and mv $package_file.tmp $package_file
+            echo "done!"
+        else
+            echo "  $item already not present. Great!"
+        end
     end
-    brewm update $the_type"s"; or return 1
+
+    brewm update; or return 1
 end

@@ -108,7 +108,11 @@ require("lazy").setup(
 		-- nicer UI for notifications, messages, and commandline
 		{
 			"folke/noice.nvim",
-			config = true,
+			opts = {
+				popupmenu = {
+					backend = "cmp",
+				},
+			},
 			dependencies = {
 				"MunifTanjim/nui.nvim",
 				"rcarriga/nvim-notify",
@@ -374,7 +378,14 @@ cmp.setup.cmdline({ "/", "?" }, {
 		["<Down>"] = { c = function() if cmp.visible() then cmp.select_next_item() end end },
 		["<Up>"] = { c = function() if cmp.visible() then cmp.select_prev_item() end end },
 		["<Right>"] = { c = function() cmp.confirm({ select = false }) end },
-		["<CR>"] = { c = function() if cmp.visible() then cmp.confirm({ select = true }) else vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true) end end },
+		["<CR>"] = { c = function()
+			if cmp.visible() and cmp.get_selected_entry() then
+				cmp.confirm({ select = false })
+			else
+				cmp.abort()
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true)
+			end
+		end },
 	},
 	sources = { { name = "buffer" } },
 })
@@ -386,7 +397,14 @@ cmp.setup.cmdline(":", {
 		["<Down>"] = { c = function() if cmp.visible() then cmp.select_next_item() end end },
 		["<Up>"] = { c = function() if cmp.visible() then cmp.select_prev_item() end end },
 		["<Right>"] = { c = function() cmp.confirm({ select = false }) end },
-		["<CR>"] = { c = function() if cmp.visible() then cmp.confirm({ select = true }) else vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true) end end },
+		["<CR>"] = { c = function()
+			if cmp.visible() and cmp.get_selected_entry() then
+				cmp.confirm({ select = false })
+			else
+				cmp.abort()
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true)
+			end
+		end },
 	},
 	sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })

@@ -1,5 +1,5 @@
 #! /usr/bin/env fish
-# Replay tide configuration — Solarized Dark, Rainbow style, two-line prompt
+# Replay tide configuration — Solarized Dark, Rainbow style, two-line prompt (no frame)
 # Run this after `fisher install IlanCosman/tide` on a fresh machine.
 
 tide configure \
@@ -10,9 +10,9 @@ tide configure \
     --rainbow_prompt_separators=Round \
     --powerline_prompt_heads=Round \
     --powerline_prompt_tails=Round \
-    --powerline_prompt_style='Two lines, character and frame' \
+    --powerline_prompt_style='Two lines, character' \
     --prompt_connection=Dotted \
-    --powerline_right_prompt_frame=Yes \
+    --powerline_right_prompt_frame=No \
     --prompt_connection_andor_frame_color=Darkest \
     --prompt_spacing=Sparse \
     --icons='Many icons' \

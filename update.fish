@@ -22,8 +22,29 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and echo (set_color cyan)"Updating brew packages..."(set_color normal)
     and brewm update
 
-    and echo (set_color cyan)"Updating fisher plugins..."(set_color normal)
-    and fisher update (cat ~/dotfiles/fisher-list.txt)
+    and echo (set_color cyan)"Syncing fisher plugins..."(set_color normal)
+    and begin
+        set -l desired (cat ~/dotfiles/fisher-list.txt)
+        set -l installed (fisher list)
+
+        # Remove plugins not in desired list (skip fisher itself)
+        for plugin in $installed
+            if not contains -- $plugin $desired; and test "$plugin" != jorgebucaran/fisher
+                echo "  Removing $plugin..."
+                fisher remove $plugin
+            end
+        end
+
+        # Install new plugins, update existing ones
+        for plugin in $desired
+            if contains -- $plugin $installed
+                fisher update $plugin
+            else
+                echo "  Installing $plugin..."
+                fisher install $plugin
+            end
+        end
+    end
 
     and echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
     # and pip3 install --upgrade pip

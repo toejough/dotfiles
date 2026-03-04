@@ -20,13 +20,21 @@ function brewm-update
     echo "Checking installed packages..."
     set -l removable (brew leaves; brew list --cask)
     for pkg in $removable
-        echo -n "  found $pkg..."
         if not contains -- $pkg $desired
-            echo -n "not desired. Uninstalling..."
-            brew uninstall $pkg; or return 1
-            echo "done!"
-        else
-            echo "great!"
+            read -P "  $pkg is installed but not in the list. (k)eep / (u)ninstall / (a)dd to list? " action
+            switch $action
+                case k K
+                    echo "  Skipping $pkg."
+                case u U
+                    echo -n "  Uninstalling $pkg..."
+                    brew uninstall $pkg; or return 1
+                    echo "done!"
+                case a A
+                    echo "$pkg" >>$package_file
+                    echo "  Added $pkg to package list."
+                case '*'
+                    echo "  Unrecognized choice, skipping $pkg."
+            end
         end
     end
     echo "Running autoremove..."

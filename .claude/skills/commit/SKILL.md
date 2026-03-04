@@ -17,7 +17,7 @@ allowed-tools:
 
 Create focused, independent VCS commits that follow
 [Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/).
-Every commit body serves as a durable decision record explaining *why* changes
+Every commit body serves as a durable decision record explaining _why_ changes
 were made, so humans and LLMs reviewing history can understand rationale.
 
 ## Workflow
@@ -52,12 +52,12 @@ were made, so humans and LLMs reviewing history can understand rationale.
 
 ### Subject Line
 
-| Field | Rules |
-|-------|-------|
-| `<type>` | One of: `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `style`, `build`, `ci`, `chore`, `revert` |
-| `<scope>` | **Always required.** Use the narrowest accurate scope. Known scopes: `fish`, `nvim`, `tmux`, `git`, `brew`, `ghostty`, `starship`. Freeform scopes allowed for new tools. Use `repo` for cross-cutting changes. |
-| `<subject>` | Imperative mood, lowercase, no period, 50 chars max. Describe **what** changed. |
-| Breaking | Append `!` after scope: `feat(fish)!: remove legacy prompt` and add a `BREAKING CHANGE:` footer. |
+| Field       | Rules                                                                                                                                                                                                           |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<type>`    | One of: `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `style`, `build`, `ci`, `chore`, `revert`                                                                                                            |
+| `<scope>`   | **Always required.** Use the narrowest accurate scope. Known scopes: `fish`, `nvim`, `tmux`, `git`, `brew`, `ghostty`, `starship`. Freeform scopes allowed for new tools. Use `repo` for cross-cutting changes. |
+| `<subject>` | Imperative mood, lowercase, no period, 50 chars max. Describe **what** changed.                                                                                                                                 |
+| Breaking    | Append `!` after scope: `feat(fish)!: remove legacy prompt` and add a `BREAKING CHANGE:` footer.                                                                                                                |
 
 ### Body
 
@@ -87,10 +87,10 @@ When in doubt, include a body.
 Use [git-trailer](https://git-scm.com/docs/git-interpret-trailers) format.
 Only include footers when applicable — no AI attribution trailers.
 
-| Trailer | When |
-|---------|------|
+| Trailer                          | When                              |
+| -------------------------------- | --------------------------------- |
 | `BREAKING CHANGE: <description>` | Required for any breaking change. |
-| `Refs: <issue or URL>` | When related to a tracked issue. |
+| `Refs: <issue or URL>`           | When related to a tracked issue.  |
 
 ### Example
 
@@ -111,7 +111,7 @@ into separate atomic commits automatically without asking for confirmation.
 Apply these heuristics:
 
 - Changes to different subsystems (different scopes) are independent
-- A refactoring prerequisite goes in its own commit *before* the feature commit
+- A refactoring prerequisite goes in its own commit _before_ the feature commit
 - Formatting/style changes are separate from behavioral changes
 - Each commit must leave the repo in a valid state
 

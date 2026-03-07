@@ -79,3 +79,5 @@ ghostty
 calibre
 docker-desktop
 gcloud-cli
+cmux
+freecad

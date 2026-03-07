@@ -5,11 +5,11 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     echo (set_color cyan)"Copying homedir configs..."(set_color normal)
     and ln -vfs ~/dotfiles/.gitconfig ~
     and ln -vfs ~/dotfiles/.tmux.conf ~
-
     and echo (set_color cyan)"Copying fish configs..."(set_color normal)
-    and mkdir -p ~/.config/fish/functions
+    and mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d
     and ln -vfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
     and ln -vfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
+    and test -d ~/dotfiles/.config/fish/conf.d; and ln -vfs ~/dotfiles/.config/fish/conf.d/* ~/.config/fish/conf.d
 
     and echo (set_color cyan)"Copying ghostty configs..."(set_color normal)
     and mkdir -p ~/Library/"Application Support"/com.mitchellh.ghostty

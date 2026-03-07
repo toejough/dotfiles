@@ -9,7 +9,7 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d
     and ln -vfs ~/dotfiles/.config/fish/config.fish ~/.config/fish
     and ln -vfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
-    and test -d ~/dotfiles/.config/fish/conf.d; and ln -vfs ~/dotfiles/.config/fish/conf.d/* ~/.config/fish/conf.d
+    and for f in (find ~/dotfiles/.config/fish/conf.d -maxdepth 1 -type f 2>/dev/null); ln -vfs $f ~/.config/fish/conf.d/; end
 
     and echo (set_color cyan)"Copying ghostty configs..."(set_color normal)
     and mkdir -p ~/Library/"Application Support"/com.mitchellh.ghostty

@@ -28,9 +28,6 @@ if test -e /opt/homebrew/bin/brew
     eval (/opt/homebrew/bin/brew shellenv)
 end
 
-# Set bat/delta theme to solarized dark by default
-set -x BAT_THEME "Solarized (dark)"
-
 # Tell FZF to use fzf.vim's previewer for previews by default
 set -x FZF_DEFAULT_OPTS "--preview 'preview {}'"
 fish_add_path /usr/local/sbin
@@ -51,17 +48,19 @@ set -g __fish_initialized 1
 if status --is-interactive
     source ~/dotfiles/.config/fish/functions/__pws_on_pwd_change.fish
 
-    # Restore last directory (suppress hook during initial cd)
-    set -g __fish_startup 1
-    if test -d "$last_dir"
-        cd $last_dir
-    else
-        set -U last_dir $HOME
-        cd $HOME
-    end
-    set -e __fish_startup
+    # Restore last directory only in top-level shells (not subshells like Claude Code's Bash tool)
+    if test "$SHLVL" -le 1
+        set -g __fish_startup 1
+        if test -d "$last_dir"
+            cd $last_dir
+        else
+            set -U last_dir $HOME
+            cd $HOME
+        end
+        set -e __fish_startup
 
-    # Set initial tmux window name and show status
-    __tmux_auto_rename
-    pws
+        # Set initial tmux window name and show status
+        __tmux_auto_rename
+        pws
+    end
 end

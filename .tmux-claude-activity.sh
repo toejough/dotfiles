@@ -48,23 +48,41 @@ if $all_idle && [ ${#readings[@]} -gt 0 ]; then
     readings=("${readings[@]:1}")
 elif ! $all_idle; then
     readings+=("$max_change")
-    while [ ${#readings[@]} -gt 5 ]; do readings=("${readings[@]:1}"); done
+    while [ ${#readings[@]} -gt 10 ]; do readings=("${readings[@]:1}"); done
 fi
 
 printf '%s\n' "${readings[@]}" > "$spark_state"
 
+# Map value to braille height (0-4)
+bh() {
+    local v=$1
+    if   [ "$v" -le 0 ];  then echo 0
+    elif [ "$v" -le 10 ]; then echo 1
+    elif [ "$v" -le 30 ]; then echo 2
+    elif [ "$v" -le 60 ]; then echo 3
+    else                       echo 4
+    fi
+}
+
 if [ ${#readings[@]} -gt 0 ]; then
+    # Pad to even count at the left so newest pairs stay stable
+    (( ${#readings[@]} % 2 == 1 )) && readings=(0 "${readings[@]}")
+
+    # Braille lookup: each char encodes two values (left col, right col)
+    # Index: left*5 + right, where left/right are heights 0-4
+    braille=(
+        '⠀' '⢀' '⢠' '⢰' '⢸'
+        '⡀' '⣀' '⣠' '⣰' '⣸'
+        '⡄' '⣄' '⣤' '⣴' '⣼'
+        '⡆' '⣆' '⣦' '⣶' '⣾'
+        '⡇' '⣇' '⣧' '⣷' '⣿'
+    )
+
     printf ':'
-    for val in "${readings[@]}"; do
-        if   [ "$val" -le 0 ];  then printf '▁'
-        elif [ "$val" -le 5 ];  then printf '▂'
-        elif [ "$val" -le 15 ]; then printf '▃'
-        elif [ "$val" -le 25 ]; then printf '▄'
-        elif [ "$val" -le 40 ]; then printf '▅'
-        elif [ "$val" -le 60 ]; then printf '▆'
-        elif [ "$val" -le 80 ]; then printf '▇'
-        else                         printf '█'
-        fi
+    for ((i=0; i<${#readings[@]}; i+=2)); do
+        l=$(bh "${readings[i]}")
+        r=$(bh "${readings[i+1]}")
+        printf '%s' "${braille[l*5+r]}"
     done
     printf ':'
 else

@@ -13,6 +13,8 @@ function __tmux_auto_rename --description "Rename tmux window to repo name or di
         set name (basename $PWD)
     end
 
+    # Store name on the pane (used by pane-focus-in hook)
+    tmux set-option -p @pane-name "$name" 2>/dev/null
     tmux set-option -w automatic-rename off 2>/dev/null
     tmux rename-window "$name"
 end

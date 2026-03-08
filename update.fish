@@ -5,6 +5,7 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     echo (set_color cyan)"Copying homedir configs..."(set_color normal)
     and ln -vfs ~/dotfiles/.gitconfig ~
     and ln -vfs ~/dotfiles/.tmux.conf ~
+    and ln -vfs ~/dotfiles/.tmux-*.sh ~
     and echo (set_color cyan)"Copying fish configs..."(set_color normal)
     and mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d
     and ln -vfs ~/dotfiles/.config/fish/config.fish ~/.config/fish

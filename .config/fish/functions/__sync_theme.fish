@@ -30,5 +30,8 @@ function __sync_theme --description "Sync terminal theme with macOS appearance"
         set -gx BAT_THEME "Solarized (light)"
     end
 
-    # Tmux status bar is synced via client-focus-in hook (~/.tmux-theme-sync.sh)
+    # Sync tmux status bar if inside tmux
+    if set -q TMUX
+        bash ~/.tmux-theme-sync.sh
+    end
 end

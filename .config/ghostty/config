@@ -37,6 +37,9 @@ keybind = cmd+shift+z=toggle_split_zoom
 # Equalize splits
 keybind = cmd+shift+e=equalize_splits
 
+# Reload config
+keybind = cmd+shift+r=reload_config
+
 # Close split
 keybind = cmd+shift+x=close_surface
 

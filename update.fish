@@ -47,6 +47,9 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
         end
     end
 
+    and echo (set_color cyan)"Configuring tide prompt..."(set_color normal)
+    and tide configure --auto --style=Rainbow --prompt_colors='True color' --show_time='12-hour format' --rainbow_prompt_separators=Round --powerline_prompt_heads=Round --powerline_prompt_tails=Round --powerline_prompt_style='Two lines, character' --prompt_connection=Dotted --powerline_right_prompt_frame=No --prompt_connection_andor_frame_color=Darkest --prompt_spacing=Sparse --icons='Many icons' --transient=No
+
     and echo (set_color cyan)"Updating nvim plugins..."(set_color normal)
     # and pip3 install --upgrade pip
     # and pip3 install neovim

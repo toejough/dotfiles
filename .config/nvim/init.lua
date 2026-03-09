@@ -20,9 +20,18 @@ require("lazy").setup(
 			"ishan9299/nvim-solarized-lua",
 			priority = 1000, -- make sure to load this before all the other start plugins
 			config = function()
-				-- load the colorscheme here
 				vim.opt.termguicolors = true
+				-- sync background with macOS appearance (light/dark)
+				local function sync_background()
+					local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+					local result = handle:read("*a")
+					handle:close()
+					vim.o.background = result:match("Dark") and "dark" or "light"
+				end
+				sync_background()
 				vim.cmd([[colorscheme solarized]])
+				-- re-check on focus (tmux sends FocusGained via focus-events)
+				vim.api.nvim_create_autocmd("FocusGained", { callback = sync_background })
 			end,
 		},
 

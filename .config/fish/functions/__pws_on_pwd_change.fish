@@ -7,9 +7,6 @@ function __pws_on_pwd_change --on-variable PWD --description "Show status on dir
     # Update last_dir for session persistence
     set -U last_dir $PWD
 
-    # Update tmux window name
-    __tmux_auto_rename
-
     # Show status
     pws
 end

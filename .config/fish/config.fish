@@ -59,8 +59,7 @@ if status --is-interactive
         end
         set -e __fish_startup
 
-        # Set initial tmux window name and show status
-        __tmux_auto_rename
+        # Show status
         pws
     end
 end

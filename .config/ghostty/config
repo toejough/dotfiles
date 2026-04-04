@@ -5,7 +5,7 @@
 command = /opt/homebrew/bin/fish
 
 # Theme — follow system appearance
-theme = light:Builtin Solarized Light,dark:Builtin Solarized Dark
+theme = light:iTerm2 Solarized Light,dark:iTerm2 Solarized Dark
 
 # Font
 font-family = MesloLGM Nerd Font

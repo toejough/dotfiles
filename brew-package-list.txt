@@ -62,7 +62,6 @@ glow
 gh # github cli
 tailscale
 mosh
-claude-code
 # 1password
 font-meslo-lg-nerd-font
 font-sauce-code-pro-nerd-font

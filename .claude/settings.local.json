@@ -6,7 +6,9 @@
       "Bash(tmutil listbackups:*)",
       "Bash(printf:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(engram recall *)",
+      "Bash(git pull *)"
     ]
   }
 }

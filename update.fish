@@ -15,6 +15,12 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and echo (set_color cyan)"Copying ghostty configs..."(set_color normal)
     and mkdir -p ~/Library/"Application Support"/com.mitchellh.ghostty
     and ln -vfs ~/dotfiles/.config/ghostty/config ~/Library/"Application Support"/com.mitchellh.ghostty/config
+    and begin
+        if not infocmp ghostty >/dev/null 2>&1
+            echo "  Installing ghostty terminfo..."
+            sudo tic -xe ghostty,ghostty-direct /Applications/Ghostty.app/Contents/Resources/ghostty/terminfo/ghostty.terminfo
+        end
+    end
 
     and echo (set_color cyan)"Copying nvim configs..."(set_color normal)
     and mkdir -p ~/.config/nvim

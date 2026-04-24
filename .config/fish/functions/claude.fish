@@ -1,11 +1,5 @@
-function claude --wraps=claude --description "Run claude, breaking out of split panes into own window"
+function claude --wraps=claude --description "Run claude, naming the window for team agent sessions"
     if set -q TMUX
-        set -l pane_index (tmux display-message -p '#{pane_index}')
-        set -l pane_count (tmux list-panes -F x | count)
-        if test "$pane_index" != 0 -a $pane_count -gt 1
-            tmux break-pane
-        end
-
         # Name the window [team][agent] if launched as a team agent
         set -l team ""
         set -l agent ""

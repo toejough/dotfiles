@@ -16,9 +16,9 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and mkdir -p ~/Library/"Application Support"/com.mitchellh.ghostty
     and ln -vfs ~/dotfiles/.config/ghostty/config ~/Library/"Application Support"/com.mitchellh.ghostty/config
     and begin
-        if not test -f ~/.terminfo/x/xterm-ghostty
+        if not test -f /usr/share/terminfo/78/xterm-ghostty
             echo "  Installing ghostty terminfo..."
-            infocmp -x xterm-ghostty | tic -x -
+            infocmp -x xterm-ghostty | sudo tic -x -
         end
     end
 

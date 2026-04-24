@@ -367,5 +367,5 @@
 	process = git-lfs filter-process
 	required = true
 ; make go use ssh so I can use private repos in github for personal projects
-[url "ssh://git@github.com/"]
+[url "git@github.com:"]
 	insteadOf = https://github.com/

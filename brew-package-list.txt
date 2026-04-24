@@ -80,3 +80,5 @@ docker-desktop
 gcloud-cli
 cmux
 freecad
+gping
+mycelium-io/tap/mycelium

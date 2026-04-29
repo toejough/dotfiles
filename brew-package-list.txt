@@ -82,3 +82,4 @@ cmux
 freecad
 gping
 mycelium-io/tap/mycelium
+pam-reattach

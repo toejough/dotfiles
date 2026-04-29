@@ -480,7 +480,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Client may be nil
 		if client then
 			-- Check if the server supports formatting
-			if client.supports_method("textDocument/formatting") then
+			if client:supports_method("textDocument/formatting") then
 				vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 			end
 		end

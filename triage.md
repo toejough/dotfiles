@@ -29,8 +29,8 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 ```
 
-- [ ] Added the four lines
-- [ ] Re-ran `:checkhealth vim.provider`
+- [x] Added the four lines (near top of init.lua, after lazypath setup)
+- [x] Re-ran `:checkhealth vim.provider` — all 6 warnings cleared
 
 ### D. Fix tmux `$TERM`
 Inside tmux, `$TERM` is `xterm-ghostty` but should be `tmux-256color`. Likely causing subtle color drift you may not have noticed.

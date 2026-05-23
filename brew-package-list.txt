@@ -83,3 +83,7 @@ freecad
 gping
 mycelium-io/tap/mycelium
 pam-reattach
+fd
+opencode
+the_silver_searcher
+lazyjj

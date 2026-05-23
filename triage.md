@@ -16,8 +16,8 @@ Clears ~30 messages. See **Part 2** to decide *how* — minimal `opts = {}` vs. 
 ### B. Fix conform.nvim deprecation
 `Plugin.config` table is deprecated — use `Plugin.opts`. File: `.config/nvim/init.lua` around line 232.
 
-- [ ] Changed `config = { ... }` → `opts = { ... }`
-- [ ] Re-ran `:checkhealth lazy`
+- [x] Changed `config = { ... }` → `opts = { ... }`
+- [x] Re-ran `:checkhealth lazy` — deprecation warning + spec-load error gone (4 warnings → 2)
 
 ### C. Disable unused language providers
 Clears 6 warnings in one shot. Add to init:

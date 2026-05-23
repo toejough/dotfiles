@@ -35,21 +35,22 @@ vim.g.loaded_ruby_provider = 0
 ### D. Fix tmux `$TERM`
 Inside tmux, `$TERM` is `xterm-ghostty` but should be `tmux-256color`. Likely causing subtle color drift you may not have noticed.
 
-In `~/.config/tmux/tmux.conf` (or wherever your tmux config lives):
+In `~/.tmux.conf`:
 
 ```tmux
 set -g default-terminal "tmux-256color"
-set -ag terminal-overrides ",xterm-ghostty:RGB"
+set -ga terminal-overrides ",xterm-ghostty:Tc"
 ```
 
-- [ ] Updated tmux config
-- [ ] Reloaded tmux (`tmux source ~/.config/tmux/tmux.conf` + restart sessions)
-- [ ] Confirmed `echo $TERM` inside tmux now prints `tmux-256color`
+- [x] Updated tmux config (replaced `"$TERM"` with explicit `"tmux-256color"`; kept truecolor passthrough via `xterm-ghostty:Tc`)
+- [x] Reloaded tmux (`tmux source-file ~/.tmux.conf`); fresh panes now report `TERM=tmux-256color`
+- [x] `:checkhealth vim.health` from a fresh tmux pane no longer reports the `$TERM should be ...` ERROR
+- ⚠️ Existing panes keep their old TERM until restarted — tmux limitation, not a regression. Open new panes for the change to take effect in current work.
 
 ### E. Truncate LSP log
 106 MB log. Either delete or lower log level.
 
-- [ ] `rm ~/.local/state/nvim/lsp.log`
+- [x] `rm ~/.local/state/nvim/lsp.log`
 - [ ] (optional) lower log level: `vim.lsp.set_log_level("ERROR")` in init
 
 ### F. Resolve unknown filetypes (`gotmpl`, `markdown.mdx`)

@@ -119,9 +119,9 @@ Highlights other instances of the word under the cursor (like many IDEs do).
 
 #### scroll
 Smooth scrolling animation.
-- [x] Current setup: was `yuttie/comfortable-motion.vim` — REPLACED 2026-05-22
-- [x] Decision: enabled (snacks.scroll, comfortable-motion removed)
-- [x] Notes: `scroll = { enabled = true }` in snacks opts. Tune via `opts.scroll.animate.duration` if needed.
+- [x] Current setup: `yuttie/comfortable-motion.vim` (kept)
+- [x] Decision: skip — comfortable-motion already does what's wanted with no config
+- [x] Notes: Briefly enabled snacks.scroll on 2026-05-22 then reverted; comfortable-motion was satisfactory and didn't need replacing.
 
 ### Tier 2: replaces or competes with something you likely have
 

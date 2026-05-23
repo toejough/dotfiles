@@ -97,7 +97,8 @@ require("lazy").setup(
 		},
 
 		-- movement
-		-- (smooth scrolling now provided by snacks.scroll, opt-in via snacks opts)
+		-- move the screen: smooth scrolling instead of just jumping the screen
+		"yuttie/comfortable-motion.vim",
 		-- move things on the screen: visually selected blocks & retain selection
 		{ "echasnovski/mini.move", config = true },
 		-- move around the screen: hop around with just a few keys
@@ -199,7 +200,6 @@ require("lazy").setup(
 				bigfile = { enabled = true },
 				quickfile = { enabled = true },
 				words = { enabled = true },
-				scroll = { enabled = true },
 			},
 		},
 		-- copilot

@@ -101,27 +101,27 @@ opts = {
 
 #### bigfile
 Auto-disables expensive features (treesitter, LSP, syntax) in huge files so nvim doesn't choke. Pure performance safety net.
-- [ ] Current setup: _______________
-- [x] Decision: enable
-- [ ] Notes:
+- [x] Current setup: none
+- [x] Decision: enabled (defaults: 1.5MB threshold, notification on detect)
+- [x] Notes: `bigfile = { enabled = true }` in snacks opts.
 
 #### quickfile
 Renders the file *before* plugins finish loading — perceptibly faster file open.
-- [ ] Current setup: _______________
-- [x] Decision: enable
-- [ ] Notes:
+- [x] Current setup: none
+- [x] Decision: enabled (defaults; latex excluded from treesitter)
+- [x] Notes: `quickfile = { enabled = true }` in snacks opts.
 
 #### words
 Highlights other instances of the word under the cursor (like many IDEs do).
-- [ ] Current setup: _______________
-- [x] Decision: enable
-- [ ] Notes:
+- [x] Current setup: none
+- [x] Decision: enabled (defaults: 200ms debounce, modes n/i/c)
+- [x] Notes: `words = { enabled = true }` in snacks opts. Uses LSP textDocument/documentHighlight when available.
 
 #### scroll
 Smooth scrolling animation.
-- [ ] Current setup: _______________
-- [x] Decision: enable
-- [ ] Notes:
+- [x] Current setup: was `yuttie/comfortable-motion.vim` — REPLACED 2026-05-22
+- [x] Decision: enabled (snacks.scroll, comfortable-motion removed)
+- [x] Notes: `scroll = { enabled = true }` in snacks opts. Tune via `opts.scroll.animate.duration` if needed.
 
 ### Tier 2: replaces or competes with something you likely have
 

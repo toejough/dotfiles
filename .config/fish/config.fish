@@ -68,3 +68,6 @@ end
 set -gx PATH $PATH /Users/joe/.lmstudio/bin
 # End of LM Studio CLI section
 
+
+# opencode
+fish_add_path /Users/joe/.opencode/bin

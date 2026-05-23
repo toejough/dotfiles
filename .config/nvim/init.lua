@@ -188,22 +188,16 @@ require("lazy").setup(
 			},
 		},
 
-		-- fuzzy find
+		-- code symbol outline (sidebar via :AerialToggle)
+		{ "stevearc/aerial.nvim", config = true },
+		-- fuzzy finder (replaces telescope.nvim)
 		{
-			"nvim-telescope/telescope.nvim",
-			branch = "0.1.x",
-			dependencies = {
-				"nvim-lua/plenary.nvim",
-				"sharkdp/fd",
-				{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-				{ "stevearc/aerial.nvim", config = true },
-				"benfowler/telescope-luasnip.nvim",
+			"folke/snacks.nvim",
+			lazy = false,
+			priority = 1000,
+			opts = {
+				picker = { enabled = true, ui_select = true },
 			},
-			config = function()
-				require("telescope").load_extension("fzf") -- fzf fuzzy search
-				require("telescope").load_extension("aerial") -- file symbols
-				require("telescope").load_extension("luasnip") -- snippets
-			end,
 		},
 		-- copilot
 		{ "github/copilot.vim" },
@@ -286,16 +280,15 @@ wk.add({
 	{
 		{ "<leader>f", group = "Find" },
 		{
-			{ "<leader>fa", ":Telescope builtin include_extensions=true<cr>", desc = "all" },
-			{ "<leader>fb", ":Telescope builtin include_extensions=true<cr>", desc = "builtin" },
-			{ "<leader>ff", ":Telescope current_buffer_fuzzy_find<cr>", desc = "fuzzy find" },
-			{ "<leader>fg", ":Telescope git_files<cr>", desc = "git files" },
-			{ "<leader>fh", ":Telescope help_tags<cr>", desc = "help" },
-			{ "<leader>fl", ":Telescope live_grep<cr>", desc = "live grep" },
-			{ "<leader>fs", group = "S[ymbols|nippets]" },
+			{ "<leader>fa", function() Snacks.picker() end, desc = "all pickers" },
+			{ "<leader>fb", function() Snacks.picker() end, desc = "builtin" },
+			{ "<leader>ff", function() Snacks.picker.lines() end, desc = "fuzzy find" },
+			{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "git files" },
+			{ "<leader>fh", function() Snacks.picker.help() end, desc = "help" },
+			{ "<leader>fl", function() Snacks.picker.grep() end, desc = "live grep" },
+			{ "<leader>fs", group = "Symbols" },
 			{
-				{ "<leader>fsn", ":Telescope luasnip<cr>", desc = "snippets" },
-				{ "<leader>fsy", ":Telescope aerial<cr>", desc = "symbols" },
+				{ "<leader>fsy", function() Snacks.picker.lsp_symbols() end, desc = "symbols" },
 			},
 		},
 		{ "<leader>c", group = "Claude" },
@@ -502,10 +495,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			},
 			-- { "g", group = "goto" }, --this group should already exist
 			{
-				{ "gd", ":Telescope lsp_definitions<cr>", buffer = ev.buf, desc = "definition" },
-				{ "gi", ":Telescope lsp_implementations<cr>", buffer = ev.buf, desc = "implementation" },
-				{ "gr", ":Telescope lsp_references<cr>", buffer = ev.buf, desc = "references" },
-				{ "gt", ":Telescope lsp_type_definitions<cr>", buffer = ev.buf, desc = "Type definition" },
+				{ "gd", function() Snacks.picker.lsp_definitions() end, buffer = ev.buf, desc = "definition" },
+				{ "gi", function() Snacks.picker.lsp_implementations() end, buffer = ev.buf, desc = "implementation" },
+				{ "gr", function() Snacks.picker.lsp_references() end, buffer = ev.buf, desc = "references" },
+				{ "gt", function() Snacks.picker.lsp_type_definitions() end, buffer = ev.buf, desc = "Type definition" },
 			},
 			-- { "s", group = "Show" }, -- this group should already exist
 			{

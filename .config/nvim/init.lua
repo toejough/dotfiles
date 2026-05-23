@@ -200,6 +200,9 @@ require("lazy").setup(
 				bigfile = { enabled = true },
 				quickfile = { enabled = true },
 				words = { enabled = true },
+				statuscolumn = { enabled = true },
+				dashboard = { enabled = true },
+				image = { enabled = true },
 			},
 		},
 		-- copilot

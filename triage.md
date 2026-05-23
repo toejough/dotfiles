@@ -134,64 +134,65 @@ Fuzzy finder. You currently use **telescope** (init.lua references it). Snacks.p
 #### explorer
 File tree (picker-based, not a sidebar tree).
 - [ ] Current setup: _______________
-- [ ] Decision: enable / skip
+- [x] Decision:  skip
 - [ ] Notes:
 
 #### notifier
 Replaces `vim.notify` with floating notifications. You may have **noice.nvim** (saw it in checkhealth) which already handles this.
 - [ ] Current setup: noice.nvim (?)
-- [ ] Decision: enable / skip
+- [x] Decision:  skip
 - [ ] Notes:
 
 #### input
 Replaces `vim.ui.input` with a floating prompt. Also potentially overlaps with noice/dressing.
 - [ ] Current setup: dressing.nvim (?)
-- [ ] Decision: enable / skip
+- [x] Decision:  skip
 - [ ] Notes:
 
 #### statuscolumn
 Better sign/number/fold column.
-- [ ] Current setup: default nvim statuscolumn?
-- [ ] Decision: enable / skip
-- [ ] Notes:
+- [x] Current setup: default nvim statuscolumn + numbers.vim (relative numbers in normal mode)
+- [x] Decision: enabled alongside numbers.vim
+- [x] Notes: `statuscolumn = { enabled = true }` in snacks opts. May want to tune if it overrides numbers.vim's relative-number behavior.
 
 #### indent
 Indent guides + current-scope highlight. Overlaps with indent-blankline if you have it.
 - [ ] Current setup: _______________
-- [ ] Decision: enable / skip
+- [x] Decision: skip
 - [ ] Notes:
 
 #### scope
 Current-scope highlighting (text objects, motions for scope). Different from `indent`'s scope viz.
 - [ ] Current setup: _______________
-- [ ] Decision: enable / skip
+- [x] Decision: skip
 - [ ] Notes:
 
 ### Tier 3: standalone utilities (enable on demand)
 
 #### lazygit
 Floating lazygit popup. You have lazygit installed (checkhealth confirmed).
-- [ ] Current setup: _______________
-- [ ] Decision: enable / skip
-- [ ] Notes:
+- [x] Current setup: `kdheepak/lazygit.nvim` mapped to `<leader>g`
+- [x] Decision: skip — existing plugin is sufficient
+- [x] Notes: Decided 2026-05-23 during the Tier 2/3/4 pass; no need to add a second lazygit integration.
 
 #### terminal
 Toggleable floating terminal.
 - [ ] Current setup: _______________
-- [ ] Decision: enable / skip
+- [x] Decision: skip
 - [ ] Notes:
 
 #### dashboard
 Startup splash screen with recent files / shortcuts.
-- [ ] Current setup: _______________
-- [ ] Decision: enable / skip
-- [ ] Notes:
+- [x] Current setup: none
+- [x] Decision: enabled (defaults)
+- [x] Notes: `dashboard = { enabled = true }` in snacks opts. Only shows when nvim is launched with no args.
 
 ### Tier 4: skip unless specifically wanted
 
 #### image
 Inline image/PDF/LaTeX/Mermaid preview. Requires imagemagick, ghostscript, tectonic, mmdc, and a terminal supporting kitty graphics protocol. **Ghostty doesn't support kitty graphics**, so this won't work for you regardless.
-- [ ] Decision: skip (terminal incompatible)
+- [x] Decision: enabled — module loads but image rendering won't actually work on Ghostty
+- [x] Notes: `image = { enabled = true }` in snacks opts. The checkhealth ❌ ERRORs for magick/gs/tectonic/mmdc/kitty-graphics are expected and won't go away unless you install those tools and switch terminals.
 
 ---
 

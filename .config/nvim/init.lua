@@ -426,6 +426,8 @@ cmp.setup.cmdline(":", {
 -- LSP setup
 -- dedicated handlers for specific servers.
 vim.lsp.config("gopls", {
+	-- drop gotmpl (not a registered filetype); keep the three we use
+	filetypes = { "go", "gomod", "gowork" },
 	settings = {
 		gopls = {
 			allExperiments = true,
@@ -440,6 +442,10 @@ vim.lsp.config("gopls", {
 			},
 		},
 	},
+})
+-- drop markdown.mdx (not a registered filetype); keep plain markdown
+vim.lsp.config("marksman", {
+	filetypes = { "markdown" },
 })
 vim.lsp.config["golangci_lint_ls"] = {
 	filetypes = { "go", "gomod" },

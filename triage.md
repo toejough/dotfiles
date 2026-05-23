@@ -59,9 +59,9 @@ Two options per filetype:
 - (a) Register the filetype: `vim.filetype.add({ extension = { gotmpl = "gotmpl", mdx = "markdown.mdx" } })`
 - (b) Remove the filetype from the relevant LSP's `filetypes` list if you don't use it
 
-- [ ] Decided per filetype (use vs. drop)
-- [ ] Applied fix
-- [ ] Re-ran `:checkhealth vim.lsp`
+- [x] Decided: drop both (option b)
+- [x] Applied — `vim.lsp.config("gopls", { filetypes = {"go","gomod","gowork"} })` drops gotmpl; new `vim.lsp.config("marksman", { filetypes = {"markdown"} })` drops markdown.mdx
+- [x] Re-ran `:checkhealth vim.lsp` — both `Unknown filetype` warnings gone
 
 ### G. Install `fd`
 Used by snacks.picker.explorer and gives telescope extended capabilities.

@@ -12,6 +12,9 @@ if cd ~/dotfiles; and git fetch >/dev/null; and git status | grep -i 'your branc
     and ln -vfs ~/dotfiles/.config/fish/functions/* ~/.config/fish/functions
     and for f in (find ~/dotfiles/.config/fish/conf.d -maxdepth 1 -type f 2>/dev/null); ln -vfs $f ~/.config/fish/conf.d/; end
 
+    and echo (set_color cyan)"Copying fish-ai config..."(set_color normal)
+    and ln -vfs ~/dotfiles/.config/fish-ai.ini ~/.config/fish-ai.ini
+
     and echo (set_color cyan)"Copying ghostty configs..."(set_color normal)
     and mkdir -p ~/Library/"Application Support"/com.mitchellh.ghostty
     and ln -vfs ~/dotfiles/.config/ghostty/config ~/Library/"Application Support"/com.mitchellh.ghostty/config

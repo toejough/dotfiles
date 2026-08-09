@@ -66,3 +66,6 @@ keybind = cmd+shift+six=goto_tab:6
 keybind = cmd+shift+seven=goto_tab:7
 keybind = cmd+shift+eight=goto_tab:8
 keybind = cmd+shift+nine=goto_tab:9
+
+# support pi agent harness better
+keybind = alt+backspace=text:\x1b\x7f

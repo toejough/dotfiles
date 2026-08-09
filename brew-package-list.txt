@@ -87,3 +87,6 @@ fd
 opencode
 the_silver_searcher
 lazyjj
+cloudflared
+fisher
+orbstack

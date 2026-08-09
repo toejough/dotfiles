@@ -71,3 +71,8 @@ set -gx PATH $PATH /Users/joe/.lmstudio/bin
 
 # opencode
 fish_add_path /Users/joe/.opencode/bin
+export PATH="/Users/joe/.local/bin:$PATH"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :

@@ -23,6 +23,11 @@ fish_add_path $GOPATH/bin
 # Update path to include local binaries
 fish_add_path ~/.local/bin
 
+# Use the 1Password SSH agent. macOS's launchd session pre-exports SSH_AUTH_SOCK
+# for the default Apple agent, and that inherited value shadows a `set -U` of the
+# same name, so it must be reasserted here at shell startup to actually take effect.
+set -x SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
 # Update path to include brew binaries, if they exist
 if test -e /opt/homebrew/bin/brew
     eval (/opt/homebrew/bin/brew shellenv)

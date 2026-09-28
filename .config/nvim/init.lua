@@ -306,7 +306,7 @@ wk.add({
 		{ "<leader>c", group = "Claude" },
 		{
 			{ "<leader>cc", ":ClaudeCode --continue<cr>", desc = "continue" },
-			{ "<leader>ct", ":ClaudeCode<cr>", desc = "toggle" },
+			{ "<leader>ct", ":ClaudeCode --dangerously-skip-permissions<cr>", desc = "toggle" },
 			{ "<leader>cf", ":ClaudeCodeFocus<cr>", desc = "focus" },
 			{ "<leader>cm", ":ClaudeCodeSelectModel<cr>", desc = "select model" },
 			{ "<leader>cs", ":ClaudeCodeSend<cr>", desc = "send selection", mode = "v" },
@@ -318,7 +318,7 @@ wk.add({
 		{ "<leader>j", ":LazyJJ<cr>", desc = "jujitsu" },
 		{ "<leader>l", ":Mason<cr>", desc = "lsp packages" },
 		{ "<leader>p", ":Lazy<cr>", desc = "plugins" },
-		{ "<leader>t", ":lua MiniFiles.open()<cr>", desc = "fileMiniTree" },
+		{ "<leader>t", ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "fileMiniTree" },
 		{ "<leader>u", vim.cmd.UndotreeToggle, desc = "undotree" },
 	},
 	{ "C", "<plug>(comment_toggle_linewise_current)", desc = "toggle comment" },

@@ -90,3 +90,6 @@ lazyjj
 cloudflared
 fisher
 orbstack
+berglas
+cloc
+copilot-cli

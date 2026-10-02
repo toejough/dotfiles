@@ -15,7 +15,8 @@
     diffFilter = delta --color-only
 
 [delta]
-    features = line-numbers decorations side-by-side
+	#features = line-numbers decorations side-by-side
+    features = line-numbers decorations
 
 [delta "decorations"]
     commit-decoration-style = bold yellow box ul
